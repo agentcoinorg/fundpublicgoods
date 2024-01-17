@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dev": "npx concurrently \"yarn workers:dev\" \"yarn web:dev\"",
+    "workers:dev": "cd workers && poetry run python -m uvicorn fund_public_goods.main:app --reload",
+    "web:dev": "cd web && yarn dev"
+  }
+}
