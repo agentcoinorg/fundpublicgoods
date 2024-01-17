@@ -43,3 +43,6 @@ next-env.d.ts
 # python
 .venv
 __pycache__
+
+dist
+.mypy_cache

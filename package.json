@@ -1,7 +1,18 @@
 {
+  "private": true,
+  "workspaces": [
+    "web"
+  ],
   "scripts": {
-    "dev": "npx concurrently \"yarn workers:dev\" \"yarn web:dev\"",
-    "workers:dev": "cd workers && poetry run python -m uvicorn fund_public_goods.main:app --reload",
-    "web:dev": "cd web && yarn dev"
+    "postinstall": "cd workers && poetry install",
+    "build": "yarn web:build && yarn workers:build",
+    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" -n web,workers",
+    "web:build": "cd web && yarn build",
+    "web:dev": "cd web && yarn dev",
+    "workers:build": "cd workers && poetry run build-check",
+    "workers:dev": "cd workers && poetry run python -m uvicorn fund_public_goods.main:app --reload"
+  },
+  "dependencies": {
+    "concurrently": "8.2.2"
   }
 }
