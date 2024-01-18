@@ -1,14 +1,16 @@
 
+import json
 from chromadb import EphemeralClient
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.output_parsers.json import JsonOutputParser
 from langchain_openai import OpenAIEmbeddings
 from researcher.functions.generate_queries import generate_queries
+from researcher.models.evaluated_project import EvaluatedProject
 from researcher.models.project import Project
 from langchain.vectorstores.chroma import Chroma
 from researcher.models.project_evaluation import ProjectEvaluation
-from pydantic import parse_obj_as
 
 
 def stringify_projects(projects: list[Project], separator: str) -> str:
@@ -83,12 +85,12 @@ in the list, it must have:
 
 You will return a single JSON array of JSON objects to be parsed by Python's "json.loads()":
 
-[{
-    project_id: project's id,
-    reasoning: score reasoning,
-    interest: interest score,
-    impact: impact score,
-}, ... ]
+[{{
+    project_id: str,
+    reasoning: str,
+    interest: float,
+    impact: float,
+}}, ... ]
 
 Do not include any other contents in your response. If no projects meet the aforementioned criteria
 simply respond with an empty array: [].
@@ -105,7 +107,7 @@ def extract_project_evaluations(evaluation_report: str) -> list[ProjectEvaluatio
     
     llm = ChatOpenAI(model="gpt-4-1106-preview")
     
-    evaluations_extraction_chain = extract_evaluations_prompt | llm | StrOutputParser()
+    evaluations_extraction_chain = extract_evaluations_prompt | llm | JsonOutputParser()
     
     raw_evaluations = evaluations_extraction_chain.invoke({
         "impact_threshold": "0.2",
@@ -113,9 +115,10 @@ def extract_project_evaluations(evaluation_report: str) -> list[ProjectEvaluatio
         "evaluation_report": evaluation_report
     })
     
-    print(raw_evaluations)
-    
-    evaluations = parse_obj_as(list[ProjectEvaluation], raw_evaluations)
+    evaluations: list[ProjectEvaluation] = []
+    for raw_evaluation in raw_evaluations:
+        evaluation = ProjectEvaluation(**raw_evaluation)
+        evaluations.append(evaluation)
     
     return evaluations
     
@@ -139,7 +142,8 @@ User's interest: {prompt}
 Projects: {projects}
 """
 
-def evaluate_projects(prompt: str, projects: list[Project]):
+def evaluate_projects(prompt: str, projects: list[Project]) -> list[EvaluatedProject]:
+    projects_by_id = {project.id: project for project in projects}
     top_matching_projects = get_top_matching_projects(prompt=prompt, projects=projects)
     
     evaluation_prompt = ChatPromptTemplate.from_messages([
@@ -158,9 +162,16 @@ def evaluate_projects(prompt: str, projects: list[Project]):
         "projects": stringify_projects(projects=top_matching_projects, separator=separator)
     })
     
-    print(evaluation_report)
-    
     evaluations = extract_project_evaluations(evaluation_report=evaluation_report)
     
-    print(evaluations)
+    evaluated_projects: list[EvaluatedProject] = []
     
+    for evaluation in evaluations:
+        evaluated_project = EvaluatedProject(
+            project=projects_by_id[evaluation.project_id],
+            evaluation=evaluation
+        )
+        
+        evaluated_projects.append(evaluated_project)
+    
+    return evaluated_projects
