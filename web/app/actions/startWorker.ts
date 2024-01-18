@@ -12,6 +12,5 @@ export const startWorker = async (prompt: string): Promise<string> => {
   if (!result.worker_id) {
     throw new Error("Error starting new worker");
   }
-
   return result.worker_id;
 };

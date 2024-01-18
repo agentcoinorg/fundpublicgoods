@@ -24,3 +24,7 @@ ALTER TABLE
 ALTER publication supabase_realtime
 ADD
     TABLE "public"."logs";
+
+CREATE policy "anon_logs_table_select_policy" ON "public"."logs" FOR
+SELECT
+    TO anon USING (TRUE);

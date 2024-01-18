@@ -9,7 +9,50 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      [_ in never]: never
+      logs: {
+        Row: {
+          id: string
+          status: string
+          worker_id: string
+        }
+        Insert: {
+          id?: string
+          status: string
+          worker_id: string
+        }
+        Update: {
+          id?: string
+          status?: string
+          worker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "logs_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "workers"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      workers: {
+        Row: {
+          created_at: string
+          id: string
+          prompt: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          prompt: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          prompt?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

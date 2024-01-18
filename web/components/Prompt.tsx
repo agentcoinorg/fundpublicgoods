@@ -6,6 +6,10 @@ import ChatInputButton from "./ChatInputButton";
 import SparkleIcon from "@/public/sparkle-icon.svg";
 import Image from "next/image";
 import { startWorker } from "@/app/actions";
+import { createSupabaseClient } from "@/utils/supabase";
+import { Tables } from "@/supabase/dbTypes";
+import { useRouter } from "next/navigation";
+import LoadingCircle from "./LoadingCircle";
 
 const PROMPT_SUGESTIONS = [
   "Ethereum infrastructure",
@@ -18,9 +22,13 @@ const PROMPT_SUGESTIONS = [
 ];
 
 export default function Prompt() {
-  const [prompt, setPrompt] = useState<string>();
+  const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
   const [workerId, setWorkerId] = useState<string>();
+  const [status, setStatus] = useState<string>();
+
+  const router = useRouter();
+  const supabase = createSupabaseClient();
 
   const sendPrompt = async (prompt: string) => {
     setIsWaiting(true);
@@ -34,10 +42,42 @@ export default function Prompt() {
 
   useEffect(() => {
     if (workerId) {
-    }
-  }, [workerId]);
+      const channel = supabase
+        .channel("logs-added")
+        .on(
+          "postgres_changes",
+          {
+            event: "INSERT",
+            table: "logs",
+            schema: "public",
+            filter: `worker_id=eq.${workerId}`,
+          },
+          (payload: { new: Tables<"logs"> }) => {
+            if (payload.new.status === "STRATEGY_CREATED") {
+              router.push(`plan/${workerId}`);
+              return;
+            }
+            setStatus(payload.new.status);
+          }
+        )
+        .subscribe();
 
-  return (
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    }
+  }, [workerId, supabase]);
+
+  return status ? (
+    <div className="w-2/5">
+      <div className="flex flex-col justify-center items-center gap-2">
+        <LoadingCircle className="w-[40px] h-[40px] ml-10" />
+        <div className="flex text-md pl-12 text-center">
+          {status}
+        </div>
+      </div>
+    </div>
+  ) : (
     <div className="w-2/5">
       <div className="flex flex-wrap w-full justify-center pb-7">
         <div className="text-3xl">Fund public goods like magic.</div>
@@ -52,15 +92,19 @@ export default function Prompt() {
           setPrompt(event.target.value);
         }}
         onKeyDown={async (event: React.KeyboardEvent) => {
-          if (event.key === "Enter") {
-            await sendPrompt(prompt as string);
+          if (prompt && event.key === "Enter") {
+            await sendPrompt(prompt);
           }
         }}
         rightAdornment={
           <ChatInputButton
             running={isWaiting}
             message={prompt || ""}
-            handleSend={() => sendPrompt(prompt as string)}
+            handleSend={async () => {
+              if (prompt) {
+                await sendPrompt(prompt);
+              }
+            }}
           />
         }
       />
