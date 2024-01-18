@@ -4,7 +4,7 @@ CREATE TABLE "public"."workers" (
     "id" "uuid" DEFAULT "extensions"."uuid_generate_v4"() NOT NULL,
     "created_at" timestamp WITH time zone NOT NULL DEFAULT NOW(),
     "prompt" text NOT NULL,
-    PRIMARY KEY ("id"),
+    PRIMARY KEY ("id")
 );
 
 ALTER TABLE

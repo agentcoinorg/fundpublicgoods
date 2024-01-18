@@ -1,1 +1,1 @@
-export * from "./triggerResearch"
+export * from "./startWorker"

@@ -1,5 +1,5 @@
-from .research import research
+from .create_strategy import create_strategy
 
-functions = [research]
+functions = [create_strategy]
 
 __all__ = ["functions"]

@@ -1,0 +1,12 @@
+Prompt (ex: "I like trees")
+Worker (a long running backend process)
+WorkerID
+Strategy
+Log
+
+
+/api/start-worker ->
+  event: "create_strategy" { prompt, worker_id }
+    - does research
+    - emits logs (db)
+    - finishes with a strategy (db)

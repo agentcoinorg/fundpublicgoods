@@ -90,8 +90,8 @@ export default function Plan(props: PlanProps) {
       ) : (
         <div className="flex flex-col space-y-4">
           <p className="text-sm text-gray-500">
-            I've evaluated the impact of Ethereum infrastructure projects on the Gitcoin project registry and Optimism 
-            Retroactive Public Funding, and have listed the top 10 most impactful projects below. I've also allotted a 
+            I&apos;ve evaluated the impact of Ethereum infrastructure projects on the Gitcoin project registry and Optimism 
+            Retroactive Public Funding, and have listed the top 10 most impactful projects below. I&apos;ve also allotted a 
             weighting for each to appropriately fund each project.
           </p>
           <div className="bg-black rounded-md w-64">

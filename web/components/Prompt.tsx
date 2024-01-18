@@ -5,7 +5,7 @@ import TextField from "./TextField";
 import ChatInputButton from "./ChatInputButton";
 import SparkleIcon from "@/public/sparkle-icon.svg";
 import Image from "next/image";
-import { triggerResearch } from "@/app/actions";
+import { startWorker } from "@/app/actions";
 
 export default function Prompt() {
   const [prompt, setPrompt] = useState<string>();
@@ -13,7 +13,7 @@ export default function Prompt() {
 
   const sendPrompt = async () => {
     console.log("he")
-    await triggerResearch();
+    await startWorker(prompt || "");
     // await fetch(process.env.WORKER_URL)
   };
 
