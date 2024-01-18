@@ -1,5 +1,3 @@
-
-import json
 from chromadb import EphemeralClient
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -121,21 +119,20 @@ def extract_project_evaluations(evaluation_report: str) -> list[ProjectEvaluatio
         evaluations.append(evaluation)
     
     return evaluations
-    
-    
+
 
 evaluation_prompt_template = """
-You are a professional public goods funding projects evaluator.
+You are a professional public goods projects evaluator.
 
 You will receive a list of project information abstracts divided by '{separator}'
 and you will assess:
 
 - How well each project matches the user's interest. Provide a floating point numeric score
 from 0 to 10.
-- How much has this project impacted the user's interest. Provide a floating point numeric score
+- Project's impact. Provide a floating point numeric score
 from 0 to 10.
 
-You will provide clear reasoning for each. You will include the ID of each project.
+You will provide clear and thorough reasoning for each. You will include the ID of each project.
 
 User's interest: {prompt}
 

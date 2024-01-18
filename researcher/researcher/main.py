@@ -1,5 +1,8 @@
+from researcher.functions.assign_weights import assign_weights
 from researcher.functions.evaluate_projects import evaluate_projects
-from researcher.functions.plan_research import plan_research
+# from researcher.functions.plan_research import plan_research
+from langchain_community.callbacks import get_openai_callback
+
 import os
 import json
 from dotenv import load_dotenv
@@ -46,7 +49,15 @@ def fetch_projects(directory: str) -> list[Project]:
 
 def main():
     projects = fetch_projects(directory="./project_data")
-    result = evaluate_projects(prompt="AI applied to crypto markets", projects=projects)
+    
+    with get_openai_callback() as cb:
+        evaluated_projects = evaluate_projects(prompt="AI applied to crypto markets", projects=projects)
+        weighted_projects = assign_weights(evaluated_projects)
+        
+        output = json.dumps([x.model_dump() for x in weighted_projects])
+        
+        print(output)
+        print(cb)
 
 if __name__ == '__main__':
     main()
