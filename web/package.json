@@ -1,0 +1,36 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn db:start && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:start": "supabase start",
+    "db:reset": "supabase db reset",
+    "db:stop": "supabase stop",
+    "db:generate-types": "supabase gen types typescript --local --schema public > supabase/dbTypes.ts"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@phosphor-icons/react": "^2.0.15",
+    "clsx": "^2.1.0",
+    "next": "14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@supabase/ssr": "0.0.10",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.12",
+    "autoprefixer": "10.0.1",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.0.4",
+    "postcss": "8.4.33",
+    "supabase": "1.131.5",
+    "tailwindcss": "3.3.0",
+    "typescript": "5.3.3"
+  }
+}

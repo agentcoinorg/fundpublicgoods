@@ -1,0 +1,4 @@
+- add an "EmitLog" event that takes a worker_id & log string and appends it to the logs database
+- subscribe to logs inside of the application and show them
+- add a "StrategyComplete" event that takes a worker_id and a complete strategy and appends it to the database
+- pull the strategy from the database when complete, and use its data instead of the mock data

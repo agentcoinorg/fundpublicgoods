@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "fund_public_goods"
+version = "0.1.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "~3.10.6"
+fastapi = "0.108.0"
+inngest = "0.2.3"
+pydantic = "2.5.3"
+python-dotenv = "^1.0.0"
+uvicorn = "^0.25.0"
+supabase = "2.3.1"
+mangum = "0.17.0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "1.8.0"
+
+[tool.mypy]
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.poetry.scripts]
+build-check = "fund_public_goods.build_check:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
