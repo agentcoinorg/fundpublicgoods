@@ -39,7 +39,7 @@ CREATE TABLE "public"."strategies" (
     "weight" DECIMAL(3, 2),
     PRIMARY KEY ("id"),
     FOREIGN KEY ("worker_id") REFERENCES "public"."workers"("id") ON DELETE CASCADE
-)
+);
 
 CREATE TABLE "public"."projects" (
     "id" VARCHAR(255) NOT NULL,
@@ -49,4 +49,4 @@ CREATE TABLE "public"."projects" (
     "website" VARCHAR(255),
     "answers" TEXT,  -- JSON [{ "question": "...", "answer": "..." }]
     PRIMARY KEY ("id")
-)
+);
