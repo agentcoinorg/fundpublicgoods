@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
+    "@phosphor-icons/react": "^2.0.15",
     "clsx": "^2.1.0",
     "next": "14.0.4",
     "react": "18.2.0",

@@ -25,6 +25,7 @@ interface TextFieldProps
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+/* eslint-disable react/display-name */
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({
   type = "input",
   leftAdornment,
