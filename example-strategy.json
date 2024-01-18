@@ -1,0 +1,130 @@
+[
+   {
+      "project":{
+         "id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:118",
+         "title":"Magnus OpenAI",
+         "recipient":"0x9c162E77B67Ed76164B486E2305000c10e3B9DfE",
+         "description":"Project \"MagnusAI: Artificial Intelligence Synthesis in the Cryptocurrency World\"\n\nWelcome to the world of innovation and advanced technologies in the field of cryptocurrencies and blockchain! The \"MagnusAI\" project aims to introduce an intelligent agent that will revolutionize and streamline operations in cryptocurrency markets.\n\n\nProject Features:\n\n1. Market Trend Prediction: MagnusAI uses data analysis and machine learning to predict market trends, helping investors make informed decisions regarding buying, selling, and portfolio management.\n\n2. Optimization of Trading Strategies: We are developing MagnusAI, an intelligent agent capable of adapting to changes in the market and optimizing trading strategies in real-time, ensuring maximum profits and minimizing risks.\n\n3. Automated Trading: MagnusAI allows for the automation of trading operations, making the trading process more efficient and reducing potential errors.\n\n4. Security and Confidentiality: We emphasize security and confidentiality. MagnusAI employs advanced encryption methods and blockchain technology to ensure secure and confidential information exchange.\n\n\nOpportunities and Advantages:\n\n1. Rational Investment Decisions: Thanks to the analysis of a large volume of data and the prediction of market trends, MagnusAI helps investors make rational and informed decisions regarding their cryptocurrency investments.\n\n2. Effective Portfolio Management System: We offer an efficient portfolio management system that allows for the automation and optimization of asset management in a cryptocurrency portfolio.\n\n3. Innovative Solutions for the Market: MagnusAI enables the implementation of innovative approaches to trading and investing in cryptocurrency markets, contributing to the development of this crucial segment of the financial world.\n\n4. Flexibility and Adaptability: MagnusAI is flexible and adaptive to changes in the market, making it a powerful tool for those looking to successfully optimize their cryptocurrency strategy.\n\nJoin the MagnusAI project and discover a new level of efficiency and innovation in the world of cryptocurrencies and blockchain technologies!\n\n\nWhy Invest in MagnusAI?\n\nMagnusAI represents the future of intelligent cryptocurrency investing. Our project is at the forefront of technological innovation, combining cutting-edge artificial intelligence with the dynamic and ever-evolving landscape of the cryptocurrency market.\n\nWe invite you to be part of this exciting venture. By investing in MagnusAI, you are not just investing in a project; you are investing in the future of smart, efficient, and profitable cryptocurrency management.\n\nDon't Miss Out on the Future \u2013 Invest in MagnusAI Today!\n\nThank you for considering MagnusAI as your gateway to intelligent cryptocurrency investing. We look forward to welcoming you to our community of forward-thinking investors.",
+         "website":"https://www.magnusai.tilda.ws",
+         "answers":[
+            {
+               "question":"Funding Sources",
+               "answer":"Donation/Funding"
+            },
+            {
+               "question":"Team Size",
+               "answer":"5"
+            }
+         ]
+      },
+      "evaluation":{
+         "project_id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:118",
+         "reasoning":"The project aligns closely with the user's interest in AI applied to crypto markets and has the potential to significantly impact the cryptocurrency market through AI-powered features.",
+         "impact":0.8,
+         "interest":0.95
+      },
+      "weight":0.35
+   },
+   {
+      "project":{
+         "id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:206",
+         "title":"DeCenter AI",
+         "recipient":"0xe86DB685cB285B435BE8892cCf2b51F641A000dF",
+         "description":"DeCenter AI is a no-code Platform-as-a-Service that empowers developers on Polygon to build and launch AI-powered DApps. We enable developers to train, access, and deploy AI models to enhance the user experience, profitability and personalization of their DApps.\n\nProblem: Building custom AI-powered DApps can be cost-prohibitive and resource-intensive, especially given the current absence of dedicated AI infrastructure for web3 projects.\n\nSolution: Platform-as-a-Service for rapid and affordable AI powered dapp development with a decentralized and democratized scalable AI Infrastructure for all web3 projects.\n\nBenefits to Developers\nRapidly launch AI Powered Dapps with Ease: Developers can swiftly deploy AI-powered decentralized applications (Dapps) using DeCenter AI's intuitive platform, reducing development time and complexity.\n\nTrade and access AI Models as NFTs: Dapp developers gain the ability to trade and access AI models as Non-Fungible Tokens (NFTs), providing a novel approach to model ownership and collaboration.\n\nManage multiple Dapps from one dashboard: DeCenter AI streamlines Dapp management by allowing developers to oversee and control multiple decentralized applications through a centralized and user-friendly dashboard.\n\nBenefits of End Users\nGreater Yield (APY) on Defi Dapps: Dapp users can enjoy higher Annual Percentage Yield (APY) on decentralized finance (Defi) applications, maximizing their returns on investments.\n\nImmersive experience on web3 games: Users can immerse themselves in a more engaging and interactive experience on web3 games, enhanced by AI-powered features provided by DeCenter AI.\n\nPersonalization: DeCenter AI brings a personalized touch to Dapp usage, tailoring experiences to individual preferences and needs for a more user-centric interaction.\n\n\nImpact on the Polygon Ecosystem\nInfrastructure and Tooling: We are going to be the first AI infrastructure project On the ecosystem providing tools for developers building on polygon\n\nDapp Development: We plan to enable developers to build 100s of AI powered Dapps on Polygon within the first 12 months.\n\nPolygon SPN: As the pioneer AI infrastructure project on the ecosystem, we aim to be a vital part of the Polygon Solution Provider Network",
+         "website":"https://www.decenterai.com",
+         "answers":[
+            {
+               "question":"Email Address",
+               "answer":"None"
+            },
+            {
+               "question":"The grant will be used to develop on Polygon",
+               "answer":"Yes"
+            },
+            {
+               "question":"Grant Proposal",
+               "answer":"Introduction\nDeCenter AI is a no-code Platform-as-a-Service that empowers developers on Polygon to build and launch AI-powered DApps. We enable developers to train, access, and deploy AI models to enhance the user experience, profitability and personalization of their DApps.\n\nProblems and Solution\nProblem: Building custom AI-powered DApps can be cost-prohibitive and resource-intensive, especially given the current absence of dedicated AI infrastructure for web3 projects.\n\nSolution: Platform-as-a-Service for rapid and affordable AI powered dapp development with a decentralized and democratized scalable AI Infrastructure for all web3 projects.\n\nBenefits to Developers\nRapidly launch AI Powered Dapps with Ease: Developers can swiftly deploy AI-powered decentralized applications (Dapps) using DeCenter AI's intuitive platform, reducing development time and complexity.\n\nTrade and access AI Models as NFTs: Dapp developers gain the ability to trade and access AI models as Non-Fungible Tokens (NFTs), providing a novel approach to model ownership and collaboration.\n\nManage multiple Dapps from one dashboard: DeCenter AI streamlines Dapp management by allowing developers to oversee and control multiple decentralized applications through a centralized and user-friendly dashboard.\n\nBenefits of End Users\nGreater Yield (APY) on Defi Dapps: Dapp users can enjoy higher Annual Percentage Yield (APY) on decentralized finance (Defi) applications, maximizing their returns on investments.\n\nImmersive experience on web3 games: Users can immerse themselves in a more engaging and interactive experience on web3 games, enhanced by AI-powered features provided by DeCenter AI.\n\nPersonalization: DeCenter AI brings a personalized touch to Dapp usage, tailoring experiences to individual preferences and needs for a more user-centric interaction.\n\nImpact on the Polygon Ecosystem\nInfrastructure and Tooling: We are going to be the first AI infrastructure project On the ecosystem providing tools for developers building on polygon\n\nDapp Development: We plan to enable developers to build 100s of AI powered Dapps on Polygon within the first 12 months.\n\nPolygon SPN: As the pioneer AI infrastructure project on the ecosystem, we aim to be a vital part of the Polygon Solution Provider Network\n\nUse of Grant\nDeCenter Roll-out: Utilize the grant to facilitate the strategic roll-out of DeCenter AI on specific blockchains, ensuring seamless integration and support for AI-powered Dapp development.\n\nDeveloper Outreach: Allocate funds to conduct targeted developer outreach programs, fostering partnerships and collaborations to expand the developer community using DeCenter AI.\n\nCommunity Building: Invest in initiatives that strengthen community engagement and growth, such as organizing events, webinars, and educational programs to build a vibrant and supportive ecosystem around DeCenter AI.\n\nCall To Action\nEmpower the future of AI innovation by casting your vote for DeCenter AI \u2013 your support ensures that our groundbreaking platform continues to democratize, decentralize, and revolutionize AI development. Together, let's build a community-driven future for artificial intelligence."
+            }
+         ]
+      },
+      "evaluation":{
+         "project_id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:206",
+         "reasoning":"While not directly applying AI to crypto markets for trading, DeCenter AI enables creation of AI-powered DApps that could impact the crypto market, aligning moderately with the user's interest.",
+         "impact":0.9,
+         "interest":0.75
+      },
+      "weight":0.25
+   },
+   {
+      "project":{
+         "id":"424:0xDF9BF58Aa1A1B73F0e214d79C652a7dd37a6074e:42",
+         "title":"The PASS",
+         "recipient":"0xF43f7D19A81087dE6FBF1c5D33E4B946202d9a15",
+         "description":"ThePASS is an intelligent DAO aggregator and search engine. It provides comprehensive tracking and evaluation of treasury assets, including FTs and NFTs, as well as on-chain and off-chain social graphs, governance data, and DAO member profiles. \n\nWith ThePASS, you can effortlessly monitor and assess the performance of DAOs, gaining valuable insights and making informed decisions. Discover DAO gems with thepass.to.",
+         "website":"https://thepass.to/",
+         "answers":[
+            {
+               "question":"Email Address",
+               "answer":"None"
+            },
+            {
+               "question":"Application detail",
+               "answer":"We are building a DAO aggregator and search engine. Currently, we have aggregated over 100,000 DAOs and over 3 million voter data, making it the largest DAO database in the field.\n\nPolygon is the second public chain we have integrated, and we have covered 7,200 Polygon DAOs.\n\nThe combination of data and AI is the optimal entry point. We plan to provide a ChatGPT interface to train DAO data for intelligent Q&A, creating an intelligent segmentation track in the DAO space."
+            },
+            {
+               "question":"Amount requested",
+               "answer":"50000"
+            },
+            {
+               "question":"Payout token",
+               "answer":"DAI"
+            },
+            {
+               "question":"Funding Sources",
+               "answer":"VC+Grant"
+            },
+            {
+               "question":"Team Size",
+               "answer":"13"
+            }
+         ]
+      },
+      "evaluation":{
+         "project_id":"424:0xDF9BF58Aa1A1B73F0e214d79C652a7dd37a6074e:42",
+         "reasoning":"ThePASS involves AI in the context of DAO operations and could indirectly impact crypto markets, which is moderately relevant to the user's interest.",
+         "impact":0.75,
+         "interest":0.6
+      },
+      "weight":0.15
+   },
+   {
+      "project":{
+         "id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:211",
+         "title":"Porfo ",
+         "recipient":"0xbd64c838210ce9ad6bd3d428887e612d19e1c36c",
+         "description":"\nPorfo is wallet ecosystem, designed to simplify the gateway to web3 space. By providing an intelligent assistant that works as your on-chain intern which is capable of querying and also executing trades.\n\nThink of Porfo as your on-chain intern who is managing your portfolio 24x7 and also giving you insights on what is going in the market, just like an intern is supposed to give.\nWe are doing this by creating a data layer in between for our users to query from and even execute there intents on-chain and off-chain.\n\nPrompts like \"When dollar index falls below 100 buy $1000 of Bitcoin\" or \"When Elon Musk tweets anything related to $DOGE buy $DOGE\" and many more would be possible for a retail trader without knowing how to code. Intents are basically the end results without the need to define the path. We believe this will be a game changer in the automations and would be an endgame for all telegram bots and ordering protocols.\nPorfo has a LLM based cross-chain solver meaning your intents can go cross-chain and off-chain too, which makes it easier to manage and secure your assets in case of a huge dip or when you want to manage a your assets across multiple chains.\nWith Porfo one will be able to setup intent templates or even share intent templates which open the huge possibility of copy trading, DeFi strategies, or intelligently managing your portfolio like DCA, or SIPs.\n\n",
+         "website":"https://porfo.app",
+         "answers":[
+            {
+               "question":"Email Address",
+               "answer":"None"
+            },
+            {
+               "question":"The grant will be used to develop on Polygon",
+               "answer":"Yes"
+            },
+            {
+               "question":"Grant Proposal",
+               "answer":"\ud835\udc0f\ud835\udc28\ud835\udc25\ud835\udc32\ud835\udc20\ud835\udc28\ud835\udc27 \ud835\udc22\ud835\udc27\ud835\udc2d\ud835\udc1e\ud835\udc20\ud835\udc2b\ud835\udc1a\ud835\udc2d\ud835\udc22\ud835\udc28\ud835\udc27 \ud835\udc30\ud835\udc22\ud835\udc2d\ud835\udc21 \ud835\udc0f\ud835\udc28\ud835\udc2b\ud835\udc1f\ud835\udc28\nPorfo is natively working on Polygon, even though being in internal testing phases, we are live on Mumbai and would be natively live on zkEVM so that we can facilitate all the protocols on Polygon and zkEVM, while letting cross-chain intents execute over Bolt Network. GALXE DEFY would be integrated in our manniet.\nWe are moving our whole app towards App chain and are looking to integrate with Polygon CDK for providing our users with fast, secure and intent resolver in standard resolver format.\nThis would be Polygon's first intent based protocol with its one and only LLM based intent solver and that would be a game-changer for the whole ecosystem.\n\n\ud835\udc07\ud835\udc0e\ud835\udc16 \ud835\udc16\ud835\udc08\ud835\udc0b\ud835\udc0b \ud835\udc16\ud835\udc04 \ud835\udc14\ud835\udc12\ud835\udc04 \ud835\udc13\ud835\udc07\ud835\udc08\ud835\udc12 \ud835\udc06\ud835\udc11\ud835\udc00\ud835\udc0d\ud835\udc13?\nWe will be using the grant for following things to grow our ecosystem:\n\nDevelopment and Expansion of Intent-Based LLM: Our priority is integration with Polygon's biggest protocols and creating a data layer to host all the data coming and going out of blockchain in the ecosystem. To create a near-perfect intern, we will need all the data that degens are looking at irrespective of accessibility.\n\nTalent: Our team is right now very focused and has been running bootstrapped for the last 1 year, if we get the grants we will be recruiting the right minds to accelerate the ecosystem that we are building for Polygon.\n\nCommunity Engagement and Marketing: Part of the grant will be dedicated to marketing which includes co-marketing running campaigns and getting KOLs on-board.\n\nResearch and Development: We will invest in ongoing research and development of AI and Intents to stay ahead, ensuring that our product remains highly relevant, performant, and secure.\n\n\n\ud835\udc16\ud835\udc21\ud835\udc32 \ud835\udc06\ud835\udc2b\ud835\udc1a\ud835\udc27\ud835\udc2d \ud835\udc1a\ud835\udc27\ud835\udc1d \ud835\udc16\ud835\udc21\ud835\udc32 \ud835\udc0f\ud835\udc28\ud835\udc25\ud835\udc32\ud835\udc20\ud835\udc28\ud835\udc27?\nWe as a team have been a long time MATIC holders and Polygon supporter with lots of contribution in the ecosystem. Thus we believe in the purple future of Polygon.\n\nBranding: Porfo is moving from Pre-alpha phase to getting there first 1000 users, and focusing heavily on UX and UI, and start the distribution we need a very simple but highly innovative branding. Which takes a lot of research and development.\n\nUsing Polygon Reach: Once the grants are approved we would have one of the biggest ecosystem name backing us, helping us acquire users and getting more protocols on-board.\n\n\ud835\ude43\ud835\ude5a\ud835\ude67\ud835\ude5a'\ud835\ude68 \ud835\ude64\ud835\ude6a\ud835\ude67 \ud835\ude3f\ud835\ude64\ud835\ude58\ud835\ude68: \ud835\ude59\ud835\ude64\ud835\ude58\ud835\ude68.\ud835\ude65\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64.\ud835\ude56\ud835\ude65\ud835\ude65\n\ud835\ude41\ud835\ude64\ud835\ude61\ud835\ude61\ud835\ude64\ud835\ude6c \ud835\ude6a\ud835\ude68 \ud835\ude64\ud835\ude63 \ud835\ude4f\ud835\ude6c\ud835\ude5e\ud835\ude69\ud835\ude69\ud835\ude5a\ud835\ude67: \ud835\ude5d\ud835\ude69\ud835\ude69\ud835\ude65\ud835\ude68://\ud835\ude69\ud835\ude6c\ud835\ude5e\ud835\ude69\ud835\ude69\ud835\ude5a\ud835\ude67.\ud835\ude58\ud835\ude64\ud835\ude62/0\ud835\ude6d\ud835\ude4b\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64\n\ud835\ude43\ud835\ude5a\ud835\ude67\ud835\ude5a'\ud835\ude68 \ud835\ude4a\ud835\ude6a\ud835\ude67 \ud835\ude6c\ud835\ude5a\ud835\ude57\ud835\ude68\ud835\ude5e\ud835\ude69\ud835\ude5a: \ud835\ude65\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64.\ud835\ude56\ud835\ude65\ud835\ude65\n\nWe are thrilled about all that we are creating \ud83d\ude80, and with your backing, we can turn this project into reality, driving Polygon towards a more decentralized tomorrow \ud83c\udf10. We appreciate your support! WAGMI\ud83d\udc9c"
+            }
+         ]
+      },
+      "evaluation":{
+         "project_id":"137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:211",
+         "reasoning":"Porfo's use of AI for portfolio management and trade execution is highly relevant to the user's interest and could have a high impact in crypto trading.",
+         "impact":0.85,
+         "interest":0.9
+      },
+      "weight":0.25
+   }
+]

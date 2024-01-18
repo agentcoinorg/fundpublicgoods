@@ -16,12 +16,6 @@ async def create_strategy(
     prompt = data.prompt
     worker_id = data.worker_id
 
-    # TODO: Update with researcher logic and make sure the following is achieved:
-    """
-    - does research
-    - emits logs (db) event: "EmitLog" { worker_id, log }
-    - finishes with a strategy (db)
-    """
     await step.run(
         "getting_info",
         lambda: logs.insert(worker_id, "Getting information from data sources"),
