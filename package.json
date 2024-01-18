@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "cd workers && poetry install",
     "build": "yarn web:build && yarn workers:build",
-    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" \"yarn events:dev\" -n web,workers,events",
+    "dev": "cp .env ./workers/.env && cp .env ./web/.env && npx concurrently \"yarn web:dev\" \"yarn events:dev\" \"yarn workers:dev\" -n web,workers,events",
     "web:build": "cd web && yarn build",
     "web:dev": "cd web && yarn dev",
     "workers:build": "cd workers && poetry run build-check",

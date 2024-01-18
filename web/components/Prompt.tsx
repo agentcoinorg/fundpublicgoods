@@ -1,31 +1,41 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import TextField from "./TextField";
 import ChatInputButton from "./ChatInputButton";
 import SparkleIcon from "@/public/sparkle-icon.svg";
 import Image from "next/image";
 import { startWorker } from "@/app/actions";
 
+const PROMPT_SUGESTIONS = [
+  "Ethereum infrastructure",
+  "Zero Knowledge Technology",
+  "Environmental initiatives",
+  "DAO Tooling",
+  "Decentalized Finance",
+  "Open Source Software",
+  "Multichain ecosystem",
+];
+
 export default function Prompt() {
   const [prompt, setPrompt] = useState<string>();
   const [isWaiting, setIsWaiting] = useState(false);
+  const [workerId, setWorkerId] = useState<string>();
 
-  const sendPrompt = async () => {
-    console.log("he")
-    await startWorker(prompt || "");
-    // await fetch(process.env.WORKER_URL)
+  const sendPrompt = async (prompt: string) => {
+    setIsWaiting(true);
+    try {
+      const workerId = await startWorker(prompt);
+      setWorkerId(workerId);
+    } finally {
+      setIsWaiting(false);
+    }
   };
 
-  const suggestions = [
-    "Ethereum infrastructure",
-    "Zero Knowledge Technology",
-    "Environmental initiatives",
-    "DAO Tooling",
-    "Decentalized Finance",
-    "Open Source Software",
-    "Multichain ecosystem",
-  ];
+  useEffect(() => {
+    if (workerId) {
+    }
+  }, [workerId]);
 
   return (
     <div className="w-2/5">
@@ -36,16 +46,21 @@ export default function Prompt() {
         </div>
       </div>
       <TextField
+        value={prompt}
         placeholder="What would you like to fund?"
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
           setPrompt(event.target.value);
         }}
-        onKeyDown={() => {}}
+        onKeyDown={async (event: React.KeyboardEvent) => {
+          if (event.key === "Enter") {
+            await sendPrompt(prompt as string);
+          }
+        }}
         rightAdornment={
           <ChatInputButton
             running={isWaiting}
             message={prompt || ""}
-            handleSend={sendPrompt}
+            handleSend={() => sendPrompt(prompt as string)}
           />
         }
       />
@@ -53,11 +68,14 @@ export default function Prompt() {
         What are you interested in funding?
       </div>
       <div className="flex flex-wrap justify-evenly text-sm">
-        {suggestions.map((suggestion, index) => (
+        {PROMPT_SUGESTIONS.map((suggestion, index) => (
           <div key={index}>
             <button
               className="p-2 mt-3 border-2 border-spacing-2 rounded-lg border-zinc-900 text-zinc-400 hover:border-zinc-400"
-              // onClick={() => handleSuggestionClick(suggestion)}
+              onClick={async () => {
+                setPrompt(suggestion);
+                await sendPrompt(suggestion);
+              }}
             >
               {suggestion}
             </button>
