@@ -1,0 +1,61 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:118",
+    "protocol": 1,
+    "pointer": "bafkreihcaml5q2nhqh6pzfkjs6mjmujq3ecpixndhm3aux54r4ohruaqqq",
+    "data": {
+        "title": "Magnus OpenAI",
+        "description": "Project \"MagnusAI: Artificial Intelligence Synthesis in the Cryptocurrency World\"\n\nWelcome to the world of innovation and advanced technologies in the field of cryptocurrencies and blockchain! The \"MagnusAI\" project aims to introduce an intelligent agent that will revolutionize and streamline operations in cryptocurrency markets.\n\n\nProject Features:\n\n1. Market Trend Prediction: MagnusAI uses data analysis and machine learning to predict market trends, helping investors make informed decisions regarding buying, selling, and portfolio management.\n\n2. Optimization of Trading Strategies: We are developing MagnusAI, an intelligent agent capable of adapting to changes in the market and optimizing trading strategies in real-time, ensuring maximum profits and minimizing risks.\n\n3. Automated Trading: MagnusAI allows for the automation of trading operations, making the trading process more efficient and reducing potential errors.\n\n4. Security and Confidentiality: We emphasize security and confidentiality. MagnusAI employs advanced encryption methods and blockchain technology to ensure secure and confidential information exchange.\n\n\nOpportunities and Advantages:\n\n1. Rational Investment Decisions: Thanks to the analysis of a large volume of data and the prediction of market trends, MagnusAI helps investors make rational and informed decisions regarding their cryptocurrency investments.\n\n2. Effective Portfolio Management System: We offer an efficient portfolio management system that allows for the automation and optimization of asset management in a cryptocurrency portfolio.\n\n3. Innovative Solutions for the Market: MagnusAI enables the implementation of innovative approaches to trading and investing in cryptocurrency markets, contributing to the development of this crucial segment of the financial world.\n\n4. Flexibility and Adaptability: MagnusAI is flexible and adaptive to changes in the market, making it a powerful tool for those looking to successfully optimize their cryptocurrency strategy.\n\nJoin the MagnusAI project and discover a new level of efficiency and innovation in the world of cryptocurrencies and blockchain technologies!\n\n\nWhy Invest in MagnusAI?\n\nMagnusAI represents the future of intelligent cryptocurrency investing. Our project is at the forefront of technological innovation, combining cutting-edge artificial intelligence with the dynamic and ever-evolving landscape of the cryptocurrency market.\n\nWe invite you to be part of this exciting venture. By investing in MagnusAI, you are not just investing in a project; you are investing in the future of smart, efficient, and profitable cryptocurrency management.\n\nDon't Miss Out on the Future \u2013 Invest in MagnusAI Today!\n\nThank you for considering MagnusAI as your gateway to intelligent cryptocurrency investing. We look forward to welcoming you to our community of forward-thinking investors.",
+        "website": "https://www.magnusai.tilda.ws",
+        "logoImg": "bafkreifliuffjov45xdlwki4ud2wvir3r4i5aacw5wtaq5ktudl2xcnrx4",
+        "bannerImg": "bafkreiaputzhdd5zkfh6ii4wq2a6f7hswz7admrkk5yhi7vxxpsfwvmjd4",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {},
+        "createdAt": 1700501848609
+    },
+    "applications": [
+        {
+            "id": "0xbdccbba5c4c5dad41ce020ed725a483e1a43cf0e-0",
+            "protocol": 1,
+            "pointer": "bafkreihfxkqctwquaebt6ztsl222vxqi5nantuvvq5v7bnaidcp2zk3cva",
+            "data": {
+                "signature": "0xe68057029f2a48a3787c8c55454b4951eb14fee5727d6695061a4f7f8acf3f396660fd007d919fd59cc4e1a6ba1c994d469a0996af23131cd43c7a06a8a16b591c",
+                "application": {
+                    "round": "0xbdccbba5c4c5dad41ce020ed725a483e1a43cf0e",
+                    "recipient": "0x9c162E77B67Ed76164B486E2305000c10e3B9DfE",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1700501848609,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:118",
+                        "title": "Magnus OpenAI",
+                        "description": "Project \"MagnusAI: Artificial Intelligence Synthesis in the Cryptocurrency World\"\n\nWelcome to the world of innovation and advanced technologies in the field of cryptocurrencies and blockchain! The \"MagnusAI\" project aims to introduce an intelligent agent that will revolutionize and streamline operations in cryptocurrency markets.\n\n\nProject Features:\n\n1. Market Trend Prediction: MagnusAI uses data analysis and machine learning to predict market trends, helping investors make informed decisions regarding buying, selling, and portfolio management.\n\n2. Optimization of Trading Strategies: We are developing MagnusAI, an intelligent agent capable of adapting to changes in the market and optimizing trading strategies in real-time, ensuring maximum profits and minimizing risks.\n\n3. Automated Trading: MagnusAI allows for the automation of trading operations, making the trading process more efficient and reducing potential errors.\n\n4. Security and Confidentiality: We emphasize security and confidentiality. MagnusAI employs advanced encryption methods and blockchain technology to ensure secure and confidential information exchange.\n\n\nOpportunities and Advantages:\n\n1. Rational Investment Decisions: Thanks to the analysis of a large volume of data and the prediction of market trends, MagnusAI helps investors make rational and informed decisions regarding their cryptocurrency investments.\n\n2. Effective Portfolio Management System: We offer an efficient portfolio management system that allows for the automation and optimization of asset management in a cryptocurrency portfolio.\n\n3. Innovative Solutions for the Market: MagnusAI enables the implementation of innovative approaches to trading and investing in cryptocurrency markets, contributing to the development of this crucial segment of the financial world.\n\n4. Flexibility and Adaptability: MagnusAI is flexible and adaptive to changes in the market, making it a powerful tool for those looking to successfully optimize their cryptocurrency strategy.\n\nJoin the MagnusAI project and discover a new level of efficiency and innovation in the world of cryptocurrencies and blockchain technologies!\n\n\nWhy Invest in MagnusAI?\n\nMagnusAI represents the future of intelligent cryptocurrency investing. Our project is at the forefront of technological innovation, combining cutting-edge artificial intelligence with the dynamic and ever-evolving landscape of the cryptocurrency market.\n\nWe invite you to be part of this exciting venture. By investing in MagnusAI, you are not just investing in a project; you are investing in the future of smart, efficient, and profitable cryptocurrency management.\n\nDon't Miss Out on the Future \u2013 Invest in MagnusAI Today!\n\nThank you for considering MagnusAI as your gateway to intelligent cryptocurrency investing. We look forward to welcoming you to our community of forward-thinking investors.",
+                        "website": "https://www.magnusai.tilda.ws",
+                        "bannerImg": "bafkreiaputzhdd5zkfh6ii4wq2a6f7hswz7admrkk5yhi7vxxpsfwvmjd4",
+                        "logoImg": "bafkreifliuffjov45xdlwki4ud2wvir3r4i5aacw5wtaq5ktudl2xcnrx4",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreihcaml5q2nhqh6pzfkjs6mjmujq3ecpixndhm3aux54r4ohruaqqq"
+                        },
+                        "credentials": {}
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Funding Sources",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "Donation/Funding"
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "5"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

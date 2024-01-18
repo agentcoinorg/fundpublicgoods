@@ -293,5 +293,3 @@ cython_debug/
 .idea/
 cache
 outputs
-
-project_data

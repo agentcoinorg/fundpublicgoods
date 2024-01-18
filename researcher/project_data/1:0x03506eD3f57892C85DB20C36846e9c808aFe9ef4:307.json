@@ -1,0 +1,312 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:307",
+    "protocol": 1,
+    "pointer": "bafkreigwze6s347ywzmb7z2zjo5iywpyne27pixn5a3l456pm2asrvwone",
+    "data": {
+        "title": "beaconcha.in",
+        "description": "beaconcha.in is an open source explorer that provides users with an easy and accessible way to explore the Ethereum network.\n\nOur explorer is designed to be user-friendly, making it accessible to non-technical users. \n\nIn addition to our web-based explorer, we also offer an open-source mobile app for iOS and Android, providing users with the ability to monitor their validators on the go.\n\nOne of our key features is the integration of both the consensus layer and the execution layer in a single explorer. This allows users to easily access and analyze data from both layers, providing a more comprehensive view of the Ethereum network.\n\nhttps://github.com/gobitfly/eth2-beaconchain-explorer",
+        "website": "https://beaconcha.in",
+        "projectTwitter": "beaconcha_in",
+        "userGithub": "buttaa",
+        "projectGithub": "gobitfly",
+        "logoImg": "bafkreifgi3b4nik2ujd3zmtpd4zo76pr43casvbhuo5cju7qcs3vkppmlm",
+        "bannerImg": "bafybeia5rsmq5tbpeqbgcj7nxfyzkpmp4tlpkpxfko2dwxjiqfe76e5pqi",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xd9ED89A0f4cfbC1be4b7b1aA744b5bd25ACA9979",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#beaconcha_in",
+                    "hash": "v0.0.0:wf/7bgxd33I4ZYB3DN2LusHtOouJDmSg43Pyu/So+Ak="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T10:35:23.877Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T10:35:23.877Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..KU_GzLgdBys-xol0bQF42sWJbLC3-6TKQUeRZkz2rYNEGLXb7k__C9Mwh_oXm68Fd3IG3AtTy8Xmv6GFq2w5Bw"
+                },
+                "expirationDate": "2024-02-06T10:35:23.877Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xd9ED89A0f4cfbC1be4b7b1aA744b5bd25ACA9979",
+                    "hash": "v0.0.0:mvFg9cmBxIIsD0Dk4GkiMNXpJpV/1IdZF/porl/XK78=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#gobitfly#26490734"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T10:40:38.097Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T10:40:38.097Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..s3O8tIXoDmkjGGiNH7uY3Rj-be4sYN6qDOamVgZdyaI8A0QiGC-fg0o_3Tre9feUM5Bh9qb9pYpkmzsNZJoGBQ"
+                },
+                "expirationDate": "2024-02-06T10:40:38.097Z"
+            }
+        },
+        "createdAt": 1680766093026
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-3",
+            "protocol": 1,
+            "pointer": "bafkreieliomm3tcoypw64l5npm3sgwdx4uuecj5pbiv2sytievjkwgbwzu",
+            "data": {
+                "signature": "0x9023266aaab1a5034f37d58009926b9b586632f7bde2e5c3d9c8c62476d21c1b5dd162b3a42ec3b2d6ce541e968f523d5fb341322c40c5afe6ab5a617abe4dd91c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x9d4E94dB689Bc471E45b0a18B7BdA36FcCeC9c3b",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1680766093026,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:307",
+                        "title": "beaconcha.in",
+                        "description": "beaconcha.in is an open source explorer that provides users with an easy and accessible way to explore the Ethereum network.\n\nOur explorer is designed to be user-friendly, making it accessible to non-technical users. \n\nIn addition to our web-based explorer, we also offer an open-source mobile app for iOS and Android, providing users with the ability to monitor their validators on the go.\n\nOne of our key features is the integration of both the consensus layer and the execution layer in a single explorer. This allows users to easily access and analyze data from both layers, providing a more comprehensive view of the Ethereum network.\n\nhttps://github.com/gobitfly/eth2-beaconchain-explorer",
+                        "website": "https://beaconcha.in",
+                        "bannerImg": "bafybeia5rsmq5tbpeqbgcj7nxfyzkpmp4tlpkpxfko2dwxjiqfe76e5pqi",
+                        "logoImg": "bafkreifgi3b4nik2ujd3zmtpd4zo76pr43casvbhuo5cju7qcs3vkppmlm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreigwze6s347ywzmb7z2zjo5iywpyne27pixn5a3l456pm2asrvwone"
+                        },
+                        "userGithub": "buttaa",
+                        "projectGithub": "gobitfly",
+                        "projectTwitter": "beaconcha_in",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xd9ED89A0f4cfbC1be4b7b1aA744b5bd25ACA9979",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#beaconcha_in",
+                                    "hash": "v0.0.0:wf/7bgxd33I4ZYB3DN2LusHtOouJDmSg43Pyu/So+Ak="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T10:35:23.877Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T10:35:23.877Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..KU_GzLgdBys-xol0bQF42sWJbLC3-6TKQUeRZkz2rYNEGLXb7k__C9Mwh_oXm68Fd3IG3AtTy8Xmv6GFq2w5Bw"
+                                },
+                                "expirationDate": "2024-02-06T10:35:23.877Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xd9ED89A0f4cfbC1be4b7b1aA744b5bd25ACA9979",
+                                    "hash": "v0.0.0:mvFg9cmBxIIsD0Dk4GkiMNXpJpV/1IdZF/porl/XK78=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#gobitfly#26490734"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T10:40:38.097Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T10:40:38.097Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..s3O8tIXoDmkjGGiNH7uY3Rj-be4sYN6qDOamVgZdyaI8A0QiGC-fg0o_3Tre9feUM5Bh9qb9pYpkmzsNZJoGBQ"
+                                },
+                                "expirationDate": "2024-02-06T10:40:38.097Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "oNlrRiwnC3++elw6jzZT1ljH5V3/zfmpP7zeGxDTsiw=",
+                                "encryptedSymmetricKey": "21c8b5a9bfd89a48ba6d9b480ab3125e08071f311d37560ed9f444aa1333f432b82594418f5ed87b28ed2126db6a4205d193a174b5d7ba216facc53d0afd365b72748955e6bc7d97ee7da0d5874a621cdf629b442ee53b135478db6b0d6ef08539876427a0f3faa86c88458810e73888bca5208b5b5e79ed96e276d553fed4af0000000000000020f3889e32f2d6098379fa33d121174f4737e5e9302c9d42a172de48028ceeb6e85bd5ddd6c5352eb35b2bc7067596f493"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/gobitfly/eth2-beaconchain-explorer"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "Tdz4qpNgUvUKZB6OlRfH9PWQb/ClUs8aBeNErixNoT8=",
+                                "encryptedSymmetricKey": "3a4436ef3b16701d44dea001c317d0d055ba312b6e9159f172f1392f5059d26734a2b2644c3a7a1f6877ceac95b8ab179255f4b73c9781c5ead7bdab8d5821b3af72d63d13f9bd71a8d281d2e0075eea1df1f6d9ec5e56261164cd27049a43a64ae5316fd5d7a5c26b610f16b934e31de3e5a424debc18ffddf0d88b0e790ae40000000000000020e5d765eea11fc8a105099f09a6214868c85436c0552b5ef6b20c9dcbcd534c22719f3a0dd43048bc8dde4ddb23256182"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://dsc.gg/beaconchain"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "beaconcha.in is the *only* consensus layer explorer in the ecosystem.\n\n* Easy way for Local Explorer and Testnet Simulation\n* A significant backend rework to allow anyone spin up any EVM explorer, thus giving developers a new playground \n\n* Seamless User Navigation through Network Data:\nEnd users can navigate network-related data, without noticing the various layers of the Ethereum stack (CL/EL/L2).\n\n* Improved Staking Experience with our Open Source Mobile App\n\nOur open-source mobile app allows for monitoring of validators, enhancing the staking experience and contributing to decentralization.\n\n* Public API Access for Consensus and Execution Layer. \n* beaconcha.in is the only CL API provider in the ecosystem."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "* Improve explorer speed / performance\n* A significant backend rework to allow anyone to spin up any EVM explorer"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Page views"
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "550000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants",
+                                "Sales"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "17"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "38"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true,
+                            "answer": ""
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/beaconcha_in,\nhttps://twitter.com/Butta_eth,\nhttps://github.com/peterbitfly,\nhttps://github.com/guybrush,\nhttps://github.com/Eisei24,\nhttps://github.com/manuelsc\n"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes, link should be https://gitcoin.notion.site/GG19-Eligibility-50843c8b3ab44ad297731a00efa6e389  . The application links to GG18 which is the previous round"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Europe"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

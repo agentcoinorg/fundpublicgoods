@@ -1,0 +1,163 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:316",
+    "protocol": 1,
+    "pointer": "bafkreibsuaq7bqgf2fa75ubwaqzkinl3dwsizvqedc5x4vcmux5r7frs6e",
+    "data": {
+        "title": "Salaries Science",
+        "description": "Help to **unblock science** from **mis-publication** that often occurs in the centralized world. Some **scientific projects** don't receive **funding and publicity**, and if the project is important, that **blocks development** of the entire science.\n\nTo **support basic science** I aim to create **grants similar to GitCoin grants** but allocate a portion of each donation to **dependencies and citations**. This will help support underfinanced \"invisible\" projects and **free software components** that are crucial for building projects that are beneficial to users. Additionally, we will provide an **affiliate program** to ensure that every scientific or software project is advertised, which will help bring more visibility and funding to important scientific research.\n\nThis software also contributes to **peer review**: If people donate money to a project (directly or as a dependency of another project), it is likely that the project was positively **reviewed by them**. This is in some aspects superior to traditional peer review: review is done **after publication** and is **free from bias** appearing when the review is done by just one person or a small group.\n\nTo achieve this vision, it is planned to use the revolutionary DFINITY Internet Computer to run Salaries Science grants. This will ensure that every dollar donated goes directly to funding important scientific research and supporting the **underfinanced projects** that often go unnoticed.\n\nAlso it is planned to make a browser extension to donate directly at sites presenting projects (such as github.com, crates.io, arxiv.org).\n\nPlease consider making a donation today to help **unblock science** and **support crucial scientific research** that can change the world for the better. Together, we can ensure that science is never hindered by unfortunate incidents and that every project has the support and funding it needs to succeed.\n\nSee also [a detailed description of how the project will be implemented in a decentralized way](https://github.com/vporton/salaries-science/blob/main/financing-science-algorithm.odt?raw=true).\n\nPersonal story behind the project:\n\nIn 2019, I discovered ordered semigroup actions that could have been a groundbreaking discovery for world science, but due to a mistake in publication, it was not recognized as such. I became determined to rectify this situation and ensure that such mishaps do not hinder the progress of science in the future.\n\nCurrent developments: I am developing [NacDB](https://github.com/vporton/NacDB), a distributed database that will be used in this project. (NacDB is currently in testing and code review stage.)",
+        "website": "https://science-dao.com/salaries-science/",
+        "projectTwitter": "SalariesScience",
+        "userGithub": "vporton",
+        "logoImg": "bafybeifvejk5ke2w4vec6ubtgbmvar7ic4e5vl7mgbyh2vnacbcvurtiyy",
+        "bannerImg": "bafybeidtbkjrt65pkopqywmgogl24uimb4hfclh4ojknwdhu3caxwag5bq",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x36A0356d43EE4168ED24EFA1CAe3198708667ac0",
+                    "hash": "v0.0.0:lO/3H+HVj+OaOfHUeqPmatSo4Ifk4+VJMbfIqShWh+Q=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#SalariesScience"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-04-14T22:57:39.698Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-04-14T22:57:39.699Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..qH258SZWcmSziZr6lvAya7FOLSqPF42FSpGkZLfWraqrajMm--Jnxj5qXWK9xfYOSz5rfETlX7HKCDFm7xUYCg"
+                },
+                "expirationDate": "2023-07-13T22:57:39.698Z"
+            }
+        },
+        "createdAt": 1680807682609
+    },
+    "applications": [
+        {
+            "id": "0xc8680ca11bb7d5d1ac148641b32e70c0dbf457be-1",
+            "protocol": 1,
+            "pointer": "bafkreibcoqzamzszfzvohbkv3pr37mlnraezii4gtukvxdzt7nme3oczjy",
+            "data": {
+                "signature": "0x4d054babcd07dba77875a42d14f7edaff2e04ba851163ca9121d4946c7fea0df48c5a24d1ef89bf40a7e444df404a0d84f2152f3dcacd7df8060d2cf316cf3f91b",
+                "application": {
+                    "round": "0xc8680ca11bb7d5d1ac148641b32e70c0dbf457be",
+                    "recipient": "0x36A0356d43EE4168ED24EFA1CAe3198708667ac0",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1680807682609,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:316",
+                        "title": "Salaries Science",
+                        "description": "Help to **unblock science** from **mis-publication** that often occurs in the centralized world. Some **scientific projects** don't receive **funding and publicity**, and if the project is important, that **blocks development** of the entire science.\n\nTo **support basic science** I aim to create **grants similar to GitCoin grants** but allocate a portion of each donation to **dependencies and citations**. This will help support underfinanced \"invisible\" projects and **free software components** that are crucial for building projects that are beneficial to users. Additionally, we will provide an **affiliate program** to ensure that every scientific or software project is advertised, which will help bring more visibility and funding to important scientific research.\n\nThis software also contributes to **peer review**: If people donate money to a project (directly or as a dependency of another project), it is likely that the project was positively **reviewed by them**. This is in some aspects superior to traditional peer review: review is done **after publication** and is **free from bias** appearing when the review is done by just one person or a small group.\n\nTo achieve this vision, it is planned to use the revolutionary DFINITY Internet Computer to run Salaries Science grants. This will ensure that every dollar donated goes directly to funding important scientific research and supporting the **underfinanced projects** that often go unnoticed.\n\nAlso it is planned to make a browser extension to donate directly at sites presenting projects (such as github.com, crates.io, arxiv.org).\n\nPlease consider making a donation today to help **unblock science** and **support crucial scientific research** that can change the world for the better. Together, we can ensure that science is never hindered by unfortunate incidents and that every project has the support and funding it needs to succeed.\n\nSee also [a detailed description of how the project will be implemented in a decentralized way](https://github.com/vporton/salaries-science/blob/main/financing-science-algorithm.odt?raw=true).\n\nPersonal story behind the project:\n\nIn 2019, I discovered ordered semigroup actions that could have been a groundbreaking discovery for world science, but due to a mistake in publication, it was not recognized as such. I became determined to rectify this situation and ensure that such mishaps do not hinder the progress of science in the future.\n\nCurrent developments: I am developing [NacDB](https://github.com/vporton/NacDB), a distributed database that will be used in this project. (NacDB is currently in testing and code review stage.)",
+                        "website": "https://science-dao.com/salaries-science/",
+                        "bannerImg": "bafybeidtbkjrt65pkopqywmgogl24uimb4hfclh4ojknwdhu3caxwag5bq",
+                        "logoImg": "bafybeifvejk5ke2w4vec6ubtgbmvar7ic4e5vl7mgbyh2vnacbcvurtiyy",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibsuaq7bqgf2fa75ubwaqzkinl3dwsizvqedc5x4vcmux5r7frs6e"
+                        },
+                        "userGithub": "vporton",
+                        "projectTwitter": "SalariesScience",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x36A0356d43EE4168ED24EFA1CAe3198708667ac0",
+                                    "hash": "v0.0.0:lO/3H+HVj+OaOfHUeqPmatSo4Ifk4+VJMbfIqShWh+Q=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#SalariesScience"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-04-14T22:57:39.698Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-04-14T22:57:39.699Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..qH258SZWcmSziZr6lvAya7FOLSqPF42FSpGkZLfWraqrajMm--Jnxj5qXWK9xfYOSz5rfETlX7HKCDFm7xUYCg"
+                                },
+                                "expirationDate": "2023-07-13T22:57:39.698Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "02Sb0J/yRm1fjydCy03xhqY3eJhGEZ/U912XMBTuwUdg/sLnDOseQJlSDpWUWZh1",
+                                "encryptedSymmetricKey": "a6d672dbbb3701c86adcf949e3c828b1d07bd13bafcce35d4468687fec6bb483dbd24d1fda5ce8ab23748bf1e5e136095cb5cfb62b98ad48f06046bdcc04b9895cb834049ea2452254e59136dddf2b7b9478dec85de8ab465237d79da38b4081f28225a28b6fc2adbecb5c11e9a64b304aa6b7cce81af15e7835bfce7d98189300000000000000200d464cf88650f5fb1eb9c230977ab5a28867bca1702bc5e21800c8ef58f593c545f73ce83bdd42b79be01239afe21a94"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Application detail",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "That's a noncommercial project that I will do after release of another (commercial) project that I applied to you.\nhttps://science-dao.org/salaries-science/"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Amount requested",
+                            "type": "number",
+                            "hidden": true,
+                            "answer": "5000"
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Payout token",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "DAI"
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Milestones",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "(very approximate)\n- canisters development (5 months)\n- UI development (3 months)\n- public release"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "Funding Sources",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "none"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "1"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

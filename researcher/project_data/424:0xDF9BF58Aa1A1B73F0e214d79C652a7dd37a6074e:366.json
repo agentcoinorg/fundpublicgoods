@@ -1,0 +1,308 @@
+{
+    "id": "424:0xDF9BF58Aa1A1B73F0e214d79C652a7dd37a6074e:366",
+    "protocol": 1,
+    "pointer": "bafkreiav2xnmwmdrmd447d2tumuvd3dno2kco3g2vlkw2jmmnqlnk3jzom",
+    "data": {
+        "title": "Blockhead: portfolio tracker, block explorer and web3 browser",
+        "description": "# Track/visualize/explore all of crypto/DeFi/web3 in ONE informative, concise, customizable interface! \u2022 \ud83c\udd71\n\n[**Blockhead**](https://blockhead.info) is a browser for **Ethereum**, **EVM-based blockchains**, **web3 infrastructure**, and their collective ecosystem of **DeFi apps**, **digital organizations** and **crypto-enabled experiences**.\n\nIt features a [**crypto/DeFi/NFT portfolio tracker**](https://blockhead.info/portfolio); a [**universal block explorer**](https://blockhead.info/explorer); [**dynamic interfaces** and **explorers**](https://blockhead.info/apps) for **smart contracts**, **DeFi protocols** and **web3 content networks**; and **comprehensive controls** that let YOU decide the infrastructure powering the interface!\n\nWith its **local-first**, **data-agnostic** design, Blockhead embraces the **multi-faceted technical trade-offs** taking place at every layer of the web3 stack, synthesizing them into a **unified interface** that is **informative**, **concise**, **transparent**, **resilient**, **adaptive** and **infinitely customizable**. It's simply the ideal place to **track**, **visualize** and **explore** the **decentralized world wide web**!\n\nBlockhead is an ongoing **open-source software** project and **public good** that aims to **push the boundaries of web3-native UX** through its highly accessible, educational and user-friendly interface. **Support this project on Gitcoin Grants today** and make Blockhead your window to the **self-sovereign web** \u2013 a marvel of cryptographic innovation and human coordination!\n\n---\n\n#### \ud83d\udcc7 **TRACK YOUR ONCHAIN ASSETS**\nKeep tabs on your **blockchain accounts**, **web3 identities** and **crypto net worth**, with **token balances**, **DeFi positions**, **NFT collections** and **activity feeds** displayed on a **single page**.\n\n#### \ud83d\udcca **VISUALIZE YOUR ACTIVITY**\nSeamlessly navigate **transactions**, **smart contract interactions** and **web3 data** in full context with a **multi-chain block explorer**, **intuitive visualizations** and **easy-to-read metadata**.\n\n#### \ud83e\udded **EXPLORE THE METAVERSE**\nDiscover an ecosystem of **apps** and **communities** leveraging **credibly-neutral infrastructure** to **allocate** resources, **coordinate** action, **inform** with data and create **web3-native experiences**.\n\n#### \ud83e\udde9 **UNSTOPPABLE WEB3 TECH**\nBuilt and secured with **math**, **cryptography**, composable **software primitives**, **open standards** and **protocols**, **user-owned** accounts and data, and **incentive-aligned** computer networks.\n\n#### \ud83c\udf9b\ufe0f **YOU CONTROL THE DATA**\nThere's no central backend \u2014 **you choose which data sources power the user interface!** Optimize for **speed**, **reliability**, **privacy** and/or **decentralization** without compromise.\n* Choose from **25+ data providers** including Airstack, Alchemy, Blast, Ceramic, Chainbase, Chainlink, CoinGecko, Covalent, Decommas, ENS, Etherscan, Etherspot, Figment, Gateway.\u200bfm, GetBlock, The Graph, IPFS, Infura, Lens, Moralis, NFTPort, Pocket Network, Push, QuickNode, Sourcify, Tenderly, Zapper, Zerion and more!\n\n#### \ud83c\udf10 **TO ETHEREUM & BEYOND!**\nSupporting [**Ethereum**](https://blockhead.info/explorer/ethereum) + **layer-2s** ([Polygon PoS](https://blockhead.info/explorer/polygon), [Gnosis Chain](https://blockhead.info/explorer/gnosis), [Arbitrum](https://blockhead.info/explorer/arbitrum-one)) + the **OP Stack-based Superchain** ([OP Mainnet](https://blockhead.info/explorer/optimism), [Base](https://blockhead.info/explorer/base), [Zora Network](https://blockhead.info/explorer/zora)), **EVM-based chains** ([Aurora](https://blockhead.info/explorer/aurora), [Avalanche](https://blockhead.info/explorer/avalanche), [Binance Smart Chain](https://blockhead.info/explorer/bsc), [Celo](https://blockhead.info/explorer/celo), [Cronos](https://blockhead.info/explorer/cronos), [Evmos](https://blockhead.info/explorer/evmos), [Fantom](https://blockhead.info/explorer/fantom)), and many more **blockchain networks** and **web3-native ecosystems** to come!\n\n---\n\n#### \ud83c\udd71 Features/Integrations\n\n##### \ud83e\uddee [**Portfolio**](https://blockhead.info/portfolio):\n* **Portfolio**: create groups of Ethereum/EVM-based blockchain accounts to estimate their crypto net worth, including token balances, DeFi balances and NFTs owned across multiple chains.\n  * **Add Account**: enter a raw wallet address (`0xabcd...6789`), ENS name (e.g. `vitalik.eth`) or Lens handle (e.g. `stani.lens`), along with one or more supported EVM-based networks.\n* **Account**:\n  * **Balances**: sort assets alphabetically or numerically, and optionally hide tokens with small/insignificant balances.\n  * **DeFi**: view DeFi balances grouped by DeFi protocol (red-colored numbers denote debt/borrowed assets). Optionally show underlying assets backing vaults, liquidity pools, or index tokens.\n  * **NFTs**: browse non-fungible tokens and associated media, optionally grouped by collection (contract). Optionally show their on-chain or off-chain metadata/attributes.\n  * **Feed**: optionally show a live activity feed for supported web3 apps.\n* **Explore**: click any address, DeFi app, NFT contract name, ENS name or Lens handle to show more details in [Explorer](https://blockhead.info/explorer) or [Apps](https://blockhead.info/apps).\n\n##### \ud83d\udd2d [**Explorer**](https://blockhead.info/explorer):\n* Explore **blocks**, **transactions**, **addresses**, and verified **smart contracts** across several **EVM-based blockchain networks**: [Ethereum](https://blockhead.info/explorer/ethereum), [Polygon PoS](https://blockhead.info/explorer/polygon), [Gnosis Chain](https://blockhead.info/explorer/gnosis), [Arbitrum](https://blockhead.info/explorer/arbitrum-one), [Aurora](https://blockhead.info/explorer/aurora), [Avalanche](https://blockhead.info/explorer/avalanche), [Base](https://blockhead.info/explorer/base), [Binance Smart Chain](https://blockhead.info/explorer/bsc), [Celo](https://blockhead.info/explorer/celo), [Cronos](https://blockhead.info/explorer/cronos), [Evmos](https://blockhead.info/explorer/evmos), [Fantom](https://blockhead.info/explorer/fantom), [OP Mainnet](https://blockhead.info/explorer/optimism), [Zora Network](https://blockhead.info/explorer/zora) and [more](https://blockhead.info/explorer)!\n* **Network overview**: monitor statistics for a given network.\n  * Stream the latest blocks\n  * Current block height\n* Look up a **transaction ID**, **block number**, or **address** (`0xabcd...6789`, **ENS name** or **Lens handle**) by typing in the search field or via URL (`https://blockhead.info/explorer/<network-name>/<query>`).\n  * Use the network picker to switch networks on the fly \u2013 the search field query will stay preserved.\n  * Compatible with the EIP-3091 block explorer standard \u2013 add Blockhead to your wallet by replacing `etherscan.io` with `https://blockhead.info/explorer/<network-name>` in your wallet settings!\n* **Address** (externally-owned accounts or smart contracts):\n  * **Balances**: native/ERC-20 token balances associated with the address.\n    * **ERC-20 transfers**: filter for transactions involving a specific ERC-20 token.\n  * **Smart contracts**: browse verified smart contract code uploaded to Etherscan or Sourcify (IPFS).\n* **Block** (by block number):\n  * Look up consensus metadata and transactions included in the block.\n  * Cross-reference blocks produced around the same time on other networks.\n* **Transactions** (by transaction hash):\n  * Browse transactions in three levels of detail:\n    * **Summary**: just the primary action and/or native currency transfers, based on context.\n    * **Detailed**: includes just the smart contract event logs directly involving the address, based on context.\n    * **Exhaustive**: includes all transaction fees and smart contract event logs.\n\n##### \ud83d\udcf1 [**Apps**](https://blockhead.info/apps):\n* Use **alternative interfaces**, **explorers** and **tools** for popular **dapps** and **web3 infrastructure** projects:\n  * [**IPFS**](https://blockhead.info/apps/ipfs): explore and interact with the IPFS network via an explorer, file browser, content uploader, CID decoder visualization and an in-browser IPFS node\n  * [**ENS**](https://blockhead.info/apps/ens): browse registration details and records associated with names on the Ethereum Name Service (e.g. `vitalik.eth`)\n  * [**Lens**](https://blockhead.info/apps/lens): look up Lens profiles by Lens handle (e.g. `stani.lens`)\n  * [**Farcaster**](https://blockhead.info/apps/farcaster): browse the Farcaster social network\n  * [**Ceramic**](https://blockhead.info/apps/ceramic): authenticate DID sessions on Ceramic\n  * [**Disco**](https://blockhead.info/apps/disco): look up verifiable credentials associated with your Disco profile\n  * [**Audius**](https://blockhead.info/apps/audius): search the Audius network for music artists, curators, playlists, and tracks, and play tracks directly from IPFS\n  * [**The Graph**](https://blockhead.info/apps/the-graph): browse GraphQL schemas for subgraphs of popular dapps\n  * **DeFi protocols**: browse smart contracts and token stats for [Uniswap](https://blockhead.info/apps/uniswap), [Aave](https://blockhead.info/apps/aave), [Balancer](https://blockhead.info/apps/balancer), [Compound](https://blockhead.info/apps/compound), [Curve](https://blockhead.info/apps/curve), [1inch](https://blockhead.info/apps/1inch) and more!\n\n##### \ud83d\udcd2 **Accounts & Wallets**:\n* **Wallets**: connect and manage **multiple wallet connections** simultaneously, with easy drag-and-drop access from a toggleable side panel\n  * Supported wallet connection protocols: injected EIP-1193 (browser extensions, mobile in-app browsers), WalletConnect 1.0, WalletConnect 2.0, Coinbase Wallet SDK, webmax.js\n  * Supported wallet brands: MetaMask, Rainbow, Coinbase Wallet, Banana Wallet, IntmaxWallet, Liquality Wallet\n\n##### \u2699\ufe0f **Preferences & Data Sources**:\n* **Appearance**:\n  * **Theme**: choose a light or dark theme for the interface.\n* **Blockchain Data**:\n  * **On-Chain Data**: relay read-only smart contract data through Alchemy, Blast, Chainbase, Etherscan, Figment, Gateway.\u200bfm, GetBlock, Infura, Moralis, Pocket Network, QuickNode, Tenderly or the \"official\" RPC service for a given network.\n  * **Transaction/Blocks**: fetch block/transaction metadata from Chainbase, Covalent, Decommas, Etherscan, Moralis or the chosen RPC service.\n* **Account Data**:\n  * **Token Balances**: relay native tokens and ERC-20 balances through the specified indexer API or RPC network.\n  * **DeFi Balances**: fetch DeFi balances from the Zapper API (off-chain) or the Zerion DeFi SDK (on-chain).\n  * **NFTs**: fetch NFT metadata from Airstack, Chainbase, Covalent, Decommas or NFTPort.\n* **Analytics**:\n  * **Currency**: denominate token balances in terms of your local fiat currency or units of Ethereum or Bitcoin.\n* **Content Networks**\n  * **IPFS Gateway**: sync IPFS content via a local Helia node or bridge over HTTPS via a gateway.\n\n##### \ud83e\ude9f **Data transparency**:\n* All data is sourced though data providers defined in Preferences and tagged with corresponding labels and icons throughout the interface.\n* Preferences and data from Portfolio and Explorer are saved/cached within your browser's local storage instead of a central server.\n\n---\n\n#### \ud83d\udee0\ufe0f Coming soon...\n##### **Contribute now** to help support new features!\n* **More data sources** \u2013 integrations with more data providers and indexing solutions for maximum flexibility, redundancy, and transparency\n  * Tokens\n  * Prices\n  * DeFi\n  * NFTs\n  * Chains\n  * Transactions\n  * Verified smart contract repositories\n  * RPC providers\n  * Event signatures\n  * **Running a web3 infrastructure service or indexing API?** Reach out and sponsor a grant or hackathon \u2013 I'll be happy to add an integration!\n* **More robust/accurate portfolio tracking:**\n  * Token whitelists/blacklists\n  * Auto-detect networks for a given address based on activity\n  * Transactions feed\n  * Improved transaction descriptions\n  * Table views with CSV/JSON export\n  * NFT gallery view with rich multimedia support\n  * Dynamic visualizations for token balances, DeFi positions, transaction history and more\n  * Activity import from centralized exchanges and other CeFi/CeDeFi products\n* **Improved Explorer view:**\n  * Visualizations and human-readable descriptions for common dapp/smart contract interactions: transfers, swaps, deposits, withdrawals, staking, yield farming, minting, burning, governance voting, and more\n  * Image previews when sharing links on Twitter/social media\n  * Add syntax highlighting for Solidity, Vyper, Huff and more\n  * Interact directly with smart contract methods via ABI\n  * Distinguish externally-owned accounts from smart contracts, smart wallet accounts, Safes, proxies\n  * Browse transaction traces\n  * Browse EVM storage\n  * Add graph visualization for token flows and asset transfers\n  * Show token stats/market data for ERC-20 smart contracts\n  * Browse individual NFTs\n  * \"Add to portfolio\" button\n  * Highlight addresses found in your portfolio\n  * Bookmark transactions\n* **Improved Apps view:**\n  * Interactive UI flows for DeFi actions/protocols: exchanges, vaults, liquidity pools, bridges, and more\n  * Generalize the ENS explorer to work with any subgraph from The Graph\n  * Explorer for on-chain and off-chain governance/DAO activity\n  * Lens client: browse, collect and publish posts\n  * Farcaster client: browse and publish casts\n* **Accounts, wallets, web3-native authentication, and data portability:**\n  * Support for Safe, smart contract wallets, EIP-4337 accounts and more\n  * Robust support for all common wallet connection protocols: injected EIP-1193, WalletConnect, Coinbase Wallet SDK, hardware wallets, EIP-6963 discovery\n  * General support for authentication/verification schemes: Sign in with Ethereum, SpruceID\n  * Sync data + preferences peer-to-peer across multiple device/clients running Blockhead instances\n* **Granular preferences and data transparency:**\n  * Choose different/multiple/user-added RPC endpoints and data providers for each chain\n  * Networking introspection with data flow diagrams\n  * Tag data sources and dapps based on their degree of centralization/decentralization, whether on-chain or off-chain\n  * Real-time visualization of blocks, cross-chain messages, token transfers, and more\n* **UI/UX enhancements:**\n  * Context menus\n  * a11y / WAI-ARIA compliance\n  * Global Command+K menu\n  * AI-powered search\n  * Drag and drop entities seamlessly across columns and windows to fill form fields and initiate transfers or other interactions\n  * Multi-column views to show multiple feeds on screen (similar to Tweetdeck)\n* **Experience Blockhead in more places:**\n  * iOS, Android, and progressive web app versions using Capacitor\n  * macOS, Windows, and Linux native versions using Tauri\n  * Decentralized frontend hosting\n  * Decentralized naming systems: ENS, IPNS, Handshake, Unstoppable Domains\n  * Content/storage networks: IPFS, Arweave, Akash, Internet Computer\n  * Distribute via app stores, self-hosted platforms, registries and discovery networks: DAppNode, Umbrel, Urbit, Valist, Everest\n* **Support for more blockchains and consensus-based digital asset networks:**\n  * EVM-based blockchains/sidechains/layer-2s: zkSync, Linea, Scroll, Celestia, Metis, Harmony, RSK, Ethereum Classic and more\n  * Other blockchain/web3 ecosystems: Cosmos, Solana, Arweave, Polkadot/Substrate, Bitcoin, Filecoin and more\n* **Engineering/code quality:**\n  * Documentation, linting, unit tests, end-to-end integration tests\n  * Full TypeScript type safety\n  * Upgrade from ethers.js to viem\n  * Changelog, releases, software versioning scheme\n* **Suggestions welcome** \u2013 make a contribution and [fill out the Feedback form](https://blockhead.info/#feedback)!\n\n---\n\n#### \ud83d\udd14 Follow Blockhead\n* \ud83c\udd71 **App**: [blockhead.info](https://blockhead.info)\n* \ud83d\udc26 **Twitter / \ud835\udd4f**: [twitter.com/0xBlockhead](https://twitter.com/0xBlockhead) \u2022 [twitter.com/darryl__yeo](https://twitter.com/darryl__yeo)\n* \ud83d\udfe3 **Farcaster**: [warpcast.com/blockhead](https://warpcast.com/blockhead) \u2022 [warpcast.com/darrylyeo](https://warpcast.com/darrylyeo)\n\n---\n\n#### \ud83d\udc9d THANK\u2002YOU\n* for supporting **open source software**, **public goods**, **decentralization**, and **resilient financial & internet infrastructure** to last for generations to come! \u2728",
+        "website": "https://blockhead.info",
+        "projectTwitter": "0xBlockhead",
+        "userGithub": "darrylyeo",
+        "projectGithub": "blockhead-info",
+        "logoImg": "bafkreie5odivzaycebuykqvfalpttoulz3nhasx3hskbj5hc45qhcc3lyy",
+        "bannerImg": "bafkreiavqehvi4m5wr7alxt7uro4uulstwq7b5fj54jbn7t3v3afymtwda",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x048669c431230A9A8298b7Ec045f1E1137827cCA",
+                    "provider": "ClearTextTwitter#0xBlockhead",
+                    "hash": "v0.0.0:lVSbOlx9Z/AF5EQGSV3f3+TSG+b1dIaqNIoKE18O5Y8=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-11T01:34:10.263Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-11T01:34:10.263Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9.._T8mIiuuQlgY9xhY2j2o43abcdCuL5eDfEv0OE61kYLJEYxUke4YBt7K1xO3thwmBV538Vci2kH7ErbGv8sUAw"
+                },
+                "expirationDate": "2024-02-09T01:34:10.263Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x048669c431230A9A8298b7Ec045f1E1137827cCA",
+                    "hash": "v0.0.0:Wk60IWsbT2gG1kZSnuzIDJU/lHoYJ0RHBLl2ddzSVBc=",
+                    "provider": "ClearTextGithubOrg#blockhead-info#13970789",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-11T04:54:30.800Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-11T04:54:30.800Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..qCFPsiuodzh84U5lU_1NyQG4ugP0cHDXhEGkKAtay3vVqLebaSQWOOg44AeKlxIldoK4MGvT8COoxDNIlzhRAg"
+                },
+                "expirationDate": "2024-02-09T04:54:30.800Z"
+            }
+        },
+        "createdAt": 1699678223762
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-19",
+            "protocol": 1,
+            "pointer": "bafkreid2dyk4iukyou6kdvaay6jvoyf6npwazcfnwkp646m2sfh2lwfhou",
+            "data": {
+                "signature": "0xeb761c6ac27ee27bf013d7620f7d4b1f87d96859ffcf3a19526fe478ea001fb93756b5d228a9588484aeb155869cffd0c7ef6d1fefb9aec2d14ee7e2579f8bfd1b",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x048669c431230a9a8298b7ec045f1e1137827cca",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1699678223762,
+                        "id": "424:0xDF9BF58Aa1A1B73F0e214d79C652a7dd37a6074e:366",
+                        "title": "Blockhead: portfolio tracker, block explorer and web3 browser",
+                        "description": "# Track/visualize/explore all of crypto/DeFi/web3 in ONE informative, concise, customizable interface! \u2022 \ud83c\udd71\n\n[**Blockhead**](https://blockhead.info) is a browser for **Ethereum**, **EVM-based blockchains**, **web3 infrastructure**, and their collective ecosystem of **DeFi apps**, **digital organizations** and **crypto-enabled experiences**.\n\nIt features a [**crypto/DeFi/NFT portfolio tracker**](https://blockhead.info/portfolio); a [**universal block explorer**](https://blockhead.info/explorer); [**dynamic interfaces** and **explorers**](https://blockhead.info/apps) for **smart contracts**, **DeFi protocols** and **web3 content networks**; and **comprehensive controls** that let YOU decide the infrastructure powering the interface!\n\nWith its **local-first**, **data-agnostic** design, Blockhead embraces the **multi-faceted technical trade-offs** taking place at every layer of the web3 stack, synthesizing them into a **unified interface** that is **informative**, **concise**, **transparent**, **resilient**, **adaptive** and **infinitely customizable**. It's simply the ideal place to **track**, **visualize** and **explore** the **decentralized world wide web**!\n\nBlockhead is an ongoing **open-source software** project and **public good** that aims to **push the boundaries of web3-native UX** through its highly accessible, educational and user-friendly interface. **Support this project on Gitcoin Grants today** and make Blockhead your window to the **self-sovereign web** \u2013 a marvel of cryptographic innovation and human coordination!\n\n---\n\n#### \ud83d\udcc7 **TRACK YOUR ONCHAIN ASSETS**\nKeep tabs on your **blockchain accounts**, **web3 identities** and **crypto net worth**, with **token balances**, **DeFi positions**, **NFT collections** and **activity feeds** displayed on a **single page**.\n\n#### \ud83d\udcca **VISUALIZE YOUR ACTIVITY**\nSeamlessly navigate **transactions**, **smart contract interactions** and **web3 data** in full context with a **multi-chain block explorer**, **intuitive visualizations** and **easy-to-read metadata**.\n\n#### \ud83e\udded **EXPLORE THE METAVERSE**\nDiscover an ecosystem of **apps** and **communities** leveraging **credibly-neutral infrastructure** to **allocate** resources, **coordinate** action, **inform** with data and create **web3-native experiences**.\n\n#### \ud83e\udde9 **UNSTOPPABLE WEB3 TECH**\nBuilt and secured with **math**, **cryptography**, composable **software primitives**, **open standards** and **protocols**, **user-owned** accounts and data, and **incentive-aligned** computer networks.\n\n#### \ud83c\udf9b\ufe0f **YOU CONTROL THE DATA**\nThere's no central backend \u2014 **you choose which data sources power the user interface!** Optimize for **speed**, **reliability**, **privacy** and/or **decentralization** without compromise.\n* Choose from **25+ data providers** including Airstack, Alchemy, Blast, Ceramic, Chainbase, Chainlink, CoinGecko, Covalent, Decommas, ENS, Etherscan, Etherspot, Figment, Gateway.\u200bfm, GetBlock, The Graph, IPFS, Infura, Lens, Moralis, NFTPort, Pocket Network, Push, QuickNode, Sourcify, Tenderly, Zapper, Zerion and more!\n\n#### \ud83c\udf10 **TO ETHEREUM & BEYOND!**\nSupporting [**Ethereum**](https://blockhead.info/explorer/ethereum) + **layer-2s** ([Polygon PoS](https://blockhead.info/explorer/polygon), [Gnosis Chain](https://blockhead.info/explorer/gnosis), [Arbitrum](https://blockhead.info/explorer/arbitrum-one)) + the **OP Stack-based Superchain** ([OP Mainnet](https://blockhead.info/explorer/optimism), [Base](https://blockhead.info/explorer/base), [Zora Network](https://blockhead.info/explorer/zora)), **EVM-based chains** ([Aurora](https://blockhead.info/explorer/aurora), [Avalanche](https://blockhead.info/explorer/avalanche), [Binance Smart Chain](https://blockhead.info/explorer/bsc), [Celo](https://blockhead.info/explorer/celo), [Cronos](https://blockhead.info/explorer/cronos), [Evmos](https://blockhead.info/explorer/evmos), [Fantom](https://blockhead.info/explorer/fantom)), and many more **blockchain networks** and **web3-native ecosystems** to come!\n\n---\n\n#### \ud83c\udd71 Features/Integrations\n\n##### \ud83e\uddee [**Portfolio**](https://blockhead.info/portfolio):\n* **Portfolio**: create groups of Ethereum/EVM-based blockchain accounts to estimate their crypto net worth, including token balances, DeFi balances and NFTs owned across multiple chains.\n  * **Add Account**: enter a raw wallet address (`0xabcd...6789`), ENS name (e.g. `vitalik.eth`) or Lens handle (e.g. `stani.lens`), along with one or more supported EVM-based networks.\n* **Account**:\n  * **Balances**: sort assets alphabetically or numerically, and optionally hide tokens with small/insignificant balances.\n  * **DeFi**: view DeFi balances grouped by DeFi protocol (red-colored numbers denote debt/borrowed assets). Optionally show underlying assets backing vaults, liquidity pools, or index tokens.\n  * **NFTs**: browse non-fungible tokens and associated media, optionally grouped by collection (contract). Optionally show their on-chain or off-chain metadata/attributes.\n  * **Feed**: optionally show a live activity feed for supported web3 apps.\n* **Explore**: click any address, DeFi app, NFT contract name, ENS name or Lens handle to show more details in [Explorer](https://blockhead.info/explorer) or [Apps](https://blockhead.info/apps).\n\n##### \ud83d\udd2d [**Explorer**](https://blockhead.info/explorer):\n* Explore **blocks**, **transactions**, **addresses**, and verified **smart contracts** across several **EVM-based blockchain networks**: [Ethereum](https://blockhead.info/explorer/ethereum), [Polygon PoS](https://blockhead.info/explorer/polygon), [Gnosis Chain](https://blockhead.info/explorer/gnosis), [Arbitrum](https://blockhead.info/explorer/arbitrum-one), [Aurora](https://blockhead.info/explorer/aurora), [Avalanche](https://blockhead.info/explorer/avalanche), [Base](https://blockhead.info/explorer/base), [Binance Smart Chain](https://blockhead.info/explorer/bsc), [Celo](https://blockhead.info/explorer/celo), [Cronos](https://blockhead.info/explorer/cronos), [Evmos](https://blockhead.info/explorer/evmos), [Fantom](https://blockhead.info/explorer/fantom), [OP Mainnet](https://blockhead.info/explorer/optimism), [Zora Network](https://blockhead.info/explorer/zora) and [more](https://blockhead.info/explorer)!\n* **Network overview**: monitor statistics for a given network.\n  * Stream the latest blocks\n  * Current block height\n* Look up a **transaction ID**, **block number**, or **address** (`0xabcd...6789`, **ENS name** or **Lens handle**) by typing in the search field or via URL (`https://blockhead.info/explorer/<network-name>/<query>`).\n  * Use the network picker to switch networks on the fly \u2013 the search field query will stay preserved.\n  * Compatible with the EIP-3091 block explorer standard \u2013 add Blockhead to your wallet by replacing `etherscan.io` with `https://blockhead.info/explorer/<network-name>` in your wallet settings!\n* **Address** (externally-owned accounts or smart contracts):\n  * **Balances**: native/ERC-20 token balances associated with the address.\n    * **ERC-20 transfers**: filter for transactions involving a specific ERC-20 token.\n  * **Smart contracts**: browse verified smart contract code uploaded to Etherscan or Sourcify (IPFS).\n* **Block** (by block number):\n  * Look up consensus metadata and transactions included in the block.\n  * Cross-reference blocks produced around the same time on other networks.\n* **Transactions** (by transaction hash):\n  * Browse transactions in three levels of detail:\n    * **Summary**: just the primary action and/or native currency transfers, based on context.\n    * **Detailed**: includes just the smart contract event logs directly involving the address, based on context.\n    * **Exhaustive**: includes all transaction fees and smart contract event logs.\n\n##### \ud83d\udcf1 [**Apps**](https://blockhead.info/apps):\n* Use **alternative interfaces**, **explorers** and **tools** for popular **dapps** and **web3 infrastructure** projects:\n  * [**IPFS**](https://blockhead.info/apps/ipfs): explore and interact with the IPFS network via an explorer, file browser, content uploader, CID decoder visualization and an in-browser IPFS node\n  * [**ENS**](https://blockhead.info/apps/ens): browse registration details and records associated with names on the Ethereum Name Service (e.g. `vitalik.eth`)\n  * [**Lens**](https://blockhead.info/apps/lens): look up Lens profiles by Lens handle (e.g. `stani.lens`)\n  * [**Farcaster**](https://blockhead.info/apps/farcaster): browse the Farcaster social network\n  * [**Ceramic**](https://blockhead.info/apps/ceramic): authenticate DID sessions on Ceramic\n  * [**Disco**](https://blockhead.info/apps/disco): look up verifiable credentials associated with your Disco profile\n  * [**Audius**](https://blockhead.info/apps/audius): search the Audius network for music artists, curators, playlists, and tracks, and play tracks directly from IPFS\n  * [**The Graph**](https://blockhead.info/apps/the-graph): browse GraphQL schemas for subgraphs of popular dapps\n  * **DeFi protocols**: browse smart contracts and token stats for [Uniswap](https://blockhead.info/apps/uniswap), [Aave](https://blockhead.info/apps/aave), [Balancer](https://blockhead.info/apps/balancer), [Compound](https://blockhead.info/apps/compound), [Curve](https://blockhead.info/apps/curve), [1inch](https://blockhead.info/apps/1inch) and more!\n\n##### \ud83d\udcd2 **Accounts & Wallets**:\n* **Wallets**: connect and manage **multiple wallet connections** simultaneously, with easy drag-and-drop access from a toggleable side panel\n  * Supported wallet connection protocols: injected EIP-1193 (browser extensions, mobile in-app browsers), WalletConnect 1.0, WalletConnect 2.0, Coinbase Wallet SDK, webmax.js\n  * Supported wallet brands: MetaMask, Rainbow, Coinbase Wallet, Banana Wallet, IntmaxWallet, Liquality Wallet\n\n##### \u2699\ufe0f **Preferences & Data Sources**:\n* **Appearance**:\n  * **Theme**: choose a light or dark theme for the interface.\n* **Blockchain Data**:\n  * **On-Chain Data**: relay read-only smart contract data through Alchemy, Blast, Chainbase, Etherscan, Figment, Gateway.\u200bfm, GetBlock, Infura, Moralis, Pocket Network, QuickNode, Tenderly or the \"official\" RPC service for a given network.\n  * **Transaction/Blocks**: fetch block/transaction metadata from Chainbase, Covalent, Decommas, Etherscan, Moralis or the chosen RPC service.\n* **Account Data**:\n  * **Token Balances**: relay native tokens and ERC-20 balances through the specified indexer API or RPC network.\n  * **DeFi Balances**: fetch DeFi balances from the Zapper API (off-chain) or the Zerion DeFi SDK (on-chain).\n  * **NFTs**: fetch NFT metadata from Airstack, Chainbase, Covalent, Decommas or NFTPort.\n* **Analytics**:\n  * **Currency**: denominate token balances in terms of your local fiat currency or units of Ethereum or Bitcoin.\n* **Content Networks**\n  * **IPFS Gateway**: sync IPFS content via a local Helia node or bridge over HTTPS via a gateway.\n\n##### \ud83e\ude9f **Data transparency**:\n* All data is sourced though data providers defined in Preferences and tagged with corresponding labels and icons throughout the interface.\n* Preferences and data from Portfolio and Explorer are saved/cached within your browser's local storage instead of a central server.\n\n---\n\n#### \ud83d\udee0\ufe0f Coming soon...\n##### **Contribute now** to help support new features!\n* **More data sources** \u2013 integrations with more data providers and indexing solutions for maximum flexibility, redundancy, and transparency\n  * Tokens\n  * Prices\n  * DeFi\n  * NFTs\n  * Chains\n  * Transactions\n  * Verified smart contract repositories\n  * RPC providers\n  * Event signatures\n  * **Running a web3 infrastructure service or indexing API?** Reach out and sponsor a grant or hackathon \u2013 I'll be happy to add an integration!\n* **More robust/accurate portfolio tracking:**\n  * Token whitelists/blacklists\n  * Auto-detect networks for a given address based on activity\n  * Transactions feed\n  * Improved transaction descriptions\n  * Table views with CSV/JSON export\n  * NFT gallery view with rich multimedia support\n  * Dynamic visualizations for token balances, DeFi positions, transaction history and more\n  * Activity import from centralized exchanges and other CeFi/CeDeFi products\n* **Improved Explorer view:**\n  * Visualizations and human-readable descriptions for common dapp/smart contract interactions: transfers, swaps, deposits, withdrawals, staking, yield farming, minting, burning, governance voting, and more\n  * Image previews when sharing links on Twitter/social media\n  * Add syntax highlighting for Solidity, Vyper, Huff and more\n  * Interact directly with smart contract methods via ABI\n  * Distinguish externally-owned accounts from smart contracts, smart wallet accounts, Safes, proxies\n  * Browse transaction traces\n  * Browse EVM storage\n  * Add graph visualization for token flows and asset transfers\n  * Show token stats/market data for ERC-20 smart contracts\n  * Browse individual NFTs\n  * \"Add to portfolio\" button\n  * Highlight addresses found in your portfolio\n  * Bookmark transactions\n* **Improved Apps view:**\n  * Interactive UI flows for DeFi actions/protocols: exchanges, vaults, liquidity pools, bridges, and more\n  * Generalize the ENS explorer to work with any subgraph from The Graph\n  * Explorer for on-chain and off-chain governance/DAO activity\n  * Lens client: browse, collect and publish posts\n  * Farcaster client: browse and publish casts\n* **Accounts, wallets, web3-native authentication, and data portability:**\n  * Support for Safe, smart contract wallets, EIP-4337 accounts and more\n  * Robust support for all common wallet connection protocols: injected EIP-1193, WalletConnect, Coinbase Wallet SDK, hardware wallets, EIP-6963 discovery\n  * General support for authentication/verification schemes: Sign in with Ethereum, SpruceID\n  * Sync data + preferences peer-to-peer across multiple device/clients running Blockhead instances\n* **Granular preferences and data transparency:**\n  * Choose different/multiple/user-added RPC endpoints and data providers for each chain\n  * Networking introspection with data flow diagrams\n  * Tag data sources and dapps based on their degree of centralization/decentralization, whether on-chain or off-chain\n  * Real-time visualization of blocks, cross-chain messages, token transfers, and more\n* **UI/UX enhancements:**\n  * Context menus\n  * a11y / WAI-ARIA compliance\n  * Global Command+K menu\n  * AI-powered search\n  * Drag and drop entities seamlessly across columns and windows to fill form fields and initiate transfers or other interactions\n  * Multi-column views to show multiple feeds on screen (similar to Tweetdeck)\n* **Experience Blockhead in more places:**\n  * iOS, Android, and progressive web app versions using Capacitor\n  * macOS, Windows, and Linux native versions using Tauri\n  * Decentralized frontend hosting\n  * Decentralized naming systems: ENS, IPNS, Handshake, Unstoppable Domains\n  * Content/storage networks: IPFS, Arweave, Akash, Internet Computer\n  * Distribute via app stores, self-hosted platforms, registries and discovery networks: DAppNode, Umbrel, Urbit, Valist, Everest\n* **Support for more blockchains and consensus-based digital asset networks:**\n  * EVM-based blockchains/sidechains/layer-2s: zkSync, Linea, Scroll, Celestia, Metis, Harmony, RSK, Ethereum Classic and more\n  * Other blockchain/web3 ecosystems: Cosmos, Solana, Arweave, Polkadot/Substrate, Bitcoin, Filecoin and more\n* **Engineering/code quality:**\n  * Documentation, linting, unit tests, end-to-end integration tests\n  * Full TypeScript type safety\n  * Upgrade from ethers.js to viem\n  * Changelog, releases, software versioning scheme\n* **Suggestions welcome** \u2013 make a contribution and [fill out the Feedback form](https://blockhead.info/#feedback)!\n\n---\n\n#### \ud83d\udd14 Follow Blockhead\n* \ud83c\udd71 **App**: [blockhead.info](https://blockhead.info)\n* \ud83d\udc26 **Twitter / \ud835\udd4f**: [twitter.com/0xBlockhead](https://twitter.com/0xBlockhead) \u2022 [twitter.com/darryl__yeo](https://twitter.com/darryl__yeo)\n* \ud83d\udfe3 **Farcaster**: [warpcast.com/blockhead](https://warpcast.com/blockhead) \u2022 [warpcast.com/darrylyeo](https://warpcast.com/darrylyeo)\n\n---\n\n#### \ud83d\udc9d THANK\u2002YOU\n* for supporting **open source software**, **public goods**, **decentralization**, and **resilient financial & internet infrastructure** to last for generations to come! \u2728",
+                        "website": "https://blockhead.info",
+                        "bannerImg": "bafkreiavqehvi4m5wr7alxt7uro4uulstwq7b5fj54jbn7t3v3afymtwda",
+                        "logoImg": "bafkreie5odivzaycebuykqvfalpttoulz3nhasx3hskbj5hc45qhcc3lyy",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiav2xnmwmdrmd447d2tumuvd3dno2kco3g2vlkw2jmmnqlnk3jzom"
+                        },
+                        "userGithub": "darrylyeo",
+                        "projectGithub": "blockhead-info",
+                        "projectTwitter": "0xBlockhead",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x048669c431230A9A8298b7Ec045f1E1137827cCA",
+                                    "provider": "ClearTextTwitter#0xBlockhead",
+                                    "hash": "v0.0.0:lVSbOlx9Z/AF5EQGSV3f3+TSG+b1dIaqNIoKE18O5Y8=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-11T01:34:10.263Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-11T01:34:10.263Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9.._T8mIiuuQlgY9xhY2j2o43abcdCuL5eDfEv0OE61kYLJEYxUke4YBt7K1xO3thwmBV538Vci2kH7ErbGv8sUAw"
+                                },
+                                "expirationDate": "2024-02-09T01:34:10.263Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x048669c431230A9A8298b7Ec045f1E1137827cCA",
+                                    "hash": "v0.0.0:Wk60IWsbT2gG1kZSnuzIDJU/lHoYJ0RHBLl2ddzSVBc=",
+                                    "provider": "ClearTextGithubOrg#blockhead-info#13970789",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-11T04:54:30.800Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-11T04:54:30.800Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..qCFPsiuodzh84U5lU_1NyQG4ugP0cHDXhEGkKAtay3vVqLebaSQWOOg44AeKlxIldoK4MGvT8COoxDNIlzhRAg"
+                                },
+                                "expirationDate": "2024-02-09T04:54:30.800Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "QJWSjFswwUTJSOgZ81lOT5HAaM7uNGPKYZmNRkC7JmFxVO8axaJqM2kRMyMLxdVEpOO1nsNmIZNRTAZRXRlK1A==",
+                                "encryptedSymmetricKey": "160a8ebd210a36ab057504b76f4bbd181155543b6053d3c1c44b6d2147b8a7fbd1fd791affdcb72e026238c96d1e7d096bd726d52759af3f78e74098aefd2eef133eb34fc1238ee382122b2f00266fb9919fd2dd3fd4d6fff50b1d6273e1bab7ec268b53f7d5feb107faa92c3ab2ce69d3e20a4b99b50eaf8daef6f6709592cb0000000000000020b40a5b7b562bab7443a736e6e499f2d234d6ab6a7517b35810b592f3108163fa651d618a17f05dc2accf3c64b7b19a8e"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/darrylyeo/blockhead"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "rnyS1WlbSWnMPslkPHRB0b3aJqw5T2FGVprDgPKw7so=",
+                                "encryptedSymmetricKey": "28c0b3e38a6bca49f6ffa3bc6905bb2428b1e6b25598e22cb18a8bbf3e894d91a3829fd673072df80232a2c2c80a7504051b958656bcd50c6e9085a3946644a0974080811143c74be49730e832320d6a7e9b848a257bda3cb231c4d084ec8da31e769d952741a5f8d45a5278d9afde72f94ee80fda7091565244decc8a3a383a0000000000000020b5c3763d2b8e24b593b0d0f7d80e921a5e23288b6b9731740941fa5ba8ef911504aefa1f80e1d6b0db27417bd6b1ed85"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Blockhead aims to push the boundaries of web3-native UX through its highly accessible, educational and user-friendly interface, including a portfolio tracker, block explorer, and interfaces for DeFi apps and web3 protocols across Ethereum and other EVM-based chains.\n"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "- UX improvements: smarter routing and redirection logic, automatic parsing and format detection for URLs and search inputs\n- Explorer improvements: EIP-3091 compatibility, support for non-EVM blockchain architectures (starting with Filecoin)\n- New primitives: DIDs, verifiable credentials, capability objects\n- Improved TypeScript types and data normalization logic for blocks, transactions, token balances and NFT balances\n- Consolidated several legacy transaction views\n- Migrated most fetching logic to Tanstack Query"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "website traffic / events\nhttps://simpleanalytics.com/blockhead.info"
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "50000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "1"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "36"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://warpcast.com/blockhead\nhttps://twitter.com/0xBlockhead\nhttps://warpcast.com/darrylyeo\nhttps://twitter.com/darryl__yeo"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Metaverse"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

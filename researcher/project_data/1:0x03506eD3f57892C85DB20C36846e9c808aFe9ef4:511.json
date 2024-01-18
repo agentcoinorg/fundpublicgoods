@@ -1,0 +1,310 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:511",
+    "protocol": 1,
+    "pointer": "bafkreiaxnwscrrcslhscjs63ioy7yzjtlfmrypnkcgmzzfbnwxj433ahly",
+    "data": {
+        "title": "Protocol Guild",
+        "description": "Direct funding for Ethereum protocol maintainers!\n\nA collective of ~160 Ethereum core contributors working together to enable commons infra funding that is:\n\n- sourced from the community\n- transparent & onchain https://dune.com/protocolguild/protocol-guild\n- autonomously distributed\n\nMembers come from over 20 different projects, including developers working on clients (eg. Geth, Lighthouse), researchers, and coordination (eg. Ethereum Cat Herders): https://protocol-guild.readthedocs.io/en/latest/9-membership.html\n\nUsing independent, existing governance processes (eg. All Core Devs call, Magician's Forum) members help stewards both Ethereum (the network) and the EVM, taking care to consider current needs and how they may evolve.",
+        "website": "https://protocol-guild.readthedocs.io/en/latest/",
+        "projectTwitter": "ProtocolGuild",
+        "userGithub": "tvanepps",
+        "projectGithub": "protocolguild",
+        "logoImg": "bafkreie35mxbzwch67lgl2rsnaccpy6jsqw7e5hkaz657qhkyuzyejkrky",
+        "bannerImg": "bafkreiaeq2m4qrejdn3ytflcjqoh2rl5wrsllbzy36m5phx4bc6xd63gki",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x4C0a466DF0628FE8699051b3Ac6506653191cc21",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:OSkqkS4qGwhIY2EDJHc1+lsqbJiWY9GSXhm4MNkY8LE=",
+                    "provider": "ClearTextTwitter#ProtocolGuild"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-15T13:43:44.149Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-15T13:43:44.149Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9.._x0bHrVK5RWnmbj25msewil5BvjGAySQsOtbUngYAYwxiB1IuMn2RFMJ_4_o8IJmlKAYToUgNE_ghHJ8_n91BA"
+                },
+                "expirationDate": "2024-02-13T13:43:44.149Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x4C0a466DF0628FE8699051b3Ac6506653191cc21",
+                    "provider": "ClearTextGithubOrg#protocolguild#27454964",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:gqziFmL10QSF/oQw47erPQCFBDOWF7Jv7XabTjrEVEI="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-15T13:45:26.487Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-15T13:45:26.487Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..LxYqSRhWbKfy24boAhUSK_0BzmFR_lPmldF8r4ci64SpjVXOV3yTsLyhW3W-rA9g2CKGHQXVOBWddP29r1B3Bg"
+                },
+                "expirationDate": "2024-02-13T13:45:26.487Z"
+            }
+        },
+        "createdAt": 1681845310807
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-23",
+            "protocol": 1,
+            "pointer": "bafkreia6tz6vljtn4w5psi543tffnwdsobyjlc7vfkhgdzncniexlut3za",
+            "data": {
+                "signature": "0x2d49714aa2ac5de321526c31c4a7bc1a2a105761f7d116a373465e36efc05be664a98bbd4c3a3954ae58abd7972be6b2a0cebee8257ef01c1b5b487c04de860d1b",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x22BdFa4e038F71eEF5a7d2fc6daB383f8d54FD72",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1681845310807,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:511",
+                        "title": "Protocol Guild",
+                        "description": "Direct funding for Ethereum protocol maintainers!\n\nA collective of ~160 Ethereum core contributors working together to enable commons infra funding that is:\n\n- sourced from the community\n- transparent & onchain https://dune.com/protocolguild/protocol-guild\n- autonomously distributed\n\nMembers come from over 20 different projects, including developers working on clients (eg. Geth, Lighthouse), researchers, and coordination (eg. Ethereum Cat Herders): https://protocol-guild.readthedocs.io/en/latest/9-membership.html\n\nUsing independent, existing governance processes (eg. All Core Devs call, Magician's Forum) members help stewards both Ethereum (the network) and the EVM, taking care to consider current needs and how they may evolve.",
+                        "website": "https://protocol-guild.readthedocs.io/en/latest/",
+                        "bannerImg": "bafkreiaeq2m4qrejdn3ytflcjqoh2rl5wrsllbzy36m5phx4bc6xd63gki",
+                        "logoImg": "bafkreie35mxbzwch67lgl2rsnaccpy6jsqw7e5hkaz657qhkyuzyejkrky",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiaxnwscrrcslhscjs63ioy7yzjtlfmrypnkcgmzzfbnwxj433ahly"
+                        },
+                        "userGithub": "tvanepps",
+                        "projectGithub": "protocolguild",
+                        "projectTwitter": "ProtocolGuild",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x4C0a466DF0628FE8699051b3Ac6506653191cc21",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:OSkqkS4qGwhIY2EDJHc1+lsqbJiWY9GSXhm4MNkY8LE=",
+                                    "provider": "ClearTextTwitter#ProtocolGuild"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-15T13:43:44.149Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-15T13:43:44.149Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9.._x0bHrVK5RWnmbj25msewil5BvjGAySQsOtbUngYAYwxiB1IuMn2RFMJ_4_o8IJmlKAYToUgNE_ghHJ8_n91BA"
+                                },
+                                "expirationDate": "2024-02-13T13:43:44.149Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x4C0a466DF0628FE8699051b3Ac6506653191cc21",
+                                    "provider": "ClearTextGithubOrg#protocolguild#27454964",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:gqziFmL10QSF/oQw47erPQCFBDOWF7Jv7XabTjrEVEI="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-15T13:45:26.487Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-15T13:45:26.487Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..LxYqSRhWbKfy24boAhUSK_0BzmFR_lPmldF8r4ci64SpjVXOV3yTsLyhW3W-rA9g2CKGHQXVOBWddP29r1B3Bg"
+                                },
+                                "expirationDate": "2024-02-13T13:45:26.487Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "kCpAZn7Dqxi2d5K638tXmQ94LiLVvtzilj/yyF3+8SL3c9nxN19p9mc+N9ivuoxH",
+                                "encryptedSymmetricKey": "d090e9cfb6ab29317db38195ddac7faeadde504d501a49a77fef1ad933a0bfe39503b08b176ed12f5d9c62b38fa3f502d2e57778a21f7c0d7737d4acc28ba4f06b350fa64e3609d663f525ae2ddb4140dbcf5eb9c8cb7ea6d9b0d9c062d34ca59a3a07a1cb44569e06f44904e6dada6e7afc1cd96f5f85a989e6d4f81ae9f13600000000000000206130f9d02a6820f4b3f6942adc43d8f418b57a67cfea69fd1b9bfecbdf9c519aae481f1d22f0067dde704c70df1a13b1"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/protocolguild"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "OR0EnoL5JpyUnPvRgHRhqDXEGB8T5zdzQ9gCsxiGq+4=",
+                                "encryptedSymmetricKey": "0e6af88ebe0d9a37bde1fece710a87a2a464c791b22bc7f06d8378126412bda496f990bd2ca8c43636d0e95fac3f90086211a801a1cb1f0e7986942550041e0d74fd73df3fec7abaa4c925a55dca485a3fc6e5f2b5adb4127aaf49b88120c680545bd7aa5fbf1c2bb2b176fec8d6654f354c461ec63d45fac6d66bde9cf3892e00000000000000200a9a4104bc7147911669b8ced28af309f23ebe06e2ed2674261f9d4c0b1b18fb00b3552cc0c203a40af7a03ded4e1696"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "A collective of ~160 Ethereum core contributors: includes researchers, client implementors, testing and devops, coordination, etc\n\nsee the total membership and their affiliation here: https://protocol-guild.readthedocs.io/en/latest/9-membership.html"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Work has continued in a number of different areas, including: \n\n- implementing and validating EIP-4844\n-research on MEV burn, PEPC, inclusion lists, and censorship resistance broadly\n- coordination, testing and devops support related to the upcoming Dencun network upgrade"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "The security and continuous block production of ethereum mainnet is crucial for the smooth operation of applications building on the network and L2s using it for settlement. "
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "12000000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "160"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "24"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true,
+                            "answer": ""
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "trent_vanepps\ntimbeiko"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "n/a"
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "N/A"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

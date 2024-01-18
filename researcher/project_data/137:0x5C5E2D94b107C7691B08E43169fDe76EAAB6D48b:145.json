@@ -1,0 +1,102 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:145",
+    "protocol": 1,
+    "pointer": "bafkreihxc6csu3iaxhzcqoqthuazab56khivagdedltbgbjvk47g6m5tr4",
+    "data": {
+        "title": "Chilibangs",
+        "description": "About Chilibangs\n\nChilibangs is one of the largest, most active, positive, fun, and exciting real-life Communities of Web 3 Professionals and Blockchain Enthusiasts in Europe and around the world.\n\nWith a shared common goal of seeing emerging technologies continue to benefit international communities, the goal of Chilibangs is to support, incubate, and cultivate thriving global ecosystems of these technologies and their supportive community builders.\n\nWhen someone interacts with a Chilibangs event, attends a speech by a Chilibangs ambassador, or interacts with our online community tools, the individual is meant to be inspired for the long-term positive trajectory of Blockchain Technology, and they may learn something useful about the current trends of the industry while also feeling connected to an intelligent and open-minded support network of global and growing long term community relationships.\n\n##Vision\nOur vision is to become a global, self-reliant & empowered ecosystem rooted in human values, empowered by blockchain & Web3 for equitable contribution and positive change.\n\n##Mission\nOur mission is to connect individuals & communities through the fusion of blockchain technology, unforgettable events, and infusing the \u201cspice of life\u201d wherever we go.\n\n\n##Roadmap & Data strategy\nTherefore, we are starting to build the Chilibangs Dapp, focusing on lead generation, matching, and creating meaningful connections.\n\nBy giving consent that our attendant\u2019s data can be used during the event, and granting access only to the verifiable processes or foundational AI models proposed to match guests, data privacy and security concerns, entry barriers, and GDPR regulations can be overcome.\n\nFor example, by describing problems crypto projects have and are not willing to publicly share due to protocol security risks, entrepreneurs and developers only need to discuss these issues with **providers that are verified by the community on an IRL event**, and that are ready to help or collaborate.\n\n\n\n##Why Chili?\n\nChili is a metaphor for life: It\u2019s at the same time challenging to get through it, because it\u2019s spicy, but once we get through the spice, it\u2019s vibrant, magical, and explosive.\nChili represents this artistic vein that everyone possesses and can use as their Life Force Energy to create positive change in our society and World.\nThe chili also contains a seed. The seed represents life. Life force energy is in the Chili. Life force energy is within us. We are Chili. We are Creativity, We are this Life\u2019s force and energy.\n\n**We want to take care for our members and creators**, by providing NFT token-gated content, opportunities, and shared resources, as well as courses, data, and time-saving tools.\n\nAdvice, best practices, human resources, and real-world assets to buy, or rent currently are not easy to find on the internet, or can hardly be trusted. \n\nWe are here to embrace and improve networking, lead generation, and education in web3.\n",
+        "website": "https://chilibangs.com/",
+        "projectTwitter": "chilibangs",
+        "userGithub": "Chilibangs",
+        "projectGithub": "Chilibangs",
+        "bannerImg": "bafkreid2e2243dnvfldchi57dlhg2d7uyyhkihbhs26igyz4pruzljacea",
+        "bannerImgData": {},
+        "credentials": {},
+        "createdAt": 1701176407719
+    },
+    "applications": [
+        {
+            "id": "0xc8680ca11bb7d5d1ac148641b32e70c0dbf457be-2",
+            "protocol": 1,
+            "pointer": "bafkreidyjmq54m3v22nnldin3ozuubqhof3rjbaijugqkqg5gioagughju",
+            "data": {
+                "signature": "0x01b16c3bb9bd0bf74265d555fd6b8077722177ca92dd5fd50e19d7030b3a98806c6b921be4cedc5a64fca0b95cfb63e693d8d0808eec51d9f7a576c739b0f8011c",
+                "application": {
+                    "round": "0xc8680ca11bb7d5d1ac148641b32e70c0dbf457be",
+                    "recipient": "0x8721F67E36ac70432c27923Ba3c28A217eFE66A2",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1701176407719,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:145",
+                        "title": "Chilibangs",
+                        "description": "About Chilibangs\n\nChilibangs is one of the largest, most active, positive, fun, and exciting real-life Communities of Web 3 Professionals and Blockchain Enthusiasts in Europe and around the world.\n\nWith a shared common goal of seeing emerging technologies continue to benefit international communities, the goal of Chilibangs is to support, incubate, and cultivate thriving global ecosystems of these technologies and their supportive community builders.\n\nWhen someone interacts with a Chilibangs event, attends a speech by a Chilibangs ambassador, or interacts with our online community tools, the individual is meant to be inspired for the long-term positive trajectory of Blockchain Technology, and they may learn something useful about the current trends of the industry while also feeling connected to an intelligent and open-minded support network of global and growing long term community relationships.\n\n##Vision\nOur vision is to become a global, self-reliant & empowered ecosystem rooted in human values, empowered by blockchain & Web3 for equitable contribution and positive change.\n\n##Mission\nOur mission is to connect individuals & communities through the fusion of blockchain technology, unforgettable events, and infusing the \u201cspice of life\u201d wherever we go.\n\n\n##Roadmap & Data strategy\nTherefore, we are starting to build the Chilibangs Dapp, focusing on lead generation, matching, and creating meaningful connections.\n\nBy giving consent that our attendant\u2019s data can be used during the event, and granting access only to the verifiable processes or foundational AI models proposed to match guests, data privacy and security concerns, entry barriers, and GDPR regulations can be overcome.\n\nFor example, by describing problems crypto projects have and are not willing to publicly share due to protocol security risks, entrepreneurs and developers only need to discuss these issues with **providers that are verified by the community on an IRL event**, and that are ready to help or collaborate.\n\n\n\n##Why Chili?\n\nChili is a metaphor for life: It\u2019s at the same time challenging to get through it, because it\u2019s spicy, but once we get through the spice, it\u2019s vibrant, magical, and explosive.\nChili represents this artistic vein that everyone possesses and can use as their Life Force Energy to create positive change in our society and World.\nThe chili also contains a seed. The seed represents life. Life force energy is in the Chili. Life force energy is within us. We are Chili. We are Creativity, We are this Life\u2019s force and energy.\n\n**We want to take care for our members and creators**, by providing NFT token-gated content, opportunities, and shared resources, as well as courses, data, and time-saving tools.\n\nAdvice, best practices, human resources, and real-world assets to buy, or rent currently are not easy to find on the internet, or can hardly be trusted. \n\nWe are here to embrace and improve networking, lead generation, and education in web3.\n",
+                        "website": "https://chilibangs.com/",
+                        "bannerImg": "bafkreid2e2243dnvfldchi57dlhg2d7uyyhkihbhs26igyz4pruzljacea",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreihxc6csu3iaxhzcqoqthuazab56khivagdedltbgbjvk47g6m5tr4"
+                        },
+                        "userGithub": "Chilibangs",
+                        "projectGithub": "Chilibangs",
+                        "projectTwitter": "chilibangs",
+                        "credentials": {}
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "1oQcBqaHhUlJHpciTOdICbtAYF+23dBQiNcGCya3kqrBwQOxibDlK2H0fDloELBt",
+                                "encryptedSymmetricKey": "1c20342484fdb385f8f8aa831dd00beae7778fef2a806c1bb805d73c02a6b7fdf9482df58e0fe0801295bd45f6938d1764ddd3d245d858fec5fd1ab798f6553c18e449d4bd889217327fb6ffda7e7393d70ff71c28bed2dcdf47fb916f30c7a7b716b6de7f693e3895d4e94d30bc34291100842eae3fdf3c31bb3b4bd5aa4b350000000000000020c91c8d89971012d75f33a0b4e2232cd44e53b6281bcfd1e929070069667b84500c3953ebd485702dc91e370dacbb2f99"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Application detail",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "\nChilibangs is one of the **largest, most active, positive, fun, and exciting real-life Communities** of Web 3 Professionals and Blockchain Enthusiasts in Europe and around the world.\n\nWith a shared common goal of seeing **emerging technologies continue to benefit international communities**, the goal of Chilibangs is to support, incubate, and cultivate thriving global ecosystems of these technologies and their supportive community builders.\n\nWhen someone interacts with a Chilibangs event, attends a speech by a Chilibangs ambassador, or interacts with our online community tools, the individual is meant to be inspired for the long-term positive trajectory of Blockchain Technology, and they may **learn** something useful about the current **trends** of the industry while also feeling connected to an intelligent and open-minded support network of global and growing long term community relationships."
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Amount requested",
+                            "type": "number",
+                            "hidden": true,
+                            "answer": "15.000"
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Payout token",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "USDT"
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Milestones",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "After the approval of the grant, we will make a big announcement, a small celebration, and a special event in Lisbon and start specifying and developing the Chilibangs App.\n\nWe believe that we can leverage network effects and in turn, increase the adoption of crypto for P2P services. \nFor example, creators on YouTube are having a hard time finding out, where they can license a song for their next video, online DJ session, or concert. Instead, they tirelessly search, listen to, and negotiate deals. \nWe would be very happy to showcase the tech stack, the current version of our prototype desktop app, or the mock-ups we want to build. \n\nA grant of 8.000-12.000$ would be of tremendous help to launch the Dapp by the end of the first quarter of 2024. \n\nWe would use the grant to finance the development, Desktop Frontend development, and start with the UX and UI design for our mobile app.\n"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "Funding Sources",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "Sponsors + self funded so far"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "15"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

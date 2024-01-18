@@ -1,0 +1,137 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:192",
+    "protocol": 1,
+    "pointer": "bafkreibjnuevm22r6rrcrfef37vqqsinzuulyn5l3zbt6bgfbjv6z7r75i",
+    "data": {
+        "title": "Nodies",
+        "description": "Nodies [(https://nodies.app)](https://nodies.app) is a web3 infrastructure company offering a broad range of services, including RPC, Snapshots, Validators, and Data Lake. Primarily focused on RPC services, Nodies hosts these on multi-regional, bare-metal servers, ensuring top-tier performance, high Quality of Service (QoS), and enterprise-level SLAs. Nodies currently supports 22 chains and is constantly expanding, and has to-date served over 1 trillion RPC requests. Founded by ex-AWS engineers and with over 2 years experience in operating blockchain nodes, Nodies is able to onboard and integrate with a new chain within an average of 7 days. Nodies provides a straightforward, per-request pricing model that is up to 70% more cost-effective than competitors like Alchemy and Infura. Nodies\u2019 web app platform offers intuitive endpoint creation, API Key and whitelist management, and project organization tools, all under a cost-effective pricing structure.",
+        "website": "https://nodies.app",
+        "projectTwitter": "nodies_infra",
+        "userGithub": " GaryNodies",
+        "projectGithub": "baaspoolsllc",
+        "logoImg": "bafkreifr3aekb6bfhxyc5qy52rqggd2uomtr4gaefd4hgclw3ot5bnypnu",
+        "bannerImg": "bafkreihondkv6t2256mqasicrgdx3rzrezwulv5mwxih5wanc32fyurzwa",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x24372Ba79203e2c68bB7615032A172E3DAed6991",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#nodies_infra",
+                    "hash": "v0.0.0:qsVWwz2xLZWV8nGBjOMRck6Cx02FFkcKL2dewITxFmE="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-09T16:44:15.780Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-09T16:44:15.780Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..JxMy3UK5ZjaCb5w4kkbuDH5ZUtt9DQuGThgnQX2n4zPPXQ05wTv3QTFAxiWt0be_1_oDTOa4JRvrmbuTf7DEDg"
+                },
+                "expirationDate": "2024-04-08T16:44:15.780Z"
+            }
+        },
+        "createdAt": 1704819374704
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-4",
+            "protocol": 1,
+            "pointer": "bafkreiauiny2ah2vhjpmjqg2e3itcozuy4lkta4vpeop4kfgkzojej7b4m",
+            "data": {
+                "signature": "0xdf2666c879e82b0708bf0185c0b63e8d7540e75f1ba2fe56bc52cc3f1c49ef79657daaeecf1ab63a13c942074fd36f70691538fb2c7647da3de205cb90b93a541c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x24372Ba79203e2c68bB7615032A172E3DAed6991",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704819374704,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:192",
+                        "title": "Nodies",
+                        "description": "Nodies [(https://nodies.app)](https://nodies.app) is a web3 infrastructure company offering a broad range of services, including RPC, Snapshots, Validators, and Data Lake. Primarily focused on RPC services, Nodies hosts these on multi-regional, bare-metal servers, ensuring top-tier performance, high Quality of Service (QoS), and enterprise-level SLAs. Nodies currently supports 22 chains and is constantly expanding, and has to-date served over 1 trillion RPC requests. Founded by ex-AWS engineers and with over 2 years experience in operating blockchain nodes, Nodies is able to onboard and integrate with a new chain within an average of 7 days. Nodies provides a straightforward, per-request pricing model that is up to 70% more cost-effective than competitors like Alchemy and Infura. Nodies\u2019 web app platform offers intuitive endpoint creation, API Key and whitelist management, and project organization tools, all under a cost-effective pricing structure.",
+                        "website": "https://nodies.app",
+                        "bannerImg": "bafkreihondkv6t2256mqasicrgdx3rzrezwulv5mwxih5wanc32fyurzwa",
+                        "logoImg": "bafkreifr3aekb6bfhxyc5qy52rqggd2uomtr4gaefd4hgclw3ot5bnypnu",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibjnuevm22r6rrcrfef37vqqsinzuulyn5l3zbt6bgfbjv6z7r75i"
+                        },
+                        "userGithub": " GaryNodies",
+                        "projectGithub": "baaspoolsllc",
+                        "projectTwitter": "nodies_infra",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x24372Ba79203e2c68bB7615032A172E3DAed6991",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#nodies_infra",
+                                    "hash": "v0.0.0:qsVWwz2xLZWV8nGBjOMRck6Cx02FFkcKL2dewITxFmE="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-09T16:44:15.780Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-09T16:44:15.780Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..JxMy3UK5ZjaCb5w4kkbuDH5ZUtt9DQuGThgnQX2n4zPPXQ05wTv3QTFAxiWt0be_1_oDTOa4JRvrmbuTf7DEDg"
+                                },
+                                "expirationDate": "2024-04-08T16:44:15.780Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "F3r7dCp7a2znTvEqYQ59DPoyzJpPxpc+vBeYtmXhZJs=",
+                                "encryptedSymmetricKey": "7cc8ec5061314b1cc1af61fc60d00b5bc5521ed201ebcd084939907266538f84a66fc07187dc9d87473abd40c0084b0daf3abf57b3184ee61e6de18b3be26cd097cb55698284b1f0d127afbaee4a9fc1497a53bfeccf31df66b29cc98ddb45b22276434a1a4cd042e5bb61d09df3808d2ca957a4aa3f7d674b9000fa250404ff000000000000002047d8b58f1e483d686a1cee82f79aacec87e44e90f3294d965f523da5e66d16d9d51d3a466da87059614d1bec03ed8cb6"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "\n**WHO ARE WE?**\n\nNodies [(https://nodies.app)](https://nodies.app) is a self-funded, bootstrapped company specializing in web3 infrastructure services such as RPC endpoints, crosschain data lakes, blockchain data downloads/snapshots, and more. We have been supporting the Polygon network for over 2 years, over 78 billion RPC requests across multiple Polygon chains (PoS, Mumbai, zkEVM).\n\n**WHAT ARE WE BUILDING?**\n\nWe are committed to the growth and decentralization of the Polygon Network. One of our core offerings is our RPC services, with public endpoints that are open to everyone on all three Polygon chains: Mainnet / PoS, Mumbai, and zkEVM. These endpoints are available free-of-charge as public good, as we believe they are pivotal in offering seamless, high-performance access to blockchain networks, democratizing the availability of essential blockchain resources.\nIn addition, Nodies is spearheading efforts to develop OSS gateways ([Github Repository](https://github.com/baaspoolsllc)) within the decentralized RPC protocol, Pocket Network, an initiative that not only simplifies the onboarding process for additional gateways within the Pocket Network but also holds significant advantages for the Polygon Network; the resulting integration will enable dApps to access tens of thousands Polygon RPC nodes without spending on expensive hardware, providing virtually unlimited growth and scalability to the Polygon ecosystem.\n\n\n**WHY ARE WE BUILDING THIS?**\n\nOur initiatives are driven by the vision to fortify the decentralization principles that the Polygon ecosystem aspires to. Our RPC endpoints serve as a foundation for this vision, offering decentralized access to critical blockchain services. Simultaneously, our work on the OSS gateways with the Pocket Network, which boasts over 18,000 decentralized nodes worldwide, is a strategic move to strengthen the decentralization of RPC services across the network.\n\nThe Gateway Kit, with its open-source nature and minimal spec requirements, ensures that everyone in the community can leverage the extensive network of Pocket Network's noderunners. This approach is key to providing accessible, cost-effective, and high-performance RPC services to the Polygon ecosystem.\n\n\n**HOW WILL WE USE THE GRANT?**\n\nWith the support of this grant, Nodies plans to significantly scale our initiatives, enhancing both the scope and the efficiency of our services. Specifically, the grant funds will be allocated to:\n\n1. Development and Expansion of RPC Endpoints: We aim to expand our existing Polygon RPC Infrastructure, increasing the capacity and resilience to serve a growing number of users and applications on the Polygon network.\n2. Staffing and Resourcing: Continue to maintain open source projects such as the OS Gateway and Public polygon infrastructure for Mainnet / PoS, Mumbai, and zkEVM.\n3. Community Engagement and Support: Part of the grant will be dedicated to community engagement, education, and support. This includes hosting workshops, creating documentation, and providing direct support to users and developers leveraging our services.\n4. Research and Development: We will invest in ongoing research and development to stay at the forefront of blockchain technology, ensuring that our services remain highly relevant, performant, and secure.\n\n\n**FINAL THOUGHTS**\n\nWe are very excited about building this, and with your support, we can make this project come true, and propel Polygon toward a more decentralized future. Thank you for your consideration!"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

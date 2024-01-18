@@ -1,0 +1,308 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:206",
+    "protocol": 1,
+    "pointer": "bafkreib6acxb6tyobwub3dfa3haiedu6oehjxzz7u7i46gzg5ycxl7vwl4",
+    "data": {
+        "title": "Somer Esat Ethereum Staking Guides (Ubuntu)",
+        "description": "Hello,\n\nI have created a series of Ethereum mainnet and testnet staking how-to guides for staking on Ubuntu.\n\n- Configuring Withdrawal Credentials\n\n- Ethereum Consensus Clients: Lighthouse, Nimbus, Prysm, Teku, and Lodestar\n\n- Ethereum Execution Clients: Besu, Erigon, Geth, and Nethermind\n\nThese guides are intended for new/intermediate users, and are hopefully a reasonable and pleasant onboarding vehicle for newcomers to the Ethereum staking community.\n\nUpcoming work: \n\n- Execution Client performance review\n\nYour support is appreciated <3\n\nSomer\n\nSee [here](https://github.com/SomerEsat/ethereum-staking-guides) for guide listing and change logs.",
+        "website": "https://someresat.medium.com",
+        "projectTwitter": "SomerEsat",
+        "userGithub": "SomerEsat",
+        "projectGithub": "SomerEsatGuides",
+        "logoImg": "bafkreiagtlbhkjgglue3jdfohnx5aavgzbzwsay7op6nu5txujbartn4rm",
+        "bannerImg": "bafybeigfrkb4n4dab5zzup42vdwlx3iq2jhd6shplxiaccim4lyrmvawmu",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x32B74B90407309F6637245292cd90347DE658A37",
+                    "hash": "v0.0.0:4oSJstqmoURlMaVbkIBv5HsbEHDeVXMYTLjGGI/sZ70=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#SomerEsat"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T07:43:44.686Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T07:43:44.686Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..Epw_MtfToBkXqDdKfdMjpAqDQaEo_wO2DpBbKRF8rnqENbFZxV8z8D_hLtI0alq_3uMLOq-xxWjL6Yz1zoECDA"
+                },
+                "expirationDate": "2024-02-06T07:43:44.686Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x32B74B90407309F6637245292cd90347DE658A37",
+                    "hash": "v0.0.0:oJrc9eSg4FiMRGXmkPFZhoRz8uWoGcBM6FopLoMS1ow=",
+                    "provider": "ClearTextGithubOrg#SomerEsatGuides#60827187",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T07:44:28.109Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T07:44:28.109Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..YZk8OW84vOpeSWOHTM-W0ylN0FxlVPtugmeLe0lcP5NZcn9p7ZQdKNrfUJzQ1HwTSB4-vxwh-k83aWjaYm2VAw"
+                },
+                "expirationDate": "2024-02-06T07:44:28.109Z"
+            }
+        },
+        "createdAt": 1673732387464
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-2",
+            "protocol": 1,
+            "pointer": "bafkreifxonjmogm4po2pbvfa6xlrfpwqjwq2i7cmcfh7vezmomsj5hwz4y",
+            "data": {
+                "signature": "0x32b41fd0540d6cab3bc223d7240d55e6dc27a428b0b0a6676a49eed02fbcdc924736b5e0ae8b190f4de4df2bc80e8ede01559f670a276f2a0fd873ac2acdfde01c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x32B74B90407309F6637245292cd90347DE658A37",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673732387464,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:206",
+                        "title": "Somer Esat Ethereum Staking Guides (Ubuntu)",
+                        "description": "Hello,\n\nI have created a series of Ethereum mainnet and testnet staking how-to guides for staking on Ubuntu.\n\n- Configuring Withdrawal Credentials\n\n- Ethereum Consensus Clients: Lighthouse, Nimbus, Prysm, Teku, and Lodestar\n\n- Ethereum Execution Clients: Besu, Erigon, Geth, and Nethermind\n\nThese guides are intended for new/intermediate users, and are hopefully a reasonable and pleasant onboarding vehicle for newcomers to the Ethereum staking community.\n\nUpcoming work: \n\n- Execution Client performance review\n\nYour support is appreciated <3\n\nSomer\n\nSee [here](https://github.com/SomerEsat/ethereum-staking-guides) for guide listing and change logs.",
+                        "website": "https://someresat.medium.com",
+                        "bannerImg": "bafybeigfrkb4n4dab5zzup42vdwlx3iq2jhd6shplxiaccim4lyrmvawmu",
+                        "logoImg": "bafkreiagtlbhkjgglue3jdfohnx5aavgzbzwsay7op6nu5txujbartn4rm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreib6acxb6tyobwub3dfa3haiedu6oehjxzz7u7i46gzg5ycxl7vwl4"
+                        },
+                        "userGithub": "SomerEsat",
+                        "projectGithub": "SomerEsatGuides",
+                        "projectTwitter": "SomerEsat",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x32B74B90407309F6637245292cd90347DE658A37",
+                                    "hash": "v0.0.0:4oSJstqmoURlMaVbkIBv5HsbEHDeVXMYTLjGGI/sZ70=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#SomerEsat"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T07:43:44.686Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T07:43:44.686Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..Epw_MtfToBkXqDdKfdMjpAqDQaEo_wO2DpBbKRF8rnqENbFZxV8z8D_hLtI0alq_3uMLOq-xxWjL6Yz1zoECDA"
+                                },
+                                "expirationDate": "2024-02-06T07:43:44.686Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x32B74B90407309F6637245292cd90347DE658A37",
+                                    "hash": "v0.0.0:oJrc9eSg4FiMRGXmkPFZhoRz8uWoGcBM6FopLoMS1ow=",
+                                    "provider": "ClearTextGithubOrg#SomerEsatGuides#60827187",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T07:44:28.109Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T07:44:28.109Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..YZk8OW84vOpeSWOHTM-W0ylN0FxlVPtugmeLe0lcP5NZcn9p7ZQdKNrfUJzQ1HwTSB4-vxwh-k83aWjaYm2VAw"
+                                },
+                                "expirationDate": "2024-02-06T07:44:28.109Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "V7F6o+FOe2DsRNrZ9W0R+M2gwu53LHkmFVrLnheAz8o3ZHisGlIt7dcTLRkyqwhN",
+                                "encryptedSymmetricKey": "4cb80c4d28091468741ce6131925d7cf7649eddc7f2118ae6dd2092a9541067872de859e38a0340a730c561d2410c2012da02f5f8b0c77bcc792975dc17d56c762e292104a3557921e9e2aed7e93d4c3824d1fa766da036a8739b78a7a8f43aa192eba4110091d8da902a05416394a00aefa0e50b19a1018376238ad123d14980000000000000020baa46a85a116c5f8b8573a0b929cff406135c918dc4148fa4710c828132b1a6f676e2c1553940ead94c44c99f0c67890"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/SomerEsat/ethereum-staking-guides"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "3pgRYzQdHDletRprCAXDoKHlNJmJGtzQO1QXZXQSL/E=",
+                                "encryptedSymmetricKey": "7625e6cb73a26891607a584f21cb39b9093015cc50e8bdef7f25ba94317922d8afe84823cc179bacbf1bdb5e05150205b85fdde5f455e7142bc6ef909e8946e86b2a751f64ba137c67be7bc0abf4068cd5971a8996635c7d7f1cadc20801dd86defb16666182c5fccfead9f37d58043f1a5c6a12db9cb65f8bf7e353324fbb3800000000000000205cb7a53e35c63dc5e3d2a92afee8a11bf2fd30e8eafa2c59295c8b839ac73bee9339bd4fc1b1cc3c0665422c9ffff894"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "The guides in this project provide detailed easy-to-follow technical instructions for new and existing Ethereum Stakers to setup an execution and consensus client to participate in solo-staking."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Current work in progress (commissioned by the Ethereum Foundation) is to undertake an assessment of execution client performance."
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Impact is difficult to measure directly. There are statistics from medium.com which show number of reads per month (approx. 1000).\n\nThe impact on Ethereum and the staking community is more difficult to measure, however, the guides provide a consistent approach to setting up a solo-staking effort, which also makes it easy for the community to support new stakers."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "100000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "1"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "38"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "North America"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

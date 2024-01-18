@@ -1,0 +1,137 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:197",
+    "protocol": 1,
+    "pointer": "bafkreiax5nayaeo67hic2nzmdzbk6iwt3dgzidk2gq66x2ity7gm6qvuia",
+    "data": {
+        "title": "Polyzoa - Scam Defender",
+        "description": "**Polyzoa** serves as an embedded anti-scam security layer within the core node infrastructure, automatically accessible to all Web3 services and ensuring default protection for connected dApps and wallets. \nUnlike most security solutions that rely on static blacklists and manual investigations, we are developing a dynamic threat detection technology. Already in its early stages, our technology is capable of identifying 85% of previously unseen phishing scams and even blocking signed phishing transactions.\n\n**Polyzoa offers enhancements to web3 security by being:**\n1\ufe0f\u20e3 Non-intrusive to end users.\n2\ufe0f\u20e3 Hassle-free for Web3 projects and devs.\n3\ufe0f\u20e3 Beneficial for infrastructure providers.\n",
+        "website": "https://www.polyzoa.xyz",
+        "projectTwitter": "Polyzoa_xyz",
+        "userGithub": "",
+        "projectGithub": "Polyzoa",
+        "logoImg": "bafkreighuxr2zdjyhzuepk7hvpsyhb3hkza2z5d2a4tvjb4rwwafrruecm",
+        "bannerImg": "bafkreigjngx43rs6pbty3qpyf75rhaztw5m57z2njwnsaqimkdfcxigzdq",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x608d10B86e62b35498345Bb88051D4eF45c4e2d5",
+                    "provider": "ClearTextTwitter#Polyzoa_xyz",
+                    "hash": "v0.0.0:qPBQ0J0a+Fjp2kcqYifgwlqHGN8p6mdbBSHNFuQaIaw=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-09T17:46:06.378Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-09T17:46:06.379Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..sd0q-VljSLyZvPKwDdNfrq_thVnRc28GSWScA75VGS2OuqQCQuJ1ZJvIk_L3oE-yKWq285yOgVHz6FB7-MT_Cg"
+                },
+                "expirationDate": "2024-04-08T17:46:06.378Z"
+            }
+        },
+        "createdAt": 1704883860890
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-13",
+            "protocol": 1,
+            "pointer": "bafkreibv6q3a7r5n6vafcmt6ovdwf5ns7zp7hskwn5bnxpcbiqsfumlpri",
+            "data": {
+                "signature": "0x9572ba3e0f114a7bfdb26a1fb66ccbabaff6afd8509e41f3d835e995425d4da031b713c95d808eab42d3f6d4d58a45f957d4ffc5146e52c6becaf70e8ef3ca091b",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x608d10B86e62b35498345Bb88051D4eF45c4e2d5",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704883860890,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:197",
+                        "title": "Polyzoa - Scam Defender",
+                        "description": "**Polyzoa** serves as an embedded anti-scam security layer within the core node infrastructure, automatically accessible to all Web3 services and ensuring default protection for connected dApps and wallets. \nUnlike most security solutions that rely on static blacklists and manual investigations, we are developing a dynamic threat detection technology. Already in its early stages, our technology is capable of identifying 85% of previously unseen phishing scams and even blocking signed phishing transactions.\n\n**Polyzoa offers enhancements to web3 security by being:**\n1\ufe0f\u20e3 Non-intrusive to end users.\n2\ufe0f\u20e3 Hassle-free for Web3 projects and devs.\n3\ufe0f\u20e3 Beneficial for infrastructure providers.\n",
+                        "website": "https://www.polyzoa.xyz",
+                        "bannerImg": "bafkreigjngx43rs6pbty3qpyf75rhaztw5m57z2njwnsaqimkdfcxigzdq",
+                        "logoImg": "bafkreighuxr2zdjyhzuepk7hvpsyhb3hkza2z5d2a4tvjb4rwwafrruecm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiax5nayaeo67hic2nzmdzbk6iwt3dgzidk2gq66x2ity7gm6qvuia"
+                        },
+                        "userGithub": "",
+                        "projectGithub": "Polyzoa",
+                        "projectTwitter": "Polyzoa_xyz",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x608d10B86e62b35498345Bb88051D4eF45c4e2d5",
+                                    "provider": "ClearTextTwitter#Polyzoa_xyz",
+                                    "hash": "v0.0.0:qPBQ0J0a+Fjp2kcqYifgwlqHGN8p6mdbBSHNFuQaIaw=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-09T17:46:06.378Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-09T17:46:06.379Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..sd0q-VljSLyZvPKwDdNfrq_thVnRc28GSWScA75VGS2OuqQCQuJ1ZJvIk_L3oE-yKWq285yOgVHz6FB7-MT_Cg"
+                                },
+                                "expirationDate": "2024-04-08T17:46:06.378Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "gkCz0TdL2lk4TdthxNIet4L0l/IjtuK7E8Iol/tmOupq2zCwnhtXnuk++tIKrSfs",
+                                "encryptedSymmetricKey": "1ba84f647486332bcbca16688c2b86c747555f7310f69182f850514fb29ab3eb98418dd1245b7f6bd7db14403b10f40c45484b2478992ec0f33806fc4c608f28974fdcc05ba4ef600a529129775a3249d43e68dbecd96d1f1bf75b4958f57d91a933a9007d4b7d75920c2ea875dbb53bdf700cf0abe78a1d344bf2475aa794d900000000000000200a1599dcccabe8b7a272ee596e37cfefe7696d571812b6843eb178a34dd056f4cf478a8938dedfd1372a1cf04c703983"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "## \ud83e\uddb8 Executive summary:\nLeveraging its success on Ethereum, Polyzoa is expanding to the Polygon ecosystem to enhance security against rising crypto scams. Its innovative machine learning system proactively identifies and mitigates emerging threats, strengthening Polygon's infrastructure. Polyzoa's commitment to decentralization and open-source principles underlines this expansion, aiming for a universally accessible and updatable security layer.\n\n ## \u26a0\ufe0fThe Urgent Problem:\nAccording to Chainalysis, 2022, a relatively slow year for the market, witnessed a staggering $5.9 billion in crypto thefts. The ultra-destructive \u201cDrainer\u201d phishing mechanism alone accounted for $300 million in losses last year and shows signs of accelerating its loss rate and sphere of impact in 2024. Existing security solutions primarily focus on the Ethereum mainnet, leaving the Polygon chain vulnerable, particularly as drainers increasingly target layer-2 chains. As these imminent threats evolve and disperse from the main layer-1 networks, specialized protection solutions for Polygon, as a leading L2 chain, become increasingly crucial.\n\n## \ud83d\ude80 Innovative Solution Delivery:\nPolyzoa aims to engineer real-time, adaptive defense mechanisms against the evolving landscape of scams within the Polygon ecosystem. Our machine learning-based solution is designed to recognize the unique characteristics of Polygon-related scams, offering:\n\n1\ufe0f\u20e3 A model that analyzes millions of historical transactional patterns to identify anomalies and deviations from normal behavior. This approach is complemented by heuristics, rule-of-thumb strategies, and filters, combining to strengthen our scam detection system. It provides a proactive means to identify and mitigate potential threats on the blockchain.\n\n2\ufe0f\u20e3 A real-time risk assessment API for monitoring and evaluating addresses, transactions, and approvals.\n\n3\ufe0f\u20e3 Effortless integration with existing Polygon infrastructure, including Polygon RPCs.\n\n4\ufe0f\u20e3 Continuous updates through the Polyzoa extension, ensuring the Polygon community has access to the latest security advancements for free.\n\n## \u2764\ufe0f\u200d\ud83d\udd25 Impact on the Polygon Ecosystem:\nOur solution is poised to significantly elevate the inherent security capabilities of the Polygon network, offering robust protection against advanced scams and fraud. This enhancement will bolster the trust and reliability of the entire infrastructure.\n\n## \ud83c\udf0d Decentralization and Open Source:\nA primary goal of ours is to create a widely-used security layer that can run on-chain and be updated by anyone. We aspire for builders to seamlessly integrate it into any node and use it for free, either by contributing to the code or data. This commitment to open-source principles will be realized once we have the capacity for such an initiative.\n\n## \ud83d\udea8 Call to Action:\nAs a team without prior funding, this grant is crucial for our progress and ability to evolve faster than the malicious actors we are combating. We invite the community to support Polyzoa by contributing, testing, or providing feedback. Join us in strengthening the Polygon ecosystem against the ever-evolving threat of scams.\n\n## \ud83e\uddd9\u200d\u2642\ufe0f Team:\n\n**Polyzoa is developed by serial entrepreneurs with extensive expertise in blockchain and ML tech:**\n**Kirill Tiufanov, Product**: 2x exited founder, with a background in Adtech and Fintech startups (including fraud protection).\n**Massimiliano \u2018Massi\u2019 Gerardi, Tech**: A blockchain and DeFi enthusiast from inception, co-founder of a blockchain analytics platform, with over 10 years of tech leadership.\n**Dr. Peter Zimmerman, Science**: PhD in theoretical physics, has held fellowships at highly respected/renowned research institutes, with 5 years of experience in machine learning and hundreds of scientific paper citations.\n**Ignat Romanov**: Boasting 15 years of development experience. Developed and expanded the NFT collateralized lending system and Digital Asset Management.\n**Attilio Trovato**: MSc in Big Data and over 4 years of experience in ML engineering."
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,195 @@
+{
+    "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:611",
+    "protocol": 1,
+    "pointer": "bafkreibokuitp7cya2rrkvsnp6vtiqrhye52h56jof2hnqf7qydp5t55ca",
+    "data": {
+        "title": "Pheasant Network",
+        "description": "Pheasant Network is an optimistic bridge between Layer 1 and Layer 2s inspired by the idea of optimistic rollups. We aim to bring the concept to bridge architecture to address Ethereum\u2019s interoperability challenges as well as scalability issues. Our robust security system and cost-effective design enable cheaper and faster asset transfers between Ethereum and Layer 2 networks while ensuring security and decentralization.\n\nOur mission is to provide a long-term contribution to the Ethereum ecosystem as a community-driven project and serve the public good. We are looking forward to your participation in creating a sustainable solution together.",
+        "website": "https://pheasant.network",
+        "projectTwitter": "PheasantNetwork",
+        "userGithub": "chopper-chopper",
+        "projectGithub": "Pheasant-Network",
+        "logoImg": "bafkreidoaxuazqbs7i3elnhff72xgriupqafrycmlkzx7xp6555gbw3hqq",
+        "bannerImg": "bafkreiduqtqjsiiurbpgiotzfswzoap6fcyjqg43usslravrcxl74rrxoy",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x248528f5A2C3731fb598E8cc1dc5dB5f997E74BC",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:Y0gfewyvWflUrjltvx1CJ3m6+vI7F3OSg0MNnScNKDw=",
+                    "provider": "ClearTextTwitter#PheasantNetwork"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-10T10:38:06.296Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-10T10:38:06.296Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..O_eNIF2GxDYeZs9qTGn6qehW8v5s6Rf37vmZHIcdfIHxyhzqiFbnUcw3muK6S_rI6QjmXUKpXt3RKNmonEaYCQ"
+                },
+                "expirationDate": "2024-04-09T10:38:06.296Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x248528f5A2C3731fb598E8cc1dc5dB5f997E74BC",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#Pheasant-Network#119774438",
+                    "hash": "v0.0.0:nmEqdFExQguFRnjvw2ryBxijquC2aodGs+7jbaY8wm8="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-10T10:44:14.326Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-10T10:44:14.326Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..6j0jbotnbPj23qq4b10T2XUu4W-4L0Ammf6kCSRx7iXPiw4HtLlxGhAkhqESQTyySq6ft57fsWD-XdYjYMeRBg"
+                },
+                "expirationDate": "2024-04-09T10:44:14.326Z"
+            }
+        },
+        "createdAt": 1691124545280
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-5",
+            "protocol": 1,
+            "pointer": "bafkreiahzujpa6tk62k4rpmcx5ozjcuidk3nmcnwocyb6x6oc4juuc5hym",
+            "data": {
+                "signature": "0xfaafa9be6a9b6a11431a7d1ad0b7754553d5e664d49355784c37142da31d31540adcdc600a1cd2a25f94b55f51570a1fc1f5c380b23b33f64e440d87f8df02d71c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x248528f5A2C3731fb598E8cc1dc5dB5f997E74BC",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1691124545280,
+                        "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:611",
+                        "title": "Pheasant Network",
+                        "description": "Pheasant Network is an optimistic bridge between Layer 1 and Layer 2s inspired by the idea of optimistic rollups. We aim to bring the concept to bridge architecture to address Ethereum\u2019s interoperability challenges as well as scalability issues. Our robust security system and cost-effective design enable cheaper and faster asset transfers between Ethereum and Layer 2 networks while ensuring security and decentralization.\n\nOur mission is to provide a long-term contribution to the Ethereum ecosystem as a community-driven project and serve the public good. We are looking forward to your participation in creating a sustainable solution together.",
+                        "website": "https://pheasant.network",
+                        "bannerImg": "bafkreiduqtqjsiiurbpgiotzfswzoap6fcyjqg43usslravrcxl74rrxoy",
+                        "logoImg": "bafkreidoaxuazqbs7i3elnhff72xgriupqafrycmlkzx7xp6555gbw3hqq",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibokuitp7cya2rrkvsnp6vtiqrhye52h56jof2hnqf7qydp5t55ca"
+                        },
+                        "userGithub": "chopper-chopper",
+                        "projectGithub": "Pheasant-Network",
+                        "projectTwitter": "PheasantNetwork",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x248528f5A2C3731fb598E8cc1dc5dB5f997E74BC",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:Y0gfewyvWflUrjltvx1CJ3m6+vI7F3OSg0MNnScNKDw=",
+                                    "provider": "ClearTextTwitter#PheasantNetwork"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-10T10:38:06.296Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-10T10:38:06.296Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..O_eNIF2GxDYeZs9qTGn6qehW8v5s6Rf37vmZHIcdfIHxyhzqiFbnUcw3muK6S_rI6QjmXUKpXt3RKNmonEaYCQ"
+                                },
+                                "expirationDate": "2024-04-09T10:38:06.296Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x248528f5A2C3731fb598E8cc1dc5dB5f997E74BC",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#Pheasant-Network#119774438",
+                                    "hash": "v0.0.0:nmEqdFExQguFRnjvw2ryBxijquC2aodGs+7jbaY8wm8="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-10T10:44:14.326Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-10T10:44:14.326Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..6j0jbotnbPj23qq4b10T2XUu4W-4L0Ammf6kCSRx7iXPiw4HtLlxGhAkhqESQTyySq6ft57fsWD-XdYjYMeRBg"
+                                },
+                                "expirationDate": "2024-04-09T10:44:14.326Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "+PHU8e1H7TzgMkMcOu3L5nK+nZvrYg16lATA2nyzzE5zrskddWIQFX5tNG6PtCTw",
+                                "encryptedSymmetricKey": "b1e86d401de5e140b025b809e2b3e89dac63d52725060d67d35eab63fd71bd43dc90479e13beb4d33ee098079c8a2616d729866704367a79b65ee860f7bea3ce446f6692a855f485f5757a086ce0a6cf32f8ebc435524abdfebc8eb54c6f13a6f9633ca10f8cebfe57570a236d366e4ed859f7751e557e48db9f6ec5b65259c20000000000000020eeb0e1b12a5a0b1d7155f02670f828af4655cfb1bde750d49f32aaf515e3d28e494fd96ba39aaec2ae31856c5534a8a6"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "## Overview\nPheasant Network is an optimistic bridge specialized for Layer 2. We have succeeded in smoothly connecting Ethereum to Polygon and Polygon zkEVM ecosystem by optimistically handling bridge transactions. We also invented a unique decentralized liquidity mechanism and achieved high security performance that is resistant to hacking. Our mission is to provide a long-term contribution to the Ethereum and Polygon ecosystem as a community-driven project and serve the public good.\n\n## The challenges we solve\nWe envision an L2 Gate. The bridge will be the entry point to Polygon, as users will always need to go through some sort of bridge to transfer their assets to Polygon. By using the optimistic bridge like Pheasant Network, to bridge assets from Ethereum and other Layer 2s to Polygon, users can significantly reduce their gas costs. In order to get more assets flowing into DApps in the Polygon ecosystem, it is important to reduce gas costs for the bridge as much as possible.\n\n## How we benefit the Polygon ecosystem\nWe have already integrated Polygon PoS and Polygon zkEVM in the mainnet. In the future, when Polygon CDK networks explode, we believe that not only canonical Polygon CDK bridges, but also optimistic bridges will be indispensable. This is because optimistic bridges are currently the most cost-effective and fastest of all bridge types. We will continue to contribute to the Polygon ecosystem by actively bridging the Polygon CDK ecosystem.\n\nIn addition, we are also developing a Layer 2-specific learning service called L2 Learn, which is nearing launch and can also support Polygon. We believe that through the bridges and learning hubs we provide, we will be able to further promote Polygon.\n\n## How grants help us\nWe need a budget this time, not for development, but for liquidity in supporting Polygon and Polygon zkEVM on the mainnet. We have developed an automatic rebalancing mechanism so that we can offer a smooth optimistic bridge on the mainnet.\n\nBecause the use of the grant budget is clearly defined, valuable budgetary resources are not wasted on abstract \"development costs.\n\n## Links\n- Website: https://pheasant.network/\n- Twitter (X): https://twitter.com/PheasantNetwork\n- Discord: https://discord.gg/pRYSEUVERT"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
