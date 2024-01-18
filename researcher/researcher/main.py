@@ -9,7 +9,6 @@ from researcher.models.project import Project
 load_dotenv()
 
 def fetch_projects(directory: str) -> list[Project]:
-    print(os.listdir("."))
     all_data: list[Project] = []
 
     for filename in os.listdir(directory):
@@ -48,8 +47,6 @@ def fetch_projects(directory: str) -> list[Project]:
 def main():
     projects = fetch_projects(directory="./project_data")
     result = evaluate_projects(prompt="AI applied to crypto markets", projects=projects)
-    
-    print(result)
 
 if __name__ == '__main__':
     main()
