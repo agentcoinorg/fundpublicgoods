@@ -1,5 +1,5 @@
 
-from chromadb import chromadb
+from chromadb import EphemeralClient
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -40,6 +40,7 @@ def remove_duplicate_projects(projects: list[Project]) -> list[Project]:
 
 def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
     queries = generate_queries(prompt=prompt, n=3)
+    print(queries)
     
     documents: list[Document] = []
       
@@ -49,10 +50,12 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
             Document(page_content=project_text, metadata=project.model_dump())
         )
         
+    db_client = EphemeralClient()
+        
     collection = Chroma.from_documents(
         documents=documents,
-        embeddings=OpenAIEmbeddings(),
-        client=chromadb.EphemeralClient()
+        embedding=OpenAIEmbeddings(),
+        client=db_client,
         collection_name="projects"
     )
     
@@ -107,6 +110,8 @@ def evaluate_projects(prompt: str, projects: list[Project]):
     evaluation = evaluation_chain.invoke({
         "prompt": prompt,
         "separator": separator,
-        "projects": stringify_projects(projects=projects, separator=separator)
+        "projects": stringify_projects(projects=top_matching_projects, separator=separator)
     })
+    
+    print(evaluation)
     
