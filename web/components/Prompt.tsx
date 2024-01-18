@@ -5,12 +5,17 @@ import TextField from "./TextField";
 import ChatInputButton from "./ChatInputButton";
 import SparkleIcon from "@/public/sparkle-icon.svg";
 import Image from "next/image";
+import { triggerResearch } from "@/app/actions";
 
 export default function Prompt() {
   const [prompt, setPrompt] = useState<string>();
   const [isWaiting, setIsWaiting] = useState(false);
 
-  const sendPrompt = () => {};
+  const sendPrompt = async () => {
+    console.log("he")
+    await triggerResearch();
+    // await fetch(process.env.WORKER_URL)
+  };
 
   const suggestions = [
     "Ethereum infrastructure",
