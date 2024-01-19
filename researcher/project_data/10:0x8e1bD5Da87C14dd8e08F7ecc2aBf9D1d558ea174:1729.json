@@ -1,0 +1,46 @@
+{
+    "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1729",
+    "protocol": 1,
+    "pointer": "bafkreibpwubthl466b5r232sirkjragd5ndkucd23k3xjar7nft3bwka34",
+    "data": {
+        "title": "Model-Based Systems Engineering",
+        "description": "LunCo Submodule for [Model Based Systems Engineering](https://insights.sei.cmu.edu/blog/introduction-model-based-systems-engineering-mbse/) based on [Arcadia/Capella](https://en.wikipedia.org/wiki/Arcadia_(engineering))\n\n",
+        "website": "https://lunco.space/",
+        "logoImg": "bafkreibnihy3iambeygnh67unip56k32d2sts4x2j6qrzl7mtch6oiu4wm",
+        "bannerImg": "bafkreig27mx6wftt442tmplbdsnvm6bhlm3vda7ftucaj7z2mcwulllt6y",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {},
+        "createdAt": 1704940200815
+    },
+    "applications": [
+        {
+            "id": "0xe03ebeb65bf0704f208bff15d994ea246d69b96c-2",
+            "protocol": 1,
+            "pointer": "bafkreiezp3e2sjgbftqt5argfju3fklcnf7eeulrdg5h2conxujogneyuu",
+            "data": {
+                "signature": "0x402a4458f28e74871aa66c9751cbe3b38969a805926a867da1ca9db0a475091a6c6861c732bcd669629cf52b70a56f64f6ba718af211f48ea01dfd6f155d79801c",
+                "application": {
+                    "round": "0xe03ebeb65bf0704f208bff15d994ea246d69b96c",
+                    "recipient": "0xcb57A8f51C47E243ea0f6061Af5B2C9932eEe820",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704940200815,
+                        "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1729",
+                        "title": "Model-Based Systems Engineering",
+                        "description": "LunCo Submodule for [Model Based Systems Engineering](https://insights.sei.cmu.edu/blog/introduction-model-based-systems-engineering-mbse/) based on [Arcadia/Capella](https://en.wikipedia.org/wiki/Arcadia_(engineering))\n\n",
+                        "website": "https://lunco.space/",
+                        "bannerImg": "bafkreig27mx6wftt442tmplbdsnvm6bhlm3vda7ftucaj7z2mcwulllt6y",
+                        "logoImg": "bafkreibnihy3iambeygnh67unip56k32d2sts4x2j6qrzl7mtch6oiu4wm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibpwubthl466b5r232sirkjragd5ndkucd23k3xjar7nft3bwka34"
+                        },
+                        "credentials": {}
+                    },
+                    "answers": []
+                }
+            }
+        }
+    ]
+}

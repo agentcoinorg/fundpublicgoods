@@ -1,0 +1,310 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:62",
+    "protocol": 1,
+    "pointer": "bafkreicuk7l6btxquognarhbht3og4wlc4kmoi6uedknat5yyumurq2ip4",
+    "data": {
+        "title": "ethers.js",
+        "description": "The ethers.js library is a complete and compact library for interacting with the Ethereum (and ilk) Blockchains and ecosystem.\n\nWith over 4 million npm installs per month, Ethers can be used to create dapps, wallets and utilities as well as debug and analyze blockchain data.\n\nKeep up to date with the latest updates by checking out the [CHANGELOG](https://github.com/ethers-io/ethers.js/blob/main/CHANGELOG.md), which is updated on each npm publish.\n\nA huge thanks to everyone who has helped make Ethers possible. You all rock! Hack the planet! <3",
+        "website": "https://ethers.org",
+        "projectTwitter": "ricmoo",
+        "userGithub": "ricmoo",
+        "projectGithub": "ethers-io",
+        "logoImg": "bafkreiba4ex3nvm6bdnc75yb4ejzqcvccbdc5ci6gjjt6zc43iugsxkc24",
+        "bannerImg": "bafybeia5lgtuhubvlgk7ssjoo55rsxt3zpwbaxddybq2rqrox345j4mvfa",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+                    "provider": "ClearTextGithubOrg#ethers-io#975687",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:vdrRq+pggcjDwg/Py3eBWBqvPzx8dG1K57B+a1Y1W4o="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-09T15:28:46.533Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-09T15:28:46.533Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..oTdgSSHn__VOwHpfyHQIkxtqgmTOjZa9w5a2_XjE63tAy_czTL08qqJ12N3qtnwGh7a6hh6pTvKsUxl-npAABA"
+                },
+                "expirationDate": "2024-02-07T15:28:46.533Z"
+            },
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+                    "provider": "ClearTextTwitter#ricmoo",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:ynIPtyqUYu/TZqE+f061HD06N37sUfdX94SNwupf9RA="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-09T15:28:59.741Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-09T15:28:59.742Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..7DRNKlohxYLZUTrfF0kK5hS0EYJSzvKqzkX4ckbVVUow_djllAd2HZbbkcCoWMOD41ZgjtegHPv6w4E78czSAw"
+                },
+                "expirationDate": "2024-02-07T15:28:59.741Z"
+            }
+        },
+        "createdAt": 1673073607340
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-12",
+            "protocol": 1,
+            "pointer": "bafkreibhyysncxflpe6uc457io7dmcguugoo5uspjt3xe5ajwynjehqhk4",
+            "data": {
+                "signature": "0x2a4841fd8f60dd4ba0b1ddc726b7f0068ae2f9b3e651a52f749723bcac7ff9c946591dced19cd0e46bcd70141d84546a8304f5ab44ee70bc2ba6b6ec0485ec821c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673073607340,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:62",
+                        "title": "ethers.js",
+                        "description": "The ethers.js library is a complete and compact library for interacting with the Ethereum (and ilk) Blockchains and ecosystem.\n\nWith over 4 million npm installs per month, Ethers can be used to create dapps, wallets and utilities as well as debug and analyze blockchain data.\n\nKeep up to date with the latest updates by checking out the [CHANGELOG](https://github.com/ethers-io/ethers.js/blob/main/CHANGELOG.md), which is updated on each npm publish.\n\nA huge thanks to everyone who has helped make Ethers possible. You all rock! Hack the planet! <3",
+                        "website": "https://ethers.org",
+                        "bannerImg": "bafybeia5lgtuhubvlgk7ssjoo55rsxt3zpwbaxddybq2rqrox345j4mvfa",
+                        "logoImg": "bafkreiba4ex3nvm6bdnc75yb4ejzqcvccbdc5ci6gjjt6zc43iugsxkc24",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreicuk7l6btxquognarhbht3og4wlc4kmoi6uedknat5yyumurq2ip4"
+                        },
+                        "userGithub": "ricmoo",
+                        "projectGithub": "ethers-io",
+                        "projectTwitter": "ricmoo",
+                        "credentials": {
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+                                    "provider": "ClearTextGithubOrg#ethers-io#975687",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:vdrRq+pggcjDwg/Py3eBWBqvPzx8dG1K57B+a1Y1W4o="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-09T15:28:46.533Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-09T15:28:46.533Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..oTdgSSHn__VOwHpfyHQIkxtqgmTOjZa9w5a2_XjE63tAy_czTL08qqJ12N3qtnwGh7a6hh6pTvKsUxl-npAABA"
+                                },
+                                "expirationDate": "2024-02-07T15:28:46.533Z"
+                            },
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x8ba1f109551bD432803012645Ac136ddd64DBA72",
+                                    "provider": "ClearTextTwitter#ricmoo",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:ynIPtyqUYu/TZqE+f061HD06N37sUfdX94SNwupf9RA="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-09T15:28:59.741Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-09T15:28:59.742Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..7DRNKlohxYLZUTrfF0kK5hS0EYJSzvKqzkX4ckbVVUow_djllAd2HZbbkcCoWMOD41ZgjtegHPv6w4E78czSAw"
+                                },
+                                "expirationDate": "2024-02-07T15:28:59.741Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "sz4oJL+InEtkWuJezbwDF95gaE/uDXboHEAdFdDc6ao=",
+                                "encryptedSymmetricKey": "4ee0f3adad9a1c5aebe8995d8e39d168306356c81c5087f8ad85d314719a503339013b40be219d58d64f5a98f0007a0a979d72b3ff7a2dd425a2ce5b82dfa32bf486d97d7a7a4ba7275fae8aa495cd730f5a6fe25637a28b78a70996c6d1c9b1f12f645d479e6e3ffcaa50fe3a9ab3553114132892d2fa338b14cb465e1635830000000000000020cbca127a6f0bd6ed1d808a3c670d7ee89b2185e98b9098a0d213e23d578a714baf22090615ce6a6e76885ab46a1cc5aa"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/ethers-io/ethers.js"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "OUk07VU97np6pQr/OTfOok26Vu5qkugqXgAuwCc8tQg=",
+                                "encryptedSymmetricKey": "98ef046020d99854d34861f714b5d5e7d7282da30c2cc7fe762e8dfc12208a69c8156d81dcf781c92f135b13de5ddc0f44bbccc8d0b7a283419268e716d0eed09999eff9f10d87936a0656f96cf050a958998d04363979f88d16cf387d9b54813fdec68d9b60d1be36c551021759e784e3baea71967d7e343a79498363f81ecc0000000000000020f78fdfba328589d2b15eb392ba24e003c560c25e3cd6485c9c39b3963a9d369258713f2c2671bcb922f67da760804784"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "ricmoo"
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://discord.gg/qYtSscGYYc"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Ethers.js is one of the most widely used libraries in the ecosystem with over 4 million monthly downloads, it is used by projects such as MetaMask, OpenSea, and zkSync to name a few.\n\nIt is designed with an emphasis on safety (garbage-in-error-out opposed to garbage-in-garbage-out) and developer experience using sensible high-level APIs. "
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Many of the updates have involved bug fixes, improving documentation and also a minor bump to move to the latest (audited) crypto libraries, expand API features and improve readability of Errors throughout Ethers.\n\nA lot of work is being put into EIP-4337 and planning for v7, in which Account Abstraction will be a first-class citizen."
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Metrics I normally track to monitor the health of Ethers are npm downloads (including the version break-down to monitor migration), GitHub issues created vs issues closed,  and GitHub stars and forks."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "500000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "1"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "88"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "North America"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

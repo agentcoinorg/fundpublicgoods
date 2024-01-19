@@ -1,0 +1,309 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:173",
+    "protocol": 1,
+    "pointer": "bafkreibneolzxzim2y34j53pisij2hxn6gjebot4s6ecfq2aonipsigimy",
+    "data": {
+        "title": "Stereum - Ethereum Node Installer & Manager",
+        "description": "### THE PROBLEM \n\nSetting up an Ethereum Node is technically demanding and needs a lot of research & preparation to do. Being confronted with this challenge, a lot of people therefore choose to use a staking service. A understandable choice: if they are in the position of owning 32 ETH, they do not want to risk their funds. But, in turn, this slowly centralizes the network. \n\n\n### OUR SOLUTION  \n\nOur answer to this problem is STEREUM, our Ethereum node installation, setup & management tool.  \n\nStereum is a toolkit to simplify the process of setting up and maintaining an Ethereum/Gnosis Node. It provides an intuitive GUI to ease the installation process down to a few clicks, lessening the technical entry barrier to a minimum. By reducing complexity, Stereum will therefore attract more individual stakers to the network, promoting Ethererum\u2019s principle of decentralization. \n\n\nTo use Stereum, you download the launcher and connect remotely to your fresh Ubuntu server. \n\nIn only three clicks Stereum will configure all necessary prerequisites your server has to meet, install and run Ethereum client software, and will ensure that your node is properly connected and synced with the network. \n\nBy setting up your own node with Stereum, you are able to participate in Solo Staking in your prefered network and validate transactions and blocks. Your node also serves as your gateway to the network for data science, dApp usage and development. \n\nAs Stereum aims to be the most flexible way to leverage your node for ETH staking, you also have the opportunity to run different node related protocols (like SSV, etc.) and profit of their unique architecture. \n\n\n### \ufeffUSE OF FUNDS  \n\n\ufeffYour contribution is greatly appreciated by the team and will be used in various ways \u2013 development, testing and security audits. We spend the funds generated through grants and donations purely on tasks that will benefit the progress of the project and therefore the decentralization of Ethereum as well as the protocols on it. \n\n### FURTHER LINKS\n\n- \ud83c\udf44\ufeff Project Website - https://stereum.net/\n- \ud83d\udd28\ufeff GitHub - https://github.com/stereum-dev/ethereum-node\n- \ud83d\udcac\ufeff Discord - https://discord.gg/DzAwgnSXtB\n- \ud83d\udcf0\ufeff Twitter - https://twitter.com/stereumdev\n- \ud83d\udcfa\ufeff YouTube - https://www.youtube.com/@Stereum",
+        "website": "https://stereum.net",
+        "projectTwitter": "stereumdev",
+        "userGithub": "stefa2k",
+        "projectGithub": "stereum-dev",
+        "logoImg": "bafkreiejifxxruoky56lgsentptmvt5bugftfv2zqrdvjhzxccyafty5au",
+        "bannerImg": "bafkreie4jnbuiu3gx75pxpp3vlffpflfixsv25i4s6ckhq2k3k5lthjuzq",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x6E41fe2F8303b89c9dbcCABE59A7F7f8F4312cA9",
+                    "hash": "v0.0.0:3Z4WYB8fzEDozu1Fl2fv1Y4DdM50uQ0syc2zoXtQ+To=",
+                    "provider": "ClearTextTwitter#stereumdev",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-09T19:31:53.528Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-09T19:31:53.528Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..TxT3CsPCxq6Y84Z0cby0hcV2TZmcbRcgNjVuM9e6yiIG6pcgHe3E7K-qHnFpM9_ssVeaNX-q72LXgIpTG_eRDQ"
+                },
+                "expirationDate": "2024-02-07T19:31:53.528Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x6E41fe2F8303b89c9dbcCABE59A7F7f8F4312cA9",
+                    "provider": "ClearTextGithubOrg#stereum-dev#54934211",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:sIF2FxVDf4e5X96xso7PSOZ5UtfDXG066XVi3VwSdJI="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-09T19:32:33.283Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-09T19:32:33.283Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..nFk72AAYBs8myyvzRlXJlvPW1xwElThN8bEZv7wX_gsFJ3Tj-Y88TY_1zqtDhxKKc4MTSD4hS0GdMPz6VrHLBg"
+                },
+                "expirationDate": "2024-02-07T19:32:33.283Z"
+            }
+        },
+        "createdAt": 1673594113902
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-14",
+            "protocol": 1,
+            "pointer": "bafkreiavx7lq47ly77zywwmquzghw6mhlx4aih4op3w6g77onh4qhrorjq",
+            "data": {
+                "signature": "0x4b1cc770989a22c90c8a6d76dd0517f6e4a98188015a8b4e8a370049bbd0d81207f3b2ee5c0cca07584bbae207a6f25715eda659f58ae98b7c3addba840742491b",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x6E41fe2F8303b89c9dbcCABE59A7F7f8F4312cA9",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673594113902,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:173",
+                        "title": "Stereum - Ethereum Node Installer & Manager",
+                        "description": "### THE PROBLEM \n\nSetting up an Ethereum Node is technically demanding and needs a lot of research & preparation to do. Being confronted with this challenge, a lot of people therefore choose to use a staking service. A understandable choice: if they are in the position of owning 32 ETH, they do not want to risk their funds. But, in turn, this slowly centralizes the network. \n\n\n### OUR SOLUTION  \n\nOur answer to this problem is STEREUM, our Ethereum node installation, setup & management tool.  \n\nStereum is a toolkit to simplify the process of setting up and maintaining an Ethereum/Gnosis Node. It provides an intuitive GUI to ease the installation process down to a few clicks, lessening the technical entry barrier to a minimum. By reducing complexity, Stereum will therefore attract more individual stakers to the network, promoting Ethererum\u2019s principle of decentralization. \n\n\nTo use Stereum, you download the launcher and connect remotely to your fresh Ubuntu server. \n\nIn only three clicks Stereum will configure all necessary prerequisites your server has to meet, install and run Ethereum client software, and will ensure that your node is properly connected and synced with the network. \n\nBy setting up your own node with Stereum, you are able to participate in Solo Staking in your prefered network and validate transactions and blocks. Your node also serves as your gateway to the network for data science, dApp usage and development. \n\nAs Stereum aims to be the most flexible way to leverage your node for ETH staking, you also have the opportunity to run different node related protocols (like SSV, etc.) and profit of their unique architecture. \n\n\n### \ufeffUSE OF FUNDS  \n\n\ufeffYour contribution is greatly appreciated by the team and will be used in various ways \u2013 development, testing and security audits. We spend the funds generated through grants and donations purely on tasks that will benefit the progress of the project and therefore the decentralization of Ethereum as well as the protocols on it. \n\n### FURTHER LINKS\n\n- \ud83c\udf44\ufeff Project Website - https://stereum.net/\n- \ud83d\udd28\ufeff GitHub - https://github.com/stereum-dev/ethereum-node\n- \ud83d\udcac\ufeff Discord - https://discord.gg/DzAwgnSXtB\n- \ud83d\udcf0\ufeff Twitter - https://twitter.com/stereumdev\n- \ud83d\udcfa\ufeff YouTube - https://www.youtube.com/@Stereum",
+                        "website": "https://stereum.net",
+                        "bannerImg": "bafkreie4jnbuiu3gx75pxpp3vlffpflfixsv25i4s6ckhq2k3k5lthjuzq",
+                        "logoImg": "bafkreiejifxxruoky56lgsentptmvt5bugftfv2zqrdvjhzxccyafty5au",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibneolzxzim2y34j53pisij2hxn6gjebot4s6ecfq2aonipsigimy"
+                        },
+                        "userGithub": "stefa2k",
+                        "projectGithub": "stereum-dev",
+                        "projectTwitter": "stereumdev",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x6E41fe2F8303b89c9dbcCABE59A7F7f8F4312cA9",
+                                    "hash": "v0.0.0:3Z4WYB8fzEDozu1Fl2fv1Y4DdM50uQ0syc2zoXtQ+To=",
+                                    "provider": "ClearTextTwitter#stereumdev",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-09T19:31:53.528Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-09T19:31:53.528Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..TxT3CsPCxq6Y84Z0cby0hcV2TZmcbRcgNjVuM9e6yiIG6pcgHe3E7K-qHnFpM9_ssVeaNX-q72LXgIpTG_eRDQ"
+                                },
+                                "expirationDate": "2024-02-07T19:31:53.528Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x6E41fe2F8303b89c9dbcCABE59A7F7f8F4312cA9",
+                                    "provider": "ClearTextGithubOrg#stereum-dev#54934211",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:sIF2FxVDf4e5X96xso7PSOZ5UtfDXG066XVi3VwSdJI="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-09T19:32:33.283Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-09T19:32:33.283Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..nFk72AAYBs8myyvzRlXJlvPW1xwElThN8bEZv7wX_gsFJ3Tj-Y88TY_1zqtDhxKKc4MTSD4hS0GdMPz6VrHLBg"
+                                },
+                                "expirationDate": "2024-02-07T19:32:33.283Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "2zIXJ0DB82H201YL7X4F9btbooHwyExkIv6dy9WCkfAgr80w3VzScW6GPqeb/JFw",
+                                "encryptedSymmetricKey": "44e1c29e13bd9c1eb083c38d45e6013833259ecd4a53a24a58dfcae6b698e5f6c7aaaa1515a1a04ca8125eeb91e0880996f047bb414a4936af3be76f6063b266f3112466bc273928e0e411362cf393fe759d14d6e563efc62adf917e28a203b76e212ba5e4e452a8a770fe4aa8423a58408d2738f2ab538462704d54cfc74733000000000000002045e68cd314acff3d9fd972dde503f3ab6961ec42002628e8645e4298755c77c9b63f20cb8155f38492514774093ba3ac"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/stereum-dev/ethereum-node"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "TkuWDZJo6KTpMTvtx5tDcQVHGgl6cRoLnCEZ69akhWc=",
+                                "encryptedSymmetricKey": "ce226a693e017ddc4b189404e0d821fd9c6f8dd3d12418a70eb9b67775028e6744225369f488a85e554386efc4c6e80be1f6e0df2c7604b409972a5594129db3b881895c6fe11ce2a664d5a5c16417d1bd431269a350ef5907f923a6eb6fc683e4f66e4d51bf9ecdedea033b12be6fc1ad07d55e9758e73b3aabb9ad734acfdb000000000000002023e616af11091000b921f2fa0fd47be45c2c16ce9738db003678e8b0e37166bc145153c846c458391d2d470d455748b2"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://discord.gg/8Znj8K6GjN"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Helping people setting up their own Ethereum node"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "We finally got to release the 2.0.0 version!\nAnd this included since the last Gitcoin Grant Round a ton of new features: \n- Redesigned Node & Edit Node Page, as well as installation\n- Added Archive Node Option\n- Reth Support\n- Remove Bloxroute Ethical Relay\n- Holesky Testnet Support\n- Simple Server Access Management\n\n\nFuture ideas for what we should include are currently discussed. Visit the Github issue & make a suggestion! "
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "We value the privacy and data of users of Stereum and therefore don't collect any data on usage. However, we collect discord user counts as well as download rates."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "275000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "9"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "45"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/Stefa2kEth"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Europe"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

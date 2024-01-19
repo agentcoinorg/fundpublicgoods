@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "researcher"
+version = "0.1.0"
+description = ""
+authors = ["Nestor Amesty <nestor09amesty@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain = "^0.1.1"
+mypy = "1.8.0"
+langchain-openai = "^0.0.2.post1"
+python-dotenv = "^1.0.0"
+chromadb = "^0.4.22"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

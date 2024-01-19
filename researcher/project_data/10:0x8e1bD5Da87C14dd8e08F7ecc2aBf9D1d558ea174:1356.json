@@ -1,0 +1,253 @@
+{
+    "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1356",
+    "protocol": 1,
+    "pointer": "bafkreialfsbkbv776mvpvy23klzq2z2ndyrd7p2sugnsr65rtxeih7byfy",
+    "data": {
+        "title": "OpenZeppelin Contracts",
+        "description": "**OpenZeppelin Contracts Library**\n\nSince the early days of Solidity in 2016, OpenZeppelin Contracts has been the go-to library for smart contract development. Today it is used by everyone from development teams of the largest projects transacting billions of dollars each day to individuals building blockchain applications.\n\nThe Contracts Library is owned by the OpenZeppelin team, however, the roadmap is highly collaborative and involves a lot of feedback from the Ethereum ecosystem. In addition, to this our team is regularly involved in introducing new ERC and EIP specifications or providing feedback and improvements to the Solidity programming language.\n\n**Impact Metrics**\n\nThe following metrics demonstrate the widespread use and impact of the OpenZeppelin Contracts Library:\n\n- Total Value Locked in OpenZeppelin Contracts on Ethereum Mainnet: $15.67B\n- Active Contracts (2023 YTD): 78,629\n- Deployments (2023 YTD): 26,581\n- Transactions Processed (2023 YTD): 61,062,561\n\nPlease keep in mind that these estimates are approximate. The method used to calculate these on-chain metrics uses [Allium](https://www.allium.so/) to extract data from the Ethereum Mainnet and the [Smart Contract Sanctuary](https://github.com/tintinweb/smart-contract-sanctuary) to segment the data into Total and Verified with OpenZeppelin contracts.\nTo view the full stats [click here](https://contracts.openzeppelin.com/security).\n\n**5.0 Release**\n\nRecently, the team released our 5.0 version of the contracts library, the first major release since 2021. This latest release introduced:\n\n- [Modern best practices](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#AModernizedContracts5.0)\u00a0work out-of-the-box, including\u00a0[namespaced storage](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#Namespaced)\n- [Simplified codebase for ever-improving security](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#Simplifications)\n- [Efficiency improvements, including reduced gas consumption](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#gas-efficiency)\n- [Modernizing access control with AccessManager](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#redefining)\n- [More advanced testing, including new fuzzing and formal verification rules](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#best-in.class)\n\nThe OpenZeppelin team also invested 38 audit weeks to secure the 5.0 release. Please visit our [security center](https://contracts.openzeppelin.com/security) for further details on the security and metrics related to the contracts library.\n\n**Usage of Funds**\n\nThe funds will be used to continue developing the contracts library, provide continuous security checks for new versions and implement feedback from the community received after the 5.0 release. ",
+        "website": "https://openzeppelin.com/contracts",
+        "projectTwitter": "openzeppelin",
+        "userGithub": "xdaluca",
+        "projectGithub": "OpenZeppelin",
+        "logoImg": "bafkreidefiqxzn5cznwyscxrbg2vpjiylnk3ykbhmtri6gmsmpih6oip7q",
+        "bannerImg": "bafkreienqyjupdt325s74fyddeej4cfd2cpu5obahzkltv6t7e6yhmnbri",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xfdF797C29AcB326F3902254ab5ae2419eBDfc595",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#OpenZeppelin#80516439",
+                    "hash": "v0.0.0:KX1erYmpd5esGjYHxkoEQvJoNdTPmusXFF0ZgSW6g5w="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-05T19:31:45.455Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-05T19:31:45.455Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..YeAM27-tNP1xmGXyH97avn5i2WX7HBsDEWYI3hcLkcVHXPHb4rk1ZUlnh698xg3jCTKatIf07oG_x361R8xwDw"
+                },
+                "expirationDate": "2024-02-03T19:31:45.455Z"
+            }
+        },
+        "createdAt": 1699213748696
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-25",
+            "protocol": 1,
+            "pointer": "bafkreic4qmoi4iav7q6wpyqdgk5gs575f6buflaulo5gy3d2n4phf7jwli",
+            "data": {
+                "signature": "0x5e2e54ef1eda12c2d01a51029b7cab7754574e81d7cb27a094f7eaa2babe3f1e11a77169002421e93c74d07a63d5ed659ab9f9f62c2d817d6666caa452f953581c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x1f439B2625621E00EA80B9BCF6626330c9DeE158",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1699213748696,
+                        "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1356",
+                        "title": "OpenZeppelin Contracts",
+                        "description": "**OpenZeppelin Contracts Library**\n\nSince the early days of Solidity in 2016, OpenZeppelin Contracts has been the go-to library for smart contract development. Today it is used by everyone from development teams of the largest projects transacting billions of dollars each day to individuals building blockchain applications.\n\nThe Contracts Library is owned by the OpenZeppelin team, however, the roadmap is highly collaborative and involves a lot of feedback from the Ethereum ecosystem. In addition, to this our team is regularly involved in introducing new ERC and EIP specifications or providing feedback and improvements to the Solidity programming language.\n\n**Impact Metrics**\n\nThe following metrics demonstrate the widespread use and impact of the OpenZeppelin Contracts Library:\n\n- Total Value Locked in OpenZeppelin Contracts on Ethereum Mainnet: $15.67B\n- Active Contracts (2023 YTD): 78,629\n- Deployments (2023 YTD): 26,581\n- Transactions Processed (2023 YTD): 61,062,561\n\nPlease keep in mind that these estimates are approximate. The method used to calculate these on-chain metrics uses [Allium](https://www.allium.so/) to extract data from the Ethereum Mainnet and the [Smart Contract Sanctuary](https://github.com/tintinweb/smart-contract-sanctuary) to segment the data into Total and Verified with OpenZeppelin contracts.\nTo view the full stats [click here](https://contracts.openzeppelin.com/security).\n\n**5.0 Release**\n\nRecently, the team released our 5.0 version of the contracts library, the first major release since 2021. This latest release introduced:\n\n- [Modern best practices](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#AModernizedContracts5.0)\u00a0work out-of-the-box, including\u00a0[namespaced storage](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#Namespaced)\n- [Simplified codebase for ever-improving security](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#Simplifications)\n- [Efficiency improvements, including reduced gas consumption](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#gas-efficiency)\n- [Modernizing access control with AccessManager](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#redefining)\n- [More advanced testing, including new fuzzing and formal verification rules](https://blog.openzeppelin.com/introducing-openzeppelin-contracts-5.0#best-in.class)\n\nThe OpenZeppelin team also invested 38 audit weeks to secure the 5.0 release. Please visit our [security center](https://contracts.openzeppelin.com/security) for further details on the security and metrics related to the contracts library.\n\n**Usage of Funds**\n\nThe funds will be used to continue developing the contracts library, provide continuous security checks for new versions and implement feedback from the community received after the 5.0 release. ",
+                        "website": "https://openzeppelin.com/contracts",
+                        "bannerImg": "bafkreienqyjupdt325s74fyddeej4cfd2cpu5obahzkltv6t7e6yhmnbri",
+                        "logoImg": "bafkreidefiqxzn5cznwyscxrbg2vpjiylnk3ykbhmtri6gmsmpih6oip7q",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreialfsbkbv776mvpvy23klzq2z2ndyrd7p2sugnsr65rtxeih7byfy"
+                        },
+                        "userGithub": "xdaluca",
+                        "projectGithub": "OpenZeppelin",
+                        "projectTwitter": "openzeppelin",
+                        "credentials": {
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xfdF797C29AcB326F3902254ab5ae2419eBDfc595",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#OpenZeppelin#80516439",
+                                    "hash": "v0.0.0:KX1erYmpd5esGjYHxkoEQvJoNdTPmusXFF0ZgSW6g5w="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-05T19:31:45.455Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-05T19:31:45.455Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..YeAM27-tNP1xmGXyH97avn5i2WX7HBsDEWYI3hcLkcVHXPHb4rk1ZUlnh698xg3jCTKatIf07oG_x361R8xwDw"
+                                },
+                                "expirationDate": "2024-02-03T19:31:45.455Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "zx+FNRM5LYxWQt0kyGNWmnN/zNFS90GAzhyOrnhTzO0Smg25bwU0xLJm0jNfCXRM",
+                                "encryptedSymmetricKey": "2b52542ec8ed5272da9f131b25a8edcc6ae6382e1b9e19f45a2498b225fdefd219af68a82c79ff8508af4bc6955ba90b5b27b55e939ffcd6978c555fa3387956a81c33c877b0c2adfc35c66b2eac40013dc7ee1e988549a70180b94c9412efaecfe3d3ec55ce7130cd335fd74a11af1fd0380f82db9229a4d9011335a1a38bdf00000000000000207d31094e97baa0104a32b997106d9b12160beabd4013f5985b288fc429555b5e26943c551003c6d70c7bd8fb2b38cca7"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/OpenZeppelin/openzeppelin-contracts"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "nJOVO/BIiD3YTyBGhJJJup2y/zLkQQD7zt4lq5MK0+8=",
+                                "encryptedSymmetricKey": "50baa7f24708f7a0a64c5d477ef08178bd42c803d36ff4c847f0e10bbdadd3e2df1b8392d4bbba1eaf8db50e61424b19d807d6348432df3773c2a834ea421fd08ecb36f361fdb84275717f8f33aa9fe56f40d148c3a654f15817c4e9f2c8e698e023ed5af60af252fe4b24b7d87db6bcf777be592186e0fc479caeba9b4ac38300000000000000204d98b0d25771b37905d4ad208caa1d634e535dc5c496901768bff99cf22619aadda7d85546973cfd92827e3dffbb9c94"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://forum.openzeppelin.com/"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "OpenZeppelin enables teams and individuals to deploy secure and standard contracts on the Ethereum network. This reduces deployment friction and increases the number of secure contracts for participants interacting with the network."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Some metrics have already been shared in the project description. Nonetheless, our three main sources of impact metrics come from on-chain data, npm download, and GitHub. Here are our top 3 impact metrics, one from each source:\n\n- Total Value Locked in OpenZeppelin Contracts on Ethereum Mainnet: $15.7B\n- @openzeppelin/contracts npm package downloads (up to 11/16/23): 27,854,689\n- GitHub stars of the openzeppelin-contracts repository: 23,247\n\nFYI for the next answer, the total prior funding refers to the RetroPGF 2: 181,764.94 OP (received as part of the tooling & utilities category)"
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "181764.94"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants",
+                                "Sales"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "6"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "84"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/Amxx\nhttps://twitter.com/ernestognw\nhttps://twitter.com/martriay\nhttps://twitter.com/ericglau\nhttps://github.com/ericnordelo\nhttps://twitter.com/frangio_"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": ""
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "N/A"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

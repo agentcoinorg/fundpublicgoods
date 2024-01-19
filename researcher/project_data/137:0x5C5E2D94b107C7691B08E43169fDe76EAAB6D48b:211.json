@@ -1,0 +1,135 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:211",
+    "protocol": 1,
+    "pointer": "bafkreic2ujtj5gbwdkcfkv2udsjqmgqjifierefwumuooae355jwamil3e",
+    "data": {
+        "title": "Porfo ",
+        "description": "\nPorfo is wallet ecosystem, designed to simplify the gateway to web3 space. By providing an intelligent assistant that works as your on-chain intern which is capable of querying and also executing trades.\n\nThink of Porfo as your on-chain intern who is managing your portfolio 24x7 and also giving you insights on what is going in the market, just like an intern is supposed to give.\nWe are doing this by creating a data layer in between for our users to query from and even execute there intents on-chain and off-chain.\n\nPrompts like \"When dollar index falls below 100 buy $1000 of Bitcoin\" or \"When Elon Musk tweets anything related to $DOGE buy $DOGE\" and many more would be possible for a retail trader without knowing how to code. Intents are basically the end results without the need to define the path. We believe this will be a game changer in the automations and would be an endgame for all telegram bots and ordering protocols.\nPorfo has a LLM based cross-chain solver meaning your intents can go cross-chain and off-chain too, which makes it easier to manage and secure your assets in case of a huge dip or when you want to manage a your assets across multiple chains.\nWith Porfo one will be able to setup intent templates or even share intent templates which open the huge possibility of copy trading, DeFi strategies, or intelligently managing your portfolio like DCA, or SIPs.\n\n",
+        "website": "https://porfo.app",
+        "projectTwitter": "0xporfo",
+        "projectGithub": "Porfo-Foundation",
+        "logoImg": "bafkreihhsfkcurabnbbirvzfwugprfntb4rjb67xe3v6xoo4yy6uaypzvy",
+        "bannerImg": "bafkreieeyj52epwjqbdqaqu7z5w54q575micq3stkx3tedsmg5tpk5hrei",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xbD64c838210CE9aD6bd3d428887E612d19E1C36C",
+                    "provider": "ClearTextTwitter#0xPorfo",
+                    "hash": "v0.0.0:WPcNTYdFLxS1GAnGZb1Svl0iVf0UVVpOCzBVTADRl/0=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-13T12:14:36.099Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-13T12:14:36.099Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..2XBs97XQc_NnEz_scqSB6M6mB8Z9RnHYtVoQdRZoz6vo5_d1qq6i3erWWd8P-L2wD9Wx7oH0ezP_wVrqZGvhBw"
+                },
+                "expirationDate": "2024-04-12T12:14:36.099Z"
+            }
+        },
+        "createdAt": 1705148368894
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-22",
+            "protocol": 1,
+            "pointer": "bafkreiei7ed23x56ctqw7lm267mkrqf4vqyoc5tp4bw5wq3bzfayedj64y",
+            "data": {
+                "signature": "0x085c92b8514c0c1ea4512184eddd1b3b3cb70445940b585440581f4a5e63f4305b5ff5862552f09a653bc2a8aba89174add6fb212d1c22eba1fdb7152c0663ce1c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0xbd64c838210ce9ad6bd3d428887e612d19e1c36c",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1705148368894,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:211",
+                        "title": "Porfo ",
+                        "description": "\nPorfo is wallet ecosystem, designed to simplify the gateway to web3 space. By providing an intelligent assistant that works as your on-chain intern which is capable of querying and also executing trades.\n\nThink of Porfo as your on-chain intern who is managing your portfolio 24x7 and also giving you insights on what is going in the market, just like an intern is supposed to give.\nWe are doing this by creating a data layer in between for our users to query from and even execute there intents on-chain and off-chain.\n\nPrompts like \"When dollar index falls below 100 buy $1000 of Bitcoin\" or \"When Elon Musk tweets anything related to $DOGE buy $DOGE\" and many more would be possible for a retail trader without knowing how to code. Intents are basically the end results without the need to define the path. We believe this will be a game changer in the automations and would be an endgame for all telegram bots and ordering protocols.\nPorfo has a LLM based cross-chain solver meaning your intents can go cross-chain and off-chain too, which makes it easier to manage and secure your assets in case of a huge dip or when you want to manage a your assets across multiple chains.\nWith Porfo one will be able to setup intent templates or even share intent templates which open the huge possibility of copy trading, DeFi strategies, or intelligently managing your portfolio like DCA, or SIPs.\n\n",
+                        "website": "https://porfo.app",
+                        "bannerImg": "bafkreieeyj52epwjqbdqaqu7z5w54q575micq3stkx3tedsmg5tpk5hrei",
+                        "logoImg": "bafkreihhsfkcurabnbbirvzfwugprfntb4rjb67xe3v6xoo4yy6uaypzvy",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreic2ujtj5gbwdkcfkv2udsjqmgqjifierefwumuooae355jwamil3e"
+                        },
+                        "projectGithub": "Porfo-Foundation",
+                        "projectTwitter": "0xporfo",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xbD64c838210CE9aD6bd3d428887E612d19E1C36C",
+                                    "provider": "ClearTextTwitter#0xPorfo",
+                                    "hash": "v0.0.0:WPcNTYdFLxS1GAnGZb1Svl0iVf0UVVpOCzBVTADRl/0=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-13T12:14:36.099Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-13T12:14:36.099Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..2XBs97XQc_NnEz_scqSB6M6mB8Z9RnHYtVoQdRZoz6vo5_d1qq6i3erWWd8P-L2wD9Wx7oH0ezP_wVrqZGvhBw"
+                                },
+                                "expirationDate": "2024-04-12T12:14:36.099Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "iDNu3n6+vo4hNuc4Gzo9aaBXAC0znFBLa6VWL0Z7DnR13a/HpocgV9Yt0M7BX9Gq",
+                                "encryptedSymmetricKey": "ea915aa451b9ce507995a1a725aeefd50ce820f31bf4d9b1d1685f15aa7e6426a053e3dffdf47954e8d490781104aa03e71c2ec37e722fae9c09f002f18c4b5f5c2eb47818f141a184ab85dbc8fb5e8d733e33286614e938c99193ce8922028461cea86cdcdffb279072c9d739385bb143023f840e570272ae59ea74dc9dfdaa000000000000002078ce76226a30db38bc736e73e52ffa72c7acd7a5ac920be8f7c10f658a6a7cd3117270f8435e8248b3603a877a086f8c"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "\ud835\udc0f\ud835\udc28\ud835\udc25\ud835\udc32\ud835\udc20\ud835\udc28\ud835\udc27 \ud835\udc22\ud835\udc27\ud835\udc2d\ud835\udc1e\ud835\udc20\ud835\udc2b\ud835\udc1a\ud835\udc2d\ud835\udc22\ud835\udc28\ud835\udc27 \ud835\udc30\ud835\udc22\ud835\udc2d\ud835\udc21 \ud835\udc0f\ud835\udc28\ud835\udc2b\ud835\udc1f\ud835\udc28\nPorfo is natively working on Polygon, even though being in internal testing phases, we are live on Mumbai and would be natively live on zkEVM so that we can facilitate all the protocols on Polygon and zkEVM, while letting cross-chain intents execute over Bolt Network. GALXE DEFY would be integrated in our manniet.\nWe are moving our whole app towards App chain and are looking to integrate with Polygon CDK for providing our users with fast, secure and intent resolver in standard resolver format.\nThis would be Polygon's first intent based protocol with its one and only LLM based intent solver and that would be a game-changer for the whole ecosystem.\n\n\ud835\udc07\ud835\udc0e\ud835\udc16 \ud835\udc16\ud835\udc08\ud835\udc0b\ud835\udc0b \ud835\udc16\ud835\udc04 \ud835\udc14\ud835\udc12\ud835\udc04 \ud835\udc13\ud835\udc07\ud835\udc08\ud835\udc12 \ud835\udc06\ud835\udc11\ud835\udc00\ud835\udc0d\ud835\udc13?\nWe will be using the grant for following things to grow our ecosystem:\n\nDevelopment and Expansion of Intent-Based LLM: Our priority is integration with Polygon's biggest protocols and creating a data layer to host all the data coming and going out of blockchain in the ecosystem. To create a near-perfect intern, we will need all the data that degens are looking at irrespective of accessibility.\n\nTalent: Our team is right now very focused and has been running bootstrapped for the last 1 year, if we get the grants we will be recruiting the right minds to accelerate the ecosystem that we are building for Polygon.\n\nCommunity Engagement and Marketing: Part of the grant will be dedicated to marketing which includes co-marketing running campaigns and getting KOLs on-board.\n\nResearch and Development: We will invest in ongoing research and development of AI and Intents to stay ahead, ensuring that our product remains highly relevant, performant, and secure.\n\n\n\ud835\udc16\ud835\udc21\ud835\udc32 \ud835\udc06\ud835\udc2b\ud835\udc1a\ud835\udc27\ud835\udc2d \ud835\udc1a\ud835\udc27\ud835\udc1d \ud835\udc16\ud835\udc21\ud835\udc32 \ud835\udc0f\ud835\udc28\ud835\udc25\ud835\udc32\ud835\udc20\ud835\udc28\ud835\udc27?\nWe as a team have been a long time MATIC holders and Polygon supporter with lots of contribution in the ecosystem. Thus we believe in the purple future of Polygon.\n\nBranding: Porfo is moving from Pre-alpha phase to getting there first 1000 users, and focusing heavily on UX and UI, and start the distribution we need a very simple but highly innovative branding. Which takes a lot of research and development.\n\nUsing Polygon Reach: Once the grants are approved we would have one of the biggest ecosystem name backing us, helping us acquire users and getting more protocols on-board.\n\n\ud835\ude43\ud835\ude5a\ud835\ude67\ud835\ude5a'\ud835\ude68 \ud835\ude64\ud835\ude6a\ud835\ude67 \ud835\ude3f\ud835\ude64\ud835\ude58\ud835\ude68: \ud835\ude59\ud835\ude64\ud835\ude58\ud835\ude68.\ud835\ude65\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64.\ud835\ude56\ud835\ude65\ud835\ude65\n\ud835\ude41\ud835\ude64\ud835\ude61\ud835\ude61\ud835\ude64\ud835\ude6c \ud835\ude6a\ud835\ude68 \ud835\ude64\ud835\ude63 \ud835\ude4f\ud835\ude6c\ud835\ude5e\ud835\ude69\ud835\ude69\ud835\ude5a\ud835\ude67: \ud835\ude5d\ud835\ude69\ud835\ude69\ud835\ude65\ud835\ude68://\ud835\ude69\ud835\ude6c\ud835\ude5e\ud835\ude69\ud835\ude69\ud835\ude5a\ud835\ude67.\ud835\ude58\ud835\ude64\ud835\ude62/0\ud835\ude6d\ud835\ude4b\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64\n\ud835\ude43\ud835\ude5a\ud835\ude67\ud835\ude5a'\ud835\ude68 \ud835\ude4a\ud835\ude6a\ud835\ude67 \ud835\ude6c\ud835\ude5a\ud835\ude57\ud835\ude68\ud835\ude5e\ud835\ude69\ud835\ude5a: \ud835\ude65\ud835\ude64\ud835\ude67\ud835\ude5b\ud835\ude64.\ud835\ude56\ud835\ude65\ud835\ude65\n\nWe are thrilled about all that we are creating \ud83d\ude80, and with your backing, we can turn this project into reality, driving Polygon towards a more decentralized tomorrow \ud83c\udf10. We appreciate your support! WAGMI\ud83d\udc9c"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
