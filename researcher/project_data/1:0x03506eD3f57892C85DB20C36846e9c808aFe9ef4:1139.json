@@ -1,0 +1,185 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:1139",
+    "protocol": 1,
+    "pointer": "bafkreiagmdsttyfle3sspgaqnsinawt3fpv5zxzf6rpb6z27ekvtfqd6fq",
+    "data": {
+        "title": "LensPlay",
+        "description": "# LensPlay Overview\n\nLensPlay is a mobile-first decentralized video-sharing app that empowers content creators and redefines the way users share and experience videos. By harnessing the power of Lens Protocol and Livepeer, LensPlay offers a seamless, user-friendly platform for creators to showcase their talent and engage with a global audience.\n\n### THE CHALLENGE\n\nIn the traditional ecosystem, video platforms often create privacy and censorship issues for creators. This problem is even more pronounced for web3 content creators since channels can be banned and de-platformed without warning or justification. Creators require a platform where they can own their content and directly connect with their subscribers or members. With the increasing usage of mobile phone apps, it is essential to have a quick way for people to view their video-based social graph.\n\n### THE SOLUTION\n\nLensPlay offers a decentralized video-sharing mobile app where creators own their video content. Videos are stored permanently in Arweave, while metadata is stored permanently on-chain, ensuring that users can create content of their choice without any restrictions. Creators can monetize their content using various means such as NFT modules and tips.\n\n### FEATURES\n\n- \ud83c\udfa5 Create channels.\n- \ud83d\udcfa Create or Upload any video content.\n- \ud83c\udf81 Collect videos as NFT.\n- \ud83d\udd04 Mirror and share videos.\n- \ud83d\udd14 Notifications about new subscribers, comments, mirrors, and collects.\n- \ud83d\udcb2 Customize who can collect your video and associated fees.\n- \u2709\ufe0f\u00a0Customize who can comment on your video.\n- \u2764\ufe0f Support any creator by sending a Tip.\n- \ud83d\udc4d Like and comment on videos.\n- \ud83d\udcf8\u00a0Short byte-sized videos called Shots\n- \ud83d\udd53\u00a0Save your favorite videos to Watch later.\n- \ud83c\udff7 Filter videos through categories\n\nand more.\n\n### LINKS\n\n- https://twitter.com/lensplayxyz\n- https://discord.com/invite/tgrzS4Actz",
+        "website": "https://lensplay.xyz",
+        "projectTwitter": "lensplayxyz",
+        "userGithub": "VIVEK-SUTHAR",
+        "projectGithub": "LensPlay",
+        "logoImg": "bafkreifyfpxdet7iqz3wgnbkydlowgbdd6o4xbn4v7ylji3gz6ilbjk35a",
+        "bannerImg": "bafkreicd4wwfwmeao6q672hpmkphsmihpdbpvlld3aotmi6wldccg6tqpe",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x8CC8752aa3e968cC87F062c1181bE6B98FD49AE2",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#LensPlay#82870307",
+                    "hash": "v0.0.0:MZlQmo+KyfyZFgI65jQMLJtbF/M1X1EvXIYHm8hzYyA="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-08-17T20:01:09.532Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-08-17T20:01:09.532Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..kEFCQ3B5pZHCGA9FVWA89FURPEhAw2TAxCP3dKBZ499ACb8-kEyKO9vcIszBIS4ka6WuwflzsjVDP3nzhpQmBQ"
+                },
+                "expirationDate": "2023-11-15T20:01:09.532Z"
+            },
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x8CC8752aa3e968cC87F062c1181bE6B98FD49AE2",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#lensplayxyz",
+                    "hash": "v0.0.0:YnmAn/hC37pbufadxb9C6kHXyqKRJK6sIjEyDXtoDak="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-10-31T14:09:53.563Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-10-31T14:09:53.563Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..r3I-GnwvPZrsEwginte-jrNMkGBtJgCgLfuIMM1osWj6SM26O53HjlN0af8HiS9znYB5eZc56m3ANCFvBbasAA"
+                },
+                "expirationDate": "2024-01-29T14:09:53.563Z"
+            }
+        },
+        "createdAt": 1692298458779
+    },
+    "applications": [
+        {
+            "id": "0xbdccbba5c4c5dad41ce020ed725a483e1a43cf0e-1",
+            "protocol": 1,
+            "pointer": "bafkreihhfe46q6kkqvzabt5ij3vteozspoahtj24karmxwssfr4lbhld2e",
+            "data": {
+                "signature": "0x56340583bf0aeccfd4e90785b817544c3560c91a3f0c1920f1b44e14e8a0412467f44e2f82ac70a24350908c9d1e91e0a87d6d83ba6f138b1090ff3bf3f66d041b",
+                "application": {
+                    "round": "0xbdccbba5c4c5dad41ce020ed725a483e1a43cf0e",
+                    "recipient": "0x8CC8752aa3e968cC87F062c1181bE6B98FD49AE2",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1692298458779,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:1139",
+                        "title": "LensPlay",
+                        "description": "# LensPlay Overview\n\nLensPlay is a mobile-first decentralized video-sharing app that empowers content creators and redefines the way users share and experience videos. By harnessing the power of Lens Protocol and Livepeer, LensPlay offers a seamless, user-friendly platform for creators to showcase their talent and engage with a global audience.\n\n### THE CHALLENGE\n\nIn the traditional ecosystem, video platforms often create privacy and censorship issues for creators. This problem is even more pronounced for web3 content creators since channels can be banned and de-platformed without warning or justification. Creators require a platform where they can own their content and directly connect with their subscribers or members. With the increasing usage of mobile phone apps, it is essential to have a quick way for people to view their video-based social graph.\n\n### THE SOLUTION\n\nLensPlay offers a decentralized video-sharing mobile app where creators own their video content. Videos are stored permanently in Arweave, while metadata is stored permanently on-chain, ensuring that users can create content of their choice without any restrictions. Creators can monetize their content using various means such as NFT modules and tips.\n\n### FEATURES\n\n- \ud83c\udfa5 Create channels.\n- \ud83d\udcfa Create or Upload any video content.\n- \ud83c\udf81 Collect videos as NFT.\n- \ud83d\udd04 Mirror and share videos.\n- \ud83d\udd14 Notifications about new subscribers, comments, mirrors, and collects.\n- \ud83d\udcb2 Customize who can collect your video and associated fees.\n- \u2709\ufe0f\u00a0Customize who can comment on your video.\n- \u2764\ufe0f Support any creator by sending a Tip.\n- \ud83d\udc4d Like and comment on videos.\n- \ud83d\udcf8\u00a0Short byte-sized videos called Shots\n- \ud83d\udd53\u00a0Save your favorite videos to Watch later.\n- \ud83c\udff7 Filter videos through categories\n\nand more.\n\n### LINKS\n\n- https://twitter.com/lensplayxyz\n- https://discord.com/invite/tgrzS4Actz",
+                        "website": "https://lensplay.xyz",
+                        "bannerImg": "bafkreicd4wwfwmeao6q672hpmkphsmihpdbpvlld3aotmi6wldccg6tqpe",
+                        "logoImg": "bafkreifyfpxdet7iqz3wgnbkydlowgbdd6o4xbn4v7ylji3gz6ilbjk35a",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiagmdsttyfle3sspgaqnsinawt3fpv5zxzf6rpb6z27ekvtfqd6fq"
+                        },
+                        "userGithub": "VIVEK-SUTHAR",
+                        "projectGithub": "LensPlay",
+                        "projectTwitter": "lensplayxyz",
+                        "credentials": {
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x8CC8752aa3e968cC87F062c1181bE6B98FD49AE2",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#LensPlay#82870307",
+                                    "hash": "v0.0.0:MZlQmo+KyfyZFgI65jQMLJtbF/M1X1EvXIYHm8hzYyA="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-08-17T20:01:09.532Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-08-17T20:01:09.532Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..kEFCQ3B5pZHCGA9FVWA89FURPEhAw2TAxCP3dKBZ499ACb8-kEyKO9vcIszBIS4ka6WuwflzsjVDP3nzhpQmBQ"
+                                },
+                                "expirationDate": "2023-11-15T20:01:09.532Z"
+                            },
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x8CC8752aa3e968cC87F062c1181bE6B98FD49AE2",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#lensplayxyz",
+                                    "hash": "v0.0.0:YnmAn/hC37pbufadxb9C6kHXyqKRJK6sIjEyDXtoDak="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-10-31T14:09:53.563Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-10-31T14:09:53.563Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..r3I-GnwvPZrsEwginte-jrNMkGBtJgCgLfuIMM1osWj6SM26O53HjlN0af8HiS9znYB5eZc56m3ANCFvBbasAA"
+                                },
+                                "expirationDate": "2024-01-29T14:09:53.563Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Funding Sources",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "Grants"
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "4"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

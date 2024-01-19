@@ -1,0 +1,46 @@
+{
+    "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1732",
+    "protocol": 1,
+    "pointer": "bafkreiccmu7bdmj4rg5epcloh4c6gyfbc4nzb5sct62r7tvnx5plxvoeoy",
+    "data": {
+        "title": "Solar Energy Design Subsystem",
+        "description": "Solar Energy Design subsystem. \n\nSolar Energy is one of the best sources of Energy in Space, however it's a very important part of the Earth Green Future.\n\n\nHelp us to implement such a submodule, allowing faster and easier engineering and assessment of solar power stations on Earth and in Space",
+        "website": "https://lunco.space/",
+        "logoImg": "bafkreibnihy3iambeygnh67unip56k32d2sts4x2j6qrzl7mtch6oiu4wm",
+        "bannerImg": "bafkreihg55vsas6jdeptxylljiysy5yenith7f6nacf3g64torqosl7alm",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {},
+        "createdAt": 1704949421427
+    },
+    "applications": [
+        {
+            "id": "0xe03ebeb65bf0704f208bff15d994ea246d69b96c-5",
+            "protocol": 1,
+            "pointer": "bafkreieofbwyrgtn5k6k7452vfz5sp7f7idmhwsmrxu723gs3562fv65oy",
+            "data": {
+                "signature": "0x053f2f52e0a20a844ef310a1cc095a72c2afcf23ba41063c2780c3bdb99ce5fb6c8f170568b0905f2997cc134f018360274993a39b97f4cd80a31162aca4d2de1c",
+                "application": {
+                    "round": "0xe03ebeb65bf0704f208bff15d994ea246d69b96c",
+                    "recipient": "0xcb57A8f51C47E243ea0f6061Af5B2C9932eEe820",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704949421427,
+                        "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:1732",
+                        "title": "Solar Energy Design Subsystem",
+                        "description": "Solar Energy Design subsystem. \n\nSolar Energy is one of the best sources of Energy in Space, however it's a very important part of the Earth Green Future.\n\n\nHelp us to implement such a submodule, allowing faster and easier engineering and assessment of solar power stations on Earth and in Space",
+                        "website": "https://lunco.space/",
+                        "bannerImg": "bafkreihg55vsas6jdeptxylljiysy5yenith7f6nacf3g64torqosl7alm",
+                        "logoImg": "bafkreibnihy3iambeygnh67unip56k32d2sts4x2j6qrzl7mtch6oiu4wm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiccmu7bdmj4rg5epcloh4c6gyfbc4nzb5sct62r7tvnx5plxvoeoy"
+                        },
+                        "credentials": {}
+                    },
+                    "answers": []
+                }
+            }
+        }
+    ]
+}

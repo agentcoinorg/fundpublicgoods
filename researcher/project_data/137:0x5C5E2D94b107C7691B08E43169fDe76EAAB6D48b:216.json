@@ -1,0 +1,137 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:216",
+    "protocol": 1,
+    "pointer": "bafkreidtoe6xh2zpfksropbt23vyqfsua34sko5ocbxzgm572uguhckwwa",
+    "data": {
+        "title": "Domin Network: Open Network for Retail powered by RE:DREAMER Lab",
+        "description": "At RE:DREAMER Lab, our vision with the Domin Network is to redefine retail's future. We've developed a unique NFT Redemption Protocol that integrates seamlessly with various retail touchpoints, including POS systems, vending machines, IoT devices, e-commerce platforms, and ticketing systems. This integration is crucial, as it requires a scalable infrastructure built on open standards, enabling smooth data exchange between stakeholders.\n\nA key milestone in our project has been the development and Ethereum community's adoption of ERC6672, a new standard for multi-redeemable NFTs. This standard, officially recognized on May 16, 2023 (https://ethereum-magicians.org/t/eip-6672-multi-redeemable-nfts/13276), enable NFT to carry programmable datas.\n\nOur approach leverages blockchain technology to create a secure, transparent, and user-friendly framework. With the RE:DREAMER Redeem Protocol, the Domin Network, and ERC6672, we enable shoppers to upload and control their shopping data on the blockchain. This innovation not only enhances consumer sovereignty over their data but also paves the way for a new era in retail and data management.",
+        "website": "https://www.redreamer.io/",
+        "projectTwitter": "REDREAMER_Lab",
+        "userGithub": "Domin-Network",
+        "projectGithub": "Domin Network",
+        "logoImg": "bafkreibe4gylp5g73grw4mebwkbiqnffbr5g5v2ewbeonh4cylill4w54m",
+        "bannerImg": "bafkreidc7wyhkyzh42ch23luwha4zrap2akrluv2miiueh37kbpbch2pyu",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x15ba98436954699f3C166eC5CCE377Be19D6F5cF",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#REDREAMER_Lab",
+                    "hash": "v0.0.0:FOnoXdmTxoDly5YSjZzZLFso/wyTcNKifL6NWznvFgg="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-15T09:00:33.700Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-15T09:00:33.700Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..9vuhF7XPHfYvucmaK4uDh2Yih1GhTsEMtmXoq0nE9JB45G84oNMFSEkh04Ldp0pnlzD-FmR0mGbpD2Rb8eMFCA"
+                },
+                "expirationDate": "2024-04-14T09:00:33.700Z"
+            }
+        },
+        "createdAt": 1705309242164
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-24",
+            "protocol": 1,
+            "pointer": "bafkreiezu2x3as6gpewwh4gzqgqunmd55o7zncepbqper6hfp27tb3fkb4",
+            "data": {
+                "signature": "0xa439827892b16c3cb0db37a0f2485f45aa8062bbfb626337fc5b774b2c8869b6771d422fb9486523277361cedd40d387589ca9d3be2a18fd2721bcf160c88af91b",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x15ba98436954699f3C166eC5CCE377Be19D6F5cF",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1705309242164,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:216",
+                        "title": "Domin Network: Open Network for Retail powered by RE:DREAMER Lab",
+                        "description": "At RE:DREAMER Lab, our vision with the Domin Network is to redefine retail's future. We've developed a unique NFT Redemption Protocol that integrates seamlessly with various retail touchpoints, including POS systems, vending machines, IoT devices, e-commerce platforms, and ticketing systems. This integration is crucial, as it requires a scalable infrastructure built on open standards, enabling smooth data exchange between stakeholders.\n\nA key milestone in our project has been the development and Ethereum community's adoption of ERC6672, a new standard for multi-redeemable NFTs. This standard, officially recognized on May 16, 2023 (https://ethereum-magicians.org/t/eip-6672-multi-redeemable-nfts/13276), enable NFT to carry programmable datas.\n\nOur approach leverages blockchain technology to create a secure, transparent, and user-friendly framework. With the RE:DREAMER Redeem Protocol, the Domin Network, and ERC6672, we enable shoppers to upload and control their shopping data on the blockchain. This innovation not only enhances consumer sovereignty over their data but also paves the way for a new era in retail and data management.",
+                        "website": "https://www.redreamer.io/",
+                        "bannerImg": "bafkreidc7wyhkyzh42ch23luwha4zrap2akrluv2miiueh37kbpbch2pyu",
+                        "logoImg": "bafkreibe4gylp5g73grw4mebwkbiqnffbr5g5v2ewbeonh4cylill4w54m",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreidtoe6xh2zpfksropbt23vyqfsua34sko5ocbxzgm572uguhckwwa"
+                        },
+                        "userGithub": "Domin-Network",
+                        "projectGithub": "Domin Network",
+                        "projectTwitter": "REDREAMER_Lab",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x15ba98436954699f3C166eC5CCE377Be19D6F5cF",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#REDREAMER_Lab",
+                                    "hash": "v0.0.0:FOnoXdmTxoDly5YSjZzZLFso/wyTcNKifL6NWznvFgg="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-15T09:00:33.700Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-15T09:00:33.700Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..9vuhF7XPHfYvucmaK4uDh2Yih1GhTsEMtmXoq0nE9JB45G84oNMFSEkh04Ldp0pnlzD-FmR0mGbpD2Rb8eMFCA"
+                                },
+                                "expirationDate": "2024-04-14T09:00:33.700Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "GdtnkDlzRjEQtgLT1lEQf1zO0EK1fYNFBz92YpmEdiD0azoOP+A4iu+AEg2ZQqbJ",
+                                "encryptedSymmetricKey": "c5ec0da2553cd23875d7365280ab7be511b5f567866b0362a2ba6119ebf7a56c66ae169deb93724f72fc082758048108f8d0ea534410b37cc48aab5f91bbad9bbe234f9536a39a2a464f1a58ff812245921bd870e9fb00b2a09e45fc10b7a5b97af9cc020309bfc6d54c31d67b206ea0947865fa92ca7d432ea976889484a90400000000000000201da27ab516c5079f17ddc71970059d84ad35d76a37e7167a14f8e269344da5b0bbe1d73eb3bbe5990b910f77466c40b1"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "The Domin Network is set to revolutionize the retail sector by leveraging blockchain technology based on the RE:DREAMER Redeem Protocol. More than just a technological framework, it represents a transformative approach to retail. The Domin Network enables users to rollup consumer data on chain from various platforms \u2014 online, offline, and in the Metaverse \u2014 securely on the blockchain and also authorize their data , offering rewards in return.\n\nOur funding request centers on integrating the Domin Network with the Polygon ecosystem. This integration aims to forge an open network connecting brands, businesses, and consumers. It addresses key data protection challenges in compliance with regulations like GDPR, CCPA, ADPPA and so on. Our focus on strict data privacy and security, coupled with incentives like coupons, rewards, and tokens, addresses the need for consumer consent in data sharing, helps businesses avoid regulatory penalties, and opens up new business models such as open loyalty programs and phygital commerce.\n\nA notable strength of the Domin Network is its ability to attract traditional Web2.0 brands and intellectual properties, thereby enhancing the Manta Network ecosystem. This demonstrates our project's potential for broad appeal and significant impact.\n\nIn conclusion, the Domin Network is primed to be a major force in empowering consumer data ownership with blockchain. Support from the Polygon will not only propel retail evolution but also reshape the interaction dynamics between consumers and brands in a digital era."
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

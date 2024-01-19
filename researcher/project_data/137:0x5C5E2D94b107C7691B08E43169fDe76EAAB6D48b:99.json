@@ -1,0 +1,308 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:99",
+    "protocol": 1,
+    "pointer": "bafkreibdpdtpbxjmifgju2yrhffs2arddp4fvdql2imqjow6lk76q7cvty",
+    "data": {
+        "title": "L2BEAT",
+        "description": "## About Us\n\n**L2BEAT** is a dedicated analytics and research platform for L2 scaling solutions. With an unwavering commitment to transparency, we strive to offer a thorough comparison of diverse Ethereum L2 systems, aiming to enlighten and empower the community with unbiased insights.\n\nWe present various non-trivial metrics and have thoroughly analyzed each L2 project to understand its technology's inner workings and associated risks. As an **impartial watchdog**, we actively monitor and contribute to the development of the L2 space.\n\n## Our Work\n\n**Our ongoing initiatives include:**\n\n- \ud83c\udf10 Constantly updating and adding new features to **[l2beat.com](https://l2beat.com/scaling/tvl)**\n- \ud83d\udee0 Releasing open-source products such as **[Earl](https://earl.fun)** or **[BYOR](https://medium.com/l2beat/build-your-own-rollup-72423f4255e7)** to support the broader developer community and encourage developer inflow into the Ethereum ecosystem\n- \u2699\ufe0f Developing essential transparency tools like the **[StarkEx Explorer](https://dydx.l2beat.com)** for the L2 ecosystem\n- \ud83c\udf93 Organizing numerous high-quality conferences like **[L2AMSTERDAM](https://amsterdam.l2beat.com)**, **[L2WARSAW](https://warsaw.l2beat.com/)**, **[L2DAYS](https://l2days.xyz/m)**, and coordinating **[university workshops](https://www.linkedin.com/feed/update/urn:li:activity:7116419491881754625)** to educate and grow the Ethereum community\n- \ud83d\uddf3\ufe0f Actively and responsibly participating in the governance of projects like **Arbitrum**, **Optimism**, **Hop**, and **Uniswap**, while also participating in discussions on **[online events](https://x.com/elblockchainguy/status/1695901376356753740?s=20)** and in **[stationary meetups](https://twitter.com/l2beat/status/1681703543797841929?s=20)**\n- \ud83d\udd0d Actively identifying and reporting security flaws to safeguard the L2 space through our Discovery Discord tool\n- \ud83d\udcdc Sharing insightful publications, such as our **[Upgradeability of Ethereum L2s](https://l2beat.com/multisig-report)** report\n\n**As always, we have very ambitious plans for the future**, including introducing more metrics, enhancing our risk framework, automating monitoring, and building specialized instruments for various L2s and other projects within the Ethereum ecosystem.\n\n## Donate\n\n\ud83d\udca1 By donating to this grant, you support our ongoing efforts to provide education, transparency, and valuable resources to the L2 space.\n\n**We greatly appreciate your support. Thank you! \ud83d\udc97**",
+        "website": "https://l2beat.com",
+        "projectTwitter": "l2beat",
+        "userGithub": "jacek-czarnecki",
+        "projectGithub": "l2beat",
+        "logoImg": "bafkreih62d36nurby7zm2ebdmdwfltsvy67mh47z2acp7vkteammy6ejg4",
+        "bannerImg": "bafkreigy64zm7n7eye43ujyyygco2wjnqkqzzffne2ez6z4wxct53bwel4",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x79bF97b7Ff676d4CB323F0383A31Ed6616D87996",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#l2beat",
+                    "hash": "v0.0.0:0fkBXsAqSK9F/DzyNf6rb+eOOc7MzCZMoJgW8EwXvtU="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-14T17:29:46.488Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-14T17:29:46.488Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..mySJqsiR2IcjztME0ZmK4bgiAOHCaQS6zBLTJgStrVTXWm9Mzo1pqkoBaUnXw0PNBuQpmnByipy_cEhdR56dAA"
+                },
+                "expirationDate": "2024-02-12T17:29:46.488Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x79bF97b7Ff676d4CB323F0383A31Ed6616D87996",
+                    "hash": "v0.0.0:nB6FHu5xddltnzCK/zzI37ToE2XoFUzRKQ3HonHDL8M=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#l2beat#32837174"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-14T17:30:48.984Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-14T17:30:48.984Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..lAo8VnQwxXii8MJvjSqEglhlPIQHDQ0MAFQFYdjY4-yuqDWQeL1QsPFIFrbSNNWtIVJCMFeQ3l1ZML60VBAZAg"
+                },
+                "expirationDate": "2024-02-12T17:30:48.984Z"
+            }
+        },
+        "createdAt": 1699983381189
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-15",
+            "protocol": 1,
+            "pointer": "bafkreiciqhnzdwm5g34wysny4nrppwqocmfdwnl7zheivdtva2doqfr6ia",
+            "data": {
+                "signature": "0xf942c7aaee1c6c74adf0a9cd84ceac57a2a62622d2aea8f9e9f8a1b4a4cc10fc37fd88272f076da06ea5059a42852d7e9403087b4e04c9f39a918f8a6dc1c9811b",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x41626BA92c0C2a1aD38fC83920300434082B1870",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1699983381189,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:99",
+                        "title": "L2BEAT",
+                        "description": "## About Us\n\n**L2BEAT** is a dedicated analytics and research platform for L2 scaling solutions. With an unwavering commitment to transparency, we strive to offer a thorough comparison of diverse Ethereum L2 systems, aiming to enlighten and empower the community with unbiased insights.\n\nWe present various non-trivial metrics and have thoroughly analyzed each L2 project to understand its technology's inner workings and associated risks. As an **impartial watchdog**, we actively monitor and contribute to the development of the L2 space.\n\n## Our Work\n\n**Our ongoing initiatives include:**\n\n- \ud83c\udf10 Constantly updating and adding new features to **[l2beat.com](https://l2beat.com/scaling/tvl)**\n- \ud83d\udee0 Releasing open-source products such as **[Earl](https://earl.fun)** or **[BYOR](https://medium.com/l2beat/build-your-own-rollup-72423f4255e7)** to support the broader developer community and encourage developer inflow into the Ethereum ecosystem\n- \u2699\ufe0f Developing essential transparency tools like the **[StarkEx Explorer](https://dydx.l2beat.com)** for the L2 ecosystem\n- \ud83c\udf93 Organizing numerous high-quality conferences like **[L2AMSTERDAM](https://amsterdam.l2beat.com)**, **[L2WARSAW](https://warsaw.l2beat.com/)**, **[L2DAYS](https://l2days.xyz/m)**, and coordinating **[university workshops](https://www.linkedin.com/feed/update/urn:li:activity:7116419491881754625)** to educate and grow the Ethereum community\n- \ud83d\uddf3\ufe0f Actively and responsibly participating in the governance of projects like **Arbitrum**, **Optimism**, **Hop**, and **Uniswap**, while also participating in discussions on **[online events](https://x.com/elblockchainguy/status/1695901376356753740?s=20)** and in **[stationary meetups](https://twitter.com/l2beat/status/1681703543797841929?s=20)**\n- \ud83d\udd0d Actively identifying and reporting security flaws to safeguard the L2 space through our Discovery Discord tool\n- \ud83d\udcdc Sharing insightful publications, such as our **[Upgradeability of Ethereum L2s](https://l2beat.com/multisig-report)** report\n\n**As always, we have very ambitious plans for the future**, including introducing more metrics, enhancing our risk framework, automating monitoring, and building specialized instruments for various L2s and other projects within the Ethereum ecosystem.\n\n## Donate\n\n\ud83d\udca1 By donating to this grant, you support our ongoing efforts to provide education, transparency, and valuable resources to the L2 space.\n\n**We greatly appreciate your support. Thank you! \ud83d\udc97**",
+                        "website": "https://l2beat.com",
+                        "bannerImg": "bafkreigy64zm7n7eye43ujyyygco2wjnqkqzzffne2ez6z4wxct53bwel4",
+                        "logoImg": "bafkreih62d36nurby7zm2ebdmdwfltsvy67mh47z2acp7vkteammy6ejg4",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibdpdtpbxjmifgju2yrhffs2arddp4fvdql2imqjow6lk76q7cvty"
+                        },
+                        "userGithub": "jacek-czarnecki",
+                        "projectGithub": "l2beat",
+                        "projectTwitter": "l2beat",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x79bF97b7Ff676d4CB323F0383A31Ed6616D87996",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#l2beat",
+                                    "hash": "v0.0.0:0fkBXsAqSK9F/DzyNf6rb+eOOc7MzCZMoJgW8EwXvtU="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-14T17:29:46.488Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-14T17:29:46.488Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..mySJqsiR2IcjztME0ZmK4bgiAOHCaQS6zBLTJgStrVTXWm9Mzo1pqkoBaUnXw0PNBuQpmnByipy_cEhdR56dAA"
+                                },
+                                "expirationDate": "2024-02-12T17:29:46.488Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x79bF97b7Ff676d4CB323F0383A31Ed6616D87996",
+                                    "hash": "v0.0.0:nB6FHu5xddltnzCK/zzI37ToE2XoFUzRKQ3HonHDL8M=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#l2beat#32837174"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-14T17:30:48.984Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-14T17:30:48.984Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..lAo8VnQwxXii8MJvjSqEglhlPIQHDQ0MAFQFYdjY4-yuqDWQeL1QsPFIFrbSNNWtIVJCMFeQ3l1ZML60VBAZAg"
+                                },
+                                "expirationDate": "2024-02-12T17:30:48.984Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "4OVlZvtzsS8JQ8sTDlbRuA4DuvuoZwqD7tYQ+EjLOViLjq7yjF/dfgp4QXTiAKjl",
+                                "encryptedSymmetricKey": "a0a2f3e6b6a922b1010e84ed5bdb1a58ab1fc74b25096102a8f2a378982beae9896a82e083f8e15b33f4072c258d8404fd5438907a0e4e615475527a4766350210cfaee8336b7b7f503cc005423b1d58efdfc60e9e8cf1ab4140bbb7cb387c98c69b55ad51b01dcf270620b3cff99d4a8db7b42f5699c54e966b43225d9e4fc30000000000000020e4c451465ea83bfefbf4b4a3e94aad4cf62deb768aabd2bf9a02a2a241e23ef3df754427440640cf3ba426b1fc1e0c95"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/l2beat"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "yKX9utJIuJO8DqfRLKngSNmchORNXTa5lz8oDwlQ54Y=",
+                                "encryptedSymmetricKey": "215b081feecc493ae8e1c228081eac2e01e096af638d4ea81aadb0af1d766334195ca8fc1886d208ec64be08566d1905750b96424fedd3d431d67c059571f36fbac6b553b99eda534143b69a66d8e13ec58fc3fdd7f50fcaff52aa40a180978f0d9f910564a9002cd6bc8dfada78a3b8d45bcae9a57ff9525122e877740d038c0000000000000020f23fbd92c0711b33fab336478848b5f82412b10ad4f32a07b4d40b3c817a08a7da6c1be3d7e80b298e2317194f8145ac"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "L2BEAT is a critical resource in the L2 ecosystem, which provides data, research, and analytics into the Ethereum scaling solutions."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "L2 Space Vigilance: Ensuring the security and robustness of the L2 space by proactively detecting and reporting bugs and vulnerabilities, including the critical Proposer Failure change in Aztec Connect.\n\nNew Scaling Page Elements: Adding numerous new options for filtering projects based on their properties and introducing additional stacks in line with recent developments in the scene.\n\nTwitter Spaces Activity: Actively participating in various online events focused on L2s, their technology, governance, and potential future, sharing our knowledge and increasing interest in development.\n\nNew Project Listings: Welcoming several new projects to our website, including Scroll, Paradex, Aevo, Manta Pacific, Honeypot, and Kroma.\n\nEnforced Open-Source Node Requirement: Implementing our final Stages requirement, which mandates the existence of an open-source node capable of recreating the state from L1 data for all L2 projects.\n\nBYOR (Build Your Own Rollup) Tool Update: Dedication to improving the BYOR tool, simplifying the onboarding process for all those eager to learn by building.\n\nL2DAYS at Devconnect Istanbul: Hosting the largest L2-oriented event in 2023, with over 1500 attendees from around the world.\n\nNew TVL Framework and Subpage: Introducing a dedicated section for L2 tokens and their value calculation.\n\nSignificant Listing Milestone: Achieving over 30 active projects on our website.\n\nSignificant GitHub Milestone: Surpassing 100 contributors on the L2BEAT repository, demonstrating our commitment to fostering open-source collaboration among numerous teams and individual developers."
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Projects researched: 79\n\nDays publicly monitoring L2 systems: since 2023-02-13\nhttps://discord.com/channels/885067338158837800/1074693294656856136/1074699641980977254\n\nNumber of monitored smart contracts: 1131\nhttps://github.com/l2beat/l2beat/tree/master/packages/backend/discovery\n\nConferences organized: 3\nhttps://l2days.xyz\n\nMedium articles published: 7\nhttps://medium.com/l2beat\n"
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "2000000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "17"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "30"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/bkiepuszewski\nhttps://twitter.com/PiotrSzlachciak\nhttps://twitter.com/kaereste"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Europe"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

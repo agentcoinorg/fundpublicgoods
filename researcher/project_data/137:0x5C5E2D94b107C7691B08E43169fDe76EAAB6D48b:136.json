@@ -1,0 +1,247 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:136",
+    "protocol": 1,
+    "pointer": "bafkreia5cwb46grh37ytoiep3a3hck7quhkolpwm5vt2dclfvrnl7xrs7u",
+    "data": {
+        "title": "ethRPCtoREST",
+        "description": "Introduction:\nWe are proposing the development of ethRPCtoREST, an open-source project that aims to create a REST wrapper around the JSON-RPC APIs of the execution layer of Ethereum nodes. This project will serve as a simplified interface for programmers to interact with the Ethereum network, making it more convenient and human-friendly.\n\nNecessity:\nThe current RPC interface of the execution layer is inconvenient for programmers. The responses returned by the nodes are hex-encoded, making them difficult to understand and work with. This creates a barrier for developers who want to build applications on top of Ethereum. By developing ethRPCtoREST, we can simplify the interaction process and make it more accessible for programmers.\n\nImpact:\nThe impact of this project will be significant. By providing a REST API interface, we can attract more developers to build on Ethereum and contribute to its ecosystem. This will lead to an increase in the number of applications and services available on the network, ultimately driving adoption and usage. Additionally, by simplifying the interaction process, we can lower the barrier for entry and encourage more developers to experiment with Ethereum.\n\nProgress:\nThe development of ethRPCtoREST started during the Ethereum Protocol Fellowship from July 10th, 2023, to October 29th, 2023. Since then, significant progress has been made. Around 17 REST endpoints have been developed, covering approximately 18 execution layer methods. These endpoints act as wrappers around multiple methods or consolidate multiple methods into a single endpoint for ease of use. Weekly development updates have been recorded and are available for transparency.\n\nEligibility:\nethRPCtoREST meets all relevant eligibility criteria for funding. It is an open-source project that aims to develop and advance the broader Ethereum ecosystem by providing a simplified interface for developers. The ongoing progress and meaningful GitHub activity within the past three months demonstrate our commitment to continuous development and improvement.\n\nBy supporting ethRPCtoREST, you will contribute to the growth and accessibility of the Ethereum network. Your donation will help us maintain and enhance the project, ensuring that developers have a user-friendly interface to interact with Ethereum's execution layer. Together, we can empower more developers to build innovative applications on Ethereum and drive the adoption of Web3 technologies.",
+        "website": "https://github.com/Rest-Wrapper/ethRPCtoREST",
+        "userGithub": "Amit0617",
+        "projectGithub": "Rest-Wrapper",
+        "bannerImg": "bafkreic7su33wgufdrzm67eewyzjjzbdlpjxc2up3gwzsf3wvppp4fwpgu",
+        "bannerImgData": {},
+        "credentials": {
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x47c0C4eb25b0Aa4bC5D1E6341F5eE9A6aD2B596c",
+                    "hash": "v0.0.0:N66xrVTejtTsFA7ybhX+tH1FC5y2D0vzYkqHDgHgN04=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#Rest-Wrapper#71893015"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-25T07:37:01.909Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-25T07:37:01.909Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..8ptGA4Mf3LLtY6B6WOdSZo1HqSDtKO9-54-1LWpbRg7teyNCCn_i3ew6Y-LXDe7yy5W17sw7l3ImqaN-kRLVCw"
+                },
+                "expirationDate": "2024-02-23T07:37:01.909Z"
+            }
+        },
+        "createdAt": 1700894262151
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-28",
+            "protocol": 1,
+            "pointer": "bafkreieiycpodsyc3xhvbhx3nb6quoawxycskzadkfxyijne23agdbz7nq",
+            "data": {
+                "signature": "0x77b7b5598ccc39f20913741f1557ee6e01ba2c1fb4b3b25c3eb37a5b12871d1d2a9ec386b527e2a595784c03187e3d23d9deffc6bd33757b0d87d9b400bc14241c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x47c0C4eb25b0Aa4bC5D1E6341F5eE9A6aD2B596c",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1700894262151,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:136",
+                        "title": "ethRPCtoREST",
+                        "description": "Introduction:\nWe are proposing the development of ethRPCtoREST, an open-source project that aims to create a REST wrapper around the JSON-RPC APIs of the execution layer of Ethereum nodes. This project will serve as a simplified interface for programmers to interact with the Ethereum network, making it more convenient and human-friendly.\n\nNecessity:\nThe current RPC interface of the execution layer is inconvenient for programmers. The responses returned by the nodes are hex-encoded, making them difficult to understand and work with. This creates a barrier for developers who want to build applications on top of Ethereum. By developing ethRPCtoREST, we can simplify the interaction process and make it more accessible for programmers.\n\nImpact:\nThe impact of this project will be significant. By providing a REST API interface, we can attract more developers to build on Ethereum and contribute to its ecosystem. This will lead to an increase in the number of applications and services available on the network, ultimately driving adoption and usage. Additionally, by simplifying the interaction process, we can lower the barrier for entry and encourage more developers to experiment with Ethereum.\n\nProgress:\nThe development of ethRPCtoREST started during the Ethereum Protocol Fellowship from July 10th, 2023, to October 29th, 2023. Since then, significant progress has been made. Around 17 REST endpoints have been developed, covering approximately 18 execution layer methods. These endpoints act as wrappers around multiple methods or consolidate multiple methods into a single endpoint for ease of use. Weekly development updates have been recorded and are available for transparency.\n\nEligibility:\nethRPCtoREST meets all relevant eligibility criteria for funding. It is an open-source project that aims to develop and advance the broader Ethereum ecosystem by providing a simplified interface for developers. The ongoing progress and meaningful GitHub activity within the past three months demonstrate our commitment to continuous development and improvement.\n\nBy supporting ethRPCtoREST, you will contribute to the growth and accessibility of the Ethereum network. Your donation will help us maintain and enhance the project, ensuring that developers have a user-friendly interface to interact with Ethereum's execution layer. Together, we can empower more developers to build innovative applications on Ethereum and drive the adoption of Web3 technologies.",
+                        "website": "https://github.com/Rest-Wrapper/ethRPCtoREST",
+                        "bannerImg": "bafkreic7su33wgufdrzm67eewyzjjzbdlpjxc2up3gwzsf3wvppp4fwpgu",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreia5cwb46grh37ytoiep3a3hck7quhkolpwm5vt2dclfvrnl7xrs7u"
+                        },
+                        "userGithub": "Amit0617",
+                        "projectGithub": "Rest-Wrapper",
+                        "credentials": {
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x47c0C4eb25b0Aa4bC5D1E6341F5eE9A6aD2B596c",
+                                    "hash": "v0.0.0:N66xrVTejtTsFA7ybhX+tH1FC5y2D0vzYkqHDgHgN04=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#Rest-Wrapper#71893015"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-25T07:37:01.909Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-25T07:37:01.909Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..8ptGA4Mf3LLtY6B6WOdSZo1HqSDtKO9-54-1LWpbRg7teyNCCn_i3ew6Y-LXDe7yy5W17sw7l3ImqaN-kRLVCw"
+                                },
+                                "expirationDate": "2024-02-23T07:37:01.909Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "H5AUfho4jZxgEKZrp7emzFcVqF78OlCAnzW+NmQ42JAUpaUxeY0IPClLts+fajkU",
+                                "encryptedSymmetricKey": "a013b7392b9ccb8534be71049ddefbe8be1f51aebf4d53368183f14e8834fe1f1886eb7f8c3ca4d44e877d22a15a8619697b82430c5234f5ecff0187ba0a368b8a8214c33d2db1799d6d389d35e95e55d7786f5448121c0ab4e6b9cea8b8a5906fb5f9b936dce1254f385c34751e770d502c0402233ba870456432b715e4e7b50000000000000020cbc1ab96395aceb558e727e3c99ea638d0f0837e1ce8209f42ea57aff08edaaf649960e827d6932e4893c8392b62f892"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/amit0617/ethRPCtoREST"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "hkc3sT36oYR8jr56Lj5Tjt/UK6zORQax2ZcvkOfRoHU=",
+                                "encryptedSymmetricKey": "20e8b366968ad82f99cc1463b6a41906492c2f8cae5c6b229e5ef77b5e0247c01abd97aa087f65639c52b46d1f45660a2523df87ce8b9bf3987a50c7f71c13f093ad768647aa1ff00b3910ee0a5f898d43691ca2850fe14209388615070052b565e898169011c7b06056ef7ba3d9108cdd9d390687ba93bfdbe27b2030e7935e0000000000000020289a7355e51dd872dd324b2221dbe3be94ac88f6f35edf2d4e1cf26d01c779d340e8ebb3faedd2ef204eb256f140c081"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://t.me/Devwriter"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Our project, ethRPCtoREST, is in support of and directly advancing the Ethereum Network\u2019s infrastructure by providing a simplified interface for developers to interact with the execution layer of Ethereum nodes. The execution layer is responsible for processing transactions, executing smart contracts, and maintaining the state of the network. By creating a REST wrapper around the JSON-RPC APIs of the execution layer, we make it more convenient and human-friendly for programmers to access the network\u2019s functionality and data. This will enable more developers to build applications on top of Ethereum and contribute to its ecosystem."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "The number of execution layer methods that can be handled by ethRPCtoREST. Like currently 18 methods can be handled. Some of them don't yet give a simplified response. Ideally we want all of the methods to have simplified requests and responses.\n\nGoal is that simplification should make with least knowledge of operations of Ethereum ecosystem can handle it through few requests.\nTransactions like deploying a contract, interacting with it, and accessing values of maps in storage should be simple and no knowledge prerequisite should be required. Currently through standard JSON-RPC APIs there is a whole set of operations you need to do, before creating a request.\n\nAlso, in far future we can see - the number of applications and services built on top of ethRPCtoREST. This shows how useful and impactful our project is for enabling developers to create innovative solutions on Ethereum."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "4000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "1"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "4"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "N/A"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "It's development started during Ethereum protocol fellowship under the mentorship of https://github.com/lightclient.  I had started it as permissionless contributor and later turned into official fellow. "
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "N/A"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,6 @@
+- add an "EmitLog" event that takes a worker_id & log string and appends it to the logs database [DONE]
+- subscribe to logs inside of the application and show them [DONE]
+- add a "StrategyComplete" event that takes a worker_id and a complete strategy and appends it to the database
+- pull the strategy from the database when complete, and use its data instead of the mock data
+
+(future) PSOT /api/workers/{workerId}/runs -> runId
