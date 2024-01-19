@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, cast
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.gitcoin.models import ApplicationInfo, ProjectApplicationInfo, ProjectInfo, RoundInfo
@@ -15,7 +15,7 @@ async def on_index_gitcoin_page_failure(
     step: inngest.Step
 ): 
     error = ctx.event.data["error"]
-    data = IndexGitcoinPageEvent.Data.model_validate(ctx.event.data["event"]["data"])
+    data = IndexGitcoinPageEvent.Data.model_validate(cast(dict, ctx.event.data["event"])["data"])
    
     await step.run("stop_and_mark_job_as_failed", lambda: stop_and_mark_job_as_failed(data.job_id, error)) 
 
