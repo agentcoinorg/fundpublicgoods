@@ -93,7 +93,7 @@ def update_job_progress(job_id: str, skip_rounds: int, skip_projects: int) -> No
         .eq("id", job_id)
         .execute())
     
-def stop_and_mark_job_as_failed(job_id: str, error: dict) -> None:
+def stop_and_mark_job_as_failed(job_id: str, error: object):
     db = create_admin()
 
     (db.table("gitcoin_indexing_jobs")

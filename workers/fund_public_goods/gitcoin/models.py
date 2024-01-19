@@ -26,16 +26,14 @@ class ApplicationInfo(BaseModel):
     )
 
 class ProjectApplicationInfo(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
     id: str
     protocol: int
     pointer: str
     round_id: str = Field(..., alias="roundId")
     project_id: str = Field(..., alias="projectId")
     data: dict
-
-    model_config = ConfigDict(
-        populate_by_name=True,
-    )
 
 class ProjectInfo(BaseModel):
     id: str

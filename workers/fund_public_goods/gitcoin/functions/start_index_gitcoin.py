@@ -17,12 +17,19 @@ async def start_index_gitcoin(
     if any_job_running:
         return "A job is already running"
 
-    job = await step.run("get_not_running_job_url", lambda: get_non_running_job())
+    def get_not_running_job_step():
+        job = get_non_running_job()
+        if not job:
+            return None
+        else:
+            return job.model_dump()
 
-    if not job:
+    job_dto = await step.run("get_not_running_job", get_not_running_job_step)
+
+    if not job_dto:
         return "No non-running job found"
 
-    job = GitcoinIndexingJob.model_validate(job)
+    job = GitcoinIndexingJob.model_validate(job_dto)
 
     await step.run("start_job", lambda: start_job(job.id))
 
