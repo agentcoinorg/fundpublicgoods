@@ -3,6 +3,8 @@ import Prompt from "@/components/Prompt";
 
 export default async function HomePage() {
   return (
-    <Prompt />
-  )
+    <div className="flex h-full items-center justify-center">
+      <Prompt />
+    </div>
+  );
 }
