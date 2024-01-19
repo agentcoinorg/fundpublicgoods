@@ -1,0 +1,135 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:193",
+    "protocol": 1,
+    "pointer": "bafkreie77xjhyqhss5aoafgbhpud32aopujp6zsdxaj3cklcxne5zcnyiu",
+    "data": {
+        "title": "Citizen Wallet: an open source wallet with account abstraction for your community token",
+        "description": "# What is the Citizen Wallet?\nAn open source, community owned, crypto wallet with account abstraction (ERC4337) that you can easily customize for your community.\n\n# Why yet another wallet?\nExisting wallets are either for tech savvy people (e.g. metamask), or traders (people who already have money to invest).\n\nBut as a web3 project or DAO, what you want is an easy way for your community to receive and transfer *your tokens* (ERC20, ERC721, ...) without any technical or financial distraction.\n\nSome web3 communities end up developing their own wallet but it feels like a waste of time and energy. It feels like back in the days where everyone was redeveloping a blog engine before Wordpress came along.\n\nThat\u2019s why **the Citizen Wallet aims to be the Wordpress of Community Tokens (aka Community Currencies)**. An open source stack that you can easily customize for the needs of your community.\n\n# Current use cases\n\ud83d\udcb8 [Oak.community](https://Oak.community) is developing their own local crypto currency. They've been using so far the Rainbow wallet. Great wallet for people in crypto, not so great for citizens who just want to receive and spend the token of the Oakland community.\n\n\ud83c\udf7b [DAO.brussels](https://DAO.brussels) has been running monthly events (Crypto Wednesday). They run a decentralized bar where everyone can mint beer tokens by bringing beers to the bar, and anyone can buy those tokens from the token holders to get their refreshment.\n\n# Status\nWe have a web and native iOS and Android version in test phase using ERC4337 so that gas fees are paid by the token issuer, not the user (which is a UX nightmare when you onboard new users: you send them some of your tokens and they can't do anything with them since they don\u2019t have any native tokens to pay for gas).\n\n# Demo\n\n[![Watch the demo](https://img.youtube.com/vi/P4udzm01Eqs/hqdefault.jpg)](https://youtu.be/P4udzm01Eqs)\nYouTube: https://youtu.be/P4udzm01Eqs\n\n# Why should you support this?\nThis is a missing piece of infrastructure to enable DAOs to onboard non crypto people to their community.\n\nLike Wordpress, this has to be a public good. An open source project funded by the community for the community.\n\nBy supporting this project, we can make sure that the last mile to enable citizens to join web3 won't be in the hands of a small number of investors.\n\n# Who is behind it?\n\nRegen frens from [All for Climate DAO](https://twitter.com/all4climatedao) and [Regens Unite DAO](https://twitter.com/regensunite) that have been onboarding hundreds of people to the world of web3 and DAOs and experienced the pain first hand.\n\nCurrent contributors:\n\n- **[Xavier](https://twitter.com/xdamman)**: dad, software engineer, entrepreneur ([Storify](https://twitter.com/storify), [Open Collective](https://opencollective.com)), [Regens Unite DAO](https://regensunite.earth), [DAO.brussels](https://dao.brussels), [All for Climate DAO](https://twitter.com/all4climatedao)\n- **[Kevin](https://twitter.com/kevex91)**: native mobile app developer, tech enthusiast, solution architect, founder of IT consulting company [techi.be](https://techi.be)\n- **[Guil](https://twitter.com/guil_is)**: [Regens Unite DAO](https://regensunite.earth), creative director at [General Magic](https://www.generalmagic.io/), previously at The DAOist, [Chinwags.xyz](https://Chinwags.xyz)\n- **[Leen](https://twitter.com/leen_schelfhout)**: mom, facilitator, community builder ([All for Climate DAO](https://twitter.com/all4climatedao) and [Regens Unite DAO](https://twitter.com/regensunite)).",
+        "website": "https://citizenwallet.xyz",
+        "projectTwitter": "citizenwallet",
+        "projectGithub": "citizenwallet",
+        "logoImg": "bafkreic7skhefwnbyr4iyfxtplmwowg3n5putk6rntyovrzmoz4feuc7fm",
+        "bannerImg": "bafkreifexwjhbkohaknufsm6ao6kos3ixy57vrog4pitvubj5zbi4krali",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xf11704511975cC5908f6dBd89Be922f5C86c1055",
+                    "provider": "ClearTextTwitter#citizenwallet",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:IsNI7ebTmjepgPeYn9lJhzDLeYuG0CYBD7YL4AFaD/U="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-09T17:07:22.655Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-09T17:07:22.655Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..hJKE8RW_ogKuw_fQOrWEzECnryvnzQmV78pDcyH4nCchfT281YoE5h6vO70MlpjC0diPljuWh2Y_XMxALF1nAw"
+                },
+                "expirationDate": "2024-04-08T17:07:22.655Z"
+            }
+        },
+        "createdAt": 1704820053060
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-3",
+            "protocol": 1,
+            "pointer": "bafkreicga2ldvdgufq6veqtkrobfl6jjtbw3bwx4gsqgwxayiwdlon2kzm",
+            "data": {
+                "signature": "0xc01efd1e5ade00d845573e6e12d455da7fcfea81124a612bc3056cbb99beb65520ee06b83dcd020b32832cd2102edf02c2d01a2c2753479f964bd9f91f7daab51c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x20451461D5b609C5a3256d78F64c4Afee860Dc32",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704820053060,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:193",
+                        "title": "Citizen Wallet: an open source wallet with account abstraction for your community token",
+                        "description": "# What is the Citizen Wallet?\nAn open source, community owned, crypto wallet with account abstraction (ERC4337) that you can easily customize for your community.\n\n# Why yet another wallet?\nExisting wallets are either for tech savvy people (e.g. metamask), or traders (people who already have money to invest).\n\nBut as a web3 project or DAO, what you want is an easy way for your community to receive and transfer *your tokens* (ERC20, ERC721, ...) without any technical or financial distraction.\n\nSome web3 communities end up developing their own wallet but it feels like a waste of time and energy. It feels like back in the days where everyone was redeveloping a blog engine before Wordpress came along.\n\nThat\u2019s why **the Citizen Wallet aims to be the Wordpress of Community Tokens (aka Community Currencies)**. An open source stack that you can easily customize for the needs of your community.\n\n# Current use cases\n\ud83d\udcb8 [Oak.community](https://Oak.community) is developing their own local crypto currency. They've been using so far the Rainbow wallet. Great wallet for people in crypto, not so great for citizens who just want to receive and spend the token of the Oakland community.\n\n\ud83c\udf7b [DAO.brussels](https://DAO.brussels) has been running monthly events (Crypto Wednesday). They run a decentralized bar where everyone can mint beer tokens by bringing beers to the bar, and anyone can buy those tokens from the token holders to get their refreshment.\n\n# Status\nWe have a web and native iOS and Android version in test phase using ERC4337 so that gas fees are paid by the token issuer, not the user (which is a UX nightmare when you onboard new users: you send them some of your tokens and they can't do anything with them since they don\u2019t have any native tokens to pay for gas).\n\n# Demo\n\n[![Watch the demo](https://img.youtube.com/vi/P4udzm01Eqs/hqdefault.jpg)](https://youtu.be/P4udzm01Eqs)\nYouTube: https://youtu.be/P4udzm01Eqs\n\n# Why should you support this?\nThis is a missing piece of infrastructure to enable DAOs to onboard non crypto people to their community.\n\nLike Wordpress, this has to be a public good. An open source project funded by the community for the community.\n\nBy supporting this project, we can make sure that the last mile to enable citizens to join web3 won't be in the hands of a small number of investors.\n\n# Who is behind it?\n\nRegen frens from [All for Climate DAO](https://twitter.com/all4climatedao) and [Regens Unite DAO](https://twitter.com/regensunite) that have been onboarding hundreds of people to the world of web3 and DAOs and experienced the pain first hand.\n\nCurrent contributors:\n\n- **[Xavier](https://twitter.com/xdamman)**: dad, software engineer, entrepreneur ([Storify](https://twitter.com/storify), [Open Collective](https://opencollective.com)), [Regens Unite DAO](https://regensunite.earth), [DAO.brussels](https://dao.brussels), [All for Climate DAO](https://twitter.com/all4climatedao)\n- **[Kevin](https://twitter.com/kevex91)**: native mobile app developer, tech enthusiast, solution architect, founder of IT consulting company [techi.be](https://techi.be)\n- **[Guil](https://twitter.com/guil_is)**: [Regens Unite DAO](https://regensunite.earth), creative director at [General Magic](https://www.generalmagic.io/), previously at The DAOist, [Chinwags.xyz](https://Chinwags.xyz)\n- **[Leen](https://twitter.com/leen_schelfhout)**: mom, facilitator, community builder ([All for Climate DAO](https://twitter.com/all4climatedao) and [Regens Unite DAO](https://twitter.com/regensunite)).",
+                        "website": "https://citizenwallet.xyz",
+                        "bannerImg": "bafkreifexwjhbkohaknufsm6ao6kos3ixy57vrog4pitvubj5zbi4krali",
+                        "logoImg": "bafkreic7skhefwnbyr4iyfxtplmwowg3n5putk6rntyovrzmoz4feuc7fm",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreie77xjhyqhss5aoafgbhpud32aopujp6zsdxaj3cklcxne5zcnyiu"
+                        },
+                        "projectGithub": "citizenwallet",
+                        "projectTwitter": "citizenwallet",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xf11704511975cC5908f6dBd89Be922f5C86c1055",
+                                    "provider": "ClearTextTwitter#citizenwallet",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:IsNI7ebTmjepgPeYn9lJhzDLeYuG0CYBD7YL4AFaD/U="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-09T17:07:22.655Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-09T17:07:22.655Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..hJKE8RW_ogKuw_fQOrWEzECnryvnzQmV78pDcyH4nCchfT281YoE5h6vO70MlpjC0diPljuWh2Y_XMxALF1nAw"
+                                },
+                                "expirationDate": "2024-04-08T17:07:22.655Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "sfFtqqiXgqFSWY620vkhqAXNlBU1Tv+rIU4bO5/O2sK0L7roDHebfpdLNdnCQ8pr",
+                                "encryptedSymmetricKey": "7bba5aa988b5889f9c0b22c7785df0f2f588f89a7690dab290841568202a7dcc9caf85dcd236cab84ec65508bb33b717d865a1d57bc9334d415921793be02881c60235809971c2ac87b911fe849432660d2d0c9b866298763de11a926faa298797be4e93353eef7470214f179209d6a1b881103cd2b57fe7257d0f5bb9be7ec400000000000000209df41322a14d5e3ca42a5beb1b25b445fe9b61edb1e8e1d9b3c61f0d1594ca6a6488d6b7773fdea6d9e8980426274186"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "The Citizen Wallet is a missing piece of infrastructure to help you onboard non web3 users to your community, but it's not enough.\n\nWe, as a community, we need a Wordpress moment.\nAn open source stack that anyone can use to start publishing their own ~stories~ tokens. \n\nThis will accelerate adoption and make the pie bigger for everyone.\n\nThe Citizen Wallet is part of that and we are working on the rest of the stack to onboard more communities.\n\nWe believe in a world where every community will have their own DAO and their own currency. This will accelerate the transition from the monoculture of a single unit of account, to a permaculture of many different ways to measure contributions to the world.\n\nLet's give the tools communities need to bring that future closer to the present, one token at a time.\n\nAnd let's make sure people can deploy their community token on Polygon :-)"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

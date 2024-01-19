@@ -1,0 +1,195 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:209",
+    "protocol": 1,
+    "pointer": "bafkreigr642dwuocqyez5x3apu5eqclhx3cmrc2zqg52zgw5hzre3qlnsm",
+    "data": {
+        "title": "1Hive Gardens",
+        "description": "\ud83c\udf31\ufeff Gardens is a 1Hive initiative to create a template for public communities to coordinate shared resources from the bottom-up, taking the best lessons learned from the 1Hive community and allowing any DAO to implement them in a plug-and-play fashion.\n\nWith Gardens, anyone can set up a DAO in minutes, leveraging Conviction Voting, a Community Covenant, and the Celeste arbitration protocol, while also getting the network effects of joining a community of quickly blooming Gardens DAOs.",
+        "website": "https://gardensdao.eth.limo/",
+        "projectTwitter": "gardensdao",
+        "userGithub": "pglavin2",
+        "projectGithub": "1Hive",
+        "logoImg": "bafkreifbqegzw2gm6fv2jrex6sc2uneqj6yspzqrspmrcaryjffj4v5uju",
+        "bannerImg": "bafkreifjucutyj3qgh2q3uvynqww5pz7g3oiefu2tbbsaibb5de365gn7i",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:eZaZN6DYitoW4hd7RoXYyOYKvI5EJE584L2OD0SHyVo=",
+                    "provider": "ClearTextTwitter#gardensdao"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-12T16:34:02.996Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-12T16:34:02.996Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..p4t_95FrM1kDSeETfpOawEXue8JjjYIj5xjw0Qj6s2jf9P6dKJU7wUaPVGpRMUndDKLG03SrOVZKnoyVEp66Dg"
+                },
+                "expirationDate": "2024-04-11T16:34:02.996Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:Uow8MSI3Ax95Nqa30MsVoovYkfwIbigzUdGn5M3Wq+4=",
+                    "provider": "ClearTextGithubOrg#1Hive#9218761"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-12T16:34:28.774Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-12T16:34:28.774Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..F9XTeXtjWuZt09TkZi-Z7JPCBb8cXU0dZ3TnprRN8F-yG7FEWc3PuafQX8gHq8JLwGHnnAyn8-p3ZnEQvuNgBQ"
+                },
+                "expirationDate": "2024-04-11T16:34:28.774Z"
+            }
+        },
+        "createdAt": 1705077322969
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-16",
+            "protocol": 1,
+            "pointer": "bafkreifjuvmt5ahihp37zhm6mrgnguohw4edfmodzs6kwg2fpaomx6xaza",
+            "data": {
+                "signature": "0x8b4534a0b0a6120a917f41c657e906a704ae00620e64febf353e4ae4d0b2a6b24a4fe04931fad8b36127cc641a5f150f9a8e5dd80e597f825e840032d8b0ac421b",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x1B8C7f06F537711A7CAf6770051A43B4F3E69A7e",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1705077322969,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:209",
+                        "title": "1Hive Gardens",
+                        "description": "\ud83c\udf31\ufeff Gardens is a 1Hive initiative to create a template for public communities to coordinate shared resources from the bottom-up, taking the best lessons learned from the 1Hive community and allowing any DAO to implement them in a plug-and-play fashion.\n\nWith Gardens, anyone can set up a DAO in minutes, leveraging Conviction Voting, a Community Covenant, and the Celeste arbitration protocol, while also getting the network effects of joining a community of quickly blooming Gardens DAOs.",
+                        "website": "https://gardensdao.eth.limo/",
+                        "bannerImg": "bafkreifjucutyj3qgh2q3uvynqww5pz7g3oiefu2tbbsaibb5de365gn7i",
+                        "logoImg": "bafkreifbqegzw2gm6fv2jrex6sc2uneqj6yspzqrspmrcaryjffj4v5uju",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreigr642dwuocqyez5x3apu5eqclhx3cmrc2zqg52zgw5hzre3qlnsm"
+                        },
+                        "userGithub": "pglavin2",
+                        "projectGithub": "1Hive",
+                        "projectTwitter": "gardensdao",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:eZaZN6DYitoW4hd7RoXYyOYKvI5EJE584L2OD0SHyVo=",
+                                    "provider": "ClearTextTwitter#gardensdao"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-12T16:34:02.996Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-12T16:34:02.996Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..p4t_95FrM1kDSeETfpOawEXue8JjjYIj5xjw0Qj6s2jf9P6dKJU7wUaPVGpRMUndDKLG03SrOVZKnoyVEp66Dg"
+                                },
+                                "expirationDate": "2024-04-11T16:34:02.996Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x809C9f8dd8CA93A41c3adca4972Fa234C28F7714",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:Uow8MSI3Ax95Nqa30MsVoovYkfwIbigzUdGn5M3Wq+4=",
+                                    "provider": "ClearTextGithubOrg#1Hive#9218761"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-12T16:34:28.774Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-12T16:34:28.774Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..F9XTeXtjWuZt09TkZi-Z7JPCBb8cXU0dZ3TnprRN8F-yG7FEWc3PuafQX8gHq8JLwGHnnAyn8-p3ZnEQvuNgBQ"
+                                },
+                                "expirationDate": "2024-04-11T16:34:28.774Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "PNQlisaOPT6ZhXLxuNozz5Vk5MhuC04A6sc1LWEFlFzjNh6gOzjAHnj8TxeMX81w",
+                                "encryptedSymmetricKey": "408b4806757906f3a348432979c0bb6a6566dd20b0db2e51bfa015fd1269ccff18f78271bbbf494cd0b402446575fe0e30ea776d22a48e21a5fd69f06212e5fcb6f7e48b741e7d2d81366909da69c66852cc9a00b1be5cf6fd34c5acd50d7fa6336295111bb3abea2b45bd30dc9bc56156f7291dc10085dbf6a025743216cbd10000000000000020767e2aefea7153e161e9fd4c5b03bed35bc036dcb13c2097fbd50a40ccd8137bac3829022ad51eeab5dce04c599833a2"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Welcome to the high impact, low friction, continuous funding world of Conviction Voting \ud83c\udf0e\n\nMost grant funding mechanisms take an enormous amount of administrative overhead. Project vetting and approval, marketing bonanzas, fraud detection, contract deployments and funding distributions are repeated round-by-round or even grant-by-grant, often for very similar batches of projects who depend on those grants to build the infrastructure that makes web3 work.\n\nBehold, there is a better way! \ud83c\udf08\n\nConviction Voting 101\n\nConviction Voting is a funding mechanism linked a pool of tokens and a social contract, designed to distribute tokens from the pool to a collection of people, projects, or purposes as efficiently and with the best ROI possible.\n\nCommunity members request funding from a pool in discrete amounts or through token streams (coming soon), and voters stake their support to approve. Conviction Voting replaces a lot of the manual human intervention needed in most grant funding mechanisms with a thoughtfully parameterized governance framework:\n\n* More funds requested = more support needed for the proposal to pass.\n\n* Voting weight increases the longer you stake in a proposal, so your support \"grows conviction.\"\n\n* Voters can support any number of proposals with any portion of their voting weight.\n\n* Malicious or abusive proposals can be disputed and sent to arbitration.\n\n* When a proposal reaches its support threshold without dispute, funds are distributed.\n\nThese allow for continuous funding of grants without rounds and without an admin committee or an entire community needing to be involved in every funding decision. Designed for grant programs that fund ongoing work for early stage projects that only need small periodic funding - an ideal incubator for viable independent token communities.\n\nMore cool features of our app:\n\n* Signaling Proposals - proposals with no funding attached. These can be used to create polls that might need the security of Conviction Voting, like continuous elections for a Gnosis Safe or token weights in a treasury portfolio.\n\n* Address whitelisting - proposal creators and voters can be restricted to a specific set of addresses.\n\n* Adjust support for all proposals at once - a simple UI with transaction bundling to make it easy to change support on all active proposals at the same time.\n\nFeatures we'll add next:\n\n* Streaming Proposals - proposals that pay out via token streams on Superfluid\n\n* Dispute resolution - pick a Gnosis Safe to serve as they jury in proposals that are disputed.\n\n* Create a Proposal - a UI to create a funding, streaming, or signaling proposal in a Conviction Voting Pool.\n\n* Create/Manage a Funding Pool - a UI to create a Conviction Voting Pool and manage the pool's parameters and settings as an admin.\n\n* Create/Manage a community - a UI to set up your own community with a social contract and staking token, which can then be linked to any number of funding pools and strategies.\n\n* Integrate more funding strategies - allow communities to create funding pools linked to quadratic funding, direct grants, or other strategies.\n\nGardens v1 has securely held as much as $40M in funding, and has distributed millions to these communities with 0 hacks or malicious proposals to date.\n\nOur goal was to replicate this system using Allo Protocol v2, and to improve the UI for Conviction Voting to make it easier for people to understand. We believe Conviction Voting is ready to grow beyond the niche group of expert governance nerds that first conceived and experimented with it \ud83e\udd13"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

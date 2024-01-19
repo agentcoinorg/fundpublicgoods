@@ -1,0 +1,309 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:107",
+    "protocol": 1,
+    "pointer": "bafkreigyjhtzkuu6j2mdvloofjryfjeos66y6hgw5h3ayja25ht7hn3rii",
+    "data": {
+        "title": "NiceNode",
+        "description": "**Are you ready to run a node but feeling held back?** The current options to run a node require technical skills to open a terminal and run commands or install a new operating system. Running a node should be as simple as downloading an app - and we've been working hard on NiceNode to make this happen.\n\n>NiceNode is an app that runs, monitors, and controls a node.\n\nAvailable first are Ethereum, Optimism, Arbitrum, Base, and Farcaster nodes!\n\nYour contributions will fund **the best on-boarding experience to running Ethereum nodes**, a foundation for Ethereum staking, and more node options such as Layer 2 and other web3 nodes. \n\nNiceNode is stable for Linux, and available but unstable for Windows, and macOS. We are working hard on improving the stability on macOS and Windows. All of our code is open-source and available on our [Github](https://github.com/NiceNode/nice-node).\n\nEthereum client teams and supporters, we welcome help with setting client default configurations and testing your client with NiceNode. Please reach out in our [Discord](https://discord.gg/k3dpYU4Pn9) or on [X|Twitter](https://x.com/NiceNodeApp).\n\nTo see updated screen recordings of starting a node from scratch with NiceNode, check-out our [YouTube channel](https://www.youtube.com/@NiceNode).",
+        "website": "https://nicenode.xyz",
+        "projectTwitter": "NiceNodeApp",
+        "userGithub": "jgresham",
+        "projectGithub": "NiceNode",
+        "logoImg": "bafkreig4yqqcxnc6lsdkicys5t3755h4fnx7iiak6t5a7boyf5lclr2gie",
+        "bannerImg": "bafkreicx3orvjqplp2f3croslj7d23jotmnyaikmi6yabolx4vcw5r7gkq",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x9cce47E9cF12C6147c9844adBB81fE85880c4df4",
+                    "provider": "ClearTextTwitter#NiceNodeApp",
+                    "hash": "v0.0.0:LusEyJuFzXWnG3TeHZggukZKCI3sI76jq5pmAeeIh4A=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T15:22:35.214Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T15:22:35.214Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..jnUuX_ibvUKDlGzuAXh7OEZHcw27XEp-cNM1AAlWOm9PglOjb63KyHxoRXd4d56HW1eV2fCl3qFY7aMdHlVZDg"
+                },
+                "expirationDate": "2024-02-06T15:22:35.214Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x9cce47E9cF12C6147c9844adBB81fE85880c4df4",
+                    "hash": "v0.0.0:/ZS7pJe/IKKCUE2D1piKoEFsM4DluVeBKWHU4EQ+oI8=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextGithubOrg#NiceNode#3721291"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T15:22:41.940Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T15:22:41.940Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..k-ibfasbsOa143QLcMey5WOw3dZO1Z0slmu7bvYarnnYa3jYDvboOfPFi90cf6TPTAbLoBE40ZyXsIKVD11_CA"
+                },
+                "expirationDate": "2024-02-06T15:22:41.940Z"
+            }
+        },
+        "createdAt": 1673382167227
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-8",
+            "protocol": 1,
+            "pointer": "bafkreif5yulscymp7ckizr6oy2djbg3kyab3fpt6wi4hkuwnbv7ofkqd7e",
+            "data": {
+                "signature": "0xe912a4def9890ce3c913d47cc343e05a150c0dfe3f6e14fc7d53db41a6ca7ac232ca612c307989af6909480eabf3df7e1eb967061613e431c339bd0fb4dce8211b",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x9cce47E9cF12C6147c9844adBB81fE85880c4df4",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673382167227,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:107",
+                        "title": "NiceNode",
+                        "description": "**Are you ready to run a node but feeling held back?** The current options to run a node require technical skills to open a terminal and run commands or install a new operating system. Running a node should be as simple as downloading an app - and we've been working hard on NiceNode to make this happen.\n\n>NiceNode is an app that runs, monitors, and controls a node.\n\nAvailable first are Ethereum, Optimism, Arbitrum, Base, and Farcaster nodes!\n\nYour contributions will fund **the best on-boarding experience to running Ethereum nodes**, a foundation for Ethereum staking, and more node options such as Layer 2 and other web3 nodes. \n\nNiceNode is stable for Linux, and available but unstable for Windows, and macOS. We are working hard on improving the stability on macOS and Windows. All of our code is open-source and available on our [Github](https://github.com/NiceNode/nice-node).\n\nEthereum client teams and supporters, we welcome help with setting client default configurations and testing your client with NiceNode. Please reach out in our [Discord](https://discord.gg/k3dpYU4Pn9) or on [X|Twitter](https://x.com/NiceNodeApp).\n\nTo see updated screen recordings of starting a node from scratch with NiceNode, check-out our [YouTube channel](https://www.youtube.com/@NiceNode).",
+                        "website": "https://nicenode.xyz",
+                        "bannerImg": "bafkreicx3orvjqplp2f3croslj7d23jotmnyaikmi6yabolx4vcw5r7gkq",
+                        "logoImg": "bafkreig4yqqcxnc6lsdkicys5t3755h4fnx7iiak6t5a7boyf5lclr2gie",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreigyjhtzkuu6j2mdvloofjryfjeos66y6hgw5h3ayja25ht7hn3rii"
+                        },
+                        "userGithub": "jgresham",
+                        "projectGithub": "NiceNode",
+                        "projectTwitter": "NiceNodeApp",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x9cce47E9cF12C6147c9844adBB81fE85880c4df4",
+                                    "provider": "ClearTextTwitter#NiceNodeApp",
+                                    "hash": "v0.0.0:LusEyJuFzXWnG3TeHZggukZKCI3sI76jq5pmAeeIh4A=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T15:22:35.214Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T15:22:35.214Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..jnUuX_ibvUKDlGzuAXh7OEZHcw27XEp-cNM1AAlWOm9PglOjb63KyHxoRXd4d56HW1eV2fCl3qFY7aMdHlVZDg"
+                                },
+                                "expirationDate": "2024-02-06T15:22:35.214Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x9cce47E9cF12C6147c9844adBB81fE85880c4df4",
+                                    "hash": "v0.0.0:/ZS7pJe/IKKCUE2D1piKoEFsM4DluVeBKWHU4EQ+oI8=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextGithubOrg#NiceNode#3721291"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T15:22:41.940Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T15:22:41.940Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..k-ibfasbsOa143QLcMey5WOw3dZO1Z0slmu7bvYarnnYa3jYDvboOfPFi90cf6TPTAbLoBE40ZyXsIKVD11_CA"
+                                },
+                                "expirationDate": "2024-02-06T15:22:41.940Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "KjbK91u29ydNBE9Y3UAaUAeLgvb4PkayI5ZTvwzTxf4FgRFH10x8XButCfpIVOTX",
+                                "encryptedSymmetricKey": "4a41a9cc7fc5ff72cf38e369a03c92b02629337b1b0d62bfca99e86b976dea79db97b460c01a84d7880058e715a8a306fb6f46f58d167cc4be9ece58d6b2005579ac25029ab1f5f1fd50524b89a1fca1b3b647faa97f809ae78a29a17e9f63acd1fae0288e5b3eb2f06ff0373702ff37b3be20d3079a3215168c6f87b7941621000000000000002026908579e543b1927407794a31ca1a730ed209266dc105568d4c98b3ed2342f713941632985a85ca1b1e867155309880"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/NiceNode/nice-node"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "x+5z74ZZsezqpazItfMQjQRcJ6brhe+kFjpuTAxkth/CC0+ARnEvo94JrfKlie1B",
+                                "encryptedSymmetricKey": "20e4f4a1df2b3a6232db6915897bad0103d5eea870db0d858b69eefacb78c0ca92dfdd2df733beffe916029dc7c89e103c719212b753b2b11742956d4a6f9a7d73d77c7370dd25a11b2aa147ca2b159b1268d3e7e0aa08b600bb30b80226698a5c74f62bc42132c6e81c929605d655794110f866c7107108065dcbd38ac7e44a00000000000000200afe8fb3a73ec7df4bf103dfaaaabeb2d0a74bf598c49571e679b48f9ca75dc022f529957b23ad7163785a69256d148a"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://discord.gg/k3dpYU4Pn9"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "NiceNode helps users run Ethereum Nodes which are core to a healthy and functioning distributed network! Additionally, default settings encourage users to run minority node clients to protect Ethereum against single client bug risk. \nNiceNode supports the scaling architecture of Ethereum by providing Layer 2 node options, such as OP Stack, Arbitrum, and more coming soon."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "NiceNode is now available and stable for Linux! Even if you're familiar with the command line, give NiceNode a try to save time and better monitor nodes.\n\nOther updates:\n- You can now run Layer 2 nodes and Farcaster hubs!\n- Opt-in to auto-start NiceNode and nodes on login in Preferences\n- Better language translations for 8 common languages\n- Search node logs or filter by error or warning\n- Select sync mode and network - mainnet or testnet - when adding a node\n- Added Reth execution client\n- App notifications if network ports are closed or disk space is low\n- Event reporting to measure impact and client diversity \n"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Over the last 7 days we have seen about 88 new nodes added from 40 unique devices and 15 unique countries. 77 being Ethereum Nodes, with the rest being Base, Optimism, and Farcaster nodes. Of the 77 Ethereum Nodes, 63 are non-geth nodes!\n\nThe app has been downloaded a total of 11,000 times.\n\nWe are working on a public dashboard that will show app usage, client diversity, and more."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "180000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "3"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "20"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://github.com/NiceNode/nice-node/graphs/contributors"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "North America"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

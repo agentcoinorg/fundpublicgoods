@@ -1,0 +1,310 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:120",
+    "protocol": 1,
+    "pointer": "bafkreibuddtwae4hrpexltnfg2breuhu2qizf4cyhva2gujug64frcuy4q",
+    "data": {
+        "title": "Ethereum on ARM",
+        "description": "Join us in running a **$350 preconfigured Ethereum Full/Archive/Staking node** on ARM64 boards, consuming only 10 watts of power.\n\n**Ethereum on ARM** provides a PnP Ubuntu Armbian image for the NanoPC-T6, Rock 5B, Orange Pi 5 Plus, and Orange Pi 5 that sets up and runs both Execution and Consensus clients as Systemd services. It **automatically turns the device into an ARM64 Full Ethereum node or a home Staking box**.\n\nOur main goal is to **lower the barriers of running an Ethereum L1 or L2 node** by automating complex processes, ultimately encouraging more users to participate in the network. This contributes directly to **network decentralization**.\n\nAdditionally, our work empowers developers by providing them with the tools necessary to run a development or testing node and end-users to use their nodes for their daily operations.\n\nThis is what we've been up to in the last months (thanks to your past contributions):\n\n- Develop **EOA-config**: A **console menu interface to easily run an L1 or L2 Full/Archive node in seconds** (currently in alpha).\n- Support and include more Ethereum clients (added **Reth**). Current list: Geth, Erigon, Besu, Nethermind, Reth, Prysm, Nimbus, Teku, and Lighthouse.\n- Testing and releasing images for several new devices: **NanoPC-T6, Orange Pi 5 Plus, and Orange Pi 5**.\n- Testing and running an Archive node with Reth (currently running on a Rock 5B).\n- **L2** support. We are supporting the following L2s: **Optimism (and Base), Arbitrum, Polygon, Starknet, and Gnosis**.\n- Research on **Distributed Validator Technology**.\n- Client diversity. We migrated our validators to **minority clients** to promote their adoption.\n- Working with client teams for testing in ARM64 platforms (Reth and Nethermind).\n- Working with **Dencun** Devops team for testing in ARM64 platforms.\n- Working with Geth team for testing **Verkle tries migration** process in ARM64 platforms.\n- **RISC V**: Continue to research and try to run a node on this architecture. Working on VisionFive 2 board.\n\nThanks for your donations and support.\n\n**Our Repository**\n\n[https://github.com/EOA-Blockchain-Labs/ethereumonarm/](https://github.com/EOA-Blockchain-Labs/ethereumonarm)\n\n**Documentation Page**\n\n[https://ethereum-on-arm-documentation.readthedocs.io](https://ethereum-on-arm-documentation.readthedocs.io)\n\n**Discord Channel**\n\n[http://discord.gg/ve2Z8fxz5N](http://discord.gg/ve2Z8fxz5N)\n\n**Check our Twitter Account for Updates**\n\n[https://twitter.com/EthereumOnARM](https://twitter.com/EthereumOnARM)\n\n*Ethereum on ARM is an EOA Blockchain Labs, S.L. Spanish company project.*",
+        "website": "https://ethereum-on-arm-documentation.readthedocs.io/",
+        "projectTwitter": "EthereumOnARM",
+        "userGithub": "diglos",
+        "projectGithub": "EOA-Blockchain-Labs",
+        "logoImg": "bafkreiggxot2tb7ise574vc2br225z2cenov25sgbm5e5ylkyvh63puvx4",
+        "bannerImg": "bafkreicbuggtqdnyfxhr6hzwnkdtbg2k7cqbpaitdhzomsdofj35iy3kfe",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xd1933DF1c223ad7CB5716B066cA26BC24569e622",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#EthereumOnARM",
+                    "hash": "v0.0.0:sVMFphaffGc2zqqEglS7JSkHLycOu/NVYuL/3fMCNqQ="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T10:07:43.231Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T10:07:43.231Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..Ttg8oyM--Q1UkuYMhmU2yYtYI7J5dR4qOqLsM-aPge-KBlSb0Vx5xGqcZrHhuOelsIQRJqJcOOd81nmep5d-Aw"
+                },
+                "expirationDate": "2024-02-06T10:07:43.231Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xd1933DF1c223ad7CB5716B066cA26BC24569e622",
+                    "provider": "ClearTextGithubOrg#EOA-Blockchain-Labs#16838272",
+                    "hash": "v0.0.0:PfZW66LfzcbpH2bmp+6gvqBZg7580+9P3EEDdh1Pj7Y=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T10:08:00.067Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T10:08:00.067Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..oKGLeilO2WRx_rQCR81uzinXYR75RPdSh4QNeokEAoPbVuG2d_3dJB0x-U4YIhOepPTnO-b-7522gaugy8PFBw"
+                },
+                "expirationDate": "2024-02-06T10:08:00.067Z"
+            }
+        },
+        "createdAt": 1673441915287
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-6",
+            "protocol": 1,
+            "pointer": "bafkreibamzz4zx7y2fgtxbaed4zmwvpt26xr5rcd57gntcvwlpuza5hhey",
+            "data": {
+                "signature": "0xea676dcddbac16340c9263d2aa7348f8f8a89b73c4433152cc090715def09a9b020f231767ef0e608c4fbfdd7733fdab5cab572129d8c1fd6c88e29f23420be21c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x1bCDB2226ee2b023e3886Dd2027c4eE95457699f",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673441915287,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:120",
+                        "title": "Ethereum on ARM",
+                        "description": "Join us in running a **$350 preconfigured Ethereum Full/Archive/Staking node** on ARM64 boards, consuming only 10 watts of power.\n\n**Ethereum on ARM** provides a PnP Ubuntu Armbian image for the NanoPC-T6, Rock 5B, Orange Pi 5 Plus, and Orange Pi 5 that sets up and runs both Execution and Consensus clients as Systemd services. It **automatically turns the device into an ARM64 Full Ethereum node or a home Staking box**.\n\nOur main goal is to **lower the barriers of running an Ethereum L1 or L2 node** by automating complex processes, ultimately encouraging more users to participate in the network. This contributes directly to **network decentralization**.\n\nAdditionally, our work empowers developers by providing them with the tools necessary to run a development or testing node and end-users to use their nodes for their daily operations.\n\nThis is what we've been up to in the last months (thanks to your past contributions):\n\n- Develop **EOA-config**: A **console menu interface to easily run an L1 or L2 Full/Archive node in seconds** (currently in alpha).\n- Support and include more Ethereum clients (added **Reth**). Current list: Geth, Erigon, Besu, Nethermind, Reth, Prysm, Nimbus, Teku, and Lighthouse.\n- Testing and releasing images for several new devices: **NanoPC-T6, Orange Pi 5 Plus, and Orange Pi 5**.\n- Testing and running an Archive node with Reth (currently running on a Rock 5B).\n- **L2** support. We are supporting the following L2s: **Optimism (and Base), Arbitrum, Polygon, Starknet, and Gnosis**.\n- Research on **Distributed Validator Technology**.\n- Client diversity. We migrated our validators to **minority clients** to promote their adoption.\n- Working with client teams for testing in ARM64 platforms (Reth and Nethermind).\n- Working with **Dencun** Devops team for testing in ARM64 platforms.\n- Working with Geth team for testing **Verkle tries migration** process in ARM64 platforms.\n- **RISC V**: Continue to research and try to run a node on this architecture. Working on VisionFive 2 board.\n\nThanks for your donations and support.\n\n**Our Repository**\n\n[https://github.com/EOA-Blockchain-Labs/ethereumonarm/](https://github.com/EOA-Blockchain-Labs/ethereumonarm)\n\n**Documentation Page**\n\n[https://ethereum-on-arm-documentation.readthedocs.io](https://ethereum-on-arm-documentation.readthedocs.io)\n\n**Discord Channel**\n\n[http://discord.gg/ve2Z8fxz5N](http://discord.gg/ve2Z8fxz5N)\n\n**Check our Twitter Account for Updates**\n\n[https://twitter.com/EthereumOnARM](https://twitter.com/EthereumOnARM)\n\n*Ethereum on ARM is an EOA Blockchain Labs, S.L. Spanish company project.*",
+                        "website": "https://ethereum-on-arm-documentation.readthedocs.io/",
+                        "bannerImg": "bafkreicbuggtqdnyfxhr6hzwnkdtbg2k7cqbpaitdhzomsdofj35iy3kfe",
+                        "logoImg": "bafkreiggxot2tb7ise574vc2br225z2cenov25sgbm5e5ylkyvh63puvx4",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreibuddtwae4hrpexltnfg2breuhu2qizf4cyhva2gujug64frcuy4q"
+                        },
+                        "userGithub": "diglos",
+                        "projectGithub": "EOA-Blockchain-Labs",
+                        "projectTwitter": "EthereumOnARM",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xd1933DF1c223ad7CB5716B066cA26BC24569e622",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#EthereumOnARM",
+                                    "hash": "v0.0.0:sVMFphaffGc2zqqEglS7JSkHLycOu/NVYuL/3fMCNqQ="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T10:07:43.231Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T10:07:43.231Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..Ttg8oyM--Q1UkuYMhmU2yYtYI7J5dR4qOqLsM-aPge-KBlSb0Vx5xGqcZrHhuOelsIQRJqJcOOd81nmep5d-Aw"
+                                },
+                                "expirationDate": "2024-02-06T10:07:43.231Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xd1933DF1c223ad7CB5716B066cA26BC24569e622",
+                                    "provider": "ClearTextGithubOrg#EOA-Blockchain-Labs#16838272",
+                                    "hash": "v0.0.0:PfZW66LfzcbpH2bmp+6gvqBZg7580+9P3EEDdh1Pj7Y=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T10:08:00.067Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T10:08:00.067Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..oKGLeilO2WRx_rQCR81uzinXYR75RPdSh4QNeokEAoPbVuG2d_3dJB0x-U4YIhOepPTnO-b-7522gaugy8PFBw"
+                                },
+                                "expirationDate": "2024-02-06T10:08:00.067Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "bP6BAKititSsKNaArOqzs5zyHwGUP+swRaO2dTCekd6zHlbtQygFPM6Vs1TdPkPH",
+                                "encryptedSymmetricKey": "e92f41cabafa074cbcc1ab4d5e8a3f637c6504684f712c5f506df6bcd086f5cd4905251a2aa88c8bd2f2abd425b7880db7f2b03babee95cb40f3b513c1e5a7fba2017b17ebec6b0f771cfb365c5ce702d1f7bfeafbcb0df819c7227f698af3b15f9af9088e603ab4ffa0521b4131b281ed98ff720ac147164039c3d618e46e800000000000000020dc8f32a0999a152a49b6cc6752ce8cb607a58d1d41f5cdfa2897e2ccba81d938cf06281cc77c6112748cd5393bf6f9a3"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/EOA-Blockchain-Labs/ethereumonarm/"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "bKRB57YARfllRQRxIZCG3f2DZu1C++FJXHirYWTwwQo=",
+                                "encryptedSymmetricKey": "9874c53d96294f1138d703e353bb8c4f1834b237c2d209c6f4d53e9d01593f5f783757439a40ca9910794abffa5a240a478ad433c3578963719c73fce6e45fd64fa8e924ce1ed40cdff30079dd4843e2d74cc8169e1fb45a470e546a4f063d835f483e7d2168f5397f71efd37732a85a270256cb441ff317494072da18b317ef00000000000000201002dcc56b584fce00a1f22ed20fd8cdeec94e12b4949e08a4bed0ec777bb0e7f32f57a7be6213bbd88bbef80474ddad"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "http://discord.gg/ve2Z8fxz5N"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "We try to **lower the barriers of running an Ethereum L1 or L2 node** by automating complex processes, ultimately encouraging more users to participate in the network. This contributes directly to **network decentralization**.\n"
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "- Develop **EOA-config**: A **console menu interface to easily run an L1 or L2 Full/Archive node in seconds** (currently in alpha).\n- Added **Reth** client.\n- Added support for several new devices: **NanoPC-T6, Orange Pi 5 Plus, and Orange Pi 5**.\n- **L2** support. We are supporting the following L2s: **Optimism (and Base), Arbitrum, Polygon, Starknet, and Gnosis**.\n- Research on **Distributed Validator Technology**.\n- Client diversity. We migrated our validators to **minority clients** to promote their adoption.\n- Working with client teams for testing in ARM64 platforms (Reth and Nethermind).\n- Working with **Dencun** Devops team for testing in ARM64 platforms.\n- Working with Geth team for testing **Verkle tries migration** process in ARM64 platforms.\n"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Our impact is best illustrated through community engagement and the growth in the number of independently operated nodes contributing to network's decentralization:\n\nCommunity Engagement: Our announcements on social platforms, especially Twitter, have garnered substantial attention, with numerous retweets, likes, and comments, indicating a strong community interest.\n\nDecentralization Contribution: Although challenging to quantify precisely, the requests for help in our Discord channel (for both Optimism and recently Base) indicates a direct contribution to the network's decentralization. Every new node introduced to the network enhances Ethereum's resilience."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "120000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "2"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "85"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true,
+                            "answer": "0xd1933DF1c223ad7CB5716B066cA26BC24569e622"
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/EthereumOnARM"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Europe"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

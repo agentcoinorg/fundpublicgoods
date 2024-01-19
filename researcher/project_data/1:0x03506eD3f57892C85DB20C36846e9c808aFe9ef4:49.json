@@ -1,0 +1,308 @@
+{
+    "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:49",
+    "protocol": 1,
+    "pointer": "bafkreifyp3sz4aexjz266vnp3hpfu3qjb6ch72ncmqxshhlv7zig5i6afq",
+    "data": {
+        "title": "EthStaker",
+        "description": "EthStaker is a welcoming first, knowledgeable second community dedicated to supporting Ethereans in safely and securely staking their ETH by creating guides, instructional videos, educational content and technical support. ",
+        "website": "https://ethstaker.cc/",
+        "projectTwitter": "ethStaker",
+        "userGithub": "LamboshiNakaghini",
+        "projectGithub": "eth-educators",
+        "logoImg": "bafkreifodkbfb3i6cm3a6wwjhtonesbep5bv2b564i54jlii37k72pu26q",
+        "bannerImg": "bafkreiax7nosgzz26ekeoce6ytnzmytvexj7kneigwwtfgyxwpr7zc33um",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xD165df4296C85e780509fa1eace0150d945d49Fd",
+                    "provider": "ClearTextGithubOrg#eth-educators#49704490",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "hash": "v0.0.0:Ni+D237jM4+3o4momS6N/Hizb9kWzSXO7/OHF1BzLlM="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T05:40:55.242Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T05:40:55.242Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..j51_-xOqmu08WHP3v-ok31UBqKc7qbVRhJZ4L0uuZPfgVUNJJUmbvl_ZNbROn1I3rTwIQDU2CLa6m-CfVocgDg"
+                },
+                "expirationDate": "2024-02-06T05:40:55.242Z"
+            },
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0xD165df4296C85e780509fa1eace0150d945d49Fd",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#ethStaker",
+                    "hash": "v0.0.0:JnAqjJPDNvtnxrCXRUBeLzx9BD5PqmgNWcs0JD/EV6A="
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-11-08T05:35:33.513Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-11-08T05:35:33.513Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..GZWH9ke4uWRrnRoBsRwZjLR-YbfGSXYpKmvam-Bv2sWxoKpTpn2qYWa7hFiGDzZfi4TgCF6cqY0rE_YQId0sDA"
+                },
+                "expirationDate": "2024-02-06T05:35:33.513Z"
+            }
+        },
+        "createdAt": 1673040515541
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-1",
+            "protocol": 1,
+            "pointer": "bafkreiatdruhprqyyaexlfmmlpxvgbhs4jx4oaafmjyf2gvpdto7d5u7fq",
+            "data": {
+                "signature": "0x50fd1ef1c9d896ff3bf4d489dca26c9f43bb7c52be27a15b63ad16ff29367c14684cda344c12dd50b13902dd6e29aae9072a5ce61dd1a29819362c8fbf9d05911c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0xD165df4296C85e780509fa1eace0150d945d49Fd",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1673040515541,
+                        "id": "1:0x03506eD3f57892C85DB20C36846e9c808aFe9ef4:49",
+                        "title": "EthStaker",
+                        "description": "EthStaker is a welcoming first, knowledgeable second community dedicated to supporting Ethereans in safely and securely staking their ETH by creating guides, instructional videos, educational content and technical support. ",
+                        "website": "https://ethstaker.cc/",
+                        "bannerImg": "bafkreiax7nosgzz26ekeoce6ytnzmytvexj7kneigwwtfgyxwpr7zc33um",
+                        "logoImg": "bafkreifodkbfb3i6cm3a6wwjhtonesbep5bv2b564i54jlii37k72pu26q",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreifyp3sz4aexjz266vnp3hpfu3qjb6ch72ncmqxshhlv7zig5i6afq"
+                        },
+                        "userGithub": "LamboshiNakaghini",
+                        "projectGithub": "eth-educators",
+                        "projectTwitter": "ethStaker",
+                        "credentials": {
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xD165df4296C85e780509fa1eace0150d945d49Fd",
+                                    "provider": "ClearTextGithubOrg#eth-educators#49704490",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "hash": "v0.0.0:Ni+D237jM4+3o4momS6N/Hizb9kWzSXO7/OHF1BzLlM="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T05:40:55.242Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T05:40:55.242Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..j51_-xOqmu08WHP3v-ok31UBqKc7qbVRhJZ4L0uuZPfgVUNJJUmbvl_ZNbROn1I3rTwIQDU2CLa6m-CfVocgDg"
+                                },
+                                "expirationDate": "2024-02-06T05:40:55.242Z"
+                            },
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0xD165df4296C85e780509fa1eace0150d945d49Fd",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#ethStaker",
+                                    "hash": "v0.0.0:JnAqjJPDNvtnxrCXRUBeLzx9BD5PqmgNWcs0JD/EV6A="
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-11-08T05:35:33.513Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-11-08T05:35:33.513Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..GZWH9ke4uWRrnRoBsRwZjLR-YbfGSXYpKmvam-Bv2sWxoKpTpn2qYWa7hFiGDzZfi4TgCF6cqY0rE_YQId0sDA"
+                                },
+                                "expirationDate": "2024-02-06T05:35:33.513Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "dR7FbIAFkW14hZcycuAuLS9tMTmhBbIHzTunT+rkvZj6oOFqd/3ddt4CgtWKYliG",
+                                "encryptedSymmetricKey": "b1452149c2c9e6712e71c7265d957348553707f0f9ad10c106c0b13f9c8d0d0eeb839e1798223095419d78d01769ad03ec4e1988cd9c99cdd7f5ae720962d2cc70894458b80e5364df9eda4265b9973b03fb10b2c8c6452141480c05fc5cbc91ea4c357be2ff0ab7de954e1cbfcbf6bdeb79807821f10e71a22607466a876878000000000000002090bd018899620f61efd42812a56ad867db83b18d45252c65a376cbda7cd1b5d198397b46a9cf6a4860094789da36d88b"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/eth-educators/"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "k81XrWD1pb75XCKpUCCwauSnAMYmmbaylcRZZfB2hJM=",
+                                "encryptedSymmetricKey": "9fce7ed80cb0c8b0e522344932db23457c20e5bd4a9f1415f2350a116523b77deadb27de9bc5e2980426fa19ab3efd03cf772825bbe2542b5ad78bba09bd9e9006a1266cb13ad00fec6b55cd7d8ab4b657e6bb493ca41fdc509ccb4c45ba9cb797c63e0c4861dbbb8cd42a9d6d5cc824caeeb6f1293c2a388ea3971703875a2800000000000000208f9879e0f7c151aa30091d46cbba1ca3eaae3854b688bf1a14254a8a25a6f2f4ba7b2266b2159e45ef46bcdeaff535b1"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "EthStaker is the connection between the infrastructure creators and users. We provide guides and technical support for eth infra."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Since last round we have set up many validators for various testnets, faucets for testnets, and planned a devconnect event."
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "We are running validators for testnets, running faucets, and giving grants out for other people to do similar things."
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "2000000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "6"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "36"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "https://twitter.com/remy_roy\nhttps://twitter.com/yorickdowne\nhttps://twitter.com/Butta_eth\nhttps://twitter.com/L_Nakaghini\nhttps://twitter.com/nixorokish\nhttps://twitter.com/grey__wizard"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "North America"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

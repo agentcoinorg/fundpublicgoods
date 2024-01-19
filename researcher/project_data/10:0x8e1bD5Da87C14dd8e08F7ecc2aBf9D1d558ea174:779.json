@@ -1,0 +1,312 @@
+{
+    "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:779",
+    "protocol": 1,
+    "pointer": "bafkreia5jdfj3jkyxdfvlr53hj6inykgq5d2x5ubkd26w764r5s6mz3zcm",
+    "data": {
+        "title": "rotki",
+        "description": "rotki is an open source portfolio tracking, accounting, analytics and tax reporting tool that protects your privacy.\n\nrotki's long term vision is to become the one-stop for all your portfolio managing and tracking needs. A place to track, account for and actively manage your assets over all EVM(or not) chains, CEXes and the tradfi world.\n\nWe believe we can achieve that through radical transparency that developing in opensource gives and by encouraging all of you to help us grow and develop the platform together.\n\nWhat's more we are strong proponents of privacy and self-sovereignity of data. rotki is a local-first application keeping your data encrypted in your local system and unlike virtually every other service not hosting it in a cloud SaaS (aka someone else's computer).\n\nHelp us reach rotki's full potential! Support us today!",
+        "website": "https://rotki.com",
+        "projectTwitter": "rotkiapp",
+        "userGithub": "rotki",
+        "projectGithub": "rotki",
+        "logoImg": "bafkreia6uspmbwhtetmpes3a4rhxjy4tsoak4a54x6ttd2y6efovgpldga",
+        "bannerImg": "bafkreifeodu42nbi7ia6a5yk5bdtnqrhmlbdgqxv2yap44yffqgsgc2zuq",
+        "bannerImgData": {},
+        "logoImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x9531C059098e3d194fF87FebB587aB07B30B1306",
+                    "provider": "ClearTextTwitter#rotkiapp",
+                    "hash": "v0.0.0:oQqBOnl9G/kZFUd2/+Sh+tl894We9gylixbCCZYTDIU=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-08-10T20:00:56.343Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-08-10T20:00:56.343Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..3MTY7UzVbz_IOzQgnIAbaqUhlxg3g_dTXmTZhMaW6Zfh28GWTnBfKeoGdp2UrAajdeJSzlX9C56DY2vZFigaBw"
+                },
+                "expirationDate": "2023-11-08T20:00:56.343Z"
+            },
+            "github": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x9531C059098e3d194fF87FebB587aB07B30B1306",
+                    "hash": "v0.0.0:OfQy9UrRWUXJKFLd8PR2UhO894gTv1Xah5p9JqjClio=",
+                    "provider": "ClearTextGithubOrg#rotki#1658405",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2023-08-10T20:01:12.304Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2023-08-10T20:01:12.304Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..upJKT677knwj80iGywiMltpLz3hW-qlYjhnCZ6E_axlXoYruQySliP0VyH_KVjH51fzLBSvP5Cpr29qZ-86-Bg"
+                },
+                "expirationDate": "2023-11-08T20:01:12.304Z"
+            }
+        },
+        "createdAt": 1691697683612
+    },
+    "applications": [
+        {
+            "id": "0xa1d52f9b5339792651861329a046dd912761e9a9-4",
+            "protocol": 1,
+            "pointer": "bafkreifg2zx2klley3zh3c2ry434xxi27ecw3jtgseanogu7mzqvwg4nca",
+            "data": {
+                "signature": "0x23f79306970d681bb03335862c38fe50c26024fe5406d3e5e363f6942d47fd7045db8036d4d834560aedf7365141ecd96cace07ba5dea2ece1b409a57c2012ac1c",
+                "application": {
+                    "round": "0xa1d52f9b5339792651861329a046dd912761e9a9",
+                    "recipient": "0x9531C059098e3d194fF87FebB587aB07B30B1306",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1691697683612,
+                        "id": "10:0x8e1bD5Da87C14dd8e08F7ecc2aBf9D1d558ea174:779",
+                        "title": "rotki",
+                        "description": "rotki is an open source portfolio tracking, accounting, analytics and tax reporting tool that protects your privacy.\n\nrotki's long term vision is to become the one-stop for all your portfolio managing and tracking needs. A place to track, account for and actively manage your assets over all EVM(or not) chains, CEXes and the tradfi world.\n\nWe believe we can achieve that through radical transparency that developing in opensource gives and by encouraging all of you to help us grow and develop the platform together.\n\nWhat's more we are strong proponents of privacy and self-sovereignity of data. rotki is a local-first application keeping your data encrypted in your local system and unlike virtually every other service not hosting it in a cloud SaaS (aka someone else's computer).\n\nHelp us reach rotki's full potential! Support us today!",
+                        "website": "https://rotki.com",
+                        "bannerImg": "bafkreifeodu42nbi7ia6a5yk5bdtnqrhmlbdgqxv2yap44yffqgsgc2zuq",
+                        "logoImg": "bafkreia6uspmbwhtetmpes3a4rhxjy4tsoak4a54x6ttd2y6efovgpldga",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreia5jdfj3jkyxdfvlr53hj6inykgq5d2x5ubkd26w764r5s6mz3zcm"
+                        },
+                        "userGithub": "rotki",
+                        "projectGithub": "rotki",
+                        "projectTwitter": "rotkiapp",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x9531C059098e3d194fF87FebB587aB07B30B1306",
+                                    "provider": "ClearTextTwitter#rotkiapp",
+                                    "hash": "v0.0.0:oQqBOnl9G/kZFUd2/+Sh+tl894We9gylixbCCZYTDIU=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-08-10T20:00:56.343Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-08-10T20:00:56.343Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..3MTY7UzVbz_IOzQgnIAbaqUhlxg3g_dTXmTZhMaW6Zfh28GWTnBfKeoGdp2UrAajdeJSzlX9C56DY2vZFigaBw"
+                                },
+                                "expirationDate": "2023-11-08T20:00:56.343Z"
+                            },
+                            "github": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x9531C059098e3d194fF87FebB587aB07B30B1306",
+                                    "hash": "v0.0.0:OfQy9UrRWUXJKFLd8PR2UhO894gTv1Xah5p9JqjClio=",
+                                    "provider": "ClearTextGithubOrg#rotki#1658405",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2023-08-10T20:01:12.304Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2023-08-10T20:01:12.304Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..upJKT677knwj80iGywiMltpLz3hW-qlYjhnCZ6E_axlXoYruQySliP0VyH_KVjH51fzLBSvP5Cpr29qZ-86-Bg"
+                                },
+                                "expirationDate": "2023-11-08T20:01:12.304Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "7rf3UkCWdzI5DueqrHWxpZhdek7Fs47kF0Q71GVAy1g=",
+                                "encryptedSymmetricKey": "e9ca0f91938fbc88be15eb48ffe884466f0ad2eb7be63f68fb53df28bf8f66c96225a237a040d5932078d904360e4a07550658d92bd3b581bbaec170520db448a8502fb32542a667b025aa8799cbf90db2b3219e1f41ad1d861b1e8f825fc5b5e2b7f0e3d75e9b892b03f8ecf45f66ddc1e3baf6059c57728c121bc4bc0caded0000000000000020f12562bc27151e60a142a36eb1012a6504e1e10938fcd9125da832b2ad4d6a2cf7a264133056bb720b7578df5465fdaf"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "Project GitHub Repo (Not Team Page)",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://github.com/rotki/rotki"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Telegram Handle (you can answer N/A)",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "cyyOU7iZDuS537cVECRXfESMUjy+Q59P2UvQIXAdUYk=",
+                                "encryptedSymmetricKey": "de92bdfd6500577d39206c9c82a86533a0b4c7279b9de1741b24c1f7d66145f57feedec571a0413a5f555a5a4ece4f078f75ae1f7dec59f78508ef1888a9257f9b932e51536edf05d182baa44ed0c9e1628307b05cd0705f0412205faf094ba1a8d64947e18b7cc83308c1861071bc76572852a314a918aa18c8322cba31fd710000000000000020cf42d8f12d6b7431740dfed915572ba495de5e867b55eb19f85f10bc822632624f5e52121d48b1b4627092c106104893"
+                            }
+                        },
+                        {
+                            "questionId": 3,
+                            "question": "Gitcoin Gov Forum Handle (gov.gitcoin.co)",
+                            "type": "short-answer",
+                            "hidden": false,
+                            "answer": "lefterisjp"
+                        },
+                        {
+                            "questionId": 4,
+                            "question": "Link to your Public Group Chat (Discord or Telegram )",
+                            "type": "link",
+                            "hidden": false,
+                            "answer": "https://discord.rotki.com/"
+                        },
+                        {
+                            "questionId": 5,
+                            "question": "How is your project in support of or directly advancing the Ethereum Network\u2019s infrastructure? ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "rotki advances ethereum network infrastructure via multiple ways.\n\n1. It provides the only opensource framework for decoding EVM chain transactions to human readable format across multiple EVM chains. rotki can decode any evm chain transaction to a set of standardized events, each with their own human readable description. Multiple projects out there are using it.\n2. It's the only local-first opensource app that does tracking/management and accounting in the ecosystem. Literally the only option out there if you want to do accounting for your activity in a way that is transparent, auditable and allows you to truly own your data and protect your privacy by being local-first.\n3. Deals with ethereum data querying and indexing in a local-first way. Our code is AGPL opensource and anyone can use/copy it. Through our research on data querying we have worked with many projects to improve the ways data is served by their APIs/clients/libraries to be better accessible by everyone."
+                        },
+                        {
+                            "questionId": 6,
+                            "question": "If you've participated in past grant rounds, please share any new updates or milestones from the prior months (N/A if you haven\u2019t participated previously). ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Since the last grant round we have made a lot of progress! We have had 573 commits to our repository since then and 3 releases (1.30.0, 1.30.1 and 1.30.2).\n\nFind them here: https://github.com/rotki/rotki/releases\n\nAlso we are at the final stages of releasing 1.31.0 which will support many new protocols and chains including base, gnosis chain, velodrome and more!"
+                        },
+                        {
+                            "questionId": 7,
+                            "question": "How do you measure the impact of your project? Please provide examples and/or standard metrics. This might be used in future impact reports ",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Github stars: 2.3K\nCode Contributors: 125\nDownloads: ~120k\nCommunity size: ~17k\nApproximate active daily users: ~7k\nSome Projects using our code:\n- Buchfink: https://github.com/coinyon/buchfink\n- rotki-balancer: https://github.com/zorlin/rotki-balancer\n- decodify: https://github.com/prettyirrelevant/decodify"
+                        },
+                        {
+                            "questionId": 8,
+                            "question": "Total Prior Funding for the project in USD",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "420000"
+                        },
+                        {
+                            "questionId": 9,
+                            "question": "Which of the following funding sources do you have? Check all that apply",
+                            "type": "checkbox",
+                            "hidden": false,
+                            "answer": [
+                                "Grants",
+                                "Sales"
+                            ]
+                        },
+                        {
+                            "questionId": 10,
+                            "question": "Total Team Size",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "8"
+                        },
+                        {
+                            "questionId": 11,
+                            "question": "How old (in Months) is the project? (We will use Twitter, domain registration, github, etc)",
+                            "type": "number",
+                            "hidden": false,
+                            "answer": "78"
+                        },
+                        {
+                            "questionId": 12,
+                            "question": "If you participated in past grant rounds using a different project payout wallet address, please share it here:",
+                            "type": "address",
+                            "hidden": true,
+                            "answer": ""
+                        },
+                        {
+                            "questionId": 13,
+                            "question": "Profiles or socials of other main team members publicly associated with the project (N/A for solo founders): ",
+                            "type": "paragraph",
+                            "hidden": true,
+                            "answer": "- Lefteris Karapetsas - founder: https://github.com/LefterisJP\n- Y\u00e1bir Benchakhtir - backend developer: https://github.com/yabirgb\n- Ajibola Ojo - backend developer: https://github.com/jbrit\n- Konstantinos Paparas - frontend lead: https://github.com/kelsos\n- Luki Centuri - frontend developer: https://github.com/lukicenturi\n- Joseph Ojoko - frontend developer: https://github.com/tewshi\n- Raquel - designer: https://twitter.com/originalrfr\n- Celina - operations lead: https://twitter.com/celina_celka"
+                        },
+                        {
+                            "questionId": 14,
+                            "question": "Have you read and confirmed your grant abides by the Program General Eligibility Policy? https://gitcoin.notion.site/GG18-Eligibility-cb4a5754c56043d4b3ed34eddbac261c?pvs=4",
+                            "type": "short-answer",
+                            "hidden": true,
+                            "answer": "Yes but the link seems to still be for GG18. Read GG19 here:  https://gitcoin.notion.site/GG19-Eligibility-50843c8b3ab44ad297731a00efa6e389"
+                        },
+                        {
+                            "questionId": 15,
+                            "question": "Anything else you'd like to share about your project, previous work, or other project affiliations? Anything you'd like to add that may help in determining project eligibility?",
+                            "type": "paragraph",
+                            "hidden": false
+                        },
+                        {
+                            "questionId": 16,
+                            "question": "Would you like to opt-in to future messages from Gitcoin for updates, information, and/or interviews? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 17,
+                            "question": "Would you like to opt-in to us sharing your information with select third-parties for investment opportunities? ",
+                            "type": "multiple-choice",
+                            "hidden": true,
+                            "answer": "No"
+                        },
+                        {
+                            "questionId": 18,
+                            "question": "Location/Region where the project is (primarily) based ",
+                            "type": "multiple-choice",
+                            "hidden": false,
+                            "answer": "Europe"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

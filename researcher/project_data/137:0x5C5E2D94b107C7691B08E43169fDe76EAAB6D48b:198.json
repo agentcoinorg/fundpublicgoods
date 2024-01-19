@@ -1,0 +1,137 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:198",
+    "protocol": 1,
+    "pointer": "bafkreifil3a5m3lx4duk6qasuuymp2loyadlzr4nrxpyhi6o6ctt2qqtee",
+    "data": {
+        "title": "Lorefy",
+        "description": "Lorefy: Building On-Chain Lore for Communities\n- A Dapp for thousands of communities and millions of users\n\n\nThe Problem\nIn the evolving Web3 space, maintaining and growing community engagement presents significant challenges. Traditional methods like airdrops have limitations and are often plagued by bot infiltration, leading to a lack of sustained, meaningful interaction.\n\n\nOur Solution: Lorefy\nLorefy introduces a dynamic approach to enhancing community engagement through on-chain gamification. This method not only incentivizes participation but also infuses a playful, interactive element into the community experience.\n\n\nKey Features:\n\nOn-Chain Community Character: A unique character representing each member within the community, fostering a sense of identity and belonging.\n\nEngaging Quests: Diverse tasks and challenges for members to undertake, enhancing interaction and involvement.\n\nReward System: An array of rewards including loot boxes, items, skins, and coins, earned through active participation and quest completion.\n\nOn-Chain Game Dynamics: Use your community character to engage in quests, unlocking exciting rewards and deepening your involvement in the community.\n\n\nThe Platform\n\nFor Administrators:\n\nReward Distribution: Effortlessly manage and distribute rewards.\n\nItem Deployment: Seamlessly introduce new items and features.\n\nCommunity Analytics: Access in-depth insights into community engagement and growth.\n\n\nFor Users:\n\nCommunity Exploration: Discover and join various communities.\n\nCharacter and Item Management: Oversee your characters, items, and rewards.\n\nQuest Completion: Engage in quests to unlock unique rewards and enhance your community experience.\n\n\nAchievements and Partnerships\n\nQ2 2023: Assembled a skilled team from two pioneering Web3 gaming startups.\n\nQ3 2023: \n- Launched MVP with Crypto-Guilds, generating 10,000 on-chain transactions and engaging 300 users.\n\n- Forged a strategic partnership with Zealy, hosting 1.5 million MAU across 4,000 Web3 communities to integrate us as part of their blockchain reward distribution layer. \n\nQ4 2023: Launching the Lorefy platform with Crypto-Guilds, and singing of a client with a 25,000 members strong community.\n\n\nGrowth Strategy\n\nStrategic Partnerships: Leveraging our collaboration with Zealy to implement our reward system and gamification across their extensive network of communities.\n\nCommunity Expansion: Already secured agreements with two major communities, set to go live on Lorefy in Q1 2024.\n\n\nRoadmap for 2024\n\nQ1 2024: Onboarding 10+ communities onto the Lorefy platform.\n\nQ2 2024: Transitioning to a permissionless onboarding system.\n\nQ3 2024: Launching the $LORE token and deploying on-chain games for Lorefy communities.\n\nQ4 2024: Introducing the Lorefy Community Launchpad.\n\nLorefy is poised to revolutionize community engagement in the Web3 space by introducing an innovative, gamified approach. With our strategic partnerships, proven track record, and a clear vision for the future, we are confident in our ability to enhance the community experience and sustain engagement. We invite the Polygon community to support our initiative and contribute to the evolution of community interaction in the Web3 era.\n",
+        "website": "https://lorefy.io",
+        "projectTwitter": "Lorefy_io",
+        "userGithub": "bdpellet",
+        "projectGithub": "lorefy",
+        "logoImg": "bafkreifklozukuffbne5smlg2vverzn4esqwzpzq5qxkhwdua3jtfhzsaq",
+        "bannerImg": "bafkreib6i4uk5622gegcgkmugupjmkks3vwpvmzhtseh4k2o6y7qfvuvoi",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x50fE50c21112457EDB2409BF4861Ac9bFca2B546",
+                    "provider": "ClearTextTwitter#Lorefy_io",
+                    "hash": "v0.0.0:e/BYnFoyd78HYxnMCvvBbPpZLc50hr1b2iprJExz6eA=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ]
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-10T14:25:27.486Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-10T14:25:27.487Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..6NEiFApm3OfpSUUBF1y11zAPNoTAhyDic9HF8iM4BJ31I4B7Pl5z0NFPXzEpvS-vx5YMguHsfWkwqfjvPOevBg"
+                },
+                "expirationDate": "2024-04-09T14:25:27.486Z"
+            }
+        },
+        "createdAt": 1704896967702
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-14",
+            "protocol": 1,
+            "pointer": "bafkreiclmedcwotcozx7et3am75mgnlbbybnrjznhjyvrx377sgwhdjhku",
+            "data": {
+                "signature": "0xf22559e1e506b66151037776cb253e79bf13c3cbc553ad3d6174348769ad3799533bc3dfa95d519acb89a9681b1a50006349089a01a06c9584bc2f0659ee72d71c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0xDFcC45353d5e3dD1c37bD9eFcd59c82592F723d9",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704896967702,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:198",
+                        "title": "Lorefy",
+                        "description": "Lorefy: Building On-Chain Lore for Communities\n- A Dapp for thousands of communities and millions of users\n\n\nThe Problem\nIn the evolving Web3 space, maintaining and growing community engagement presents significant challenges. Traditional methods like airdrops have limitations and are often plagued by bot infiltration, leading to a lack of sustained, meaningful interaction.\n\n\nOur Solution: Lorefy\nLorefy introduces a dynamic approach to enhancing community engagement through on-chain gamification. This method not only incentivizes participation but also infuses a playful, interactive element into the community experience.\n\n\nKey Features:\n\nOn-Chain Community Character: A unique character representing each member within the community, fostering a sense of identity and belonging.\n\nEngaging Quests: Diverse tasks and challenges for members to undertake, enhancing interaction and involvement.\n\nReward System: An array of rewards including loot boxes, items, skins, and coins, earned through active participation and quest completion.\n\nOn-Chain Game Dynamics: Use your community character to engage in quests, unlocking exciting rewards and deepening your involvement in the community.\n\n\nThe Platform\n\nFor Administrators:\n\nReward Distribution: Effortlessly manage and distribute rewards.\n\nItem Deployment: Seamlessly introduce new items and features.\n\nCommunity Analytics: Access in-depth insights into community engagement and growth.\n\n\nFor Users:\n\nCommunity Exploration: Discover and join various communities.\n\nCharacter and Item Management: Oversee your characters, items, and rewards.\n\nQuest Completion: Engage in quests to unlock unique rewards and enhance your community experience.\n\n\nAchievements and Partnerships\n\nQ2 2023: Assembled a skilled team from two pioneering Web3 gaming startups.\n\nQ3 2023: \n- Launched MVP with Crypto-Guilds, generating 10,000 on-chain transactions and engaging 300 users.\n\n- Forged a strategic partnership with Zealy, hosting 1.5 million MAU across 4,000 Web3 communities to integrate us as part of their blockchain reward distribution layer. \n\nQ4 2023: Launching the Lorefy platform with Crypto-Guilds, and singing of a client with a 25,000 members strong community.\n\n\nGrowth Strategy\n\nStrategic Partnerships: Leveraging our collaboration with Zealy to implement our reward system and gamification across their extensive network of communities.\n\nCommunity Expansion: Already secured agreements with two major communities, set to go live on Lorefy in Q1 2024.\n\n\nRoadmap for 2024\n\nQ1 2024: Onboarding 10+ communities onto the Lorefy platform.\n\nQ2 2024: Transitioning to a permissionless onboarding system.\n\nQ3 2024: Launching the $LORE token and deploying on-chain games for Lorefy communities.\n\nQ4 2024: Introducing the Lorefy Community Launchpad.\n\nLorefy is poised to revolutionize community engagement in the Web3 space by introducing an innovative, gamified approach. With our strategic partnerships, proven track record, and a clear vision for the future, we are confident in our ability to enhance the community experience and sustain engagement. We invite the Polygon community to support our initiative and contribute to the evolution of community interaction in the Web3 era.\n",
+                        "website": "https://lorefy.io",
+                        "bannerImg": "bafkreib6i4uk5622gegcgkmugupjmkks3vwpvmzhtseh4k2o6y7qfvuvoi",
+                        "logoImg": "bafkreifklozukuffbne5smlg2vverzn4esqwzpzq5qxkhwdua3jtfhzsaq",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreifil3a5m3lx4duk6qasuuymp2loyadlzr4nrxpyhi6o6ctt2qqtee"
+                        },
+                        "userGithub": "bdpellet",
+                        "projectGithub": "lorefy",
+                        "projectTwitter": "Lorefy_io",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x50fE50c21112457EDB2409BF4861Ac9bFca2B546",
+                                    "provider": "ClearTextTwitter#Lorefy_io",
+                                    "hash": "v0.0.0:e/BYnFoyd78HYxnMCvvBbPpZLc50hr1b2iprJExz6eA=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ]
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-10T14:25:27.486Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-10T14:25:27.487Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..6NEiFApm3OfpSUUBF1y11zAPNoTAhyDic9HF8iM4BJ31I4B7Pl5z0NFPXzEpvS-vx5YMguHsfWkwqfjvPOevBg"
+                                },
+                                "expirationDate": "2024-04-09T14:25:27.486Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "vLhbVeX2W87k4VOlbKLIjfWGhNRcgkj5/LK7CBr2+tWvbxfr6/LYxbhrZ2bKq8tt",
+                                "encryptedSymmetricKey": "f3406cecfb8f876ee1252b3680db8b57c849cf8dec57107e38cf6a0c5f3911f1aaaec1aa0c492d4d166991e61c326c1733c943562144172fdbef75b39a4178f6c2972e8113c5c00fb21e1dd8dba06671595b5c2323e1de848b217cc71a68008a1354f820ea542fbb7bcf10e425871403881815aefecd691a4c3d0ba46c501d1b000000000000002031e046cfdb63eb119ed70a51c31ff99e5fc098b2c90776bf14290bdce7ebdcd6a497ecf8c718c0fba12533a865ddfa90"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "Lorefy: Building On-Chain Lore for Communities\n\nA Dapp for thousands of communities and millions of users."
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

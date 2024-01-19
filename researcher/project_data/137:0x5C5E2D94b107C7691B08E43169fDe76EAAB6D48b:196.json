@@ -1,0 +1,137 @@
+{
+    "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:196",
+    "protocol": 1,
+    "pointer": "bafkreiekkbbjw5coomqoue3hzsejqklnhsqf75fm47llhx2wm5u432phva",
+    "data": {
+        "title": "Scale3",
+        "description": "At Scale3, we are focused on simplifying node deployment and management by building a web3 infrastructure platform to securely deploy and manage your nodes. Using Scale3, you can spin up a node or validator on Polygon in your own environment, set up host-specific and onchain-specific alerts, monitor the health of your nodes/validators, debug any incidents, and stay informed of critical information pertaining to your Polygon nodes / validators.",
+        "website": "https://scale3labs.com",
+        "projectTwitter": "scale3labs",
+        "userGithub": "karthikscale3",
+        "projectGithub": "Scale3-Labs",
+        "logoImg": "bafkreifgkwzv3purgm5w755eeacfglksopev3znxepr77cg4rx6pzguczq",
+        "bannerImg": "bafkreigbwcepdev7fch2zhsnzn56vfpfn245n26wqabd6slbu6sq25nbiq",
+        "logoImgData": {},
+        "bannerImgData": {},
+        "credentials": {
+            "twitter": {
+                "@context": [
+                    "https://www.w3.org/2018/credentials/v1"
+                ],
+                "type": [
+                    "VerifiableCredential"
+                ],
+                "credentialSubject": {
+                    "id": "did:pkh:eip155:1:0x722462998c6F7f2E0B83c2577626E02e73ad0DCb",
+                    "hash": "v0.0.0:K0Lsylysr4nfnhz2xq/zR2H+0otFkOw83A2J1JGdYFc=",
+                    "@context": [
+                        {
+                            "hash": "https://schema.org/Text",
+                            "provider": "https://schema.org/Text"
+                        }
+                    ],
+                    "provider": "ClearTextTwitter#Scale3Labs"
+                },
+                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                "issuanceDate": "2024-01-10T19:12:52.405Z",
+                "proof": {
+                    "type": "Ed25519Signature2018",
+                    "proofPurpose": "assertionMethod",
+                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                    "created": "2024-01-10T19:12:52.405Z",
+                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..5EkHgBFi6z65XNoK6CJsRcZGlwvRl6TyjJqtcS1wFtdpXlOqNhMAIKdYRzMZg4ErzcGF9IlVgkfiwHHRd7CeCA"
+                },
+                "expirationDate": "2024-04-09T19:12:52.405Z"
+            }
+        },
+        "createdAt": 1704828151666
+    },
+    "applications": [
+        {
+            "id": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1-6",
+            "protocol": 1,
+            "pointer": "bafkreighceyp2e6jbddtmpfhrahxanpaitjkqh3m4xbtuhgtfrzeo3l6za",
+            "data": {
+                "signature": "0xb4ebddd2a49fafa30f739e9f71a4eceaa06b16e84abf1980dc794da4b23b57466d9a935ad2c27e543421e3b61c7f7735e5ba09a0f2e8d10794a388afd1cd37141c",
+                "application": {
+                    "round": "0x546b0bf47c5b5253ff83c8d614662adb7d3ba9b1",
+                    "recipient": "0x722462998c6F7f2E0B83c2577626E02e73ad0DCb",
+                    "project": {
+                        "lastUpdated": 0,
+                        "createdAt": 1704828151666,
+                        "id": "137:0x5C5E2D94b107C7691B08E43169fDe76EAAB6D48b:196",
+                        "title": "Scale3",
+                        "description": "At Scale3, we are focused on simplifying node deployment and management by building a web3 infrastructure platform to securely deploy and manage your nodes. Using Scale3, you can spin up a node or validator on Polygon in your own environment, set up host-specific and onchain-specific alerts, monitor the health of your nodes/validators, debug any incidents, and stay informed of critical information pertaining to your Polygon nodes / validators.",
+                        "website": "https://scale3labs.com",
+                        "bannerImg": "bafkreigbwcepdev7fch2zhsnzn56vfpfn245n26wqabd6slbu6sq25nbiq",
+                        "logoImg": "bafkreifgkwzv3purgm5w755eeacfglksopev3znxepr77cg4rx6pzguczq",
+                        "metaPtr": {
+                            "protocol": "1",
+                            "pointer": "bafkreiekkbbjw5coomqoue3hzsejqklnhsqf75fm47llhx2wm5u432phva"
+                        },
+                        "userGithub": "karthikscale3",
+                        "projectGithub": "Scale3-Labs",
+                        "projectTwitter": "scale3labs",
+                        "credentials": {
+                            "twitter": {
+                                "@context": [
+                                    "https://www.w3.org/2018/credentials/v1"
+                                ],
+                                "type": [
+                                    "VerifiableCredential"
+                                ],
+                                "credentialSubject": {
+                                    "id": "did:pkh:eip155:1:0x722462998c6F7f2E0B83c2577626E02e73ad0DCb",
+                                    "hash": "v0.0.0:K0Lsylysr4nfnhz2xq/zR2H+0otFkOw83A2J1JGdYFc=",
+                                    "@context": [
+                                        {
+                                            "hash": "https://schema.org/Text",
+                                            "provider": "https://schema.org/Text"
+                                        }
+                                    ],
+                                    "provider": "ClearTextTwitter#Scale3Labs"
+                                },
+                                "issuer": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                "issuanceDate": "2024-01-10T19:12:52.405Z",
+                                "proof": {
+                                    "type": "Ed25519Signature2018",
+                                    "proofPurpose": "assertionMethod",
+                                    "verificationMethod": "did:key:z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC#z6MkghvGHLobLEdj1bgRLhS4LPGJAvbMA1tn2zcRyqmYU5LC",
+                                    "created": "2024-01-10T19:12:52.405Z",
+                                    "jws": "eyJhbGciOiJFZERTQSIsImNyaXQiOlsiYjY0Il0sImI2NCI6ZmFsc2V9..5EkHgBFi6z65XNoK6CJsRcZGlwvRl6TyjJqtcS1wFtdpXlOqNhMAIKdYRzMZg4ErzcGF9IlVgkfiwHHRd7CeCA"
+                                },
+                                "expirationDate": "2024-04-09T19:12:52.405Z"
+                            }
+                        }
+                    },
+                    "answers": [
+                        {
+                            "questionId": 0,
+                            "question": "Email Address",
+                            "type": "email",
+                            "hidden": true,
+                            "encryptedAnswer": {
+                                "ciphertext": "nnkxJexmDXLTf/o4xVW6Rmf+ZqpJsuBRHVn3Erv2IaBhpH4PraGCjZ2ZNcv7Ec4E",
+                                "encryptedSymmetricKey": "27033c5545865142050369c68d816348be9f9ccd82725e496606fe8f24abed6cecfd5ed047c3832b04f8d77d6a19760f7b3a373317f8a36038503629cd309990079f463d163e9dd0899d3ce07d4105d11ca0bd3af5eefd44d13f6ce3190488af85349d953bb3156fae5244cd5d2c890e8a150b8e58895d480577b8e66ee0a47000000000000000207e4f4b083d873a0833006a71f110af5e93ecf10653a4a86c953ba13bdae231dc3729c9344cd03ba3839b5136085affae"
+                            }
+                        },
+                        {
+                            "questionId": 1,
+                            "question": "The grant will be used to develop on Polygon",
+                            "type": "dropdown",
+                            "hidden": true,
+                            "answer": "Yes"
+                        },
+                        {
+                            "questionId": 2,
+                            "question": "Grant Proposal",
+                            "type": "paragraph",
+                            "hidden": false,
+                            "answer": "# Project Name: Scale3\n## Proposal: One-Click Node Deployment and Monitoring Infrastructure\n### By: Scale3 (ex-Coinbase team focused on advancing node infrastructure)\n\n**Scale3**, a web3 infrastructure platform, specializes in the secure deployment and management of blockchain nodes and validators. Our mission is to simplify node operations, making blockchain technology accessible to a wider audience, especially for new node operators.\n\nWe are committed to supporting the growth of the Polygon ecosystem by offering free monitoring and alerting of one node for every user on our platform, for a limited time. We intend to help facilitate the growth of the Polygon ecosystem.\n\n### Why Scale3\u2019s Tools are Essential for Polygon?\nThe development of DeFi, NFTs, smart contracts, and all of what makes blockchain tech great on the Polygon network critically depends on efficient and secure node infrastructure. Addressing the following key challenges is crucial for the network's growth and innovation:\n\n- **The barriers to build for developers and enterprises are too complex:** \n  The technical complexity involved in node setup and management creates a significant barrier to entry. This complexity not only impedes the broader adoption of the Polygon network but also hinders the pace of dApp development. Simplifying this process is essential to unlock the network's full potential.\n\n- **There is a lack of enterprise-grade infrastructure tooling in web3:** \n  There is a pressing need for comprehensive tools that provide in-depth insights into node performance and security.\n\n- **Untapped Potential of AI in Node Infrastructure:**\n  Integrating AI and machine learning into node infrastructure is a new and untapped approach for improving management and security in blockchain networks.\n\n- **Promoting decentralization through enterprise-grade tooling is crucial:** \n  Encouraging self-hosted nodes is crucial for increasing the decentralization of the network. This aligns with the decentralized ethos of blockchain technology and is pivotal in enhancing the Polygon\u2019s resilience and integrity.\n\n- **There is a lack of standards across the industry for node and validator operations:**\n  Creating benchmarks for consistency, reliability, and interoperability is essential for a cohesive ecosystem.\n\n### Scale3\u2019s Key Features:\n\n**Node Deployment:**\n- Promptly set up nodes across various platforms (AWS, GCP, Azure, and on-prem).\n\n**Node Reliability & Security:** \n- Streamlined configurations and proactive update management bolster security and uptime. \n\n**Node Monitoring:**\n- Stay informed - Using our blockchain intelligence APIs, web3 teams can ensure that they receive the latest updates, news, and critical information without disruption.\n- Custom Alerts - set up tailored alerts for specific node conditions, with notifications via multiple platforms.\n- AI-Enhanced Analysis (in development) - in-depth analysis of node performance and health, facilitating more accurate and timely responses to emerging issues.\n\n**Node Debugging:**\n- Real-time log management with easy sharing of logs via link for quick issue resolution.\n- AI-Integrated Diagnostics (in development) - Proactively identify and suggest solutions for node-related issues, enhancing troubleshooting efficiency.\n\n**All On Polygon Network**\n\n[![Screenshot-2023-12-11-at-4-05-56-PM.png](https://i.postimg.cc/7LXqGd55/Screenshot-2023-12-11-at-4-05-56-PM.png)](https://scale3labs.com)\n\n\n### Impact on Polygon Network:\nOur solutions are designed to overcome the specific challenges faced by the Polygon ecosystem. By reducing operational complexities, Scale3 enables developers to focus more on creating innovative dApps, and driving network growth and adoption. Our AI-driven tools, currently in development, will set new standards in node operation efficiency and security.\n\n### About Scale3\nDrawing on our extensive experience at Coinbase in managing validator infrastructure, Scale3 is uniquely equipped to meet the evolving demands of blockchain technology. Our deep understanding of blockchain complexities, honed in high-stakes environments, positions us to significantly contribute to the Polygon network's reliability and security. Our goal is to become the premier infrastructure deployment and observability platform for web3, lowering entry barriers and fostering a more decentralized ecosystem.\n\nFor more information about our mission and services, please visit [www.scale3labs.com](http://www.scale3labs.com).\n"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
