@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 function Header() {
   return (
-    <div className="flex w-full justify-between text-sm p-6">
+    <div className="flex w-full justify-between text-sm p-6 border-b border-zinc-700">
       <p className="pl-5">fundpublicgoods.ai</p>
     </div>
   );
@@ -40,7 +40,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="flex h-screen flex-col items-center">
           <Header />
-          <div className="flex flex-col items-center w-full h-5/6 justify-center">
+          <div className="flex flex-col w-full h-5/6 overflow-y-auto">
             {children}
           </div>
           <Footer />
