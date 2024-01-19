@@ -1,5 +1,10 @@
 from supabase import Client
+import uuid
 
 
-def insert(db: Client, id: str, prompt: str):
-    db.table("workers").insert({"id": id, "prompt": prompt}).execute()
+def insert(db: Client) -> str:
+    id = str(uuid.uuid4())
+    db.table("workers").insert({
+        "id": id
+    }).execute()
+    return id

@@ -1,5 +1,3 @@
-import LoadingCircle from "./LoadingCircle";
-
 const projects = [
   {
     name: "Project Name",
@@ -63,11 +61,11 @@ const projects = [
   },
 ];
 
-export interface PlanProps {
+export interface StrategyProps {
   id: string;
 }
 
-export default function Plan(props: PlanProps) {
+export default function Strategy(props: StrategyProps) {
   return (
     <div className="w-2/5">
       <div className="flex flex-col space-y-4">

@@ -11,26 +11,123 @@ export interface Database {
     Tables: {
       logs: {
         Row: {
+          created_at: string
           id: string
-          status: string
+          message: string
+          run_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          run_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          run_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "logs_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "runs"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      projects: {
+        Row: {
+          description: string | null
+          id: string
+          recipient: string | null
+          title: string | null
+          website: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          recipient?: string | null
+          title?: string | null
+          website?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          recipient?: string | null
+          title?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      runs: {
+        Row: {
+          created_at: string
+          id: string
+          prompt: string
           worker_id: string
         }
         Insert: {
+          created_at?: string
           id?: string
-          status: string
+          prompt: string
           worker_id: string
         }
         Update: {
+          created_at?: string
           id?: string
-          status?: string
+          prompt?: string
           worker_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "logs_worker_id_fkey"
+            foreignKeyName: "runs_worker_id_fkey"
             columns: ["worker_id"]
             isOneToOne: false
             referencedRelation: "workers"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      strategy_entries: {
+        Row: {
+          created_at: string
+          id: string
+          impact: number | null
+          interest: number | null
+          project_id: string
+          reasoning: string | null
+          run_id: string
+          weight: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          impact?: number | null
+          interest?: number | null
+          project_id: string
+          reasoning?: string | null
+          run_id: string
+          weight?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          impact?: number | null
+          interest?: number | null
+          project_id?: string
+          reasoning?: string | null
+          run_id?: string
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "strategy_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "runs"
             referencedColumns: ["id"]
           }
         ]
@@ -39,17 +136,14 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          prompt: string
         }
         Insert: {
           created_at?: string
           id?: string
-          prompt: string
         }
         Update: {
           created_at?: string
           id?: string
-          prompt?: string
         }
         Relationships: []
       }

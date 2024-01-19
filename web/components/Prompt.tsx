@@ -25,6 +25,7 @@ export default function Prompt() {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
   const [workerId, setWorkerId] = useState<string>();
+  const [runId, setRunId] = useState<string>();
   const [status, setStatus] = useState<string>();
 
   const router = useRouter();
@@ -33,15 +34,16 @@ export default function Prompt() {
   const sendPrompt = async (prompt: string) => {
     setIsWaiting(true);
     try {
-      const workerId = await startWorker(prompt);
-      setWorkerId(workerId);
+      const response = await startWorker(prompt);
+      setWorkerId(response.workerId);
+      setRunId(response.runId);
     } finally {
       setIsWaiting(false);
     }
   };
 
   useEffect(() => {
-    if (workerId) {
+    if (runId) {
       const channel = supabase
         .channel("logs-added")
         .on(
@@ -50,14 +52,14 @@ export default function Prompt() {
             event: "INSERT",
             table: "logs",
             schema: "public",
-            filter: `worker_id=eq.${workerId}`,
+            filter: `run_id=eq.${runId}`,
           },
           (payload: { new: Tables<"logs"> }) => {
-            if (payload.new.status === "STRATEGY_CREATED") {
-              router.push(`plan/${workerId}`);
+            if (payload.new.message === "STRATEGY_CREATED") {
+              router.push(`strategy/${runId}`);
               return;
             }
-            setStatus(payload.new.status);
+            setStatus(payload.new.message);
           }
         )
         .subscribe();
