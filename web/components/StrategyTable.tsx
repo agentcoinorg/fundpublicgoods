@@ -1,4 +1,13 @@
-export function ProjectList(props: { projects: any[] }) {
+import { Database } from "@/supabase/dbTypes";
+
+export type StrategyEntry = Database["public"]["Tables"]["strategy_entries"]["Row"];
+export type Project = Database["public"]["Tables"]["projects"]["Row"];
+
+export interface StrategyTableProps {
+  strategy: (StrategyEntry & { project: Project })[];
+}
+
+export function StrategyTable(props: StrategyTableProps) {
   return (
     <table className="w-full">
       <thead className="bg-gray-700">
@@ -7,7 +16,7 @@ export function ProjectList(props: { projects: any[] }) {
             Project
           </th>
           <th scope="col" className="px-6 py-3 text-left font-semibold">
-            Category
+            Description
           </th>
           <th scope="col" className="px-6 py-3 text-left font-semibold">
             Weight
@@ -18,20 +27,20 @@ export function ProjectList(props: { projects: any[] }) {
         </tr>
       </thead>
       <tbody className="bg-gray-900">
-        {props.projects.map((project, index) => (
+        {props.strategy.map((entry, index) => (
           <tr key={index} className="border-b border-gray-700">
             <td className="px-6 py-4 whitespace-nowrap text-sm">
-              {project.name}
+              {entry.project.title}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm">
-              {project.category}
+              {entry.project.description}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm">
-              {`${project.weight} %`}
+              {`${entry.weight} %`}
             </td>
             <td className="px-6 py-4 whitespace-nowrap text-sm">
               <div className="flex items-center">
-                {project.impactScore.toFixed(1)}
+                {entry.impact}
                 <span className="ml-2 text-green-400">↑</span>
               </div>
             </td>
