@@ -1,5 +1,11 @@
-from fund_public_goods.db import client
+from supabase import Client
 
-def insert(run_id: str, message: str):
-    db = client.create_admin()
-    db.table("logs").insert({"run_id": run_id, "message": message}).execute()
+def insert(
+    db: Client,
+    run_id: str,
+    message: str
+):
+    db.table("logs").insert({
+        "run_id": run_id,
+        "message": message
+    }).execute()

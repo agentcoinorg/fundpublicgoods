@@ -47,9 +47,9 @@ CREATE TABLE "public"."strategy_entries" (
     "project_id" TEXT NOT NULL,
     "created_at" timestamp WITH time zone NOT NULL DEFAULT NOW(),
     "reasoning" TEXT,
-    "impact" DECIMAL(3, 2),
-    "interest" DECIMAL(3, 2),
-    "weight" DECIMAL(3, 2),
+    "impact" NUMERIC(3, 2) CHECK ("impact" >= 0.01 AND "impact" <= 1.00),
+    "interest" NUMERIC(3, 2) CHECK ("interest" >= 0.01 AND "interest" <= 1.00),
+    "weight" NUMERIC(3, 2) CHECK ("weight" >= 0.01 AND "weight" <= 1.00),
     PRIMARY KEY ("id"),
     FOREIGN KEY ("run_id") REFERENCES "public"."runs"("id") ON DELETE CASCADE
 );
