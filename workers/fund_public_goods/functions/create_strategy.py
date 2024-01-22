@@ -1,4 +1,5 @@
 import json
+from fund_public_goods.agents.researcher.functions.assign_weights import assign_weights
 from fund_public_goods.agents.researcher.functions.evaluate_projects import evaluate_projects
 from fund_public_goods.agents.researcher.models.evaluated_project import EvaluatedProject
 from fund_public_goods.agents.researcher.models.project import Project
@@ -103,36 +104,36 @@ async def create_strategy(
         "evaluate_projects",
         lambda: evaluate_projects(prompt, projects)
     )
-    
-    # assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects]
-    
-    print(json_asessed_projects)
+    assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects] # type: ignore
 
-    # await step.run(
-    #     "determine",
-    #     lambda: logs.insert(
-    #         supabase,
-    #         run_id,
-    #         "Determining the relative funding that the best matching projects need",
-    #     ),
-    # )
+    await step.run(
+        "determine",
+        lambda: logs.insert(
+            supabase,
+            run_id,
+            "Determining the relative funding that the best matching projects need",
+        ),
+    )
     
-    # weighted_projects: list[WeightedProject] = await step.run(
-    #     "fetch_projects_data",
-    #     lambda: generate_strategy(supabase, run_id)
-    # )
+    json_weighted_projects: list[WeightedProject] = await step.run(
+        "fetch_projects_data",
+        lambda: assign_weights(assessed_projects)
+    )
+    weighted_projects = [WeightedProject(**x) for x in json_weighted_projects] # type: ignore
 
-    # await step.run("result", lambda: logs.insert(
-    #     supabase,
-    #     run_id,
-    #     "Generating results"
-    # ))
+    await step.run("result", lambda: logs.insert(
+        supabase,
+        run_id,
+        "Generating results"
+    ))
+    
+    
 
-    # await step.run("result", lambda: logs.insert(
-    #     supabase,
-    #     run_id,
-    #     "STRATEGY_CREATED"
-    # ))
+    await step.run("result", lambda: logs.insert(
+        supabase,
+        run_id,
+        "STRATEGY_CREATED"
+    ))
     
     return json.dumps([x.model_dump() for x in json_asessed_projects])
 
