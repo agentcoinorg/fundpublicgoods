@@ -8,6 +8,7 @@ import {
   InputHTMLAttributes,
   ReactNode,
   forwardRef,
+  useEffect,
 } from "react";
 
 interface TextFieldProps
@@ -40,6 +41,10 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(({
 }, ref) => {
   const [isChecked, setIsChecked] =
     useState<TextFieldProps["checked"]>(checked);
+
+  useEffect(() => {
+    setIsChecked(checked)
+  }, [checked])
 
   const handleCheck = () => {
     const newValue = !isChecked;
