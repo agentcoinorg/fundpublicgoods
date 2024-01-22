@@ -1,16 +1,21 @@
-import json
 from fund_public_goods.agents.researcher.functions.assign_weights import assign_weights
 from fund_public_goods.agents.researcher.functions.evaluate_projects import evaluate_projects
 from fund_public_goods.agents.researcher.models.evaluated_project import EvaluatedProject
 from fund_public_goods.agents.researcher.models.project import Project
-from fund_public_goods.agents.researcher.models.answer import Answer
 from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
 import inngest
-import datetime
 from fund_public_goods.events import CreateStrategyEvent
-from fund_public_goods.db import client, logs, projects, strategy_entries
+from fund_public_goods.db import client, logs
 from supabase import Client
 
+def save_strategy_to_db(supabase: Client, run_id: str, entries: list[WeightedProject]):
+    supabase.table('strategy_entries').insert([{
+        "run_id": run_id,
+        "reasoning": entry.evaluation.reasoning,
+        "weight": entry.weight,
+        "impact": entry.evaluation.impact,
+        "interest": entry.evaluation.interest
+    } for entry in entries]).execute()
 
 def fetch_projects_data(supabase: Client):
     response = supabase.table("gitcoin_projects").select("id, data, protocol, gitcoin_applications(id, data)").execute()
@@ -72,8 +77,6 @@ async def create_strategy(
         "extract_prompt",
         lambda: extract_prompt(supabase, run_id)
     )
-    
-    print(prompt)
 
     await step.run(
         "getting_info",
@@ -127,7 +130,10 @@ async def create_strategy(
         "Generating results"
     ))
     
-    
+    await step.run(
+        "save_strategy_to_db",
+        lambda: save_strategy_to_db(supabase, run_id, weighted_projects)
+    )
 
     await step.run("result", lambda: logs.insert(
         supabase,
@@ -135,6 +141,4 @@ async def create_strategy(
         "STRATEGY_CREATED"
     ))
     
-    return json.dumps([x.model_dump() for x in json_asessed_projects])
-
-    # return json.dumps([x.model_dump() for x in weighted_projects])
+    return "done"
