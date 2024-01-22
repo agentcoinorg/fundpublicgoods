@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
 # from mangum import Mangum
+from fund_public_goods.gitcoin.functions import functions
 from .inngest_client import inngest_client
 from .functions import functions
 from .api import workers
