@@ -68,15 +68,13 @@ export default function Prompt() {
         supabase.removeChannel(channel);
       };
     }
-  }, [workerId, supabase]);
+  }, [workerId, supabase, runId, workerId]);
 
   return status ? (
     <div className="w-2/5">
       <div className="flex flex-col justify-center items-center gap-2">
         <LoadingCircle className="w-[40px] h-[40px] ml-10" />
-        <div className="flex text-md pl-12 text-center">
-          {status}
-        </div>
+        <div className="flex text-md pl-12 text-center">{status}</div>
       </div>
     </div>
   ) : (

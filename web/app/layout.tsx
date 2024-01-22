@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Ubuntu } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
+import WalletProvider from "./WalletProvider";
+
+export const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ['300', '400', '500', '700'],
+});
 
 export const metadata: Metadata = {
   title: "fundpublicgoods.ai",
@@ -37,14 +42,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="flex h-screen flex-col items-center">
-          <Header />
-          <div className="flex flex-col w-full h-5/6 overflow-y-auto">
-            {children}
-          </div>
-          <Footer />
-        </main>
+      <body className={ubuntu.className}>
+        <WalletProvider>
+          <main className="flex h-screen flex-col items-center">
+            <Header />
+            <div className="flex flex-col w-full h-5/6 overflow-y-auto">
+              {children}
+            </div>
+            <Footer />
+          </main>
+        </WalletProvider>
       </body>
     </html>
   );
