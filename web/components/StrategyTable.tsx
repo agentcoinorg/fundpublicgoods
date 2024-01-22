@@ -6,9 +6,10 @@ import Score from "./Score";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
+export type StrategyWithProjects = (StrategyEntry & { project: Project })[]
 
 export interface StrategyTableProps {
-  strategy: (StrategyEntry & { project: Project })[];
+  strategy: StrategyWithProjects
 }
 
 export function StrategyTable(props: StrategyTableProps) {
