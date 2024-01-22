@@ -31,7 +31,7 @@ def plan_research(prompt: str) -> str:
     plan_prompt = ChatPromptTemplate.from_messages([
         ("system", plan_prompt_template),
     ])
-    llm = ChatOpenAI(model="gpt-4-1106-preview")
+    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
 
     plan_chain = plan_prompt | llm | StrOutputParser()
 

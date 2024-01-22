@@ -103,7 +103,7 @@ def extract_project_evaluations(evaluation_report: str) -> list[ProjectEvaluatio
         ("system", extract_evaluations_prompts_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview")
+    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
     
     evaluations_extraction_chain = extract_evaluations_prompt | llm | JsonOutputParser()
     
@@ -147,7 +147,7 @@ def evaluate_projects(prompt: str, projects: list[Project]) -> list[EvaluatedPro
         ("system", evaluation_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview")
+    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
 
     evaluation_chain = evaluation_prompt | llm | StrOutputParser()
     

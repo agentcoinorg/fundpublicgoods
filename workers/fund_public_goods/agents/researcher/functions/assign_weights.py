@@ -30,7 +30,7 @@ def assign_weights(evaluated_projects: list[EvaluatedProject]) -> list[WeightedP
         ("system", assign_weights_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview")
+    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
     
     assign_weights_chain = assign_weights_prompt | llm | StrOutputParser()
     weights_report = assign_weights_chain.invoke({
@@ -63,7 +63,7 @@ def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProje
         ("system", extract_weights_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview")
+    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
     
     extract_weights_chain = extract_weights_prompt | llm | JsonOutputParser()
     json_weights = extract_weights_chain.invoke({
