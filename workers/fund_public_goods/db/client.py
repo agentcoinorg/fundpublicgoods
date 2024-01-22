@@ -1,6 +1,16 @@
 import os
 from supabase import create_client, Client
 
+def create() -> Client:
+    url: str | None = os.environ.get("NEXT_PUBLIC_SUPABASE_URL")
+    key: str | None = os.environ.get("NEXT_PUBLIC_SUPABASE_ANON_KEY")
+
+    if url is None:
+        raise Exception("NEXT_PUBLIC_SUPABASE_URL is not set")
+    if key is None:
+        raise Exception("NEXT_PUBLIC_SUPABASE_ANON_KEY is not set")
+
+    return create_client(url, key)
 
 def create_admin() -> Client:
     url: str | None = os.environ.get("NEXT_PUBLIC_SUPABASE_URL")
