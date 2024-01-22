@@ -2,13 +2,10 @@
 
 import { useState } from "react";
 import Button from "./Button";
-import {
-  StrategyTable,
-  StrategyTableProps,
-  StrategyWithProjects,
-} from "./StrategyTable";
+import { StrategyTable, StrategyWithProjects } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
+import Dropdown from "./Dropdown";
 
 function Information(props: {
   title: string;
@@ -23,7 +20,9 @@ function Information(props: {
         <div>{props.title}</div>
         <div className="text-[12px] text-slate-500">{props.subtitle}</div>
       </div>
-      <Button disabled={props.disabled} onClick={props.onClick}>{props.action}</Button>
+      <Button disabled={props.disabled} onClick={props.onClick}>
+        {props.action}
+      </Button>
     </div>
   );
 }
@@ -32,19 +31,33 @@ export default function Strategy(props: {
   strategy: StrategyWithProjects;
   prompt: string;
 }) {
-  const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(props.strategy)
+  const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
+    props.strategy
+  );
+  const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
+  const [amount, setAmount] = useState<number>(0);
   const [{ wallet }, connectWallet] = useConnectWallet();
 
-  const selectedStrategiesLength = currentStrategy.filter(({ selected }) => selected).length
+  const selectedStrategiesLength = currentStrategy.filter(
+    ({ selected }) => selected
+  ).length;
 
   async function connect() {
     await connectWallet();
   }
 
+  async function regenerateStrat() {
+    // TODO: Attach current prompt with regenerate action
+  }
+
   return (
     <div className="flex items-center justify-center py-12">
       <div className="flex flex-col gap-4 justify-center w-3/5">
-        <TextField label="Results for" value={props.prompt} />
+        <TextField
+          label="Results for"
+          value={currentPromp}
+          onChange={(e) => setCurrentPrompt(e.target.value)}
+        />
         <p>
           I&apos;ve evaluated the impact of Ethereum infrastructure projects on
           the Gitcoin project registry and Optimism Retroactive Public Funding,
@@ -52,9 +65,21 @@ export default function Strategy(props: {
           also allotted a weighting for each to appropriately fund each project.
         </p>
         <div className="flex flex-col gap-4 border-zinc-700 rounded-lg border-2 p-8">
-          {!!wallet && <TextField label="Total Funding Amount" />}
+          {!!wallet && (
+            <TextField
+              label="Total Funding Amount"
+              rightAdornment={
+                <Dropdown items={["USDC"]} field={{ value: "USDC" }} />
+              }
+              value={amount}
+              onChange={(e) => setAmount(+e.target.value)}
+            />
+          )}
           <div className="bg-gray-800 text-gray-300 rounded-lg shadow-md">
-            <StrategyTable strategy={currentStrategy} modifyStrategy={setCurrentStrategy} />
+            <StrategyTable
+              strategy={currentStrategy}
+              modifyStrategy={setCurrentStrategy}
+            />
           </div>
         </div>
         {!wallet ? (
@@ -70,7 +95,7 @@ export default function Strategy(props: {
             subtitle="Please provide an amount you'd like to fund"
             action="Next →"
             onClick={() => {}}
-            disabled={selectedStrategiesLength === 0}
+            disabled={selectedStrategiesLength === 0 || amount === 0}
           />
         )}
       </div>

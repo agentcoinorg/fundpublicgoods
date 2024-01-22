@@ -4,7 +4,7 @@ import inngest.fast_api
 # from mangum import Mangum
 from .inngest_client import inngest_client
 from .functions import functions
-from .api import workers
+from .api import workers, runs
 from .get_version import router as get_version_router
 
 load_dotenv()
@@ -17,6 +17,7 @@ inngest.fast_api.serve(
     functions,
 )
 app.include_router(workers.router)
+app.include_router(runs.router)
 app.include_router(get_version_router)
 
 # TODO: Only use mangum when environment is production
