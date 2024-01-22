@@ -17,3 +17,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.checkbox {
+  @apply rounded border-2 border-zinc-500 w-4 h-4 transition-colors duration-300 cursor-pointer hover:border-zinc-400;
+}
+
+.checkbox.checked {
+  @apply border-cyan-500 bg-cyan-500/50 text-white hover:border-cyan-400;
+}
