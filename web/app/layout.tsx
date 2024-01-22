@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import "./globals.css";
+import WalletProvider from "./WalletProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,13 +40,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex h-screen flex-col items-center">
-          <Header />
-          <div className="flex flex-col w-full h-5/6 overflow-y-auto">
-            {children}
-          </div>
-          <Footer />
-        </main>
+        <WalletProvider>
+          <main className="flex h-screen flex-col items-center">
+            <Header />
+            <div className="flex flex-col w-full h-5/6 overflow-y-auto">
+              {children}
+            </div>
+            <Footer />
+          </main>
+        </WalletProvider>
       </body>
     </html>
   );
