@@ -15,7 +15,7 @@ The user wants to donate to these projects.
 
 Be sure to include the ID of each project in your answer.
 
-Your job is to assign a donation weight percentage (floating point number from 0 to 100) to each of the projects so that the
+Your job is to assign a donation weight percentage (number from 0 to 1 with 2 decimal places) to each of the projects so that the
 user can distribute the funds he wants to donate accordingly across projects.
 
 Provide thorough reasoning for each assigned weight.

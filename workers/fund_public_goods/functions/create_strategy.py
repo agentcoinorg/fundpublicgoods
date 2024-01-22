@@ -79,7 +79,7 @@ async def create_strategy(
     )
 
     await step.run(
-        "getting_info",
+        "fetching_projects_info",
         lambda: logs.insert(
             supabase,
             run_id,
@@ -104,13 +104,13 @@ async def create_strategy(
     )
     
     json_asessed_projects = await step.run(
-        "evaluate_projects",
+        "assess_projects",
         lambda: evaluate_projects(prompt, projects)
     )
     assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects] # type: ignore
 
     await step.run(
-        "determine",
+        "determining_funding",
         lambda: logs.insert(
             supabase,
             run_id,
@@ -119,12 +119,12 @@ async def create_strategy(
     )
     
     json_weighted_projects: list[WeightedProject] = await step.run(
-        "fetch_projects_data",
+        "determine_funding",
         lambda: assign_weights(assessed_projects)
     )
     weighted_projects = [WeightedProject(**x) for x in json_weighted_projects] # type: ignore
 
-    await step.run("result", lambda: logs.insert(
+    await step.run("saving_results_to_db", lambda: logs.insert(
         supabase,
         run_id,
         "Generating results"

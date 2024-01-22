@@ -91,7 +91,7 @@ You will return a single JSON array of JSON objects to be parsed by Python's "js
 }}, ... ]
 
 Do not include any other contents in your response. If no projects meet the aforementioned criteria
-simply respond with an empty array: [].
+simply respond with an empty array: []. Always use snake case. All fields are required
 
 Evaluations:
 
@@ -127,10 +127,8 @@ You are a professional public goods projects evaluator.
 You will receive a list of project information abstracts divided by '{separator}'
 and you will assess:
 
-- How well each project matches the user's interest. Provide a floating point numeric score
-from 0 to 10.
-- Project's impact. Provide a floating point numeric score
-from 0 to 10.
+- How well each project matches the user's interest. Provide a number from 0 to 1 with 2 decimal places.
+- Project's impact. Provide a number from 0 to 1 with 2 decimal places.
 
 You will provide clear and thorough reasoning for each. You will include the ID of each project.
 
