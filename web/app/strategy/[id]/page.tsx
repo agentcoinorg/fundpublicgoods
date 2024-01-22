@@ -26,13 +26,23 @@ export default async function StrategyPage({
     `
     )
     .eq("worker_id", workerId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .single();
 
-  if (runs.error || !runs.data || !runs.data.length) {
+  if (runs.error || !runs.data) {
     console.error(runs.error);
     throw Error(`Runs with worker_id ${workerId} not found.`);
   }
 
-  const data = runs.data[0].strategy_entries as unknown as StrategyWithProjects;
-  return <Strategy strategy={data} />;
+  const data = runs.data.strategy_entries as unknown as StrategyWithProjects;
+
+  return (
+    <Strategy
+      strategy={data.map((s) => ({
+        ...s,
+        selected: true,
+      }))}
+      prompt={runs.data.prompt}
+    />
+  );
 }

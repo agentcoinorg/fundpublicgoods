@@ -25,3 +25,10 @@ body {
 .checkbox.checked {
   @apply border-cyan-500 bg-cyan-500/50 text-white hover:border-cyan-400;
 }
+
+.checkmark {
+  @apply w-full h-full bg-no-repeat;
+  background-image: url('../public/checkmark.svg');
+  background-size: 70%;
+  background-position: 56% 58%;
+}

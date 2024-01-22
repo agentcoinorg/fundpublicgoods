@@ -6,10 +6,14 @@ import Score from "./Score";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
-export type StrategyWithProjects = (StrategyEntry & { project: Project })[]
+export type StrategyWithProjects = (StrategyEntry & {
+  project: Project;
+  selected: boolean;
+})[];
 
 export interface StrategyTableProps {
-  strategy: StrategyWithProjects
+  strategy: StrategyWithProjects;
+  modifyStrategy: (projects: StrategyWithProjects) => void;
 }
 
 export function StrategyTable(props: StrategyTableProps) {
@@ -18,7 +22,18 @@ export function StrategyTable(props: StrategyTableProps) {
       <thead>
         <tr>
           <th className="px-4">
-            <TextField type="checkbox" />
+            <TextField
+              type="checkbox"
+              checked={props.strategy.every((s) => s.selected)}
+              onChange={(e) => {
+                props.modifyStrategy(
+                  props.strategy.map((s) => ({
+                    ...s,
+                    selected: e.target.checked,
+                  }))
+                );
+              }}
+            />
           </th>
           <th className="text-left">PROJECT</th>
           <th>
@@ -33,7 +48,15 @@ export function StrategyTable(props: StrategyTableProps) {
         {props.strategy.map((entry, index) => (
           <tr key={index} className="w-full">
             <td className="px-6 pl-4">
-              <TextField type="checkbox" />
+              <TextField
+                type="checkbox"
+                checked={entry.selected}
+                onChange={(e) => {
+                  const currentStrategy = [...props.strategy];
+                  currentStrategy[index].selected = e.target.checked;
+                  props.modifyStrategy(currentStrategy);
+                }}
+              />
             </td>
             <td className="w-7/12">
               <div className="flex flex-col pt-2 pb-4 mr-6 w-full">

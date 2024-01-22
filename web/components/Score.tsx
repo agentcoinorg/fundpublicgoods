@@ -11,7 +11,7 @@ export default function Score({ rank }: { rank: number }) {
         <div>
           <Image alt="score" priority src={Icon} />
         </div>
-        <div>{(rank * 100).toFixed(2)}</div>
+        <div>{(rank * 10).toFixed(1)}</div>
         <div>
           <Image className="hover:cursor-pointer" alt="copy-clipboard" src={CopyToClipboardIcon} />
         </div>

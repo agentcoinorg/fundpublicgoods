@@ -1,12 +1,41 @@
 "use client";
 
+import { useState } from "react";
 import Button from "./Button";
-import { StrategyTable, StrategyTableProps } from "./StrategyTable";
+import {
+  StrategyTable,
+  StrategyTableProps,
+  StrategyWithProjects,
+} from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
 
-export default function Strategy(props: StrategyTableProps) {
+function Information(props: {
+  title: string;
+  subtitle: string;
+  onClick: () => void;
+  action: string;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="flex flex-wrap justify-between">
+      <div className="flex flex-col">
+        <div>{props.title}</div>
+        <div className="text-[12px] text-slate-500">{props.subtitle}</div>
+      </div>
+      <Button disabled={props.disabled} onClick={props.onClick}>{props.action}</Button>
+    </div>
+  );
+}
+
+export default function Strategy(props: {
+  strategy: StrategyWithProjects;
+  prompt: string;
+}) {
+  const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(props.strategy)
   const [{ wallet }, connectWallet] = useConnectWallet();
+
+  const selectedStrategiesLength = currentStrategy.filter(({ selected }) => selected).length
 
   async function connect() {
     await connectWallet();
@@ -15,7 +44,7 @@ export default function Strategy(props: StrategyTableProps) {
   return (
     <div className="flex items-center justify-center py-12">
       <div className="flex flex-col gap-4 justify-center w-3/5">
-        <TextField label="Results for" />
+        <TextField label="Results for" value={props.prompt} />
         <p>
           I&apos;ve evaluated the impact of Ethereum infrastructure projects on
           the Gitcoin project registry and Optimism Retroactive Public Funding,
@@ -25,25 +54,24 @@ export default function Strategy(props: StrategyTableProps) {
         <div className="flex flex-col gap-4 border-zinc-700 rounded-lg border-2 p-8">
           {!!wallet && <TextField label="Total Funding Amount" />}
           <div className="bg-gray-800 text-gray-300 rounded-lg shadow-md">
-            <StrategyTable strategy={props.strategy} />
+            <StrategyTable strategy={currentStrategy} modifyStrategy={setCurrentStrategy} />
           </div>
         </div>
         {!wallet ? (
-          <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col">
-              <div>Hey whats up</div>
-              <div className="text-[12px] text-slate-500">Hallo</div>
-            </div>
-            <Button onClick={() => connect()}>Connect →</Button>
-          </div>
+          <Information
+            title={`${selectedStrategiesLength} ${props.prompt} projects`}
+            subtitle="Connect your wallet to fund these projects"
+            action="Connect →"
+            onClick={() => connect()}
+          />
         ) : (
-          <div className="flex flex-wrap justify-between">
-            <div className="flex flex-col">
-              <div>Funding..</div>
-              <div className="text-[12px] text-slate-500">Please provide an amount you'd like to fund.</div>
-            </div>
-            <Button onClick={() => {}}>Next →</Button>
-          </div>
+          <Information
+            title={`Funding ${currentStrategy.length} projects`}
+            subtitle="Please provide an amount you'd like to fund"
+            action="Next →"
+            onClick={() => {}}
+            disabled={selectedStrategiesLength === 0}
+          />
         )}
       </div>
     </div>
