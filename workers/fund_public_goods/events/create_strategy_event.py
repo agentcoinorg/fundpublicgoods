@@ -6,7 +6,6 @@ class CreateStrategyEvent:
     trigger = inngest.TriggerEvent(event=name)
 
     class Data(BaseModel):
-        prompt: str
         run_id: str
 
         def to_event(self, ts: int = 0):
