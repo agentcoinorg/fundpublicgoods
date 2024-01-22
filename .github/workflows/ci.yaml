@@ -1,0 +1,45 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read .nvmrc
+      run: echo "NVMRC=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+      id: nvm
+
+    - name: Setup Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.10"
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Build
+      run: yarn build
+      env:
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
