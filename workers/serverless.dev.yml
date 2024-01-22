@@ -1,0 +1,49 @@
+service: fund-public-goods
+
+plugins:
+  - serverless-python-requirements
+  - serverless-domain-manager
+
+package: 
+  individually: true
+
+provider:
+  name: aws
+  runtime: python3.10
+  region: us-east-1
+  memorySize: 256
+  timeout: 30
+  environment:
+    DEPLOYMENT_STAGE: dev
+    INNGEST_PROD: true
+    INNGEST_ENV: fundpublicgoods-dev
+    INNGEST_SIGNING_KEY: ${env:DEV_INNGEST_SIGNING_KEY}
+    INNGEST_EVENT_KEY: ${env:DEV_INNGEST_EVENT_KEY}
+    RESEND_API_KEY: ${env:DEV_RESEND_API_KEY}
+    NEXT_PUBLIC_SUPABASE_URL: ${env:DEV_NEXT_PUBLIC_SUPABASE_URL}
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: ${env:DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    SUPABASE_SERVICE_ROLE_KEY: ${env:DEV_SUPABASE_SERVICE_ROLE_KEY}
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    layer:
+      name: fund-public-goods-deps
+      description: Dependencies of fund-public-goods
+      compatibleRuntimes:
+        - python3.10
+  customDomain:
+    domainName: api.dev.fundpublicgoods.ai
+    certificateName: api.dev.fundpublicgoods.ai
+    createRoute53Record: true
+
+functions:
+  fund-public-goods:
+    handler: fund_public_goods.main.handler
+    layers:
+      - { Ref: PythonRequirementsLambdaLayer }
+    events:
+      - http:
+          path: /{path+}
+          method: any
+          cors: true

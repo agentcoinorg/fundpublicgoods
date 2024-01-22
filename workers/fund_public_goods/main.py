@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
-# from mangum import Mangum
+from mangum import Mangum
 from fund_public_goods.gitcoin.functions import functions as gitcoin_functions
 from .inngest_client import inngest_client
 from .functions import functions
@@ -21,5 +21,4 @@ app.include_router(workers.router)
 app.include_router(runs.router)
 app.include_router(get_version_router)
 
-# TODO: Only use mangum when environment is production
-# handler = Mangum(app=app)
+handler = Mangum(app=app)
