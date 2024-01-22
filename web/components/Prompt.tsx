@@ -6,7 +6,7 @@ import ChatInputButton from "./ChatInputButton";
 import SparkleIcon from "@/public/sparkle-icon.svg";
 import Image from "next/image";
 import { startWorker } from "@/app/actions";
-import { createSupabaseClient } from "@/utils/supabase";
+import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import { Tables } from "@/supabase/dbTypes";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "./LoadingCircle";
@@ -29,7 +29,7 @@ export default function Prompt() {
   const [status, setStatus] = useState<string>();
 
   const router = useRouter();
-  const supabase = createSupabaseClient();
+  const supabase = createSupabaseBrowserClient();
 
   const sendPrompt = async (prompt: string) => {
     setIsWaiting(true);
@@ -56,7 +56,7 @@ export default function Prompt() {
           },
           (payload: { new: Tables<"logs"> }) => {
             if (payload.new.message === "STRATEGY_CREATED") {
-              router.push(`strategy/${runId}`);
+              router.push(`strategy/${workerId}`);
               return;
             }
             setStatus(payload.new.message);
