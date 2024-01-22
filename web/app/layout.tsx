@@ -4,7 +4,7 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 import WalletProvider from "./WalletProvider";
 
-export const ubuntu = Ubuntu({
+const ubuntu = Ubuntu({
   subsets: ["latin"],
   weight: ['300', '400', '500', '700'],
 });
