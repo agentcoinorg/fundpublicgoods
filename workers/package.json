@@ -1,0 +1,16 @@
+{
+  "name": "fund-public-goods-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "deploy:dev": "npx serverless deploy --config ./serverless.dev.yml --stage dev",
+    "deploy:prod": "npx serverless deploy --config ./serverless.prod.yml --stage prod",
+    "package": "npx serverless package"
+  },
+  "devDependencies": {
+    "serverless": "3.38.0",
+    "serverless-domain-manager": "7.3.3",
+    "serverless-python-requirements": "6.0.1"
+  }
+}
