@@ -12,10 +12,12 @@ load_dotenv()
 
 app = FastAPI()
 
+functions += gitcoin_functions
+
 inngest.fast_api.serve(
     app,
     inngest_client,
-    functions + gitcoin_functions,
+    functions,
 )
 app.include_router(workers.router)
 app.include_router(get_version_router)
