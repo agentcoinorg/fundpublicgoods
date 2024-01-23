@@ -4,7 +4,7 @@ import uuid
 
 def exists(db: Client, worker_id: str) -> bool:
     try:
-        worker = db.table('workers').select('*').eq('id', worker_id).execute()
+        worker = db.table('workers').select('id').eq('id', worker_id).execute()
         if (worker.error):
             return False
         return len(worker.data) > 0

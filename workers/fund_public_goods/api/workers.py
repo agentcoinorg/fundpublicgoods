@@ -29,7 +29,6 @@ async def workers(params: Params) -> Response:
 
     await inngest_client.send(
         CreateStrategyEvent.Data(
-            prompt=prompt,
             run_id=run_id
         ).to_event()
     )

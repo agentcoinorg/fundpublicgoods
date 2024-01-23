@@ -12,6 +12,8 @@ load_dotenv()
 
 app = FastAPI()
 
+functions += gitcoin_functions
+
 inngest.fast_api.serve(
     app,
     inngest_client,
