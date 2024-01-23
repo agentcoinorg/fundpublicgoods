@@ -13,6 +13,13 @@ def upsert_project(app: ProjectInfo):
         "data": app.data
     }).execute()
     
+    db.table("projects").upsert({
+        "id": app.id,
+        "title": app.data["title"],
+        "description": app.data["description"],
+        "website": app.data["website"],
+    }).execute()
+    
 
 def save_application(app: ProjectApplicationInfo):
     db = create_admin()
@@ -24,6 +31,14 @@ def save_application(app: ProjectApplicationInfo):
         "round_id": app.round_id,
         "project_id": app.project_id,
         "data": app.data
+    }).execute()
+    
+    db.table("applications").insert({
+        "id": app.id,
+        "recipient": app.data["application"]["recipient"],
+        "round": app.round_id,
+        "project_id": app.project_id,
+        "answers": app.data["application"]["answers"]
     }).execute()
 
 def get_non_running_job() -> GitcoinIndexingJob | None: 
