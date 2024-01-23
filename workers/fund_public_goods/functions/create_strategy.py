@@ -14,11 +14,12 @@ def save_strategy_to_db(supabase: Client, run_id: str, entries: list[WeightedPro
         "reasoning": entry.evaluation.reasoning,
         "weight": entry.weight,
         "impact": entry.evaluation.impact,
-        "interest": entry.evaluation.interest
+        "interest": entry.evaluation.interest,
+        "project_id": entry.project.id
     } for entry in entries]).execute()
 
 def fetch_projects_data(supabase: Client):
-    response = supabase.table("gitcoin_projects").select("id, data, protocol, gitcoin_applications(id, data)").execute()
+    response = supabase.table("projects").select("id, title, description, website, applications(id, recipient, round, answers)").execute()
     projects = []
 
     for item in response.data:
@@ -26,9 +27,8 @@ def fetch_projects_data(supabase: Client):
         project_id = item.get('id', '')
 
         answers = []
-        for app in item.get('gitcoinApplications', []):
-            app_data = app.get('data', {}).get('application', {})
-            for ans in app_data.get('answers', []):
+        for application in item.get('applications', []):
+            for ans in application.get('answers', []):
                 answer = {
                     "question": ans.get('question', ''),
                     "answer": ans.get('answer', None)
@@ -38,7 +38,6 @@ def fetch_projects_data(supabase: Client):
         project = {
             "id": project_id,
             "title": project_data.get('title', ''),
-            "recipient": project_data.get('recipient', ''),
             "description": project_data.get('description', ''),
             "website": project_data.get('website', ''),
             "answers": answers

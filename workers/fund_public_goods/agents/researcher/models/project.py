@@ -4,7 +4,6 @@ from fund_public_goods.agents.researcher.models.answer import Answer
 class Project(BaseModel):
     id: str
     title: str
-    recipient: str
     description: str
     website: str
     answers: list[Answer]
