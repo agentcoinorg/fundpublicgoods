@@ -18,13 +18,12 @@ const ChatInputButton = ({
     <>
       {!running ? (
         <Button
-          hierarchy="secondary"
+          hierarchy='secondary'
           onClick={handleSend}
           disabled={message.length === 0}
-          className="!p-2"
-          type="submit"
-        >
-          <ArrowRight weight="bold" />
+          className='!p-1'
+          type='submit'>
+          <ArrowRight weight='bold' size={20} className='text-[currentColor]' />
         </Button>
       ) : (
         <LoadingCircle />
