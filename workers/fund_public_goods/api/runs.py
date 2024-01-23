@@ -1,5 +1,5 @@
 from fund_public_goods.inngest_client import inngest_client
-from fund_public_goods.events import CreateStrategyEvent
+from fund_public_goods.workers.events import CreateStrategyEvent
 from fund_public_goods.db import client, tables
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
