@@ -17,6 +17,9 @@ const config: Config = {
           border: "#3F3F46"
         }
       },
+      fontSize: {
+        '2xs': '10px'
+      },
       backgroundImage: {
         main: "url('/bg-blur.svg')",
       }

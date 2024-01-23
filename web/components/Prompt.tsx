@@ -109,10 +109,10 @@ export default function Prompt() {
           />
         }
       />
-      <div className="flex justify-center">
+      <div className="flex justify-center text-xs">
         What are you interested in funding?
       </div>
-      <div className="flex flex-wrap justify-center text-sm gap-3">
+      <div className="flex flex-wrap justify-center text-xs gap-3">
         {PROMPT_SUGESTIONS.map((suggestion, index) => (
           <div key={index}>
             <button

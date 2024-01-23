@@ -17,16 +17,18 @@ export const metadata: Metadata = {
 
 function Header() {
   return (
-    <div className="flex w-full justify-between text-sm p-6 border-b border-zinc-700">
-      <p className="pl-5">fundpublicgoods.ai</p>
+    <div className="flex w-full h-24 justify-between text-sm p-6 border-b border-zinc-700">
+      <div className="pl-5 flex flex-col justify-center">
+        <span className="">fundpublicgoods.ai</span>
+      </div>
     </div>
   );
 }
 
 function Footer() {
   return (
-    <footer className="flex flex-col w-full border-t border-zinc-700 pl-5 pt-4">
-      <div className="flex gap-x-1.5">
+    <footer className="flex flex-col w-full border-t border-zinc-700 pl-5 h-16 py-6">
+      <div className="flex gap-1.5 text-2xs">
         built by
         <a href="https://polywrap.io" target="_blank" rel="noopener noreferrer">
           polywrap
@@ -43,7 +45,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={clsx(ubuntu.className, "bg-main bg-background-main")}>
+      <body className={clsx(ubuntu.className, "bg-background-main")}>
         <WalletProvider>
           <main className="flex h-screen flex-col items-center">
             <Header />
