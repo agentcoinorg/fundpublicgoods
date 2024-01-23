@@ -163,7 +163,7 @@ def evaluate_projects(prompt: str, projects: list[Project]) -> list[EvaluatedPro
     
     for evaluation in evaluations:
         evaluated_project = EvaluatedProject(
-            **projects_by_id[evaluation.project_id],
+            project=projects_by_id[evaluation.project_id],
             evaluation=evaluation
         )
         

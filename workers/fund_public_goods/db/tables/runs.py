@@ -11,8 +11,7 @@ def insert(db: Client, worker_id: str, prompt: str) -> str:
     return id
 
 
-def get_prompt(run_id: str) -> str:
-    db = create_admin()
+def get_prompt(db: Client, run_id: str) -> str:
     return (
         db.table("runs")
         .select("prompt")

@@ -1,4 +1,3 @@
-from typing import List
 from supabase import Client
 from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
 
@@ -26,7 +25,7 @@ def insert(
     ).execute()
 
 
-def insert_multiple(run_id: str, strategies: List[WeightedProject]) -> None:
+def insert_multiple(run_id: str, strategies: list[WeightedProject]) -> None:
     db = create_admin()
     db.table("strategy_entries").insert(
         [
