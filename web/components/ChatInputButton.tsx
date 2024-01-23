@@ -20,8 +20,9 @@ const ChatInputButton = ({
         <Button
           hierarchy="secondary"
           onClick={handleSend}
+          variant="icon"
           disabled={message.length === 0}
-          className="!p-2"
+          className="!p-2 !rounded-full"
           type="submit"
         >
           <ArrowRight weight="bold" />

@@ -78,14 +78,15 @@ export default function Prompt() {
       </div>
     </div>
   ) : (
-    <div className="w-2/5">
-      <div className="flex flex-wrap w-full justify-center pb-7">
+    <div className="w-2/5 flex flex-col items-center gap-8">
+      <div className="flex flex-wrap w-full justify-center">
         <div className="text-3xl">Fund public goods like magic.</div>
         <div className="mt-1">
           <Image alt="Sparkle" priority src={SparkleIcon} />
         </div>
       </div>
       <TextField
+        className="h-16 bg-background-input/50"
         value={prompt}
         placeholder="What would you like to fund?"
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -108,14 +109,14 @@ export default function Prompt() {
           />
         }
       />
-      <div className="flex pt-6 justify-center">
+      <div className="flex justify-center">
         What are you interested in funding?
       </div>
-      <div className="flex flex-wrap justify-evenly text-sm">
+      <div className="flex flex-wrap justify-center text-sm gap-3">
         {PROMPT_SUGESTIONS.map((suggestion, index) => (
           <div key={index}>
             <button
-              className="p-2 mt-3 border-2 border-spacing-2 rounded-lg border-zinc-900 text-zinc-400 hover:border-zinc-400"
+              className="p-2 border rounded-md bg-background-main/30 border-zinc-900 text-zinc-400 hover:border-zinc-400"
               onClick={async () => {
                 setPrompt(suggestion);
                 await sendPrompt(suggestion);

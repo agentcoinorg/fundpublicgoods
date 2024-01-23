@@ -3,6 +3,7 @@ import { Ubuntu } from "next/font/google";
 
 import "./globals.css";
 import WalletProvider from "./WalletProvider";
+import clsx from "clsx";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -42,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={ubuntu.className}>
+      <body className={clsx(ubuntu.className, "bg-main bg-background-main")}>
         <WalletProvider>
           <main className="flex h-screen flex-col items-center">
             <Header />
