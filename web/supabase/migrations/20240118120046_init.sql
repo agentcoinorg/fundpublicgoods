@@ -46,9 +46,8 @@ SELECT
     TO anon USING (TRUE);
 
 CREATE TABLE "public"."projects" (
-    "id" uuid DEFAULT gen_random_uuid() NOT NULL,
+    "id" text NOT NULL,
     "title" TEXT,
-    "recipient" TEXT,
     "description" TEXT,
     "website" TEXT,
     PRIMARY KEY ("id")
@@ -64,7 +63,7 @@ SELECT
 CREATE TABLE "public"."strategy_entries" (
     "id" uuid DEFAULT gen_random_uuid() NOT NULL,
     "run_id" uuid NOT NULL,
-    "project_id" uuid NOT NULL,
+    "project_id" text NOT NULL,
     "created_at" timestamp WITH time zone NOT NULL DEFAULT NOW(),
     "reasoning" TEXT,
     "impact" NUMERIC(3, 2) CHECK ("impact" >= 0.01 AND "impact" <= 1.00),

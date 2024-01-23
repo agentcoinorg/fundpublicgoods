@@ -6,16 +6,7 @@ create table "public"."applications" (
     "project_id" text not null
 );
 
-
 alter table "public"."applications" enable row level security;
-
-alter table "public"."projects" drop column "recipient";
-
-alter table "public"."projects" alter column "id" drop default;
-
-alter table "public"."projects" alter column "id" set data type text using "id"::text;
-
-alter table "public"."strategy_entries" alter column "project_id" set data type text using "project_id"::text;
 
 CREATE UNIQUE INDEX applications_pkey ON public.applications USING btree (id);
 

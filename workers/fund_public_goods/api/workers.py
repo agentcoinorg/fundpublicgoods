@@ -25,7 +25,10 @@ async def workers(params: Params) -> Response:
 
     supabase = client.create_admin()
     worker_id = tables.workers.insert(supabase)
+    print(worker_id)
     run_id = tables.runs.insert(supabase, worker_id, prompt)
+    print("run insert went g00d")
+    print(run_id)
 
     await inngest_client.send(
         CreateStrategyEvent.Data(
