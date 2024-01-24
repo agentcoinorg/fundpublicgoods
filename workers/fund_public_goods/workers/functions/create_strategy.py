@@ -56,30 +56,21 @@ async def create_strategy(
     run_id = data.run_id
     supabase = client.create_admin()
 
-    await step.run(
-        "extracting_prompt",
-        lambda: logs.insert(supabase, run_id, "Extracting prompt from run_id"),
-    )
-
     prompt = await step.run("extract_prompt", lambda: get_prompt(supabase, run_id))
-
-    await step.run(
-        "fetching_projects_info",
-        lambda: logs.insert(supabase, run_id, "Getting information from data sources"),
-    )
 
     json_projects = await step.run(
         "fetch_projects_data", lambda: fetch_projects_data(supabase)
     )
 
     projects: list[Project] = [Project(**json_project) for json_project in json_projects]  # type: ignore
-
+    
     await step.run(
-        "assessing",
+        "fetched_projects_data",
         lambda: logs.insert(
             supabase,
             run_id,
-            "Assessing impact of each project related to the users interest",
+            "FETCH_PROJECTS",
+            f"Found {len(projects)} projects",
         ),
     )
 
@@ -87,13 +78,14 @@ async def create_strategy(
         "assess_projects", lambda: evaluate_projects(prompt, projects)
     )
     assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects]  # type: ignore
-
+    
     await step.run(
-        "determining_funding",
+        "assessed_projects",
         lambda: logs.insert(
             supabase,
             run_id,
-            "Determining the relative funding that the best matching projects need",
+            "EVALUATE_PROJECTS",
+            f"Evaluated {len(assessed_projects)} projects",
         ),
     )
 
@@ -101,16 +93,24 @@ async def create_strategy(
         "determine_funding", lambda: assign_weights(assessed_projects)
     )
     weighted_projects = [WeightedProject(**x) for x in json_weighted_projects]  # type: ignore
-
+    
     await step.run(
-        "saving_results_to_db",
-        lambda: logs.insert(supabase, run_id, "Generating results"),
+        "determined_funding",
+        lambda: logs.insert(
+            supabase,
+            run_id,
+            "ANALYZE_FUNDING",
+            "Determined the relative funding that the best matching projects need",
+        ),
     )
 
     await step.run(
         "save_strategy_to_db", lambda: insert_multiple(supabase, run_id, weighted_projects)
     )
-
-    await step.run("result", lambda: logs.insert(supabase, run_id, "STRATEGY_CREATED"))
+    
+    await step.run(
+        "saved_results_to_db",
+        lambda: logs.insert(supabase, run_id, "SYNTHESIZE_RESULTS", "Results generated"),
+    )
 
     return "done"

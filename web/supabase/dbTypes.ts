@@ -9,24 +9,157 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      applications: {
+        Row: {
+          answers: Json | null
+          id: string
+          project_id: string
+          recipient: string
+          round: string
+        }
+        Insert: {
+          answers?: Json | null
+          id: string
+          project_id: string
+          recipient: string
+          round: string
+        }
+        Update: {
+          answers?: Json | null
+          id?: string
+          project_id?: string
+          recipient?: string
+          round?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "applications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      gitcoin_applications: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          pointer: string
+          project_id: string
+          protocol: number
+          round_id: string
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          pointer: string
+          project_id: string
+          protocol: number
+          round_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          pointer?: string
+          project_id?: string
+          protocol?: number
+          round_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gitcoin_applications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "gitcoin_projects"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      gitcoin_indexing_jobs: {
+        Row: {
+          created_at: string
+          error: string | null
+          id: string
+          is_failed: boolean
+          is_running: boolean
+          last_updated_at: string
+          skip_projects: number
+          skip_rounds: number
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          is_failed?: boolean
+          is_running?: boolean
+          last_updated_at?: string
+          skip_projects?: number
+          skip_rounds?: number
+          url: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          is_failed?: boolean
+          is_running?: boolean
+          last_updated_at?: string
+          skip_projects?: number
+          skip_rounds?: number
+          url?: string
+        }
+        Relationships: []
+      }
+      gitcoin_projects: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          pointer: string
+          protocol: number
+        }
+        Insert: {
+          created_at?: string
+          data: Json
+          id: string
+          pointer: string
+          protocol: number
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          pointer?: string
+          protocol?: number
+        }
+        Relationships: []
+      }
       logs: {
         Row: {
           created_at: string
           id: string
-          message: string
           run_id: string
+          step: Database["public"]["Enums"]["step"]
+          value: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          message: string
           run_id: string
+          step: Database["public"]["Enums"]["step"]
+          value?: string | null
         }
         Update: {
           created_at?: string
           id?: string
-          message?: string
           run_id?: string
+          step?: Database["public"]["Enums"]["step"]
+          value?: string | null
         }
         Relationships: [
           {
@@ -42,21 +175,18 @@ export interface Database {
         Row: {
           description: string | null
           id: string
-          recipient: string | null
           title: string | null
           website: string | null
         }
         Insert: {
           description?: string | null
-          id?: string
-          recipient?: string | null
+          id: string
           title?: string | null
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
-          recipient?: string | null
           title?: string | null
           website?: string | null
         }
@@ -124,6 +254,13 @@ export interface Database {
         }
         Relationships: [
           {
+            foreignKeyName: "strategy_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "strategy_entries_run_id_fkey"
             columns: ["run_id"]
             isOneToOne: false
@@ -155,7 +292,11 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      step:
+        | "FETCH_PROJECTS"
+        | "EVALUATE_PROJECTS"
+        | "ANALYZE_FUNDING"
+        | "SYNTHESIZE_RESULTS"
     }
     CompositeTypes: {
       [_ in never]: never
