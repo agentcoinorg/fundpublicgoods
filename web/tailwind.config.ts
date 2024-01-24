@@ -22,7 +22,7 @@ const config: Config = {
         "button-0": `0 0 0 -2px ${colors.indigo[200]}`,
       },
       maxWidth: {
-        wrapper: `900px`,
+        wrapper: `768px`,
       },
     },
   },

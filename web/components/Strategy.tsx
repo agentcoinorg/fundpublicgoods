@@ -19,7 +19,7 @@ function Information(props: {
     <div className='flex flex-wrap justify-between'>
       <div className='flex flex-col'>
         <div className='text-lg font-semibold'>{props.title}</div>
-        <div className='text-xs text-indigo-900/70'>{props.subtitle}</div>
+        <div className='text-xs text-subdued'>{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}

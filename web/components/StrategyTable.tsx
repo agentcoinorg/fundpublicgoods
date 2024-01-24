@@ -35,9 +35,9 @@ export function StrategyTable(props: StrategyTableProps) {
               }}
             />
           </th>
-          <th className='text-left pl-0'>PROJECT</th>
+          <th className='text-left'>PROJECT</th>
           <th className='text-left'>WEIGHTING</th>
-          <th className='text-left w-2/12'>SMART RANKING</th>
+          <th className='text-left w-2/12 whitespace-nowrap'>SMART RANKING</th>
         </tr>
       </thead>
       <tbody className='w-full'>
@@ -56,10 +56,12 @@ export function StrategyTable(props: StrategyTableProps) {
                 }}
               />
             </td>
-            <td className='min-w-6/12 pl-0'>
+            <td className='min-w-6/12'>
               <div className='space-y-px w-full'>
                 <div>{entry.project.title}</div>
-                <div className='text-[10px] text-indigo-900/70 line-clamp-2'>
+                <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
+                  {entry.project.description}
+                  {entry.project.description}
                   {entry.project.description}
                 </div>
               </div>

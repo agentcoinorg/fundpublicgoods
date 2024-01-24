@@ -25,6 +25,10 @@ body {
   background-position: 52% 57%;
 }
 
+.text-subdued {
+  @apply text-indigo-900/60;
+}
+
 th {
   @apply px-4 pt-4 pb-2 text-indigo-900/50 font-semibold text-xs leading-none uppercase;
 }
