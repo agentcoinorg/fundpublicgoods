@@ -18,12 +18,12 @@ export interface StrategyTableProps {
 
 export function StrategyTable(props: StrategyTableProps) {
   return (
-    <table className="table-fixed">
+    <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100'>
       <thead>
         <tr>
-          <th className="px-4">
+          <th className='pr-0'>
             <TextField
-              type="checkbox"
+              type='checkbox'
               checked={props.strategy.every((s) => s.selected)}
               onChange={(e) => {
                 props.modifyStrategy(
@@ -35,21 +35,19 @@ export function StrategyTable(props: StrategyTableProps) {
               }}
             />
           </th>
-          <th className="text-left">PROJECT</th>
-          <th>
-            <div className="pl-2 w-auto">WEIGHTING</div>
-          </th>
-          <th className="w-1/5">
-            <div className="flex w-1/5 pl-12">SMART RANKING</div>
-          </th>
+          <th className='text-left pl-0'>PROJECT</th>
+          <th className='text-left'>WEIGHTING</th>
+          <th className='text-left w-2/12'>SMART RANKING</th>
         </tr>
       </thead>
-      <tbody className="bg-gray-900 w-full">
+      <tbody className='w-full'>
         {props.strategy.map((entry, index) => (
-          <tr key={index} className="w-full">
-            <td className="px-6 pl-4">
+          <tr
+            key={index}
+            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50'>
+            <td className='pr-0'>
               <TextField
-                type="checkbox"
+                type='checkbox'
                 checked={entry.selected}
                 onChange={(e) => {
                   const currentStrategy = [...props.strategy];
@@ -58,26 +56,26 @@ export function StrategyTable(props: StrategyTableProps) {
                 }}
               />
             </td>
-            <td className="w-7/12">
-              <div className="flex flex-col pt-2 pb-4 mr-6 w-full">
+            <td className='min-w-6/12 pl-0'>
+              <div className='space-y-px w-full'>
                 <div>{entry.project.title}</div>
-                <div className="text-[10px] text-slate-500 line-clamp-2">
+                <div className='text-[10px] text-indigo-900/70 line-clamp-2'>
                   {entry.project.description}
                 </div>
               </div>
             </td>
-            <td className="pl-2 w-auto">
-              <div className="w-full justify-center">
+            <td className='w-2/12'>
+              <div className='w-full justify-center'>
                 <TextField
                   readOnly
-                  className="h-[20px] p-2.5"
+                  className='!pl-4 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
                   rightAdornment={"%"}
                   value={!entry.weight ? "0" : (entry.weight * 100).toFixed(2)}
                 />
               </div>
             </td>
-            <td className="w-1/5">
-              <div className="w-full">
+            <td>
+              <div className='w-full'>
                 <Score rank={entry.impact ?? 0} />
               </div>
             </td>

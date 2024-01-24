@@ -24,7 +24,7 @@ const Button = ({
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const hierarchyClasses = {
     primary: clsx(
-      "bg-button border-cyan-300 bg-gradient-to-b from-cyan-300 via-cyan-600 to-cyan-800 bg-bottom text-white",
+      "border-indigo-100 bg-indigo-900 text-white shadow-button transform active:translate-y-1 active:bg-indigo-800/90 hover:bg-indigo-600 transition-all duration-100 ease-in-out active:shadow-button-0 focus-visible:ring-1 focus-visible:ring-white focus-visible:outline-0",
       {
         "hover:bg-top": !disabled,
       }

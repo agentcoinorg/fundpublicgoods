@@ -1,3 +1,5 @@
+import colors from "tailwindcss/colors";
+
 export interface IconProps {
   size?: number;
   className?: string;
@@ -56,6 +58,60 @@ export const SparkleIcon = ({ size = 32, className }: IconProps) => {
         d='M7.07542 9.53298C6.75657 10.0614 6.58521 10.7014 6.45796 11.4566C6.33071 10.7014 6.15935 10.0614 5.8405 9.53298C5.39468 8.79414 4.69853 8.3318 3.61369 8.00753C4.79534 7.66682 5.48553 7.09833 5.90109 6.30657C6.19297 5.75047 6.33145 5.11427 6.44326 4.45658C6.44821 4.42746 6.4531 4.3983 6.45796 4.3691C6.46281 4.3983 6.46771 4.42746 6.47266 4.45658C6.58447 5.11427 6.72295 5.75047 7.01483 6.30657C7.43039 7.09833 8.12058 7.66682 9.30223 8.00753C8.21739 8.3318 7.52124 8.79414 7.07542 9.53298Z'
         className='stroke-indigo-500 stroke-1'
         strokeWidth='1'
+      />
+    </svg>
+  );
+};
+
+export interface ScoreIconProps extends IconProps {
+  rank: number;
+}
+
+export const ScoreIcon = ({ size = 20, rank, className }: ScoreIconProps) => {
+  const ranking = rank > 0.74 ? "high" : rank < 0.53 ? "low" : "med";
+  const fills = {
+    high: {
+      fill: colors.green[500],
+      opacities: [1, 1, 1],
+    },
+    med: {
+      fill: colors.amber[500],
+      opacities: [1, 1, 0.3],
+    },
+    low: {
+      fill: colors.red[500],
+      opacities: [1, 0.3, 0.3],
+    },
+  };
+
+  return (
+    <svg
+      width={size}
+      height={(size * 2) / 3}
+      viewBox='0 0 12 8'
+      className={className}
+      fill='none'
+      xmlns='http://www.w3.org/2000/svg'>
+      <rect
+        width='3'
+        height='4'
+        transform='matrix(-1 0 0 1 3.5 4)'
+        fill={fills[ranking].fill}
+        fillOpacity={fills[ranking].opacities[0]}
+      />
+      <rect
+        width='3'
+        height='6'
+        transform='matrix(-1 0 0 1 7.5 2)'
+        fill={fills[ranking].fill}
+        fillOpacity={fills[ranking].opacities[1]}
+      />
+      <rect
+        width='3'
+        height='8'
+        transform='matrix(-1 0 0 1 11.5 0)'
+        fill={fills[ranking].fill}
+        fillOpacity={fills[ranking].opacities[2]}
       />
     </svg>
   );
