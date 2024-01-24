@@ -10,7 +10,7 @@ export default async function StrategyPage({
   const workerId = params.id;
   const supabase = createSupabaseServerClient();
 
-  // // Fetch the runs for this worker
+  // Fetch the runs for this worker
   const runs = await supabase
     .from("runs")
     .select(
