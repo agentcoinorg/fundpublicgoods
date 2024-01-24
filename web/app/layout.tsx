@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Ubuntu } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 import WalletProvider from "./WalletProvider";
+import { Logo } from "@/components/Logo";
 
-const ubuntu = Ubuntu({
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ['300', '400', '500', '700'],
+  weight: "variable",
 });
 
 export const metadata: Metadata = {
@@ -16,20 +17,28 @@ export const metadata: Metadata = {
 
 function Header() {
   return (
-    <div className="flex w-full justify-between text-sm p-6 border-b border-zinc-700">
-      <p className="pl-5">fundpublicgoods.ai</p>
+    <div className='flex w-full justify-between text-sm p-6 pb-2'>
+      <a href='/' className='flex hover:opacity-80'>
+        <Logo size={160} />
+      </a>
     </div>
   );
 }
 
 function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="flex flex-col w-full border-t border-zinc-700 pl-5 pt-4">
-      <div className="flex gap-x-1.5">
-        built by
-        <a href="https://polywrap.io" target="_blank" rel="noopener noreferrer">
+    <footer className='flex flex-col w-full p-6 pt-2'>
+      <div className='flex gap-x-1 text-[10px]'>
+        <span className='font-regular text-indigo-800'>built by</span>
+        <a
+          className='underline font-semibold'
+          href='https://polywrap.io'
+          target='_blank'
+          rel='noopener noreferrer'>
           polywrap
         </a>
+        <span className='font-regular text-indigo-800'>© {year}</span>
       </div>
     </footer>
   );
@@ -41,12 +50,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={ubuntu.className}>
+    <html lang='en'>
+      <body className={sans.className}>
         <WalletProvider>
-          <main className="flex h-screen flex-col items-center">
+          <main className='flex h-screen min-h-screen flex-col items-center'>
             <Header />
-            <div className="flex flex-col w-full h-5/6 overflow-y-auto">
+            <div className='flex flex-col w-full flex-grow overflow-y-auto'>
               {children}
             </div>
             <Footer />

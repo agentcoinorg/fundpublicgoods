@@ -29,12 +29,9 @@ const Button = ({
         "hover:bg-top": !disabled,
       }
     ),
-    secondary: clsx(
-      "bg-button border-zinc-700 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 bg-bottom text-white",
-      {
-        "hover:bg-top": !disabled,
-      }
-    ),
+    secondary: clsx("border-indigo-300 bg-transparent text-indigo-600", {
+      "hover:bg-top": !disabled,
+    }),
   };
 
   const sizeClasses = {
@@ -43,16 +40,16 @@ const Button = ({
   };
 
   const variantClasses = {
-    icon: "border-none bg-none !p-1 text-zinc-500 hover:!text-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/10",
-    text: "border-none bg-none !p-1 text-cyan-500 hover:text-white",
+    icon: "border-none bg-none !p-1 text-indigo-500 hover:!text-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/10",
+    text: "border-none bg-none !p-1 text-indigo-500 hover:text-white",
   };
   const variantClass = variant ? variantClasses[variant] : null;
   return (
-    <Popover className="relative">
+    <Popover className='relative'>
       <Popover.Button
         // as="button"
         className={clsx(
-          "text-shadow-md relative inline-flex items-center justify-center space-x-2 rounded-md border transition-all duration-500",
+          "text-shadow-md relative inline-flex items-center justify-center space-x-2 rounded-full border-2 transition-all duration-500",
           hierarchyClasses[hierarchy],
           sizeClasses[size],
           variantClass,
@@ -61,8 +58,7 @@ const Button = ({
         )}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        {...props}
-      >
+        {...props}>
         {children}
         {/* {helperContent && showTooltip && (
           <Tooltip placement={helperPlacement} content={helperContent} />
