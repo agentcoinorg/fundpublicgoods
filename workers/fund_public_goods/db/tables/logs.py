@@ -10,5 +10,5 @@ def insert(
     db.table("logs").insert({
         "run_id": run_id,
         "step": step,
-        "message": message
+        "value": message
     }).execute()
