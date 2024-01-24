@@ -1,10 +1,9 @@
 from supabase import Client
 from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
 
-from fund_public_goods.db.client import create_admin
-
 
 def insert(
+    db: Client,
     run_id: str,
     project_id: str,
     reasoning: str,
@@ -12,7 +11,6 @@ def insert(
     interest: float,
     weight: float,
 ):
-    db = create_admin()
     db.table("strategy_entries").insert(
         {
             "run_id": run_id,
@@ -25,8 +23,7 @@ def insert(
     ).execute()
 
 
-def insert_multiple(run_id: str, strategies: list[WeightedProject]) -> None:
-    db = create_admin()
+def insert_multiple(db: Client, run_id: str, strategies: list[WeightedProject]) -> None:
     db.table("strategy_entries").insert(
         [
             {

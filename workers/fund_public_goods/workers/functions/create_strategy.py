@@ -1,10 +1,7 @@
-from typing import List
-import uuid
 from fund_public_goods.agents.researcher.functions.assign_weights import assign_weights
 from fund_public_goods.agents.researcher.functions.evaluate_projects import (
     evaluate_projects,
 )
-from fund_public_goods.agents.researcher.models.answer import Answer
 from fund_public_goods.agents.researcher.models.evaluated_project import (
     EvaluatedProject,
 )
@@ -24,19 +21,19 @@ def fetch_projects_data(supabase: Client) -> list[Project]:
     projects = []
 
     for item in response.data:
-        # project_information = item.model_dump()
         answers = []
 
         for application in item.get("applications", []):
-            for ans in application.get("answers", []):
-                answer = {
-                    "question": ans.get("question", ""),
-                    "answer": ans.get("answer", None),
-                }
-                answers.append(answer)
+            for answer in application.get("answers", []):
+                answers.append(
+                    {
+                        "question": answer.get("question", ""),
+                        "answer": answer.get("answer", None),
+                    }
+                )
 
         project = Project(
-            id=item.get("id", str(uuid.uuid4())),
+            id=item.get("id", ""),
             title=item.get("title", ""),
             description=item.get("description", ""),
             website=item.get("website", ""),
@@ -72,11 +69,10 @@ async def create_strategy(
     )
 
     json_projects = await step.run(
-        "fetch_projects_data",
-        lambda: fetch_projects_data(supabase)
+        "fetch_projects_data", lambda: fetch_projects_data(supabase)
     )
-    
-    projects: list[Project] = [Project(**json_project) for json_project in json_projects] # type: ignore
+
+    projects: list[Project] = [Project(**json_project) for json_project in json_projects]  # type: ignore
 
     await step.run(
         "assessing",
@@ -112,7 +108,7 @@ async def create_strategy(
     )
 
     await step.run(
-        "save_strategy_to_db", lambda: insert_multiple(run_id, weighted_projects)
+        "save_strategy_to_db", lambda: insert_multiple(supabase, run_id, weighted_projects)
     )
 
     await step.run("result", lambda: logs.insert(supabase, run_id, "STRATEGY_CREATED"))
