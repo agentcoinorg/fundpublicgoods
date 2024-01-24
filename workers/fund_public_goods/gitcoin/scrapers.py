@@ -1,4 +1,3 @@
-from typing import List
 import requests
 
 from fund_public_goods.gitcoin.models import RoundInfo, ApplicationInfo
@@ -11,7 +10,7 @@ def fetch_json_from_ipfs(pointer: str) -> dict:
     else:
         raise Exception(f"Failed to fetch data from IPFS for pointer {pointer} with status code: {response.status_code}")
 
-def fetch_rounds(url: str, skip: int, first: int) -> List[RoundInfo]:
+def fetch_rounds(url: str, skip: int, first: int) -> list[RoundInfo]:
     data = {
         "query": """
             query GetRounds($first: Int, $skip: Int) {
@@ -38,7 +37,7 @@ def fetch_rounds(url: str, skip: int, first: int) -> List[RoundInfo]:
     else:
         raise Exception(f"Request failed with status code: {response.status_code}")
 
-def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -> List[ApplicationInfo]:
+def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -> list[ApplicationInfo]:
     data = {
         "query": """
             query GetRoundById($roundId: String, $first: Int, $skip: Int) {

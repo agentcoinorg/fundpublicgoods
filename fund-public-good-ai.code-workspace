@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "name": "workers",
+            "path": "workers"
+        },
+        {
+            "name": "web",
+            "path": "web"
+        }
+    ]
+}

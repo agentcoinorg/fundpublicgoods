@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, cast
+from typing import cast
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.gitcoin.models import ApplicationInfo, ProjectApplicationInfo, ProjectInfo, RoundInfo
@@ -31,7 +31,7 @@ async def index_gitcoin_page(
     data = IndexGitcoinPageEvent.Data.model_validate(ctx.event.data)
 
     rounds = await step.run("fetch_rounds", lambda: fetch_rounds(data.url, first=1, skip=data.skip_rounds))
-    rounds = parse_obj_as(List[RoundInfo], rounds)
+    rounds = parse_obj_as(list[RoundInfo], rounds)
 
     if not rounds:
         await step.run("stop_job", lambda: stop_job(data.job_id))
@@ -42,7 +42,7 @@ async def index_gitcoin_page(
 
     apps = await step.run("fetch_project_applications", lambda: fetch_project_applications(data.url, round.id, first=data.project_page_size, skip=data.skip_projects))
     
-    apps = parse_obj_as(List[ApplicationInfo], apps)
+    apps = parse_obj_as(list[ApplicationInfo], apps)
 
     if not apps:
         await step.run("update_job_progress", lambda: update_job_progress(data.job_id, data.skip_rounds + 1, 0))

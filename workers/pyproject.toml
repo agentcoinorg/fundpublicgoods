@@ -26,6 +26,9 @@ types-requests = "^2.31.0.20240106"
 [tool.mypy]
 check_untyped_defs = true
 ignore_missing_imports = true
+plugins = [
+  "pydantic.mypy"
+]
 
 [tool.poetry.scripts]
 build-check = "fund_public_goods.build_check:run"

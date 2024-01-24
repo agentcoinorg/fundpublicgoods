@@ -3,7 +3,7 @@ import sys
 
 def run():
     # Run mypy check
-    result = subprocess.run(["mypy", "--follow-imports=skip", "."], capture_output=True)
+    result = subprocess.run(["mypy", "."], capture_output=True)
     print(result.stdout.decode())
     if result.returncode != 0:
         print("Type checking failed")
