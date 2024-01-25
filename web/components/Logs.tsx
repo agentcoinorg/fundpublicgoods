@@ -6,16 +6,6 @@ import RealtimeLogs from "./RealtimeLogs";
 export default async function Logs(props: { runId: string }) {
   const supabase = createSupabaseServerClient()
 
-  const { data: steps } = await supabase.from('steps').select(`
-    id,
-    name,
-    order
-  `)
-
-  if (!steps) {
-    throw new Error(`Error fetching steps`)
-  }
-
   const { data: run } = await supabase.from('runs').select(`
     id,
     prompt,
@@ -24,14 +14,9 @@ export default async function Logs(props: { runId: string }) {
       run_id,
       created_at,
       value,
-      step_id,
       ended_at,
       status,
-      steps(
-        id,
-        name,
-        order
-      )
+      step_name
     )
   `).eq("id", props.runId).single()
   
@@ -41,6 +26,6 @@ export default async function Logs(props: { runId: string }) {
   }
 
   return (
-    <RealtimeLogs logs={run.logs} run={run} steps={steps} />
+    <RealtimeLogs logs={run.logs} run={run} />
   )
 }

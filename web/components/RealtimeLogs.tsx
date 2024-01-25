@@ -5,48 +5,49 @@ import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import router from "next/router";
 import { useState, useEffect } from "react";
 
-type LogWithStep = (Tables<"logs"> & { steps: Tables<"steps"> | null })
-
-const UNSTARTED_TEXTS: Record<Tables<"steps">["name"], string> = {
+const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Search for relevant projects",
   EVALUATE_PROJECTS: "Evaluate proof of impact",
   ANALYZE_FUNDING: "Analyze funding needs",
   SYNTHESIZE_RESULTS: "Synthesize results",
 }
 
-const LOADING_TEXTS: Record<Tables<"steps">["name"], string> = {
+const LOADING_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Searching for relevant projects",
   EVALUATE_PROJECTS: "Evaluating proof of impact",
   ANALYZE_FUNDING: "Analyzing funding needs",
   SYNTHESIZE_RESULTS: "Synthesizing results",
 }
 
-const getLogMessage = (log: LogWithStep) => {
+const STEPS_ORDER: Record<Tables<"logs">["step_name"], number> = {
+  FETCH_PROJECTS: 1,
+  EVALUATE_PROJECTS: 2,
+  ANALYZE_FUNDING: 3,
+  SYNTHESIZE_RESULTS: 4,
+}
+
+const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
-    case "NOT_STARTED": return UNSTARTED_TEXTS[log.steps!.name]
-    case "IN_PROGRESS": return LOADING_TEXTS[log.steps!.name]
-    case "COMPLETED": return log.value ?? `Completed: ${UNSTARTED_TEXTS[log.steps!.name]}`
-    case "ERRORED": return `Error while ${LOADING_TEXTS[log.steps!.name].toLowerCase()}`
+    case "NOT_STARTED": return UNSTARTED_TEXTS[log.step_name]
+    case "IN_PROGRESS": return LOADING_TEXTS[log.step_name]
+    case "COMPLETED": return log.value ?? `Completed: ${UNSTARTED_TEXTS[log.step_name]}`
+    case "ERRORED": return `Error while ${LOADING_TEXTS[log.step_name].toLowerCase()}`
   }
 }
 
 export default function RealtimeLogs(props: {
-  logs: LogWithStep[]
-  steps: Tables<"steps">[]
+  logs: Tables<"logs">[]
   run: {
     id: string;
     prompt: string;
   }
 }) {
-  const [logs, setLogs] = useState<LogWithStep[]>(props.logs)
+  const [logs, setLogs] = useState<Tables<"logs">[]>(props.logs)
   const supabase = createSupabaseBrowserClient();
   const runId = props.run
-  
-  const orderedSteps = props.steps.sort((a, b) => a.order - b.order)
-  const lastStep = orderedSteps.slice(-1)[0]
 
   const sortedLogsWithSteps = logs.sort((a, b) => {
-    return a.steps!.order - b.steps!.order
+    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
   })
 
   useEffect(() => {
@@ -62,14 +63,9 @@ export default function RealtimeLogs(props: {
         },
         (payload: { new: Tables<"logs"> }) => {
           const logsMinusTheUpdatedOne = logs.filter(log => log.id !== payload.new.id)
-          const newWithStep = {
-            ...payload.new,
-            steps: props.steps.find(step => step.id === payload.new.step_id) ?? null
-          }
+          setLogs([...logsMinusTheUpdatedOne, payload.new])
 
-          setLogs([...logsMinusTheUpdatedOne, newWithStep])
-
-          if (payload.new.step_id === lastStep.id && payload.new.status === "COMPLETED") {
+          if (payload.new.step_name === "SYNTHESIZE_RESULTS" && payload.new.status === "COMPLETED") {
             router.push(`/${runId}/strategy`)
             return;
           }

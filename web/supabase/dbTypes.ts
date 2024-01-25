@@ -146,7 +146,7 @@ export interface Database {
           id: string
           run_id: string
           status: Database["public"]["Enums"]["step_status"]
-          step_id: string
+          step_name: Database["public"]["Enums"]["step_name"]
           value: string | null
         }
         Insert: {
@@ -155,7 +155,7 @@ export interface Database {
           id?: string
           run_id: string
           status: Database["public"]["Enums"]["step_status"]
-          step_id: string
+          step_name: Database["public"]["Enums"]["step_name"]
           value?: string | null
         }
         Update: {
@@ -164,7 +164,7 @@ export interface Database {
           id?: string
           run_id?: string
           status?: Database["public"]["Enums"]["step_status"]
-          step_id?: string
+          step_name?: Database["public"]["Enums"]["step_name"]
           value?: string | null
         }
         Relationships: [
@@ -173,13 +173,6 @@ export interface Database {
             columns: ["run_id"]
             isOneToOne: false
             referencedRelation: "runs"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "logs_step_id_fkey"
-            columns: ["step_id"]
-            isOneToOne: false
-            referencedRelation: "steps"
             referencedColumns: ["id"]
           }
         ]
@@ -233,24 +226,6 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
-      }
-      steps: {
-        Row: {
-          id: string
-          name: string
-          order: number
-        }
-        Insert: {
-          id?: string
-          name: string
-          order: number
-        }
-        Update: {
-          id?: string
-          name?: string
-          order?: number
-        }
-        Relationships: []
       }
       strategy_entries: {
         Row: {
@@ -323,6 +298,11 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      step_name:
+        | "FETCH_PROJECTS"
+        | "EVALUATE_PROJECTS"
+        | "ANALYZE_FUNDING"
+        | "SYNTHESIZE_RESULTS"
       step_status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "ERRORED"
     }
     CompositeTypes: {
