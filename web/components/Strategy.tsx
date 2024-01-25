@@ -59,7 +59,7 @@ export default function Strategy(props: {
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
         />
-        <div className='p-8 bg-indigo-100/50 rounded-2xl border-2 border-indigo-100/50'>
+        <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
           <p>
             I&apos;ve evaluated the impact of Ethereum infrastructure projects
             on the Gitcoin project registry and Optimism Retroactive Public

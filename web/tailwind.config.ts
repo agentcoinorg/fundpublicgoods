@@ -15,6 +15,9 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
+        indigo: {
+          25: "#f0f3ff",
+        },
         "primary-shadow": colors.indigo[800],
       },
       boxShadow: {
@@ -23,6 +26,33 @@ const config: Config = {
       },
       maxWidth: {
         wrapper: `768px`,
+      },
+      animation: {
+        slideIn: "slideIn 0.3s forwards ease-in",
+        slideInAffected:
+          "slideInAffected 0.2s var(--delay, 0.3s) forwards ease-in-out",
+      },
+      keyframes: {
+        slideIn: {
+          "0%": {
+            opacity: "0",
+            transform: "translateX(-50%)",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        slideInAffected: {
+          "50%": {
+            transform: "translateX(var(--affected, 1%))",
+          },
+          "0%,100%": {
+            transform: "translateX(0%)",
+          },
+        },
       },
     },
   },

@@ -10,8 +10,12 @@ body {
   @apply font-medium text-indigo-900;
 }
 
+p {
+  @apply leading-7 tracking-[0.02em];
+}
+
 a {
-  @apply underline-offset-1 decoration-[1.5px] decoration-indigo-500/50 hover:opacity-80;
+  @apply underline-offset-1 decoration-[1.5px] decoration-indigo-500/50 text-indigo-600 hover:text-indigo-500;
 }
 
 th {

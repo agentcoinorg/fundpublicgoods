@@ -83,7 +83,7 @@ export default function Prompt() {
           </div>
         ) : (
           <div className='w-full space-y-8'>
-            <div className='flex flex-wrap w-full justify-center items-center space-x-2'>
+            <div className='flex flex-wrap w-full justify-center items-center space-x-2 group/prompt'>
               <h1 className='text-4xl font-bold text-shadow-lg text-shadow-primary-shadow'>
                 Fund public goods like magic
               </h1>

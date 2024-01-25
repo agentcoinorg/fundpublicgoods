@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 function Header() {
   return (
     <div className='flex w-full justify-between text-sm px-6 py-4 bg-indigo-300/80 border-b-2 border-indigo-400/20'>
-      <a href='/' className='flex hover:opacity-80'>
+      <a href='/' className='flex'>
         <Logo size={160} />
       </a>
     </div>
@@ -30,8 +30,8 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
-      <div className='flex gap-x-1 text-[10px]'>
-        <span className='font-regular text-indigo-800'>built by</span>
+      <div className='font-regular flex gap-x-[2px] text-[10px] text-indigo-800/70'>
+        <span>built by</span>
         <a
           className='underline font-semibold'
           href='https://polywrap.io'
@@ -39,7 +39,7 @@ function Footer() {
           rel='noopener noreferrer'>
           polywrap
         </a>
-        <span className='font-regular text-indigo-800'>© {year}</span>
+        <span>© {year}</span>
       </div>
     </footer>
   );
