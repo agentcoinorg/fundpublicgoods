@@ -4,7 +4,7 @@ import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.lib.gitcoin.models import ApplicationInfo, ProjectApplicationInfo, ProjectInfo, RoundInfo
 from fund_public_goods.workflows.index_gitcoin.events import IndexGitcoinPageEvent
-from fund_public_goods.lib.gitcoin.functions import fetch_json_from_ipfs, fetch_project_applications, fetch_rounds
+from fund_public_goods.lib.gitcoin.utils import fetch_json_from_ipfs, fetch_project_applications, fetch_rounds
 from fund_public_goods.db.tables.gitcoin import save_application, stop_and_mark_job_as_failed, stop_job, update_job_progress, upsert_project
 
 PAGE_REQUEST_FREQUENCY_SECONDS = 5 # 10 seconds

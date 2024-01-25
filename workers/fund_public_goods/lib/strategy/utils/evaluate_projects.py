@@ -5,7 +5,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.json import JsonOutputParser
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
-from fund_public_goods.lib.strategy.functions.generate_queries import generate_queries
+from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
 from fund_public_goods.lib.strategy.models.evaluated_project import EvaluatedProject
 from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.project_evaluation import ProjectEvaluation

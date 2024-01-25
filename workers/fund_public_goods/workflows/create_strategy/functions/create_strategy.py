@@ -1,7 +1,7 @@
 import inngest
 from supabase import Client
-from fund_public_goods.lib.strategy.functions.assign_weights import assign_weights
-from fund_public_goods.lib.strategy.functions.evaluate_projects import (
+from fund_public_goods.lib.strategy.utils.assign_weights import assign_weights
+from fund_public_goods.lib.strategy.utils.evaluate_projects import (
     evaluate_projects,
 )
 from fund_public_goods.lib.strategy.models.evaluated_project import (
