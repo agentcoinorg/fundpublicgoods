@@ -10,6 +10,7 @@ def create(
     return db.table("logs").insert({
         "run_id": run_id,
         "step_name": step_name,
+        "status": "NOT_STARTED"
     }).execute()
     
 def update(

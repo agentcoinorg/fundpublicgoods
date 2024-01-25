@@ -8,7 +8,6 @@ from fund_public_goods.agents.researcher.models.evaluated_project import (
 )
 from fund_public_goods.agents.researcher.models.project import Project
 from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
-from fund_public_goods.db.tables.steps import get_steps
 import inngest
 from fund_public_goods.db.tables.projects import get_projects
 from fund_public_goods.db.tables.runs import get_prompt
@@ -61,7 +60,7 @@ def initialize_logs(supabase: Client, run_id: str) -> dict[StepNames, str]:
             step_name=step_name,
         ).data
         
-        log_ids[step_name] = new_log[0].id
+        log_ids[step_name] = new_log[0]["id"]
 
     return log_ids
 
@@ -77,9 +76,8 @@ async def create_strategy(
     run_id = data.run_id
     supabase = client.create_admin()
     
-    prompt = await step.run("extract_prompt", lambda: get_prompt(supabase, run_id))
-    
-    log_ids = await step.run("initialize_logs", lambda: initialize_logs(supabase, run_id))
+    prompt = get_prompt(supabase, run_id)
+    log_ids = initialize_logs(supabase, run_id)
     
     await step.run(
         "start_fetch_projects_data",
