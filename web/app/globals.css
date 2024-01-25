@@ -49,7 +49,7 @@ td {
   @apply w-full h-full bg-no-repeat;
   background-image: url("../public/checkmark.svg");
   background-size: 65%;
-  background-position: 52% 57%;
+  background-position: 52.5% 53%;
 }
 
 .text-subdued {
