@@ -7,6 +7,7 @@ class IndexGitcoinPageEvent():
 
     class Data(BaseModel):
         url: str
+        network_id: int
         job_id: str
         project_page_size: int
         skip_rounds: int

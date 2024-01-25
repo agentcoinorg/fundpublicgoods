@@ -1,7 +1,6 @@
 import inngest
 from fund_public_goods.workflows.index_gitcoin.events import IndexGitcoinPageEvent
 from fund_public_goods.db.tables.gitcoin import get_non_running_job, is_any_job_running, start_job
-from fund_public_goods.lib.gitcoin.models import GitcoinIndexingJob
 
 @inngest.create_function(
     fn_id="start_index_gitcoin",
@@ -22,14 +21,12 @@ async def start_index_gitcoin(
         if not job:
             return None
         else:
-            return job.model_dump()
+            return job
 
-    job_dto = await step.run("get_not_running_job", get_not_running_job_step)
+    job = await step.run("get_not_running_job", get_not_running_job_step)
 
-    if not job_dto:
+    if not job:
         return "No non-running job found"
-
-    job = GitcoinIndexingJob.model_validate(job_dto)
 
     await step.run("start_job", lambda: start_job(job.id))
 
@@ -37,6 +34,7 @@ async def start_index_gitcoin(
         "index_gitcoin_page", 
         IndexGitcoinPageEvent.Data(
             url = job.url, 
+            network_id = job.network_id,
             project_page_size = 100,
             skip_rounds = job.skip_rounds,
             skip_projects = job.skip_projects,

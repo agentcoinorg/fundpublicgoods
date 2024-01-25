@@ -8,7 +8,7 @@ authors = []
 python = "~3.10.6"
 fastapi = "0.108.0"
 inngest = "0.2.3"
-pydantic = "2.5.3"
+pydantic = "^2.1.1"
 python-dotenv = "^1.0.0"
 uvicorn = "^0.25.0"
 supabase = "2.3.1"
@@ -21,6 +21,7 @@ langchain-community = "^0.0.13"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"
+omymodels = "^0.15.1"
 types-requests = "^2.31.0.20240106"
 
 [tool.mypy]
@@ -32,6 +33,7 @@ plugins = [
 
 [tool.poetry.scripts]
 build-check = "fund_public_goods.build_check:run"
+generate-types = "fund_public_goods.generate_types:run"
 
 [build-system]
 requires = ["poetry-core"]

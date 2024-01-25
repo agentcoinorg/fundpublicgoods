@@ -12,7 +12,7 @@ from fund_public_goods.lib.strategy.models.weighted_project import WeightedProje
 from fund_public_goods.db.tables.projects import get_projects
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
-from fund_public_goods.db import client, logs
+from fund_public_goods.db import client, tables, entities
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
 
@@ -54,33 +54,38 @@ async def create_strategy(
 ) -> str | None:
     data = CreateStrategyEvent.Data.model_validate(ctx.event.data)
     run_id = data.run_id
-    supabase = client.create_admin()
+    db = client.create_admin()
 
     await step.run(
         "extracting_prompt",
-        lambda: logs.insert(supabase, run_id, "Extracting prompt from run_id"),
+        lambda: tables.logs.insert(db, entities.Logs(
+            run_id=run_id,
+            message="Extracting prompt from run_id"
+        )),
     )
 
-    prompt = await step.run("extract_prompt", lambda: get_prompt(supabase, run_id))
+    prompt = await step.run("extract_prompt", lambda: get_prompt(db, run_id))
 
     await step.run(
         "fetching_projects_info",
-        lambda: logs.insert(supabase, run_id, "Getting information from data sources"),
+        lambda: tables.logs.insert(db, entities.Logs(
+            run_id=run_id,
+            message="Getting information from data sources"
+        )),
     )
 
     json_projects = await step.run(
-        "fetch_projects_data", lambda: fetch_projects_data(supabase)
+        "fetch_projects_data", lambda: fetch_projects_data(db)
     )
 
     projects: list[Project] = [Project(**json_project) for json_project in json_projects]  # type: ignore
 
     await step.run(
         "assessing",
-        lambda: logs.insert(
-            supabase,
-            run_id,
-            "Assessing impact of each project realted to the users interest",
-        ),
+        lambda: tables.logs.insert(db, entities.Logs(
+            run_id=run_id,
+            message="Assessing impact of each project realted to the users interest"
+        )),
     )
 
     json_asessed_projects = await step.run(
@@ -90,11 +95,10 @@ async def create_strategy(
 
     await step.run(
         "determining_funding",
-        lambda: logs.insert(
-            supabase,
-            run_id,
-            "Determining the relative funding that the best matching projects need",
-        ),
+        lambda: tables.logs.insert(db, entities.Logs(
+            run_id=run_id,
+            message="Determining the relative funding that the best matching projects need"
+        )),
     )
 
     json_weighted_projects: list[WeightedProject] = await step.run(
@@ -104,13 +108,19 @@ async def create_strategy(
 
     await step.run(
         "saving_results_to_db",
-        lambda: logs.insert(supabase, run_id, "Generating results"),
+        lambda: tables.logs.insert(db, entities.Logs(
+            run_id=run_id,
+            message="Generating results"
+        )),
     )
 
     await step.run(
-        "save_strategy_to_db", lambda: insert_multiple(supabase, run_id, weighted_projects)
+        "save_strategy_to_db", lambda: insert_multiple(db, run_id, weighted_projects)
     )
 
-    await step.run("result", lambda: logs.insert(supabase, run_id, "STRATEGY_CREATED"))
+    await step.run("result", lambda: tables.logs.insert(db, entities.Logs(
+        run_id=run_id,
+        message="STRATEGY_CREATED"
+    )),)
 
     return "done"

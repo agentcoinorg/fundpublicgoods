@@ -1,27 +1,20 @@
 from supabase import Client
 from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
+from fund_public_goods.db.entities import StrategyEntries
 
 
 def insert(
     db: Client,
-    run_id: str,
-    project_id: str,
-    reasoning: str,
-    impact: float,
-    interest: float,
-    weight: float,
+    row: StrategyEntries
 ):
-    db.table("strategy_entries").insert(
-        {
-            "run_id": run_id,
-            "project_id": project_id,
-            "reasoning": reasoning,
-            "impact": impact,
-            "interest": interest,
-            "weight": weight,
-        }
-    ).execute()
-
+    db.table("strategy_entries").insert({
+        "run_id": row.run_id,
+        "project_id": row.project_id,
+        "reasoning": row.reasoning,
+        "impact": row.impact,
+        "interest": row.interest,
+        "weight": row.weight,
+    }).execute()
 
 def insert_multiple(db: Client, run_id: str, strategies: list[WeightedProject]) -> None:
     db.table("strategy_entries").insert(

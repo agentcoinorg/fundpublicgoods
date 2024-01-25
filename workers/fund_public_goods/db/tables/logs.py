@@ -1,11 +1,11 @@
 from supabase import Client
+from fund_public_goods.db.entities import Logs
 
 def insert(
     db: Client,
-    run_id: str,
-    message: str
+    row: Logs
 ):
     db.table("logs").insert({
-        "run_id": run_id,
-        "message": message
+        "run_id": row.run_id,
+        "message": row.message
     }).execute()
