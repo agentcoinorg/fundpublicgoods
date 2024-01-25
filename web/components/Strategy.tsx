@@ -59,12 +59,15 @@ export default function Strategy(props: {
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
         />
-        <p>
-          I&apos;ve evaluated the impact of Ethereum infrastructure projects on
-          the Gitcoin project registry and Optimism Retroactive Public Funding,
-          and have listed the top 10 most impactful projects below. I&apos;ve
-          also allotted a weighting for each to appropriately fund each project.
-        </p>
+        <div className='p-8 bg-indigo-100/50 rounded-2xl border-2 border-indigo-100/50'>
+          <p>
+            I&apos;ve evaluated the impact of Ethereum infrastructure projects
+            on the Gitcoin project registry and Optimism Retroactive Public
+            Funding, and have listed the top 10 most impactful projects below.
+            I&apos;ve also allotted a weighting for each to appropriately fund
+            each project.
+          </p>
+        </div>
         <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
           {!!wallet && (
             <TextField

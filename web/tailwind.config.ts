@@ -18,8 +18,8 @@ const config: Config = {
         "primary-shadow": colors.indigo[800],
       },
       boxShadow: {
-        button: `0 5px 0 -2px ${colors.indigo[200]}`,
-        "button-0": `0 0 0 -2px ${colors.indigo[200]}`,
+        button: `0 5px 0 -1px ${colors.indigo[800]}`,
+        "button-0": `0 0 0 -1px ${colors.indigo[800]}`,
       },
       maxWidth: {
         wrapper: `768px`,

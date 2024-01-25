@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 function Header() {
   return (
-    <div className='flex w-full justify-between text-sm px-6 py-3 bg-indigo-300/50 border-b-2 border-indigo-400/20'>
+    <div className='flex w-full justify-between text-sm px-6 py-4 bg-indigo-300/80 border-b-2 border-indigo-400/20'>
       <a href='/' className='flex hover:opacity-80'>
         <Logo size={160} />
       </a>

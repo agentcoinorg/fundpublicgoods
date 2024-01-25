@@ -11,7 +11,7 @@ import {
   useEffect,
 } from "react";
 
-interface TextFieldProps
+export interface TextFieldProps
   extends DetailedHTMLProps<
     InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
@@ -65,8 +65,12 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     return (
-      <div className={clsx("space-y-1", { "w-full": type !== "checkbox" })}>
-        {label && <label className='text-sm font-semibold'>{label}</label>}
+      <div className={clsx("space-y-px", { "w-full": type !== "checkbox" })}>
+        {label && (
+          <label className='text-xs text-subdued font-medium leading-none'>
+            {label}
+          </label>
+        )}
         {type === "checkbox" ? (
           <div
             className={clsx("checkbox", { checked: isChecked }, className)}
@@ -74,7 +78,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             <div className={clsx("checkmark", { hidden: !isChecked })} />
           </div>
         ) : (
-          <div className='relative w-full'>
+          <div className='relative w-full group'>
             {leftAdornment && (
               <div
                 className={clsx(
@@ -86,10 +90,10 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             )}
             <input
               className={clsx(
-                "focus:ring-3 w-full rounded-full border-2 shadow-md shadow-primary-shadow/10 hover:shadow-xl hover:shadow-primary-shadow/20 border-indigo-300 hover:border-indigo-500 bg-indigo-50 px-6 py-5 text-sm text-indigo-800 outline-none transition-all placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-blue-500/20",
+                "w-full rounded-xl border-2 border-indigo-200 group-hover:border-indigo-500 focus:bg-indigo-50 bg-indigo-100 px-4 py-3 text-sm text-indigo-800 outline-none transition-all duration-500 ease-in-out placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20",
                 props.disabled
                   ? "cursor-default opacity-50"
-                  : "cursor-text hover:border-indigo-600 hover:bg-white",
+                  : "cursor-text group-hover:border-indigo-600 group-hover:bg-indigo-50",
                 { "border-red-500": error },
                 { "!pl-10": leftAdornment },
                 { "!pr-10": rightAdornment },

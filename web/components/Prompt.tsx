@@ -10,6 +10,7 @@ import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import { Tables } from "@/supabase/dbTypes";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "./LoadingCircle";
+import PromptInput from "./PromptInput";
 
 const PROMPT_SUGESTIONS = [
   "Ethereum infrastructure",
@@ -83,34 +84,19 @@ export default function Prompt() {
         ) : (
           <div className='w-full space-y-8'>
             <div className='flex flex-wrap w-full justify-center items-center space-x-2'>
-              <h1 className='text-4xl font-bold'>
+              <h1 className='text-4xl font-bold text-shadow-lg text-shadow-primary-shadow'>
                 Fund public goods like magic
               </h1>
               <SparkleIcon size={40} className='drop-shadow-sm' />
             </div>
-            <TextField
-              value={prompt}
-              placeholder='What would you like to fund?'
-              onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                setPrompt(event.target.value);
-              }}
-              onKeyDown={async (event: React.KeyboardEvent) => {
-                if (prompt && event.key === "Enter") {
-                  await sendPrompt(prompt);
-                }
-              }}
-              rightAdornment={
-                <ChatInputButton
-                  running={isWaiting}
-                  message={prompt || ""}
-                  handleSend={async () => {
-                    if (prompt) {
-                      await sendPrompt(prompt);
-                    }
-                  }}
-                />
-              }
-            />
+            <div className='mx-auto max-w-screen-sm relative'>
+              <PromptInput
+                setPrompt={setPrompt}
+                isWaiting={isWaiting}
+                sendPrompt={sendPrompt}
+                prompt={prompt}
+              />
+            </div>
             <div className='space-y-4'>
               <div className='flex justify-center'>
                 What are you interested in funding?
@@ -119,7 +105,7 @@ export default function Prompt() {
                 {PROMPT_SUGESTIONS.map((suggestion, index) => (
                   <div key={index}>
                     <button
-                      className='px-4 py-2 border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300'
+                      className='text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300'
                       onClick={async () => {
                         setPrompt(suggestion);
                         await sendPrompt(suggestion);

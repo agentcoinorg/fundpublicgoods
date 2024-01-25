@@ -21,7 +21,7 @@ const ChatInputButton = ({
           hierarchy='secondary'
           onClick={handleSend}
           disabled={message.length === 0}
-          className='!p-1'
+          className='!p-1 !border-2'
           type='submit'>
           <ArrowRight weight='bold' size={20} className='text-[currentColor]' />
         </Button>
