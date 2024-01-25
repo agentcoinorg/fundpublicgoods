@@ -67,7 +67,7 @@ export default function RealtimeLogs(props: {
   const isFinished = checkIfFinished(sortedLogsWithSteps)
 
   const navigateToStrategy = () => {
-    router.push(`../${props.run.id}`)
+    router.push(`./`)
   }
 
   useEffect(() => {
