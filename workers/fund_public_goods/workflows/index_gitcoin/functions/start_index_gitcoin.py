@@ -1,7 +1,7 @@
 import inngest
-from fund_public_goods.gitcoin.events import IndexGitcoinPageEvent
-from fund_public_goods.db.operations import get_non_running_job, is_any_job_running, start_job
-from fund_public_goods.gitcoin.models import GitcoinIndexingJob
+from fund_public_goods.workflows.index_gitcoin.events import IndexGitcoinPageEvent
+from fund_public_goods.db.tables.gitcoin import get_non_running_job, is_any_job_running, start_job
+from fund_public_goods.lib.gitcoin.models import GitcoinIndexingJob
 
 @inngest.create_function(
     fn_id="start_index_gitcoin",

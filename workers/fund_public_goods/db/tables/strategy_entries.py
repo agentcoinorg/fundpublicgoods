@@ -1,5 +1,5 @@
 from supabase import Client
-from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
+from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
 
 
 def insert(

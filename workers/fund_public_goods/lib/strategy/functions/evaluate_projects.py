@@ -4,11 +4,11 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.json import JsonOutputParser
 from langchain_openai import OpenAIEmbeddings
-from fund_public_goods.agents.researcher.functions.generate_queries import generate_queries
-from fund_public_goods.agents.researcher.models.evaluated_project import EvaluatedProject
-from fund_public_goods.agents.researcher.models.project import Project
 from langchain.vectorstores.chroma import Chroma
-from fund_public_goods.agents.researcher.models.project_evaluation import ProjectEvaluation
+from fund_public_goods.lib.strategy.functions.generate_queries import generate_queries
+from fund_public_goods.lib.strategy.models.evaluated_project import EvaluatedProject
+from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.models.project_evaluation import ProjectEvaluation
 
 
 def stringify_projects(projects: list[Project], separator: str) -> str:

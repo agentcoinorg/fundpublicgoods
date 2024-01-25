@@ -1,6 +1,6 @@
 import requests
 
-from fund_public_goods.gitcoin.models import RoundInfo, ApplicationInfo
+from fund_public_goods.lib.gitcoin.models import RoundInfo, ApplicationInfo
 
 def fetch_json_from_ipfs(pointer: str) -> dict:
     ipfs_url = f"https://ipfs.io/ipfs/{pointer}"
