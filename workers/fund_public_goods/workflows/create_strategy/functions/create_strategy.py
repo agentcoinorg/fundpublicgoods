@@ -45,7 +45,7 @@ def fetch_projects_data(supabase: Client) -> list[Project]:
 
 
 @inngest.create_function(
-    fn_id="on_create_strategy",
+    fn_id="create_strategy",
     trigger=CreateStrategyEvent.trigger,
 )
 async def create_strategy(

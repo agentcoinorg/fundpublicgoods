@@ -1,3 +1,4 @@
+from .tables import gitcoin
 from .tables import logs
 from .tables import projects
 from .tables import runs
