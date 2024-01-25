@@ -2,22 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply bg-indigo-300;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
-  @apply font-medium bg-gradient-to-br from-indigo-200 to-indigo-300 text-indigo-900;
+  @apply font-medium text-indigo-900;
 }
 
 .checkbox {
-  @apply rounded border-2 border-indigo-500 w-4 h-4 transition-colors duration-300 cursor-pointer hover:border-indigo-400;
+  @apply rounded border-2 border-indigo-500 w-5 h-5 transition-colors duration-300 cursor-pointer hover:border-indigo-400;
 }
 
 .checkbox.checked {
-  @apply border-cyan-500 bg-cyan-500/50 text-white hover:border-cyan-400;
+  @apply border-indigo-500 bg-indigo-500/50 text-white hover:border-indigo-400;
 }
 
 .checkmark {
   @apply w-full h-full bg-no-repeat;
   background-image: url("../public/checkmark.svg");
-  background-size: 70%;
-  background-position: 56% 58%;
+  background-size: 65%;
+  background-position: 52% 57%;
+}
+
+.text-subdued {
+  @apply text-indigo-900/60;
+}
+
+th {
+  @apply px-4 pt-4 pb-2 text-indigo-900/50 font-semibold text-xs leading-none uppercase;
+}
+
+td {
+  @apply p-4;
 }

@@ -86,7 +86,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             )}
             <input
               className={clsx(
-                "focus:ring-3 w-full rounded-full border-2 shadow-xl border-indigo-500 bg-indigo-50 px-6 py-5 text-sm text-indigo-800 outline-none transition-all placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-blue-500/20",
+                "focus:ring-3 w-full rounded-full border-2 shadow-md shadow-primary-shadow/10 hover:shadow-xl hover:shadow-primary-shadow/20 border-indigo-300 hover:border-indigo-500 bg-indigo-50 px-6 py-5 text-sm text-indigo-800 outline-none transition-all placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-blue-500/20",
                 props.disabled
                   ? "cursor-default opacity-50"
                   : "cursor-text hover:border-indigo-600 hover:bg-white",
