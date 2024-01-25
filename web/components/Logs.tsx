@@ -19,7 +19,6 @@ export default async function Logs(props: { runId: string }) {
       step_name
     )
   `).eq("id", props.runId).single()
-  
 
   if (!run) {
     throw new Error(`Run with ID '${props.runId}' not found`)

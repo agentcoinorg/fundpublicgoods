@@ -6,6 +6,8 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
+import TextField from "./TextField";
+import Button from "./Button";
 
 const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Search for relevant projects",
@@ -37,6 +39,16 @@ const getLogMessage = (log: Tables<"logs">) => {
   }
 }
 
+const checkIfFinished = (logs: Tables<"logs">[]) => {
+  const sortedLogs = logs.sort((a, b) => {
+    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
+  })
+  const lastStep = sortedLogs.slice(-1)[0];
+  const isFinished = lastStep.status === "COMPLETED" && lastStep.step_name === "SYNTHESIZE_RESULTS"
+
+  return isFinished
+}
+
 export default function RealtimeLogs(props: {
   logs: Tables<"logs">[]
   run: {
@@ -52,6 +64,12 @@ export default function RealtimeLogs(props: {
     return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
   })
 
+  const isFinished = checkIfFinished(sortedLogsWithSteps)
+
+  const navigateToStrategy = () => {
+    router.push(`../${props.run.id}`)
+  }
+
   useEffect(() => {
     const channel = supabase
       .channel("logs-added")
@@ -63,18 +81,26 @@ export default function RealtimeLogs(props: {
           schema: "public",
           filter: `run_id=eq.${props.run.id}`,
         },
-        (payload: { new: Tables<"logs"> }) => {
-          const updatedLogs = logs.map(log => {
-            if (log.id === payload.new.id) {
-              log = payload.new
-            }
+        async () => {
+          const response = await supabase.from("logs").select(`
+            id,
+            run_id,
+            created_at,
+            value,
+            ended_at,
+            status,
+            step_name
+          `).eq("run_id", props.run.id)
+          const updatedLogs = response.data
 
-            return log
-          })
+          if (!updatedLogs) {
+            throw new Error(`Logs for Run with ID '${props.run.id}' not found`)
+          }
+          
           setLogs([...updatedLogs])
 
-          if (payload.new.step_name === "SYNTHESIZE_RESULTS" && payload.new.status === "COMPLETED") {
-            router.push(`/${props.run.id}/strategy`)
+          if (checkIfFinished(updatedLogs)) {
+            navigateToStrategy()
             return;
           }
         }
@@ -89,10 +115,11 @@ export default function RealtimeLogs(props: {
   return (
     <div className="w-full max-w-3xl flex flex-col gap-8">
       <div className="flex flex-col gap-2">
-        <p>Results for:</p>
-        <div className="p-4 flex flex-nowrap items-center gap-1 border border-indigo-500 rounded-lg bg-indigo-500/50">
-          <span className="flex-1">{props.run.prompt}</span>
-        </div>
+        <TextField
+          label='Results for'
+          value={props.run.prompt}
+          readOnly={true}
+        />
       </div>
       <div className="w-full h-[1px] bg-indigo-500" />
       <div className="flex flex-col gap-4">
@@ -100,7 +127,7 @@ export default function RealtimeLogs(props: {
         <div className="flex flex-col gap-2">
           { sortedLogsWithSteps.map(log => (
             <div className={clsx(
-              "p-4 flex flex-nowrap items-center gap-2 border border-indigo-500 rounded-lg bg-indigo-500/50",
+              "p-4 flex flex-nowrap items-center gap-2 border border-indigo-500 rounded-lg bg-indigo-500/50 cursor-pointer",
               log.status === "IN_PROGRESS" ? "text-indigo-50" : ""
             )}>
               { log.status === "IN_PROGRESS" ? <LoadingCircle hideText={true} className="!stroke-indigo-500 text-indigo-200" /> : <></>}
@@ -116,6 +143,9 @@ export default function RealtimeLogs(props: {
           )) }
         </div>
       </div>
+      <Button disabled={!isFinished} onClick={() => navigateToStrategy()}>
+        View Results
+      </Button>
     </div>
   )
 }
