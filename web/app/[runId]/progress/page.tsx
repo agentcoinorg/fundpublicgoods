@@ -6,7 +6,7 @@ export default function ProgressPage(props: {
   }
 }) {
   return (
-    <div className="max-w-3xl w-full flex justify-center">
+    <div className="w-full flex justify-center h-full p-16">
       <Logs runId={props.params.runId} />
     </div>
   )

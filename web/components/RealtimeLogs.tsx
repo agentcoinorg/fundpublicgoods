@@ -2,8 +2,10 @@
 
 import { Tables } from "@/supabase/dbTypes";
 import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
-import router from "next/router";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import LoadingCircle from "./LoadingCircle";
 
 const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Search for relevant projects",
@@ -13,10 +15,10 @@ const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
 }
 
 const LOADING_TEXTS: Record<Tables<"logs">["step_name"], string> = {
-  FETCH_PROJECTS: "Searching for relevant projects",
-  EVALUATE_PROJECTS: "Evaluating proof of impact",
-  ANALYZE_FUNDING: "Analyzing funding needs",
-  SYNTHESIZE_RESULTS: "Synthesizing results",
+  FETCH_PROJECTS: "Searching for relevant projects...",
+  EVALUATE_PROJECTS: "Evaluating proof of impact...",
+  ANALYZE_FUNDING: "Analyzing funding needs...",
+  SYNTHESIZE_RESULTS: "Synthesizing results...",
 }
 
 const STEPS_ORDER: Record<Tables<"logs">["step_name"], number> = {
@@ -44,7 +46,7 @@ export default function RealtimeLogs(props: {
 }) {
   const [logs, setLogs] = useState<Tables<"logs">[]>(props.logs)
   const supabase = createSupabaseBrowserClient();
-  const runId = props.run
+  const router = useRouter()
 
   const sortedLogsWithSteps = logs.sort((a, b) => {
     return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
@@ -59,39 +61,60 @@ export default function RealtimeLogs(props: {
           event: "UPDATE",
           table: "logs",
           schema: "public",
-          filter: `run_id=eq.${runId}`,
+          filter: `run_id=eq.${props.run.id}`,
         },
         (payload: { new: Tables<"logs"> }) => {
-          const logsMinusTheUpdatedOne = logs.filter(log => log.id !== payload.new.id)
-          setLogs([...logsMinusTheUpdatedOne, payload.new])
+          const updatedLogs = logs.map(log => {
+            if (log.id === payload.new.id) {
+              log = payload.new
+            }
+
+            return log
+          })
+          setLogs([...updatedLogs])
 
           if (payload.new.step_name === "SYNTHESIZE_RESULTS" && payload.new.status === "COMPLETED") {
-            router.push(`/${runId}/strategy`)
+            router.push(`/${props.run.id}/strategy`)
             return;
           }
         }
       )
-      .subscribe();
+      .subscribe()
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, runId]);
+  }, [supabase, props.run.id]);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div>
-        <span>Results for:</span>
-        <div className="flex">
+    <div className="w-full max-w-3xl flex flex-col gap-8">
+      <div className="flex flex-col gap-2">
+        <p>Results for:</p>
+        <div className="p-4 flex flex-nowrap items-center gap-1 border border-indigo-500 rounded-lg bg-indigo-500/50">
           <span className="flex-1">{props.run.prompt}</span>
         </div>
       </div>
-      <div>
-        { sortedLogsWithSteps.map(logWithStep => (
-          <div>
-            { getLogMessage(logWithStep) }
-          </div>
-        )) }
+      <div className="w-full h-[1px] bg-indigo-500" />
+      <div className="flex flex-col gap-4">
+        <p>Results:</p>
+        <div className="flex flex-col gap-2">
+          { sortedLogsWithSteps.map(log => (
+            <div className={clsx(
+              "p-4 flex flex-nowrap items-center gap-2 border border-indigo-500 rounded-lg bg-indigo-500/50",
+              log.status === "IN_PROGRESS" ? "text-indigo-50" : ""
+            )}>
+              { log.status === "IN_PROGRESS" ? <LoadingCircle hideText={true} className="!stroke-indigo-500 text-indigo-200" /> : <></>}
+              <p className={clsx(
+                "flex-1",
+                log.status === "NOT_STARTED" ? "text-indigo-50" :
+                log.status === "IN_PROGRESS" ? "text-indigo-500" :
+                log.status === "COMPLETED" ? "text-indigo-800" :
+                ""
+              )}>{ getLogMessage(log) }</p>
+              <div className="w-6 h-6"></div>
+            </div>
+          )) }
+        </div>
       </div>
     </div>
   )
