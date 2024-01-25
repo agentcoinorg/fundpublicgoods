@@ -2,10 +2,9 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.json import JsonOutputParser
-from fund_public_goods.agents.researcher.models.evaluated_project import EvaluatedProject
 import json
-
-from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
+from fund_public_goods.lib.strategy.models.evaluated_project import EvaluatedProject
+from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
 
 assign_weights_prompt_template = """
 You are a specialist in public goods funding. You will receive a list of projects

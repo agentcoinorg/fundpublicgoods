@@ -2,11 +2,11 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
 from mangum import Mangum
-from .inngest_client import inngest_client
-from fund_public_goods.gitcoin.functions import functions as gitcoin_functions
-from fund_public_goods.workers.functions import functions as worker_functions
-from .api import workers, runs
-from .get_version import router as get_version_router
+from fund_public_goods.inngest_client import inngest_client
+from fund_public_goods.workflows.index_gitcoin.functions import functions as gitcoin_functions
+from fund_public_goods.workflows.create_strategy.functions import functions as worker_functions
+from fund_public_goods.api import workers, runs
+from fund_public_goods.get_version import router as get_version_router
 
 load_dotenv()
 
