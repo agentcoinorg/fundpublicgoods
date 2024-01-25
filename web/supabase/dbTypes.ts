@@ -142,23 +142,29 @@ export interface Database {
       logs: {
         Row: {
           created_at: string
+          ended_at: string | null
           id: string
           run_id: string
-          step: Database["public"]["Enums"]["step"]
+          status: Database["public"]["Enums"]["step_status"]
+          step_id: string
           value: string | null
         }
         Insert: {
           created_at?: string
+          ended_at?: string | null
           id?: string
           run_id: string
-          step: Database["public"]["Enums"]["step"]
+          status: Database["public"]["Enums"]["step_status"]
+          step_id: string
           value?: string | null
         }
         Update: {
           created_at?: string
+          ended_at?: string | null
           id?: string
           run_id?: string
-          step?: Database["public"]["Enums"]["step"]
+          status?: Database["public"]["Enums"]["step_status"]
+          step_id?: string
           value?: string | null
         }
         Relationships: [
@@ -167,6 +173,13 @@ export interface Database {
             columns: ["run_id"]
             isOneToOne: false
             referencedRelation: "runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "logs_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "steps"
             referencedColumns: ["id"]
           }
         ]
@@ -220,6 +233,24 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
+      }
+      steps: {
+        Row: {
+          id: string
+          name: string
+          order: number
+        }
+        Insert: {
+          id?: string
+          name: string
+          order: number
+        }
+        Update: {
+          id?: string
+          name?: string
+          order?: number
+        }
+        Relationships: []
       }
       strategy_entries: {
         Row: {
@@ -292,11 +323,7 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      step:
-        | "FETCH_PROJECTS"
-        | "EVALUATE_PROJECTS"
-        | "ANALYZE_FUNDING"
-        | "SYNTHESIZE_RESULTS"
+      step_status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "ERRORED"
     }
     CompositeTypes: {
       [_ in never]: never
