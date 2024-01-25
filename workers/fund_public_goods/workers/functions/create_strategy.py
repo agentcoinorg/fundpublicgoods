@@ -2,6 +2,7 @@ from fund_public_goods.agents.researcher.functions.assign_weights import assign_
 from fund_public_goods.agents.researcher.functions.evaluate_projects import (
     evaluate_projects,
 )
+from fund_public_goods.agents.researcher.functions.get_top_matching_projects import get_top_matching_projects
 from fund_public_goods.agents.researcher.models.answer import Answer
 from fund_public_goods.agents.researcher.models.evaluated_project import (
     EvaluatedProject,
@@ -9,7 +10,7 @@ from fund_public_goods.agents.researcher.models.evaluated_project import (
 from fund_public_goods.agents.researcher.models.project import Project
 from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
 import inngest
-from fund_public_goods.db.tables.projects import get_projects
+from fund_public_goods.db.tables.projects import fetch_projects_data
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.workers.events import CreateStrategyEvent
@@ -22,32 +23,11 @@ StepNames = typing.Literal["FETCH_PROJECTS", "EVALUATE_PROJECTS", "ANALYZE_FUNDI
 step_names: list[StepNames] = ["FETCH_PROJECTS", "EVALUATE_PROJECTS", "ANALYZE_FUNDING", "SYNTHESIZE_RESULTS"]
 
 
-def fetch_projects_data(supabase: Client) -> list[Project]:
-    response = get_projects(supabase)
+def fetch_matching_projects(supabase: Client, prompt: str):
+    projects = fetch_projects_data(supabase)
+    matching_projects = get_top_matching_projects(prompt, projects)
     
-    projects: list[Project] = []
-
-    for item in response.data:
-        answers: list[Answer] = []
-
-        for application in item.get("applications", []):
-            for answer in application.get("answers", []):
-                answers.append(Answer(
-                    question=answer.get("question", ""),
-                    answer=answer.get("answer", None)
-                ))
-        
-        project = Project(
-            id=item.get("id", ""),
-            title=item.get("title", ""),
-            description=item.get("description", ""),
-            website=item.get("website", ""),
-            answers=answers,
-        )
-        
-        projects.append(project)
-
-    return projects
+    return [project.model_dump() for project in matching_projects]
 
 
 def initialize_logs(supabase: Client, run_id: str) -> dict[StepNames, str]:
@@ -90,10 +70,10 @@ async def create_strategy(
     )
 
     json_projects = await step.run(
-        "fetch_projects_data", lambda: fetch_projects_data(supabase)
+        "fetch_projects_data", lambda: fetch_matching_projects(supabase, prompt)
     )
 
-    projects = [Project(**json_project) for json_project in json_projects] # type: ignore
+    projects = [Project(**json_project) for json_project in json_projects]
     
     await step.run(
         "completed_fetch_projects_data",
@@ -101,7 +81,7 @@ async def create_strategy(
             db=supabase,
             status="COMPLETED",
             log_id=log_ids["FETCH_PROJECTS"],
-            value=f"Found {len(projects)} projects",
+            value=f"Found {len(projects)} projects related to '{prompt}'",
         ),
     )
     
