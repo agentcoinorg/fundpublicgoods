@@ -21,7 +21,6 @@ langchain-community = "^0.0.13"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"
-omymodels = "^0.15.1"
 types-requests = "^2.31.0.20240106"
 
 [tool.mypy]
