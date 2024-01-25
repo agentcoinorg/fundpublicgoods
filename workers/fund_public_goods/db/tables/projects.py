@@ -1,6 +1,6 @@
 from typing import Any, Dict
-from fund_public_goods.agents.researcher.models.answer import Answer
-from fund_public_goods.agents.researcher.models.project import Project
+from fund_public_goods.lib.strategy.models.answer import Answer
+from fund_public_goods.lib.strategy.models.project import Project
 from supabase import Client, PostgrestAPIResponse
 import uuid
 

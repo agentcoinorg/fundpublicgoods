@@ -1,4 +1,4 @@
-from fund_public_goods.agents.researcher.models.project import Project
+from fund_public_goods.lib.strategy.models.project import Project
 
 
 def stringify_projects(projects: list[Project], separator: str) -> str:
