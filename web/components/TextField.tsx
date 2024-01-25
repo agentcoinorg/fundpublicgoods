@@ -19,6 +19,7 @@ export interface TextFieldProps
   label?: string;
   error?: string;
   checked?: boolean;
+  indeterminate?: boolean;
   leftAdornment?: ReactNode;
   leftAdornmentClassnames?: string;
   rightAdornment?: ReactNode;
@@ -39,25 +40,31 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
       label,
       error,
       checked,
+      indeterminate,
       ...props
     },
     ref
   ) => {
-    const [isChecked, setIsChecked] =
-      useState<TextFieldProps["checked"]>(checked);
+    const getCheckStatus = (checked?: boolean, indeterminate?: boolean) =>
+      checked ? "checked" : indeterminate ? "indeterminate" : undefined;
+
+    const [checkStatus, setCheckStatus] = useState<
+      "checked" | "indeterminate" | undefined
+    >(getCheckStatus(checked, indeterminate));
 
     useEffect(() => {
-      setIsChecked(checked);
-    }, [checked]);
+      setCheckStatus(getCheckStatus(checked, indeterminate));
+    }, [checked, indeterminate]);
 
     const handleCheck = () => {
-      const newValue = !isChecked;
-      setIsChecked(newValue);
+      const newValue = getCheckStatus(!checked);
+      setCheckStatus(newValue);
       if (props.onChange) {
         const event = {
           target: {
             type: "checkbox",
-            checked: newValue,
+            checked: newValue === "checked",
+            indeterminate: newValue === "indeterminate",
           },
         } as ChangeEvent<HTMLInputElement>;
         props.onChange(event);
@@ -73,9 +80,23 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         )}
         {type === "checkbox" ? (
           <div
-            className={clsx("checkbox", { checked: isChecked }, className)}
+            className={clsx(
+              "checkbox",
+              { checked: checkStatus === "checked" },
+              { indeterminate: checkStatus === "indeterminate" },
+              className
+            )}
             onClick={handleCheck}>
-            <div className={clsx("checkmark", { hidden: !isChecked })} />
+            <div
+              className={clsx("checkmark", {
+                hidden: checkStatus !== "checked",
+              })}
+            />
+            <div
+              className={clsx("check-indeterminate", {
+                hidden: checkStatus !== "indeterminate",
+              })}
+            />
           </div>
         ) : (
           <div className='relative w-full group'>

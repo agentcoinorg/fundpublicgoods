@@ -17,6 +17,8 @@ export interface StrategyTableProps {
 }
 
 export function StrategyTable(props: StrategyTableProps) {
+  const allChecked = props.strategy.every((s) => s.selected);
+  const someChecked = props.strategy.some((s) => s.selected);
   return (
     <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100'>
       <thead>
@@ -24,7 +26,8 @@ export function StrategyTable(props: StrategyTableProps) {
           <th className='pr-0'>
             <TextField
               type='checkbox'
-              checked={props.strategy.every((s) => s.selected)}
+              indeterminate={!allChecked && someChecked}
+              checked={allChecked}
               onChange={(e) => {
                 props.modifyStrategy(
                   props.strategy.map((s) => ({

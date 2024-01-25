@@ -34,6 +34,17 @@ td {
   @apply border-indigo-500 bg-indigo-500/50 text-white hover:border-indigo-400;
 }
 
+.checkbox.indeterminate {
+  @apply border-amber-500 bg-amber-500/50 text-white hover:border-amber-400;
+}
+
+.check-indeterminate {
+  @apply w-full h-full bg-no-repeat;
+  background-image: url("../public/check-indeterminate.svg");
+  background-size: 65%;
+  background-position: 50% 51%;
+}
+
 .checkmark {
   @apply w-full h-full bg-no-repeat;
   background-image: url("../public/checkmark.svg");
