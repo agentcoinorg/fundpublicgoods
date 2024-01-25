@@ -6,6 +6,7 @@ import { StrategyTable, StrategyWithProjects } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
+import { pluralize } from "@/app/lib/utils/pluralize";
 
 function Information(props: {
   title: string;
@@ -15,10 +16,10 @@ function Information(props: {
   disabled?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap justify-between">
-      <div className="flex flex-col">
-        <div>{props.title}</div>
-        <div className="text-[12px] text-slate-500">{props.subtitle}</div>
+    <div className='flex flex-wrap justify-between'>
+      <div className='flex flex-col'>
+        <div className='text-lg font-semibold'>{props.title}</div>
+        <div className='text-xs text-subdued'>{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}
@@ -51,10 +52,10 @@ export default function Strategy(props: {
   }
 
   return (
-    <div className="flex items-center justify-center py-12">
-      <div className="flex flex-col gap-4 justify-center w-3/5">
+    <div className='flex justify-center py-10 flex-grow flex-column'>
+      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
         <TextField
-          label="Results for"
+          label='Results for'
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
         />
@@ -64,10 +65,10 @@ export default function Strategy(props: {
           and have listed the top 10 most impactful projects below. I&apos;ve
           also allotted a weighting for each to appropriately fund each project.
         </p>
-        <div className="flex flex-col gap-4 border-zinc-700 rounded-lg border-2 p-8">
+        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
           {!!wallet && (
             <TextField
-              label="Total Funding Amount"
+              label='Total Funding Amount'
               rightAdornment={
                 <Dropdown items={["USDC"]} field={{ value: "USDC" }} />
               }
@@ -75,25 +76,32 @@ export default function Strategy(props: {
               onChange={(e) => setAmount(+e.target.value)}
             />
           )}
-          <div className="bg-gray-800 text-gray-300 rounded-lg shadow-md">
-            <StrategyTable
-              strategy={currentStrategy}
-              modifyStrategy={setCurrentStrategy}
-            />
-          </div>
+          <StrategyTable
+            strategy={currentStrategy}
+            modifyStrategy={setCurrentStrategy}
+          />
         </div>
         {!wallet ? (
           <Information
-            title={`${selectedStrategiesLength} ${props.prompt} projects`}
-            subtitle="Connect your wallet to fund these projects"
-            action="Connect →"
+            title={`${selectedStrategiesLength} ${props.prompt} ${pluralize(
+              ["project", "projects"],
+              selectedStrategiesLength
+            )}`}
+            subtitle={`Connect your wallet to fund ${pluralize(
+              ["this project", "these projects"],
+              selectedStrategiesLength
+            )}`}
+            action='Connect →'
             onClick={() => connect()}
           />
         ) : (
           <Information
-            title={`Funding ${currentStrategy.length} projects`}
+            title={`Funding ${currentStrategy.length} ${pluralize(
+              ["project", "projects"],
+              selectedStrategiesLength
+            )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action="Next →"
+            action='Next →'
             onClick={() => {}}
             disabled={selectedStrategiesLength === 0 || amount === 0}
           />

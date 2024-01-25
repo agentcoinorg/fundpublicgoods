@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 import WalletProvider from "./WalletProvider";
+import Main from "./main";
 import { Logo } from "@/components/Logo";
 
 const sans = Plus_Jakarta_Sans({
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 
 function Header() {
   return (
-    <div className='flex w-full justify-between text-sm p-6 pb-2'>
+    <div className='flex w-full justify-between text-sm px-6 py-3 bg-indigo-300/50 border-b-2 border-indigo-400/20'>
       <a href='/' className='flex hover:opacity-80'>
         <Logo size={160} />
       </a>
@@ -53,13 +54,11 @@ export default function RootLayout({
     <html lang='en'>
       <body className={sans.className}>
         <WalletProvider>
-          <main className='flex h-screen min-h-screen flex-col items-center'>
+          <Main>
             <Header />
-            <div className='flex flex-col w-full flex-grow overflow-y-auto'>
-              {children}
-            </div>
+            {children}
             <Footer />
-          </main>
+          </Main>
         </WalletProvider>
       </body>
     </html>

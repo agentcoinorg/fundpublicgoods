@@ -1,7 +1,7 @@
 from chromadb import EphemeralClient
-from fund_public_goods.agents.researcher.functions.generate_queries import generate_queries
-from fund_public_goods.agents.researcher.models.project import Project
-from fund_public_goods.agents.researcher.utils.projects import get_project_text, remove_duplicate_projects
+from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
+from fund_public_goods.lib.strategy.utils.utils import get_project_text, remove_duplicate_projects
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from fund_public_goods.agents.researcher.models.answer import Answer
+from fund_public_goods.lib.strategy.models.answer import Answer
 
 class Project(BaseModel):
     id: str

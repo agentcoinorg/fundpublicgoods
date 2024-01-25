@@ -2,7 +2,7 @@ import inngest
 from pydantic import BaseModel
 
 class CreateStrategyEvent:
-    name: str = "create_strategy"
+    name: str = "on_create_strategy"
     trigger = inngest.TriggerEvent(event=name)
 
     class Data(BaseModel):

@@ -1,11 +1,11 @@
-from fund_public_goods.agents.researcher.utils.projects import stringify_projects
+from fund_public_goods.lib.strategy.utils.utils import stringify_projects
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.json import JsonOutputParser
-from fund_public_goods.agents.researcher.models.evaluated_project import EvaluatedProject
-from fund_public_goods.agents.researcher.models.project import Project
-from fund_public_goods.agents.researcher.models.project_evaluation import ProjectEvaluation
+from fund_public_goods.lib.strategy.models.evaluated_project import EvaluatedProject
+from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.models.project_evaluation import ProjectEvaluation
 
 
 extract_evaluations_prompts_template = """

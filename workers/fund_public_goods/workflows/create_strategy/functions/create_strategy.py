@@ -1,23 +1,22 @@
 import json
-from fund_public_goods.agents.researcher.functions.assign_weights import assign_weights
-from fund_public_goods.agents.researcher.functions.evaluate_projects import (
+import typing
+from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
+import inngest
+from supabase import Client
+from fund_public_goods.lib.strategy.utils.assign_weights import assign_weights
+from fund_public_goods.lib.strategy.utils.evaluate_projects import (
     evaluate_projects,
 )
-from fund_public_goods.agents.researcher.functions.get_top_matching_projects import get_top_matching_projects
-from fund_public_goods.agents.researcher.models.answer import Answer
-from fund_public_goods.agents.researcher.models.evaluated_project import (
+from fund_public_goods.lib.strategy.models.evaluated_project import (
     EvaluatedProject,
 )
-from fund_public_goods.agents.researcher.models.project import Project
-from fund_public_goods.agents.researcher.models.weighted_project import WeightedProject
-import inngest
+from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
 from fund_public_goods.db.tables.projects import fetch_projects_data
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
-from fund_public_goods.workers.events import CreateStrategyEvent
 from fund_public_goods.db import client, logs
-from supabase import Client
-import typing
+from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
 
 StepNames = typing.Literal["FETCH_PROJECTS", "EVALUATE_PROJECTS", "ANALYZE_FUNDING", "SYNTHESIZE_RESULTS"]
@@ -46,7 +45,7 @@ def initialize_logs(supabase: Client, run_id: str) -> str:
     return json.dumps(log_ids)
 
 @inngest.create_function(
-    fn_id="on_create_strategy",
+    fn_id="create_strategy",
     trigger=CreateStrategyEvent.trigger,
 )
 async def create_strategy(
