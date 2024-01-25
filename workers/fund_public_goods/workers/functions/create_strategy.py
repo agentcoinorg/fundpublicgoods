@@ -1,3 +1,4 @@
+import json
 from fund_public_goods.agents.researcher.functions.assign_weights import assign_weights
 from fund_public_goods.agents.researcher.functions.evaluate_projects import (
     evaluate_projects,
@@ -30,7 +31,7 @@ def fetch_matching_projects(supabase: Client, prompt: str):
     return [project.model_dump() for project in matching_projects]
 
 
-def initialize_logs(supabase: Client, run_id: str) -> dict[StepNames, str]:
+def initialize_logs(supabase: Client, run_id: str) -> str:
     log_ids: dict[StepNames, str] = {}
     
     for step_name in step_names: 
@@ -42,7 +43,7 @@ def initialize_logs(supabase: Client, run_id: str) -> dict[StepNames, str]:
         
         log_ids[step_name] = new_log[0]["id"]
 
-    return log_ids
+    return json.dumps(log_ids)
 
 @inngest.create_function(
     fn_id="on_create_strategy",
@@ -56,8 +57,17 @@ async def create_strategy(
     run_id = data.run_id
     supabase = client.create_admin()
     
-    prompt = get_prompt(supabase, run_id)
-    log_ids = initialize_logs(supabase, run_id)
+    prompt = await step.run(
+        "extract_prompt",
+        lambda: get_prompt(supabase, run_id),
+    )
+    
+    log_ids_str = await step.run(
+        "initialize_logs",
+        lambda: initialize_logs(supabase, run_id),
+    )
+    
+    log_ids: dict[StepNames, str] = json.loads(log_ids_str)
     
     await step.run(
         "start_fetch_projects_data",
