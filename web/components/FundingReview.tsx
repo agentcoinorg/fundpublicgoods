@@ -64,7 +64,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
       )}
     >
       <div className="w-3/5">
-        <div>Great! I've setup the transactions for you below.</div>
+        <div>Great! I&apos;ve setup the transactions for you below.</div>
         <div className="w-full py-6">
           <div>
             <div className="pb-2">Transaction Overview</div>

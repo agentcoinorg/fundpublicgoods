@@ -5,7 +5,7 @@ from supabase import Client
 @dataclass(kw_only=True)
 class FundingEntries:
     project_id: str
-    amount: int
+    amount: float
     token: str
     weight: float
 
