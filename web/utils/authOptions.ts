@@ -2,16 +2,37 @@ import jwt from "jsonwebtoken";
 import { SupabaseAdapter } from "@auth/supabase-adapter";
 import { AuthOptions, SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { createAdminClient } from "@/utils/supabase/admin";
 import { cookies } from "next/headers";
+import { createSupabaseAdminClient } from "./supabase-admin";
 
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Anon",
       credentials: {},
-      async authorize(credentials) {
+      async authorize() {
         try {
+          const supabase = createSupabaseAdminClient(cookies())
+          const { data: insertData, error: insertError } = await supabase
+          .from('users')
+          .insert({
+            is_anon: true
+          })
+          .select("id")
+
+          if (insertError) {
+            console.log(insertError)
+            throw new Error("Error inserting user")
+          }
+
+          if (insertData && insertData[0]) {
+            return {
+              id: insertData[0].id,
+              is_anon: true
+            }
+          }
+
+          return null
         } catch (e) {
           return null;
         }
