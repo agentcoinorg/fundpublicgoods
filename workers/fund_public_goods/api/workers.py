@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
-from fund_public_goods.db import client, tables
+from fund_public_goods.db import client, tables, entities
 
 router = APIRouter()
 
@@ -23,9 +23,12 @@ async def workers(params: Params) -> Response:
     if prompt == "":
         raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
 
-    supabase = client.create_admin()
-    worker_id = tables.workers.insert(supabase)
-    run_id = tables.runs.insert(supabase, worker_id, prompt)
+    db = client.create_admin()
+    worker_id = tables.workers.insert(db)
+    run_id = tables.runs.insert(db, entities.Runs(
+        worker_id=worker_id,
+        prompt=prompt
+    ))
 
     await inngest_client.send(
         CreateStrategyEvent.Data(

@@ -1,8 +1,10 @@
 from datetime import datetime
 from typing import cast
+import json
 import inngest
 from pydantic import parse_obj_as
-from fund_public_goods.lib.gitcoin.models import ApplicationInfo, ProjectApplicationInfo, ProjectInfo, RoundInfo
+from fund_public_goods.lib.gitcoin.models import ApplicationInfo, RoundInfo
+from fund_public_goods.db.entities import GitcoinApplications, GitcoinProjects
 from fund_public_goods.workflows.index_gitcoin.events import IndexGitcoinPageEvent
 from fund_public_goods.lib.gitcoin.utils import fetch_json_from_ipfs, fetch_project_applications, fetch_rounds
 from fund_public_goods.db.tables.gitcoin import save_application, stop_and_mark_job_as_failed, stop_job, update_job_progress, upsert_project
@@ -41,7 +43,7 @@ async def index_gitcoin_page(
     round = rounds[0]
 
     apps = await step.run("fetch_project_applications", lambda: fetch_project_applications(data.url, round.id, first=data.project_page_size, skip=data.skip_projects))
-    
+
     apps = parse_obj_as(list[ApplicationInfo], apps)
 
     if not apps:
@@ -51,7 +53,8 @@ async def index_gitcoin_page(
             "index_gitcoin_page", 
             IndexGitcoinPageEvent.Data(
                 job_id=data.job_id,
-                url = data.url, 
+                url = data.url,
+                network_id = data.network_id,
                 project_page_size = data.project_page_size,
                 skip_rounds = data.skip_rounds + 1,
                 skip_projects = 0
@@ -61,33 +64,34 @@ async def index_gitcoin_page(
             return "Next round page: No projects"
         else:
             return "Next round page: No more projects"
-        
+
     for i in range(len(apps)):
         app = apps[i]
 
         app_data = await step.run("fetch_json_from_ipfs_" + str(i), lambda: fetch_json_from_ipfs(app.pointer))
         project_id = app_data["application"]["project"]["id"]
-        application = ProjectApplicationInfo(
-            id = app.id, 
-            protocol = app.protocol, 
-            pointer = app.pointer, 
+        application = GitcoinApplications(
+            id = app.id,
+            created_at = app.created_at,
+            protocol = app.protocol,
+            pointer = app.pointer,
             round_id = app.round_id,
             project_id = project_id,
-            data = app_data
+            data = json.dumps(app_data)
         )
 
         project_pointer = app_data["application"]["project"]["metaPtr"]["pointer"]
         project_data = await step.run("fetch_json_from_ipfs_" + str(i), lambda: fetch_json_from_ipfs(project_pointer))
-        project = ProjectInfo(
-            id = app_data["application"]["project"]["id"], 
+        project = GitcoinProjects(
+            id = app_data["application"]["project"]["id"],
             protocol = app_data["application"]["project"]["metaPtr"]["protocol"], 
             pointer = project_pointer,
-            data = project_data,
+            data = json.dumps(project_data),
         )
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project))
+        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, application.created_at))
         
-        await step.run("save_application_" + str(i), lambda: save_application(application))
+        await step.run("save_application_" + str(i), lambda: save_application(application, data.network_id))
 
     total_skip_rounds = 0
     total_skip_projects = 0
@@ -105,7 +109,8 @@ async def index_gitcoin_page(
         "index_gitcoin_page", 
         IndexGitcoinPageEvent.Data(
             job_id=data.job_id,
-            url = data.url, 
+            url = data.url,
+            network_id = data.network_id,
             project_page_size = data.project_page_size,
             skip_rounds = total_skip_rounds,
             skip_projects = total_skip_projects,

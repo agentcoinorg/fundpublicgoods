@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "scripts"
+version = "0.1.0"
+description = ""
+authors = []
+
+[tool.poetry.dependencies]
+python = "~3.10.6"
+
+[tool.poetry.group.dev.dependencies]
+omymodels = "^0.15.1"
+
+[tool.poetry.scripts]
+generate-types = "scripts.generate_types:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

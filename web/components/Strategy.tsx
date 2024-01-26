@@ -45,8 +45,6 @@ export default function Strategy(props: {
   const [isTransferPending, setIsTransferPending] = useState(false);
   const network: NetworkName | undefined = getSupportedNetworkFromWallet(wallet);
 
-  console.log("network", network)
-
   const tokens = network 
     ? getTokensForNetwork(network) 
     : [];
@@ -93,7 +91,6 @@ export default function Strategy(props: {
 
     setIsTransferPending(true);
 
-    console.log(projects, amounts, signer, token)
     try {
       await splitTransferFunds(
         projects.map((project) => project.address),

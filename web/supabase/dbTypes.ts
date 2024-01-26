@@ -12,21 +12,27 @@ export interface Database {
       applications: {
         Row: {
           answers: Json | null
+          created_at: number
           id: string
+          network: number
           project_id: string
           recipient: string
           round: string
         }
         Insert: {
           answers?: Json | null
+          created_at: number
           id: string
+          network: number
           project_id: string
           recipient: string
           round: string
         }
         Update: {
           answers?: Json | null
+          created_at?: number
           id?: string
+          network?: number
           project_id?: string
           recipient?: string
           round?: string
@@ -43,7 +49,7 @@ export interface Database {
       }
       gitcoin_applications: {
         Row: {
-          created_at: string
+          created_at: number
           data: Json
           id: string
           pointer: string
@@ -52,7 +58,7 @@ export interface Database {
           round_id: string
         }
         Insert: {
-          created_at?: string
+          created_at: number
           data: Json
           id: string
           pointer: string
@@ -61,7 +67,7 @@ export interface Database {
           round_id: string
         }
         Update: {
-          created_at?: string
+          created_at?: number
           data?: Json
           id?: string
           pointer?: string
@@ -87,6 +93,7 @@ export interface Database {
           is_failed: boolean
           is_running: boolean
           last_updated_at: string
+          network_id: number
           skip_projects: number
           skip_rounds: number
           url: string
@@ -98,6 +105,7 @@ export interface Database {
           is_failed?: boolean
           is_running?: boolean
           last_updated_at?: string
+          network_id: number
           skip_projects?: number
           skip_rounds?: number
           url: string
@@ -109,6 +117,7 @@ export interface Database {
           is_failed?: boolean
           is_running?: boolean
           last_updated_at?: string
+          network_id?: number
           skip_projects?: number
           skip_rounds?: number
           url?: string
@@ -182,18 +191,21 @@ export interface Database {
           description: string | null
           id: string
           title: string | null
+          updated_at: number
           website: string | null
         }
         Insert: {
           description?: string | null
           id: string
           title?: string | null
+          updated_at: number
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
           title?: string | null
+          updated_at?: number
           website?: string | null
         }
         Relationships: []

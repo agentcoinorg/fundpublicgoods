@@ -1,65 +1,83 @@
 import datetime
 import json
-from fund_public_goods.lib.gitcoin.models import GitcoinIndexingJob, ProjectApplicationInfo, ProjectInfo
+from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinIndexingJobs
 from fund_public_goods.db.client import create_admin
+from fund_public_goods.db import tables, entities
 
-def upsert_project(app: ProjectInfo):
+def upsert_project(project: GitcoinProjects, created_at: int):
     db = create_admin()
 
     db.table("gitcoin_projects").upsert({
-        "id": app.id,
-        "protocol": app.protocol,
-        "pointer": app.pointer,
-        "data": app.data
-    }).execute()
-    
-    db.table("projects").upsert({
-        "id": app.id,
-        "title": app.data["title"],
-        "description": app.data["description"],
-        "website": app.data["website"],
+        "id": project.id,
+        "protocol": project.protocol,
+        "pointer": project.pointer,
+        "data": project.data
     }).execute()
 
-def save_application(app: ProjectApplicationInfo):
+    result = tables.projects.get(db, project.id)
+
+    if result and result.updated_at > created_at:
+        return
+
+    row = entities.Projects(
+        id=project.id,
+        updated_at=created_at,
+        title=project.data["title"],
+        description=project.data["description"],
+        website=project.data["website"]
+    )
+
+    if result == None:
+        tables.projects.insert(db, row)
+    else:
+        tables.projects.upsert(db, row)
+
+def save_application(app: GitcoinApplications, network: int):
     db = create_admin()
-    
+
     db.table("gitcoin_applications").insert({
         "id": app.id,
+        "created_at": app.created_at,
         "protocol": app.protocol,
         "pointer": app.pointer,
         "round_id": app.round_id,
         "project_id": app.project_id,
         "data": app.data
     }).execute()
-    
-    db.table("applications").insert({
-        "id": app.id,
-        "recipient": app.data["application"]["recipient"],
-        "round": app.round_id,
-        "project_id": app.project_id,
-        "answers": app.data["application"]["answers"]
-    }).execute()
 
-def get_non_running_job() -> GitcoinIndexingJob | None: 
+    tables.applications.insert(db, entities.Applications(
+        id=app.id,
+        created_at=app.created_at,
+        recipient=app.data["application"]["recipient"],
+        network=network,
+        round=app.round_id,
+        answers=json.dumps(app.data["application"]["answers"]),
+        project_id=app.project_id
+    ))
+
+def get_non_running_job() -> GitcoinIndexingJobs | None: 
     db = create_admin()
     
     result = (db.table("gitcoin_indexing_jobs")
-        .select("id", "url", "is_running", "skip_rounds", "skip_projects")
+        .select("id", "url", "is_running", "skip_rounds", "skip_projects", "network_id")
         .order("last_updated_at", desc=False)
         .eq("is_running", False)
         .eq("is_failed", False)
         .limit(1)
         .execute())
-    
+
     if not result.data:
         return None
 
-    return GitcoinIndexingJob (
-        id = result.data[0]["id"],
-        url = result.data[0]["url"],
-        is_running = result.data[0]["is_running"],
-        skip_rounds = result.data[0]["skip_rounds"],
-        skip_projects = result.data[0]["skip_projects"]
+    data = result.data[0]
+
+    return GitcoinIndexingJobs (
+        id = data["id"],
+        url = data["url"],
+        network_id = data["network_id"],
+        is_running = data["is_running"],
+        skip_rounds = data["skip_rounds"],
+        skip_projects = data["skip_projects"]
     )
 
 def is_any_job_running() -> bool: 
