@@ -6,7 +6,7 @@ from fund_public_goods.db.entities import Projects
 def insert(
     db: Client,
     row: Projects
-) -> str:
+):
     db.table("projects").insert({
         "id": row.id,
         "updated_at": row.updated_at,
@@ -18,7 +18,7 @@ def insert(
 def upsert(
     db: Client,
     row: Projects
-) -> str:
+):
     db.table("projects").upsert({
         "id": row.id,
         "updated_at": row.updated_at,
@@ -49,7 +49,7 @@ def get(
         website=data["website"]
     )
 
-def get_projects(db: Client) -> list[Projects]:
+def get_projects(db: Client) -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
