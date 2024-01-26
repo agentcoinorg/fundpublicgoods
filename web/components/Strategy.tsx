@@ -45,15 +45,17 @@ export default function Strategy(props: {
   const [isTransferPending, setIsTransferPending] = useState(false);
   const network: NetworkName | undefined = getSupportedNetworkFromWallet(wallet);
 
+  console.log("network", network)
+
   const tokens = network 
     ? getTokensForNetwork(network) 
     : [];
 
   useEffect(() => {
-    if (!token && tokens.length) {
+    if (tokens.length) {
       setToken(tokens[0]);
     }
-  }, [token, tokens]);
+  }, [tokens]);
 
   const selectedStrategiesLength = currentStrategy.filter(
     ({ selected }) => selected
@@ -79,7 +81,7 @@ export default function Strategy(props: {
       .filter(({ weight }) => weight)
       .map(({ weight }) => ({
       //TODO: Use real addresses
-        address: "0x0000000",
+        address: "0xB1B7586656116D546033e3bAFF69BFcD6592225E",
         weight: weight as number,
       }));
 
