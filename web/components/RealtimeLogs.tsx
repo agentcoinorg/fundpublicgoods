@@ -6,7 +6,6 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
-import TextField from "./TextField";
 import Button from "./Button";
 
 const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
@@ -113,15 +112,7 @@ export default function RealtimeLogs(props: {
   }, [supabase, props.run.id]);
 
   return (
-    <div className="w-full max-w-3xl flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <TextField
-          label='Results for'
-          value={props.run.prompt}
-          readOnly={true}
-        />
-      </div>
-      <div className="w-full h-[1px] bg-indigo-500" />
+    <>
       <div className="flex flex-col gap-4">
         <p>Results:</p>
         <div className="flex flex-col gap-2">
@@ -146,6 +137,6 @@ export default function RealtimeLogs(props: {
       <Button disabled={!isFinished} onClick={() => navigateToStrategy()}>
         View Results
       </Button>
-    </div>
+    </>
   )
 }
