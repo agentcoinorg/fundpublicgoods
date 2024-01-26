@@ -7,6 +7,8 @@ import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
+import { usePathname, useRouter } from "next/navigation";
+import { createFundingEntries } from "@/app/actions/createFundingPlan";
 
 function Information(props: {
   title: string;
@@ -16,10 +18,10 @@ function Information(props: {
   disabled?: boolean;
 }) {
   return (
-    <div className='flex flex-wrap justify-between'>
-      <div className='flex flex-col'>
-        <div className='text-lg font-semibold'>{props.title}</div>
-        <div className='text-xs text-subdued'>{props.subtitle}</div>
+    <div className="flex flex-wrap justify-between">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">{props.title}</div>
+        <div className="text-xs text-subdued">{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}
@@ -31,6 +33,7 @@ function Information(props: {
 export default function Strategy(props: {
   strategy: StrategyWithProjects;
   prompt: string;
+  runId: string;
 }) {
   const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
     props.strategy
@@ -38,6 +41,8 @@ export default function Strategy(props: {
   const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<number>(0);
   const [{ wallet }, connectWallet] = useConnectWallet();
+  const router = useRouter();
+  const pathname = usePathname()
 
   const selectedStrategiesLength = currentStrategy.filter(
     ({ selected }) => selected
@@ -47,15 +52,31 @@ export default function Strategy(props: {
     await connectWallet();
   }
 
+  async function createFundingPlan() {
+    const strategies = currentStrategy.map((strategy) => ({
+      // TODO: Check why weight is nullable
+      weight: strategy.weight || 0,
+      project_id: strategy.project_id,
+    }));
+
+    await createFundingEntries(props.runId, {
+      strategies,
+      amount,
+      token: "DAI",
+      decimals: 18,
+    });
+    router.push(`${pathname}/transaction`)
+  }
+
   async function regenerateStrat() {
     // TODO: Attach current prompt with regenerate action
   }
 
   return (
-    <div className='flex justify-center py-10 flex-grow flex-column'>
-      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
+    <div className="flex justify-center py-10 flex-grow flex-column">
+      <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
         <TextField
-          label='Results for'
+          label="Results for"
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
         />
@@ -65,10 +86,10 @@ export default function Strategy(props: {
           and have listed the top 10 most impactful projects below. I&apos;ve
           also allotted a weighting for each to appropriately fund each project.
         </p>
-        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
+        <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
           {!!wallet && (
             <TextField
-              label='Total Funding Amount'
+              label="Total Funding Amount"
               rightAdornment={
                 <Dropdown items={["USDC"]} field={{ value: "USDC" }} />
               }
@@ -91,7 +112,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action='Connect →'
+            action="Connect →"
             onClick={() => connect()}
           />
         ) : (
@@ -101,8 +122,8 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action='Next →'
-            onClick={() => {}}
+            action="Next →"
+            onClick={createFundingPlan}
             disabled={selectedStrategiesLength === 0 || amount === 0}
           />
         )}

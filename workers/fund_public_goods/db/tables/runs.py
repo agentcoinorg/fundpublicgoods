@@ -1,6 +1,5 @@
 from supabase import Client
 import uuid
-from ..client import create_admin
 
 
 def insert(db: Client, worker_id: str, prompt: str) -> str:
@@ -21,3 +20,12 @@ def get_prompt(db: Client, run_id: str) -> str:
         .execute()
         .data
     )
+
+
+def exists(db: Client, run_id: str) -> bool:
+    try:
+        run = db.table("runs").select("id").eq("id", run_id).execute()
+        return len(run.data) > 0
+    except Exception as error:
+        print(error)
+        return False
