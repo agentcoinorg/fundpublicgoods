@@ -79,7 +79,7 @@ export function StrategyTable(props: StrategyTableProps) {
                 readOnly
                 className="!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white"
                 rightAdornment={"%"}
-                value={!entry.weight ? "0" : (entry.weight * 100).toFixed(2)}
+                value={!entry.selected || !entry.weight ? "0" : (entry.weight * 100).toFixed(2)}
               />
             </td>
             {!!wallet && <td className="min-w-[80px]">{entry.amount || 0}</td>}

@@ -21,6 +21,12 @@ export default async function StrategyPage({
       strategy_entries(
         *,
         project:projects(*)
+      ),
+      funding_entries(
+        amount,
+        token,
+        weight,
+        project_id
       )
     `
     )
@@ -35,14 +41,35 @@ export default async function StrategyPage({
 
   const data = run.data.strategy_entries as unknown as StrategyWithProjects;
 
+  const strategy = data.map((s) => {
+    if (run.data.funding_entries.length) {
+      const selected = run.data.funding_entries.find(
+        ({ project_id }) => s.project_id === project_id
+      );
+      const weight = selected?.weight || s.weight || 0;
+      return {
+        ...s,
+        selected: !!selected,
+        amount: selected?.amount,
+        weight,
+      };
+    }
+    return {
+      ...s,
+      selected: true,
+    };
+  });
+
+  const amount = run.data.funding_entries.reduce((previous, current) => {
+    return previous + Number(current.amount);
+  }, 0);
+
   return (
     <Strategy
-      strategy={data.map((s) => ({
-        ...s,
-        selected: true,
-      }))}
+      strategy={strategy}
       prompt={run.data.prompt}
       runId={run.data.id}
+      amount={amount.toString()}
     />
   );
 }

@@ -15,7 +15,6 @@ import {
   TokenInformation,
   getSupportedNetworkFromWallet,
   getTokensForNetwork,
-  splitTransferFunds,
 } from "@/utils/ethereum";
 
 function Information(props: {
@@ -42,20 +41,19 @@ export default function Strategy(props: {
   strategy: StrategyWithProjects;
   prompt: string;
   runId: string;
+  amount: string
 }) {
   const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
     props.strategy
   );
   const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
-  const [amount, setAmount] = useState<string>("0");
+  const [amount, setAmount] = useState<string>(props.amount);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const router = useRouter();
   const pathname = usePathname();
   const network: NetworkName | undefined =
     getSupportedNetworkFromWallet(wallet);
-
-  console.log("network", network);
 
   const tokens = network ? getTokensForNetwork(network) : [];
 
@@ -70,6 +68,7 @@ export default function Strategy(props: {
   async function createFundingPlan() {
     const strategies = currentStrategy
       .filter(({ selected }) => selected)
+      .filter(({ weight }) => weight)
       .map((strategy) => ({
         // TODO: Check why weight is nullable
         amount: strategy.amount as string,
@@ -93,6 +92,21 @@ export default function Strategy(props: {
     // TODO: Attach current prompt with regenerate action
   }
 
+  const calculateUpdatedStrategy = (
+    strategy: StrategyWithProjects,
+    amount: string,
+    token: TokenInformation
+  ) => {
+    const selectedStrategies = strategy.filter(({ selected }) => selected);
+    const weights = selectedStrategies.map((s) => s.weight) as number[];
+    const amounts = distributeWeights(weights, +amount, token.decimals);
+
+    return strategy.map((s, index) => ({
+      ...s,
+      amount: amounts[index] ? amounts[index].toFixed(2) : "0",
+    }));
+  };
+
   useEffect(() => {
     if (tokens.length) {
       setToken(tokens[0]);
@@ -101,25 +115,13 @@ export default function Strategy(props: {
 
   useEffect(() => {
     if (amount !== "0" && token) {
-      const selectedStrategies = currentStrategy.filter(
-        ({ selected }) => selected
+      setCurrentStrategy((prevStrategy) =>
+        calculateUpdatedStrategy(prevStrategy, amount, token)
       );
-      const weights = selectedStrategies.map(
-        (strategy) => strategy.weight
-      ) as number[];
-      const amounts = distributeWeights(weights, +amount, token.decimals);
-
-      const updatedStrategy = currentStrategy.map((strategy, index) => {
-        if (amounts.length >= index) {
-          strategy.amount = amounts[index].toFixed(2);
-        }
-
-        return strategy;
-      });
-
-      setCurrentStrategy(updatedStrategy);
     }
   }, [amount, token]);
+
+  console.log(currentStrategy)
 
   return (
     <div className="flex justify-center py-10 flex-grow flex-column">
@@ -190,7 +192,7 @@ export default function Strategy(props: {
           />
         ) : (
           <Information
-            title={`Funding ${currentStrategy.length} ${pluralize(
+            title={`Funding ${selectedStrategiesLength} ${pluralize(
               ["project", "projects"],
               selectedStrategiesLength
             )}`}

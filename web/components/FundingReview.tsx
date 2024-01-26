@@ -5,37 +5,51 @@ import FundingTable, { FundingEntry } from "./FundingTable";
 import Button from "./Button";
 import clsx from "clsx";
 import { useConnectWallet } from "@web3-onboard/react";
-import { ethers } from "ethers"
-import { NetworkId, NetworkName, SUPPORTED_NETWORKS, getTokensForNetwork, splitTransferFunds } from "@/utils/ethereum";
+import { ethers } from "ethers";
+import {
+  NetworkId,
+  NetworkName,
+  SUPPORTED_NETWORKS,
+  getTokensForNetwork,
+  splitTransferFunds,
+} from "@/utils/ethereum";
+import { useRouter } from "next/navigation";
 
 export default function FundingReview(props: { entries: FundingEntry[] }) {
   const [showBreakdown, setShowBreakdown] = useState(false);
-  const [isTransferPending, setIsTransferPending] = useState(false)
+  const [isTransferPending, setIsTransferPending] = useState(false);
   const [{ wallet }] = useConnectWallet();
-
+  const router = useRouter();
 
   async function transferFunds() {
     if (!wallet || isTransferPending) return;
-    const projects = props.entries
-    const ethersProvider = new ethers.providers.Web3Provider(wallet.provider, "any");
+    const projects = props.entries;
+    const ethersProvider = new ethers.providers.Web3Provider(
+      wallet.provider,
+      "any"
+    );
 
-    const signer = ethersProvider.getSigner()
+    const signer = ethersProvider.getSigner();
 
     setIsTransferPending(true);
-    
+
     // TODO: Handle interaction of funding in multiple chains
     const selectedNetwork = projects[0].network as NetworkId;
-    const selectedToken = projects[0].token
+    const selectedToken = projects[0].token;
 
-    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(11155111)
-    const networkName = Object.keys(SUPPORTED_NETWORKS)[networkIndex] as NetworkName
-    const token = getTokensForNetwork(networkName).find(t => t.name == "WETH")
+    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(11155111);
+    const networkName = Object.keys(SUPPORTED_NETWORKS)[
+      networkIndex
+    ] as NetworkName;
+    const token = getTokensForNetwork(networkName).find(
+      (t) => t.name == "WETH"
+    );
 
     if (!token) {
-      throw new Error(`Token with name: ${selectedToken} is not valid`)
+      throw new Error(`Token with name: ${selectedToken} is not valid`);
     }
-    const amounts = projects.map((project) => Number(project.amount))
-    console.log(projects, amounts, signer, token)
+    const amounts = projects.map((project) => Number(project.amount));
+    console.log(projects, amounts, signer, token);
     try {
       await splitTransferFunds(
         // TODO: Modify this with project.recipient; this is just for testing purposes
@@ -99,7 +113,13 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
             </div>
           </div>
         </div>
-        <div>Edit</div>
+        <div className="flex flex-wrap gap-4 pb-8 hover:cursor-pointer" onClick={() => {
+          router.push('./')
+          router.refresh()
+        }}>
+          <div>{"<-"}</div>
+          <div className="underline">Edit</div>
+        </div>
         <div>
           <div className="flex flex-wrap justify-between w-full">
             <div className="flex flex-col">
