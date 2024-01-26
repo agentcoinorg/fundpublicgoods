@@ -2,6 +2,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import CommaSeparatedListOutputParser
 
+
 queries_prompt_template = """
 Your goal is to provide a list of queries that will be used to perform
 and embeddings search over different project descriptions and get the ones

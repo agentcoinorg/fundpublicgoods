@@ -31,7 +31,7 @@ async def runs(worker_id: str, params: Params) -> Response:
 
     run_id = tables.runs.insert(supabase, worker_id, prompt)
     await inngest_client.send(
-        CreateStrategyEvent.Data(prompt=prompt, run_id=run_id).to_event()
+        CreateStrategyEvent.Data(run_id=run_id).to_event()
     )
 
     return Response(run_id=run_id)
