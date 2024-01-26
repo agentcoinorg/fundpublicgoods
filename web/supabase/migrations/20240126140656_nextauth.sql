@@ -99,3 +99,23 @@ CREATE TABLE IF NOT EXISTS  next_auth.verification_tokens
 
 GRANT ALL ON TABLE next_auth.verification_tokens TO postgres;
 GRANT ALL ON TABLE next_auth.verification_tokens TO service_role;
+
+create table "public"."users" (
+    "id" uuid not null default gen_random_uuid(),
+    "created_at" timestamp with time zone not null default now(),
+    "address" text,
+    "is_anon" boolean not null
+);
+
+alter table "public"."users" enable row level security;
+alter table "public"."users" OWNER TO "postgres";
+alter table "public"."workers" add column "user_id" uuid not null;
+
+CREATE UNIQUE INDEX users_address_key ON public.users USING btree (address);
+CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id);
+
+alter table "public"."users" add constraint "users_pkey" PRIMARY KEY using index "users_pkey";
+alter table "public"."users" add constraint "users_address_key" UNIQUE using index "users_address_key";
+
+alter table "public"."workers" add constraint "workers_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) not valid;
+alter table "public"."workers" validate constraint "workers_user_id_fkey";
