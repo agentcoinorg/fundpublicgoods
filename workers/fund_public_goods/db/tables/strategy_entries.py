@@ -8,7 +8,7 @@ def insert(
     row: StrategyEntries
 ):
     db.table("strategy_entries").insert({
-        "run_id": row.run_id,
+        "run_id": str(row.run_id),
         "project_id": row.project_id,
         "reasoning": row.reasoning,
         "impact": row.impact,

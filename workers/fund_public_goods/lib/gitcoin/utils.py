@@ -65,8 +65,6 @@ def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -
         }
     }
 
-    print(f"Fetching projects for round {round_id} ...")
-
     response = requests.post(url, json=data)
 
     if response.status_code == 200:

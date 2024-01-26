@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import cast
+import json
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.lib.gitcoin.models import ApplicationInfo, RoundInfo
@@ -76,7 +77,7 @@ async def index_gitcoin_page(
             pointer = app.pointer,
             round_id = app.round_id,
             project_id = project_id,
-            data = app_data
+            data = json.dumps(app_data)
         )
 
         project_pointer = app_data["application"]["project"]["metaPtr"]["pointer"]
@@ -85,10 +86,10 @@ async def index_gitcoin_page(
             id = app_data["application"]["project"]["id"],
             protocol = app_data["application"]["project"]["metaPtr"]["protocol"], 
             pointer = project_pointer,
-            data = project_data,
+            data = json.dumps(project_data),
         )
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project))
+        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, application.created_at))
         
         await step.run("save_application_" + str(i), lambda: save_application(application, data.network_id))
 

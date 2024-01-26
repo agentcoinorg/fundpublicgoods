@@ -78,6 +78,7 @@ class Logs(BaseModel):
 class Projects(BaseModel):
 
     id: str
+    updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None

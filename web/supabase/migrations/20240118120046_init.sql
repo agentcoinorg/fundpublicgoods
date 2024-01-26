@@ -47,6 +47,7 @@ SELECT
 
 CREATE TABLE "public"."projects" (
     "id" text NOT NULL,
+    "updated_at" int NOT NULL,
     "title" TEXT,
     "description" TEXT,
     "website" TEXT,

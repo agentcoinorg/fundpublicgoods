@@ -182,18 +182,21 @@ export interface Database {
           description: string | null
           id: string
           title: string | null
+          updated_at: number
           website: string | null
         }
         Insert: {
           description?: string | null
           id: string
           title?: string | null
+          updated_at: number
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
           title?: string | null
+          updated_at?: number
           website?: string | null
         }
         Relationships: []

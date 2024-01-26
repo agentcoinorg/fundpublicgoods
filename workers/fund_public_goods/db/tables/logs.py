@@ -6,6 +6,6 @@ def insert(
     row: Logs
 ):
     db.table("logs").insert({
-        "run_id": row.run_id,
+        "run_id": str(row.run_id),
         "message": row.message
     }).execute()

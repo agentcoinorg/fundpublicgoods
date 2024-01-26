@@ -41,6 +41,9 @@ def remove_duplicate_projects(projects: list[Project]) -> list[Project]:
     return unique_projects
 
 def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
+    if len(projects) == 0:
+        return []
+
     projects_by_id = {project.id: project for project in projects}
     queries = generate_queries(prompt=prompt, n=3)
     texts: list[str] = []
@@ -50,7 +53,8 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         project_text = get_project_text(project=project)
         texts.append(project_text)
         metadatas.append({ "id": project["id"] })
-    
+
+
     db_client = EphemeralClient()
     collection = Chroma.from_texts(
         texts=texts,
@@ -59,7 +63,7 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         client=db_client,
         collection_name="projects"
     )
-        
+
     top_matches: list[Project] = []
     
     for query in queries:

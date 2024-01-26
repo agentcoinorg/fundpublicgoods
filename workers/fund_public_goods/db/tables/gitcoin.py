@@ -4,7 +4,7 @@ from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, 
 from fund_public_goods.db.client import create_admin
 from fund_public_goods.db import tables, entities
 
-def upsert_project(project: GitcoinProjects):
+def upsert_project(project: GitcoinProjects, created_at: int):
     db = create_admin()
 
     db.table("gitcoin_projects").upsert({
@@ -14,18 +14,30 @@ def upsert_project(project: GitcoinProjects):
         "data": project.data
     }).execute()
 
-    tables.projects.insert(db, entities.Projects(
+    result = tables.projects.get(db, project.id)
+
+    if result and result.updated_at > created_at:
+        return
+
+    row = entities.Projects(
         id=project.id,
+        updated_at=created_at,
         title=project.data["title"],
         description=project.data["description"],
         website=project.data["website"]
-    ))
+    )
+
+    if result == None:
+        tables.projects.insert(db, row)
+    else:
+        tables.projects.upsert(db, row)
 
 def save_application(app: GitcoinApplications, network: int):
     db = create_admin()
 
     db.table("gitcoin_applications").insert({
         "id": app.id,
+        "created_at": app.created_at,
         "protocol": app.protocol,
         "pointer": app.pointer,
         "round_id": app.round_id,
@@ -39,7 +51,7 @@ def save_application(app: GitcoinApplications, network: int):
         recipient=app.data["application"]["recipient"],
         network=network,
         round=app.round_id,
-        answers=app.data["application"]["answers"],
+        answers=json.dumps(app.data["application"]["answers"]),
         project_id=app.project_id
     ))
 
