@@ -7,7 +7,6 @@ export default async function StrategyPage({
 }: {
   params: { id: string };
 }) {
-  const workerId = params.id;
   const supabase = createSupabaseServerClient();
 
   // // Fetch the runs for this worker
@@ -25,13 +24,13 @@ export default async function StrategyPage({
       )
     `
     )
-    .eq("worker_id", workerId)
+    .eq("id", params.id)
     .order("created_at", { ascending: false })
     .single();
 
   if (runs.error || !runs.data) {
     console.error(runs.error);
-    throw Error(`Runs with worker_id ${workerId} not found.`);
+    throw Error(`Runs with id ${params.id} not found.`);
   }
 
   const data = runs.data.strategy_entries as unknown as StrategyWithProjects;

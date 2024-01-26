@@ -151,21 +151,30 @@ export interface Database {
       logs: {
         Row: {
           created_at: string
+          ended_at: string | null
           id: string
-          message: string
           run_id: string
+          status: Database["public"]["Enums"]["step_status"]
+          step_name: Database["public"]["Enums"]["step_name"]
+          value: string | null
         }
         Insert: {
           created_at?: string
+          ended_at?: string | null
           id?: string
-          message: string
           run_id: string
+          status: Database["public"]["Enums"]["step_status"]
+          step_name: Database["public"]["Enums"]["step_name"]
+          value?: string | null
         }
         Update: {
           created_at?: string
+          ended_at?: string | null
           id?: string
-          message?: string
           run_id?: string
+          status?: Database["public"]["Enums"]["step_status"]
+          step_name?: Database["public"]["Enums"]["step_name"]
+          value?: string | null
         }
         Relationships: [
           {
@@ -301,7 +310,12 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      step_name:
+        | "FETCH_PROJECTS"
+        | "EVALUATE_PROJECTS"
+        | "ANALYZE_FUNDING"
+        | "SYNTHESIZE_RESULTS"
+      step_status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "ERRORED"
     }
     CompositeTypes: {
       [_ in never]: never

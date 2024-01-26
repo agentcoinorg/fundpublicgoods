@@ -1,8 +1,25 @@
+from enum import Enum
 from uuid import UUID
 import datetime
 from typing import Optional
 from pydantic import BaseModel, Json, Field, ConfigDict
 
+
+class StepName(str, Enum):
+
+    ANALYZE_FUNDING = 'ANALYZE_FUNDING'
+    EVALUATE_PROJECTS = 'EVALUATE_PROJECTS'
+    FETCH_PROJECTS = 'FETCH_PROJECTS'
+    SYNTHESIZE_RESULTS = 'SYNTHESIZE_RESULTS'
+    
+
+class StepStatus(str, Enum):
+
+    COMPLETED = 'COMPLETED'
+    ERRORED = 'ERRORED'
+    IN_PROGRESS = 'IN_PROGRESS'
+    NOT_STARTED = 'NOT_STARTED'
+    
 
 class Applications(BaseModel):
 
@@ -68,7 +85,10 @@ class Logs(BaseModel):
     id: Optional[UUID] = None
     run_id: UUID = Field(..., alias="runId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    message: str
+    ended_at: Optional[datetime.datetime] = Field(default=None, alias="endedAt")
+    status: StepStatus
+    step_name: StepName = Field(..., alias="stepName")
+    value: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True

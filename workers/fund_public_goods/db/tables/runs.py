@@ -21,5 +21,5 @@ def get_prompt(db: Client, run_id: str) -> str:
         .limit(1)
         .single()
         .execute()
-        .data
+        .data["prompt"]
     )

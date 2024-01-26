@@ -34,7 +34,7 @@ async def runs(worker_id: str, params: Params) -> Response:
         prompt=prompt
     ))
     await inngest_client.send(
-        CreateStrategyEvent.Data(prompt=prompt, run_id=run_id).to_event()
+        CreateStrategyEvent.Data(run_id=run_id).to_event()
     )
 
     return Response(run_id=run_id)

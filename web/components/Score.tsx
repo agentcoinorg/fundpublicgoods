@@ -1,22 +1,16 @@
-import HighScoreIcon from "@/public/high-score-icon.svg";
-import CopyToClipboardIcon from "@/public/copy-to-clipboard.svg"
-import Image from "next/image";
+import { Info } from "@phosphor-icons/react/dist/ssr";
+import { ScoreIcon } from "./Icons";
 
 export default function Score({ rank }: { rank: number }) {
-  // TODO: Attach medium and low icons
-  const Icon = rank > 0.6 ? HighScoreIcon : null;
-  if (Icon) {
-    return (
-      <div className="flex flex-wrap gap-2 items-center justify-center">
-        <div>
-          <Image alt="score" priority src={Icon} />
-        </div>
+  return (
+    <div className='flex flex-wrap gap-2 items-center justify-between'>
+      <div className='flex space-x-2 items-center'>
+        <ScoreIcon rank={rank} />
         <div>{(rank * 10).toFixed(1)}</div>
-        <div>
-          <Image className="hover:cursor-pointer" alt="copy-clipboard" src={CopyToClipboardIcon} />
-        </div>
       </div>
-    );
-  }
-  return null;
+      <div>
+        <Info size={20} className='text-indigo-300 hover:text-indigo-500' />
+      </div>
+    </div>
+  );
 }

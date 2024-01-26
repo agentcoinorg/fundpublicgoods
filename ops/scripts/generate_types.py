@@ -51,17 +51,26 @@ def run():
 
     # Split the schema by statement (ending in ;)
     statements = [stmt.strip() for stmt in db_schema.split(';')]
-    # Extract only the "CREATE TABLE" statements
-    create_table_statements = [stmt + ';' for stmt in statements if stmt.strip().startswith('CREATE TABLE IF NOT EXISTS "public".')]
+    # Extract only the "CREATE TABLE" and "CREATE TYPE" statements
+    create_table_statements = [stmt + ';' for stmt in statements if (
+        stmt.strip().startswith('CREATE TABLE IF NOT EXISTS "public".') or
+        stmt.strip().startswith('CREATE TYPE "public".')
+    )]
     create_table_statements = [stmt.replace('CREATE TABLE IF NOT EXISTS "public".', 'CREATE TABLE ') for stmt in create_table_statements]
+    create_table_statements = [stmt.replace('"public".', '') for stmt in create_table_statements]
     # Remove some unsupported SQL features that break omymodels
     create_table_statements = [stmt.replace('DEFAULT "gen_random_uuid"() NOT NULL', '') for stmt in create_table_statements]
     create_table_statements = [stmt.replace('with time zone DEFAULT "now"() NOT NULL', '') for stmt in create_table_statements]
+    create_table_statements = [stmt.replace('with time zone', '') for stmt in create_table_statements]
     create_table_statements = [re.sub(r'(?m)CONSTRAINT.*\n?', '', stmt) for stmt in create_table_statements]
     db_schema = '\n\n'.join(create_table_statements)
 
     # Generate pydantic types using omymodels
-    types = create_models(db_schema, models_type="pydantic")["code"]
+    types = create_models(
+        db_schema,
+        models_type="pydantic",
+        dump=False
+    )["code"]
 
     # Convert "= false" and "= true" to proper Python
     types = re.sub(r'= false', '= False', types)
