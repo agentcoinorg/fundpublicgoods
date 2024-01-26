@@ -5,7 +5,7 @@ from fund_public_goods.db.client import create_admin
 from fund_public_goods.db import tables, entities
 
 def upsert_project(project: GitcoinProjects, created_at: int):
-    db = create_admin()
+    db = create_admin("indexing")
 
     db.table("gitcoin_projects").upsert({
         "id": project.id,
@@ -14,7 +14,7 @@ def upsert_project(project: GitcoinProjects, created_at: int):
         "data": project.data
     }).execute()
 
-    result = tables.projects.get(db, project.id)
+    result = tables.projects.get(project.id)
 
     if result and result.updated_at > created_at:
         return
@@ -28,12 +28,12 @@ def upsert_project(project: GitcoinProjects, created_at: int):
     )
 
     if result == None:
-        tables.projects.insert(db, row)
+        tables.projects.insert(row)
     else:
-        tables.projects.upsert(db, row)
+        tables.projects.upsert(row)
 
 def save_application(app: GitcoinApplications, network: int):
-    db = create_admin()
+    db = create_admin("indexing")
 
     db.table("gitcoin_applications").insert({
         "id": app.id,
@@ -45,7 +45,7 @@ def save_application(app: GitcoinApplications, network: int):
         "data": app.data
     }).execute()
 
-    tables.applications.insert(db, entities.Applications(
+    tables.applications.insert(entities.Applications(
         id=app.id,
         created_at=app.created_at,
         recipient=app.data["application"]["recipient"],
@@ -56,7 +56,7 @@ def save_application(app: GitcoinApplications, network: int):
     ))
 
 def get_non_running_job() -> GitcoinIndexingJobs | None: 
-    db = create_admin()
+    db = create_admin("indexing")
     
     result = (db.table("gitcoin_indexing_jobs")
         .select("id", "url", "is_running", "skip_rounds", "skip_projects", "network_id")
@@ -71,7 +71,7 @@ def get_non_running_job() -> GitcoinIndexingJobs | None:
 
     data = result.data[0]
 
-    return GitcoinIndexingJobs (
+    return GitcoinIndexingJobs(
         id = data["id"],
         url = data["url"],
         network_id = data["network_id"],
@@ -81,7 +81,7 @@ def get_non_running_job() -> GitcoinIndexingJobs | None:
     )
 
 def is_any_job_running() -> bool: 
-    db = create_admin()
+    db = create_admin("indexing")
     
     result = (db.table("gitcoin_indexing_jobs")
         .select("id")
@@ -93,7 +93,7 @@ def is_any_job_running() -> bool:
     return len(result.data) > 0
 
 def start_job(job_id: str) -> None:
-    db = create_admin()
+    db = create_admin("indexing")
 
     (db.table("gitcoin_indexing_jobs")
         .update({
@@ -102,9 +102,9 @@ def start_job(job_id: str) -> None:
         })
         .eq("id", job_id)
         .execute())
-    
+
 def stop_job(job_id: str) -> None:
-    db = create_admin()
+    db = create_admin("indexing")
 
     (db.table("gitcoin_indexing_jobs")
         .update({
@@ -112,9 +112,9 @@ def stop_job(job_id: str) -> None:
         })
         .eq("id", job_id)
         .execute())
-    
+
 def update_job_progress(job_id: str, skip_rounds: int, skip_projects: int) -> None:
-    db = create_admin()
+    db = create_admin("indexing")
 
     (db.table("gitcoin_indexing_jobs")
         .update({
@@ -124,9 +124,9 @@ def update_job_progress(job_id: str, skip_rounds: int, skip_projects: int) -> No
         })
         .eq("id", job_id)
         .execute())
-    
+
 def stop_and_mark_job_as_failed(job_id: str, error: object):
-    db = create_admin()
+    db = create_admin("indexing")
 
     (db.table("gitcoin_indexing_jobs")
         .update({
