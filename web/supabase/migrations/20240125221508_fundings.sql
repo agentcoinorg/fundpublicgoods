@@ -13,8 +13,21 @@ CREATE TABLE "public"."funding_entries" (
 );
 
 ALTER TABLE
-    "public"."runs" enable ROW LEVEL SECURITY;
+    "public"."funding_entries" enable ROW LEVEL SECURITY;
 
 CREATE policy "anon_funding_entries_table_select_policy" ON "public"."funding_entries" FOR
 SELECT
     TO anon USING (TRUE);
+
+CREATE VIEW funding_entries_view AS
+SELECT
+    applications.recipient,
+    funding_entries.amount,
+    projects.description,
+    projects.title,
+    runs.worker_id
+FROM
+    runs
+    INNER JOIN funding_entries ON runs.id = funding_entries.run_id
+    INNER JOIN projects ON funding_entries.project_id = projects.id
+    INNER JOIN applications ON projects.id = applications.project_id;

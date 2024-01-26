@@ -10,6 +10,7 @@ router = APIRouter()
 class StrategiesInformation(BaseModel):
     project_id: str
     weight: float
+    amount: str
 
 
 class Body(BaseModel):
@@ -32,14 +33,11 @@ async def funding_entries(run_id: str, body: Body) -> Response:
             status_code=400, detail=f"Run with ID: {run_id} is not valid"
         )
 
-    amounts = distribute_weights(
-        [strategy.weight for strategy in body.strategies], body.amount, body.decimals
-    )
     funding_entries = []
-    for index, strategy in enumerate(body.strategies):
+    for strategy in body.strategies:
         entry = FundingEntries(
             project_id=strategy.project_id,
-            amount=amounts[index],
+            amount=strategy.amount,
             token=body.token,
             weight=strategy.weight,
         )
