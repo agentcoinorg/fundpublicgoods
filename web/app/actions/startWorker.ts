@@ -17,6 +17,10 @@ export const startWorker = async (
     },
   });
 
+  if (response.status !== 200) {
+    throw Error(`Error starting new worker. Status: ${response.status}\nMessage: ${response.statusText}`);
+  }
+
   const result = await response.json();
   if (!result.worker_id || !result.run_id) {
     throw new Error("Error starting new worker");

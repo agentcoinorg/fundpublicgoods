@@ -49,6 +49,7 @@ def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -
                         skip: $skip
                     ) {
                         id
+                        createdAt
                         metaPtr {
                             protocol
                             pointer
@@ -64,8 +65,6 @@ def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -
         }
     }
 
-    print(f"Fetching projects for round {round_id} ...")
-
     response = requests.post(url, json=data)
 
     if response.status_code == 200:
@@ -78,8 +77,9 @@ def fetch_project_applications(url: str, round_id: str, skip: int, first: int) -
 
         apps = [
             ApplicationInfo(
-                id = project["id"], 
-                protocol = project['metaPtr']['protocol'], 
+                id = project["id"],
+                created_at = project["createdAt"],
+                protocol = project['metaPtr']['protocol'],
                 pointer = project['metaPtr']['pointer'],
                 round_id = round_id,
             ) 

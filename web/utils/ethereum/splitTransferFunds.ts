@@ -31,20 +31,17 @@ export async function splitTransferFunds(
 
   if (!tokenAddress || tokenAddress === ethers.constants.AddressZero) {
     // Ether transfer
-    console.log("ether transfer");
     await disperseContract.disperseEther(validAddresses, values, {
     value: totalValue,
     });
   } else {
     // ERC20 token transfer
-    console.log("tokenAddress", tokenAddress);
     const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
 
     const currentAllowance: BigNumber = await tokenContract.allowance(
       await signer.getAddress(),
       DISPERSE_CONTRACT_ADDRESS
     );
-    console.log("currentAllowance", currentAllowance);
 
     if (currentAllowance.lt(totalValue)) {
       const approveTx = await tokenContract.approve(DISPERSE_CONTRACT_ADDRESS, totalValue);

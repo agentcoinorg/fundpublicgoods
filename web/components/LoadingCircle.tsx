@@ -3,9 +3,10 @@ import clsx from "clsx";
 interface LoadingCircleProps {
   strokeWidth?: number;
   className?: string;
+  hideText?: boolean
 }
 
-const LoadingCircle = ({ strokeWidth = 12, className }: LoadingCircleProps) => {
+const LoadingCircle = ({ strokeWidth = 12, className, hideText }: LoadingCircleProps) => {
   return (
     <div role="status">
       <svg
@@ -34,7 +35,7 @@ const LoadingCircle = ({ strokeWidth = 12, className }: LoadingCircleProps) => {
           strokeLinecap="round"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
+      { hideText ? <></> : <span className="sr-only">Loading...</span> }
     </div>
   );
 };

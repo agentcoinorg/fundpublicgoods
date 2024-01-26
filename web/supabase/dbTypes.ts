@@ -12,26 +12,39 @@ export interface Database {
       applications: {
         Row: {
           answers: Json | null
+          created_at: number
           id: string
+          network: number
           project_id: string
           recipient: string
           round: string
         }
         Insert: {
           answers?: Json | null
+          created_at: number
           id: string
+          network: number
           project_id: string
           recipient: string
           round: string
         }
         Update: {
           answers?: Json | null
+          created_at?: number
           id?: string
+          network?: number
           project_id?: string
           recipient?: string
           round?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "applications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
           {
             foreignKeyName: "applications_project_id_fkey"
             columns: ["project_id"]
@@ -77,8 +90,22 @@ export interface Database {
             foreignKeyName: "funding_entries_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "funding_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "funding_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
           },
           {
             foreignKeyName: "funding_entries_run_id_fkey"
@@ -91,7 +118,7 @@ export interface Database {
       }
       gitcoin_applications: {
         Row: {
-          created_at: string
+          created_at: number
           data: Json
           id: string
           pointer: string
@@ -100,7 +127,7 @@ export interface Database {
           round_id: string
         }
         Insert: {
-          created_at?: string
+          created_at: number
           data: Json
           id: string
           pointer: string
@@ -109,7 +136,7 @@ export interface Database {
           round_id: string
         }
         Update: {
-          created_at?: string
+          created_at?: number
           data?: Json
           id?: string
           pointer?: string
@@ -135,6 +162,7 @@ export interface Database {
           is_failed: boolean
           is_running: boolean
           last_updated_at: string
+          network_id: number
           skip_projects: number
           skip_rounds: number
           url: string
@@ -146,6 +174,7 @@ export interface Database {
           is_failed?: boolean
           is_running?: boolean
           last_updated_at?: string
+          network_id: number
           skip_projects?: number
           skip_rounds?: number
           url: string
@@ -157,6 +186,7 @@ export interface Database {
           is_failed?: boolean
           is_running?: boolean
           last_updated_at?: string
+          network_id?: number
           skip_projects?: number
           skip_rounds?: number
           url?: string
@@ -190,23 +220,39 @@ export interface Database {
       logs: {
         Row: {
           created_at: string
+          ended_at: string | null
           id: string
-          message: string
           run_id: string
+          status: Database["public"]["Enums"]["step_status"]
+          step_name: Database["public"]["Enums"]["step_name"]
+          value: string | null
         }
         Insert: {
           created_at?: string
+          ended_at?: string | null
           id?: string
-          message: string
           run_id: string
+          status: Database["public"]["Enums"]["step_status"]
+          step_name: Database["public"]["Enums"]["step_name"]
+          value?: string | null
         }
         Update: {
           created_at?: string
+          ended_at?: string | null
           id?: string
-          message?: string
           run_id?: string
+          status?: Database["public"]["Enums"]["step_status"]
+          step_name?: Database["public"]["Enums"]["step_name"]
+          value?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "logs_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
+          },
           {
             foreignKeyName: "logs_run_id_fkey"
             columns: ["run_id"]
@@ -221,18 +267,21 @@ export interface Database {
           description: string | null
           id: string
           title: string | null
+          updated_at: number
           website: string | null
         }
         Insert: {
           description?: string | null
           id: string
           title?: string | null
+          updated_at: number
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
           title?: string | null
+          updated_at?: number
           website?: string | null
         }
         Relationships: []
@@ -302,8 +351,22 @@ export interface Database {
             foreignKeyName: "strategy_entries_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
           },
           {
             foreignKeyName: "strategy_entries_run_id_fkey"
@@ -331,13 +394,30 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      funding_entries_view: {
+        Row: {
+          amount: string | null
+          description: string | null
+          network: number | null
+          project_id: string | null
+          recipient: string | null
+          run_id: string | null
+          title: string | null
+          token: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      step_name:
+        | "FETCH_PROJECTS"
+        | "EVALUATE_PROJECTS"
+        | "ANALYZE_FUNDING"
+        | "SYNTHESIZE_RESULTS"
+      step_status: "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED" | "ERRORED"
     }
     CompositeTypes: {
       [_ in never]: never

@@ -25,10 +25,10 @@ SELECT
     FE.amount, 
     P.description, 
     P.title, 
-    R.worker_id, 
-    P.id,
+    P.id as project_id,
     A.network,
-    FE.token
+    FE.token,
+    R.id as run_id
 FROM runs R
 INNER JOIN funding_entries FE ON R.id = FE.run_id
 INNER JOIN projects P ON FE.project_id = P.id

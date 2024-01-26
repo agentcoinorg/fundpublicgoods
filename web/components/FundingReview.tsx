@@ -25,11 +25,11 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     
     // TODO: Handle interaction of funding in multiple chains
     const selectedNetwork = projects[0].network as NetworkId;
-    const selectedToken = projects[0].token || "WETH"
+    const selectedToken = projects[0].token
 
-    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(selectedNetwork)
+    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(11155111)
     const networkName = Object.keys(SUPPORTED_NETWORKS)[networkIndex] as NetworkName
-    const token = getTokensForNetwork(networkName).find(t => t.name == selectedToken)
+    const token = getTokensForNetwork(networkName).find(t => t.name == "WETH")
 
     if (!token) {
       throw new Error(`Token with name: ${selectedToken} is not valid`)
@@ -39,7 +39,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     try {
       await splitTransferFunds(
         // TODO: Modify this with project.recipient; this is just for testing purposes
-        projects.map((project) => "ADD_YOUR_ADDRESS"),
+        projects.map((project) => "0xAC39C85F4E54797e4909f70a302d9e11E428135D"),
         amounts,
         signer,
         token.address,
