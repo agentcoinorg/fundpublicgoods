@@ -28,7 +28,7 @@ export default function Prompt() {
     setIsWaiting(true);
     try {
       const response = await startWorker(prompt);
-      router.push(`/${response.runId}/progress`)
+      router.push(`/r/${response.runId}/progress`)
     } finally {
       setIsWaiting(false);
     }
