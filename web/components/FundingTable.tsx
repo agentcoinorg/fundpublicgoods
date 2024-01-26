@@ -1,40 +1,32 @@
-interface FundingEntry {
+import { SupportedERC20Tokens } from "@/utils/ethereum";
+import truncateEthAddress from "@/utils/ethereum/truncateAddress";
+
+export interface FundingEntry {
+  recipient: string;
   amount: string;
-  transactionHash?: string;
-  project: {
-    description: string;
-    name: string;
-    recipient: string;
-  };
+  description: string;
+  title: string;
+  network: number;
+  token: SupportedERC20Tokens
 }
 
-
-export default function FundingTable(props: { fundingEntries: FundingEntry[] }) {
+export default function FundingTable(props: {
+  fundingEntries: FundingEntry[];
+}) {
   return (
-    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
-      <thead>
-        <tr>
-          <th className="text-left w-6/12">PROJECT</th>
-          <th className="text-left">PROJECT ADDRESS</th>
-          {/* <th className="text-left w-2/12">TRANSACTION</th> */}
-          <th className="text-left">AMOUNT</th>
-        </tr>
-      </thead>
+    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
       <tbody className="w-full">
         {props.fundingEntries.map((fund, index) => (
           <tr key={index}>
-            <td>
+            <td className="w-8/12">
               <div className="flex flex-col">
-                <div>{fund.project.name}</div>
-                <div>{fund.project.description}</div>
+                <div>{fund.title}</div>
+                <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+                  {fund.description}
+                </div>
               </div>
             </td>
-            <td>{fund.project.recipient}</td>
-            {/*
-                <td>
-                     {fund.project.}
-                </td>
-            */}
+            <td className="text-[9px]">{truncateEthAddress(fund.recipient)}</td>
             <td>{fund.amount}</td>
           </tr>
         ))}

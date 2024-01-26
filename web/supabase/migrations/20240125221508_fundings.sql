@@ -20,14 +20,22 @@ SELECT
     TO anon USING (TRUE);
 
 CREATE VIEW funding_entries_view AS
-SELECT
-    applications.recipient,
-    funding_entries.amount,
-    projects.description,
-    projects.title,
-    runs.worker_id
-FROM
-    runs
-    INNER JOIN funding_entries ON runs.id = funding_entries.run_id
-    INNER JOIN projects ON funding_entries.project_id = projects.id
-    INNER JOIN applications ON projects.id = applications.project_id;
+SELECT 
+    A.recipient, 
+    FE.amount, 
+    P.description, 
+    P.title, 
+    R.worker_id, 
+    P.id,
+    A.network,
+    FE.token
+FROM runs R
+INNER JOIN funding_entries FE ON R.id = FE.run_id
+INNER JOIN projects P ON FE.project_id = P.id
+INNER JOIN (
+    SELECT
+        applications.*,
+        ROW_NUMBER() OVER (PARTITION BY project_id ORDER BY created_at DESC) as rn
+    FROM applications
+) A ON P.id = A.project_id
+WHERE A.rn = 1;

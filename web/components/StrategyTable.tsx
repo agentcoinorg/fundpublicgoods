@@ -3,12 +3,14 @@
 import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
+import { useConnectWallet } from "@web3-onboard/react";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
 export type StrategyWithProjects = (StrategyEntry & {
   project: Project;
   selected: boolean;
+  amount?: string
 })[];
 
 export interface StrategyTableProps {
@@ -17,15 +19,17 @@ export interface StrategyTableProps {
 }
 
 export function StrategyTable(props: StrategyTableProps) {
+  const [{ wallet }] = useConnectWallet();
+
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
   return (
-    <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100'>
+    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
       <thead>
         <tr>
-          <th className='pr-0'>
+          <th className="pr-0">
             <TextField
-              type='checkbox'
+              type="checkbox"
               indeterminate={!allChecked && someChecked}
               checked={allChecked}
               onChange={(e) => {
@@ -38,19 +42,21 @@ export function StrategyTable(props: StrategyTableProps) {
               }}
             />
           </th>
-          <th className='text-left'>PROJECT</th>
-          <th className='text-left'>WEIGHTING</th>
-          <th className='text-left whitespace-nowrap'>SMART RANKING</th>
+          <th className="text-left">PROJECT</th>
+          <th className="text-left">WEIGHTING</th>
+          {!!wallet && <th className="text-left">AMOUNT</th>}
+          <th className="text-left whitespace-nowrap">SMART RANKING</th>
         </tr>
       </thead>
-      <tbody className='w-full'>
+      <tbody className="w-full">
         {props.strategy.map((entry, index) => (
           <tr
             key={index}
-            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50'>
-            <td className='pr-0'>
+            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50"
+          >
+            <td className="pr-0">
               <TextField
-                type='checkbox'
+                type="checkbox"
                 checked={entry.selected}
                 onChange={(e) => {
                   const currentStrategy = [...props.strategy];
@@ -59,24 +65,26 @@ export function StrategyTable(props: StrategyTableProps) {
                 }}
               />
             </td>
-            <td className='min-w-6/12 w-full'>
-              <div className='space-y-px'>
+            <td className="min-w-6/12 w-full">
+              <div className="space-y-px">
                 <div>{entry.project.title}</div>
-                <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
+                <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
                   {entry.project.description}
                 </div>
               </div>
             </td>
-            <td className='min-w-[130px]'>
+            <td className="min-w-[130px]">
+              {/* TODO: Make this field writable when connected and handle change */}
               <TextField
                 readOnly
-                className='!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white'
+                className="!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white"
                 rightAdornment={"%"}
                 value={!entry.weight ? "0" : (entry.weight * 100).toFixed(2)}
               />
             </td>
+            {!!wallet && <td className="min-w-[80px]">{entry.amount || 0}</td>}
             <td>
-              <div className='w-full'>
+              <div className="w-full">
                 <Score rank={entry.impact ?? 0} />
               </div>
             </td>

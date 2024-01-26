@@ -1,12 +1,12 @@
 "use server";
 
 interface CreateFundingPlanArguments {
-  amount: number;
   decimals: number;
   token: string;
   strategies: Array<{
     project_id: string;
     weight: number;
+    amount: string;
   }>;
 }
 

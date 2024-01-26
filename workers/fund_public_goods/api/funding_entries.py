@@ -1,5 +1,4 @@
 from fund_public_goods.db.tables.funding_entries import FundingEntries, insert_multiple
-from fund_public_goods.lib.funding.utils.distribute_weight import distribute_weights
 from fund_public_goods.db import client, tables
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -10,12 +9,11 @@ router = APIRouter()
 class StrategiesInformation(BaseModel):
     project_id: str
     weight: float
-    amount: str
+    amount: float
 
 
 class Body(BaseModel):
     strategies: list[StrategiesInformation]
-    amount: float
     token: str
     decimals: int
 
