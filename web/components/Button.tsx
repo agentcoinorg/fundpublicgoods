@@ -24,10 +24,7 @@ const Button = ({
   const [showTooltip, setShowTooltip] = useState<boolean>(false);
   const hierarchyClasses = {
     primary: clsx(
-      "border-indigo-100 bg-indigo-900 text-white shadow-button transform active:translate-y-1 active:bg-indigo-800/90 hover:bg-indigo-600 transition-all duration-100 ease-in-out active:shadow-button-0 focus-visible:ring-1 focus-visible:ring-white focus-visible:outline-0",
-      {
-        "hover:bg-top": !disabled,
-      }
+      "border-indigo-500 bg-indigo-600 text-white shadow-button transform active:translate-y-1 active:bg-indigo-800/90 hover:bg-indigo-500 transition-all duration-100 ease-in-out active:shadow-button-0 focus-visible:outline-0"
     ),
     secondary: clsx("border-indigo-300 bg-transparent text-indigo-600", {
       "hover:bg-top": !disabled,

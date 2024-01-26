@@ -79,7 +79,7 @@ async def create_strategy(
         lambda: logs.insert(
             supabase,
             run_id,
-            "Assessing impact of each project realted to the users interest",
+            "Assessing impact of each project related to the users interest",
         ),
     )
 
