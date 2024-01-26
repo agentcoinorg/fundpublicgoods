@@ -117,7 +117,7 @@ export default function RealtimeLogs(props: {
         <p>Results:</p>
         <div className="flex flex-col gap-2">
           { sortedLogsWithSteps.map(log => (
-            <div className={clsx(
+            <div key={log.id} className={clsx(
               "p-4 flex flex-nowrap items-center gap-2 border border-indigo-500 rounded-lg bg-indigo-500/50 cursor-pointer",
               log.status === "IN_PROGRESS" ? "text-indigo-50" : ""
             )}>
