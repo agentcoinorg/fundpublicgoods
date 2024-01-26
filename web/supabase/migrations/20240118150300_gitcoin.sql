@@ -1,4 +1,10 @@
-create table "public"."gitcoin_projects" (
+CREATE SCHEMA indexing;
+GRANT USAGE ON SCHEMA indexing TO service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA indexing TO service_role;
+GRANT ALL ON ALL ROUTINES IN SCHEMA indexing TO service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA indexing TO service_role;
+
+create table "indexing"."gitcoin_projects" (
     "id" text not null,
     "created_at" timestamp with time zone not null default now(),
     "data" json not null,
@@ -6,10 +12,10 @@ create table "public"."gitcoin_projects" (
     "pointer" text not null,
     PRIMARY KEY ("id")
 );
-ALTER TABLE "public"."gitcoin_projects" OWNER TO "postgres";
-ALTER TABLE "public"."gitcoin_projects" enable row level security;
+ALTER TABLE "indexing"."gitcoin_projects" OWNER TO "postgres";
+ALTER TABLE "indexing"."gitcoin_projects" enable row level security;
 
-create table "public"."gitcoin_applications" (
+create table "indexing"."gitcoin_applications" (
     "id" text not null,
     "created_at" int not null,
     "data" json not null,
@@ -18,12 +24,12 @@ create table "public"."gitcoin_applications" (
     "round_id" text not null,
     "project_id" text not null,
     PRIMARY KEY ("id"),
-    FOREIGN KEY ("project_id") REFERENCES "public"."gitcoin_projects"("id") ON DELETE CASCADE
+    FOREIGN KEY ("project_id") REFERENCES "indexing"."gitcoin_projects"("id") ON DELETE CASCADE
 );
-ALTER TABLE "public"."gitcoin_applications" OWNER TO "postgres";
-ALTER TABLE "public"."gitcoin_applications" enable row level security;
+ALTER TABLE "indexing"."gitcoin_applications" OWNER TO "postgres";
+ALTER TABLE "indexing"."gitcoin_applications" enable row level security;
 
-create table "public"."gitcoin_indexing_jobs" (
+create table "indexing"."gitcoin_indexing_jobs" (
     "id" uuid not null default gen_random_uuid(),
     "created_at" timestamp with time zone not null default now(),
     "url" text not null,
@@ -36,10 +42,10 @@ create table "public"."gitcoin_indexing_jobs" (
     "error" text null,
     PRIMARY KEY ("id")
 );
-ALTER TABLE "public"."gitcoin_indexing_jobs" OWNER TO "postgres";
-ALTER TABLE "public"."gitcoin_indexing_jobs" enable row level security;
+ALTER TABLE "indexing"."gitcoin_indexing_jobs" OWNER TO "postgres";
+ALTER TABLE "indexing"."gitcoin_indexing_jobs" enable row level security;
 
-insert into "public"."gitcoin_indexing_jobs" ("url", "network_id") values 
+insert into "indexing"."gitcoin_indexing_jobs" ("url", "network_id") values 
     ('https://api.thegraph.com/subgraphs/name/allo-protocol/grants-round-polygon', 137), 
     ('https://api.thegraph.com/subgraphs/name/vacekj/allo-mainnet', 1),
     ('https://graph-gitcoin-mainnet.hirenodes.io/subgraphs/name/gitcoin/allo', 424),
