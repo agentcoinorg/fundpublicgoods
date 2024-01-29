@@ -2,7 +2,7 @@ from fund_public_goods.db.client import create, create_admin, Client
 import uuid
 
 
-def exists(worker_id: str, db: Client = create_admin()) -> bool:
+def exists(worker_id: str) -> bool:
     db = create()
     try:
         worker = db.table('workers').select('id').eq('id', worker_id).execute()
@@ -14,7 +14,6 @@ def exists(worker_id: str, db: Client = create_admin()) -> bool:
 
 
 def insert(db: Client) -> str:
-    db = create_admin()
     id = str(uuid.uuid4())
     db.table("workers").insert({"id": id}).execute()
     return id
