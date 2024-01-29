@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
 import Button from "./Button";
-import { useSession } from "next-auth/react";
+import useSession from "@/hooks/useSession";
 
 const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Search for relevant projects",
@@ -44,6 +44,11 @@ const checkIfFinished = (logs: Tables<"logs">[]) => {
     return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
   })
   const lastStep = sortedLogs.slice(-1)[0];
+
+  if (!lastStep) {
+    return false
+  }
+
   const isFinished = lastStep.status === "COMPLETED" && lastStep.step_name === "SYNTHESIZE_RESULTS"
 
   return isFinished

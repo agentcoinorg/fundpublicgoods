@@ -4,12 +4,13 @@ import { createSupabaseServerClient } from "@/utils/supabase-server";
 import RealtimeLogs from "./RealtimeLogs";
 import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
+import { authOptions } from "@/utils/authOptions";
 
 export default async function Logs(props: { runId: string }) {
-  const session = await getServerSession()
+  const session = await getServerSession(authOptions)
 
   if (!session) {
-    throw new Error(`User needs to be signed in`)
+    throw new Error(`User needs to have a session`)
   }
   
   const supabase = createSupabaseServerClient(cookies(), session.supabaseAccessToken)
