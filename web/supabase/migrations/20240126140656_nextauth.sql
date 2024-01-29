@@ -119,3 +119,76 @@ alter table "public"."users" add constraint "users_address_key" UNIQUE using ind
 
 alter table "public"."workers" add constraint "workers_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) not valid;
 alter table "public"."workers" validate constraint "workers_user_id_fkey";
+alter table "public"."workers" alter column "user_id" set default auth.uid();
+
+-- Drop old anon-only policies --
+drop policy "anon_logs_table_select_policy" on "public"."logs";
+drop policy "anon_projects_table_select_policy" on "public"."projects";
+drop policy "anon_runs_table_select_policy" on "public"."runs";
+drop policy "anon_strategy_entries_table_select_policy" on "public"."strategy_entries";
+
+create policy "Everyone can see all logs"
+on "public"."logs"
+as permissive
+for select
+to public
+using (true);
+
+
+create policy "Everyone can see all projects"
+on "public"."projects"
+as permissive
+for select
+to public
+using (true);
+
+
+create policy "Everyone can see all runs"
+on "public"."runs"
+as permissive
+for select
+to public
+using (true);
+
+
+create policy "Users can only insert their own runs"
+on "public"."runs"
+as permissive
+for insert
+to public
+with check ((EXISTS ( SELECT 1
+   FROM workers
+  WHERE ((workers.id = runs.worker_id) AND (workers.user_id = auth.uid())))));
+
+
+create policy "Everyone can see strategy entries"
+on "public"."strategy_entries"
+as permissive
+for select
+to public
+using (true);
+
+
+create policy "Users can only see and manage their own data"
+on "public"."users"
+as permissive
+for all
+to public
+using ((auth.uid() = id))
+with check ((auth.uid() = id));
+
+
+create policy "Everyone can see all workers"
+on "public"."workers"
+as permissive
+for select
+to public
+using (true);
+
+
+create policy "Users can only insert workers of their own"
+on "public"."workers"
+as permissive
+for insert
+to public
+with check ((auth.uid() = user_id));
