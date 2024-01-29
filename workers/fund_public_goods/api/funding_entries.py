@@ -24,8 +24,7 @@ class Response(BaseModel):
 
 @router.post("/api/runs/{run_id}/funding-entries")
 async def funding_entries(run_id: str, body: Body) -> Response:
-    supabase = client.create_admin()
-    run_exists = tables.runs.exists(supabase, run_id)
+    run_exists = tables.runs.exists(run_id)
     if not run_exists:
         raise HTTPException(
             status_code=400, detail=f"Run with ID: {run_id} is not valid"
@@ -41,5 +40,5 @@ async def funding_entries(run_id: str, body: Body) -> Response:
         )
         funding_entries.append(entry)
 
-    insert_multiple(supabase, run_id, funding_entries)
+    insert_multiple(run_id, funding_entries)
     return Response(status=200)

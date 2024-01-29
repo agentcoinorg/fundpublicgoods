@@ -1,10 +1,11 @@
-from supabase import Client, PostgrestAPIResponse
+from fund_public_goods.db.client import create_admin
 from fund_public_goods.db.entities import Applications
 
+
 def insert(
-    db: Client,
     row: Applications
 ):
+    db = create_admin()
     db.table("applications").insert({
         "id": row.id,
         "created_at": row.created_at,
@@ -16,9 +17,9 @@ def insert(
     }).execute()
 
 def get_applications(
-    db: Client,
     project_id: str
 ) -> list[Applications]:
+    db = create_admin()
     result = (db.table("applications")
         .select("id, created_at, recipient, network, round, answers, project_id")
         .eq("project_id", project_id)

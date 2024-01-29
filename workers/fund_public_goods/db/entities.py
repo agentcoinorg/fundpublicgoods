@@ -21,20 +21,6 @@ class StepStatus(str, Enum):
     NOT_STARTED = 'NOT_STARTED'
     
 
-class Applications(BaseModel):
-
-    id: str
-    created_at: int = Field(..., alias="createdAt")
-    recipient: str
-    network: int
-    round: str
-    answers: Optional[Json] = None
-    project_id: str = Field(..., alias="projectId")
-    model_config = ConfigDict(
-        populate_by_name=True
-    )
-
-
 class GitcoinApplications(BaseModel):
 
     id: str
@@ -75,6 +61,20 @@ class GitcoinProjects(BaseModel):
     protocol: int
     pointer: str
 
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class Applications(BaseModel):
+
+    id: str
+    created_at: int = Field(..., alias="createdAt")
+    recipient: str
+    network: int
+    round: str
+    answers: Optional[Json] = None
+    project_id: str = Field(..., alias="projectId")
     model_config = ConfigDict(
         populate_by_name=True
     )

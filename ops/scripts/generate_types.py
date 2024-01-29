@@ -54,9 +54,11 @@ def run():
     # Extract only the "CREATE TABLE" and "CREATE TYPE" statements
     create_table_statements = [stmt + ';' for stmt in statements if (
         stmt.strip().startswith('CREATE TABLE IF NOT EXISTS "public".') or
+        stmt.strip().startswith('CREATE TABLE IF NOT EXISTS "indexing".') or
         stmt.strip().startswith('CREATE TYPE "public".')
     )]
     create_table_statements = [stmt.replace('CREATE TABLE IF NOT EXISTS "public".', 'CREATE TABLE ') for stmt in create_table_statements]
+    create_table_statements = [stmt.replace('CREATE TABLE IF NOT EXISTS "indexing".', 'CREATE TABLE ') for stmt in create_table_statements]
     create_table_statements = [stmt.replace('"public".', '') for stmt in create_table_statements]
     # Remove some unsupported SQL features that break omymodels
     create_table_statements = [stmt.replace('DEFAULT "gen_random_uuid"() NOT NULL', '') for stmt in create_table_statements]
