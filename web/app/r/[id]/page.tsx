@@ -52,11 +52,13 @@ export default async function StrategyPage({
         selected: !!selected,
         amount: selected?.amount,
         weight,
+        defaultWeight: s.weight as number
       };
     }
     return {
       ...s,
-      selected: true,
+      selected: run.data.funding_entries.length === 0,
+      defaultWeight: s.weight as number
     };
   });
 

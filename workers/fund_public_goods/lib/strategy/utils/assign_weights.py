@@ -15,7 +15,7 @@ The user wants to donate to these projects.
 Be sure to include the ID of each project in your answer.
 
 Your job is to assign a donation weight percentage (number from 0 to 1 with 2 decimal places) to each of the projects so that the
-user can distribute the funds he wants to donate accordingly across projects.
+user can distribute the funds he wants to donate accordingly across projects. The sum of all weights must be equal to 1.
 
 Provide thorough reasoning for each assigned weight.
 

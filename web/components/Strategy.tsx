@@ -41,7 +41,7 @@ export default function Strategy(props: {
   strategy: StrategyWithProjects;
   prompt: string;
   runId: string;
-  amount: string
+  amount: string;
 }) {
   const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
     props.strategy
@@ -68,7 +68,6 @@ export default function Strategy(props: {
   async function createFundingPlan() {
     const strategies = currentStrategy
       .filter(({ selected }) => selected)
-      .filter(({ weight }) => weight)
       .map((strategy) => ({
         // TODO: Check why weight is nullable
         amount: strategy.amount as string,
@@ -76,6 +75,7 @@ export default function Strategy(props: {
         project_id: strategy.project_id,
       }));
 
+    console.log(strategies)
     if (!token) {
       return;
     }
@@ -94,17 +94,27 @@ export default function Strategy(props: {
 
   const calculateUpdatedStrategy = (
     strategy: StrategyWithProjects,
-    amount: string,
-    token: TokenInformation
+    amount: string
   ) => {
     const selectedStrategies = strategy.filter(({ selected }) => selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, token.decimals);
-
-    return strategy.map((s, index) => ({
-      ...s,
-      amount: amounts[index] ? amounts[index].toFixed(2) : "0",
-    }));
+    const amounts = distributeWeights(weights, +amount, 2);
+    let amountIndex = 0;
+    return strategy.map(s => {
+      if (s.selected) {
+        const amount = amounts[amountIndex].toFixed(2);
+        amountIndex++;
+        return {
+          ...s,
+          amount,
+        };
+      } else {
+        return  {
+          ...s,
+          amount: undefined
+        };
+      }
+    });
   };
 
   useEffect(() => {
@@ -114,14 +124,13 @@ export default function Strategy(props: {
   }, [tokens]);
 
   useEffect(() => {
-    if (amount !== "0" && token) {
-      setCurrentStrategy((prevStrategy) =>
-        calculateUpdatedStrategy(prevStrategy, amount, token)
+    if (amount !== "0") {
+      setCurrentStrategy((prevStrategy) => {
+        return calculateUpdatedStrategy(prevStrategy, amount)
+      }
       );
     }
   }, [amount]);
-
-  console.log(currentStrategy)
 
   return (
     <div className="flex justify-center py-10 flex-grow flex-column">
@@ -175,6 +184,7 @@ export default function Strategy(props: {
           <StrategyTable
             strategy={currentStrategy}
             modifyStrategy={setCurrentStrategy}
+            totalAmount={amount}
           />
         </div>
         {!wallet ? (
