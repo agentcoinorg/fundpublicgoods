@@ -25,3 +25,13 @@ def get_prompt(run_id: str) -> str:
         .execute()
         .data["prompt"]
     )
+
+
+def exists(run_id: str) -> bool:
+    try:
+        db = create_admin()
+        run = db.table("runs").select("id").eq("id", run_id).execute()
+        return len(run.data) > 0
+    except Exception as error:
+        print(error)
+        return False

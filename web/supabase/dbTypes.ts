@@ -42,7 +42,76 @@ export interface Database {
             foreignKeyName: "applications_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "applications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      funding_entries: {
+        Row: {
+          amount: string
+          created_at: string
+          id: string
+          project_id: string
+          run_id: string
+          token: string
+          transaction_id: string | null
+          weight: number
+        }
+        Insert: {
+          amount: string
+          created_at?: string
+          id?: string
+          project_id: string
+          run_id: string
+          token: string
+          transaction_id?: string | null
+          weight: number
+        }
+        Update: {
+          amount?: string
+          created_at?: string
+          id?: string
+          project_id?: string
+          run_id?: string
+          token?: string
+          transaction_id?: string | null
+          weight?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funding_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "funding_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "funding_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
+          },
+          {
+            foreignKeyName: "funding_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "runs"
             referencedColumns: ["id"]
           }
         ]
@@ -76,6 +145,13 @@ export interface Database {
           value?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "logs_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
+          },
           {
             foreignKeyName: "logs_run_id_fkey"
             columns: ["run_id"]
@@ -174,8 +250,22 @@ export interface Database {
             foreignKeyName: "strategy_entries_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
           },
           {
             foreignKeyName: "strategy_entries_run_id_fkey"
@@ -203,7 +293,19 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      funding_entries_view: {
+        Row: {
+          amount: string | null
+          description: string | null
+          network: number | null
+          project_id: string | null
+          recipient: string | null
+          run_id: string | null
+          title: string | null
+          token: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

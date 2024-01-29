@@ -80,15 +80,16 @@ class Applications(BaseModel):
     )
 
 
-class Logs(BaseModel):
+class FundingEntries(BaseModel):
 
     id: Optional[UUID] = None
-    run_id: UUID = Field(..., alias="runId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    ended_at: Optional[datetime.datetime] = Field(default=None, alias="endedAt")
-    status: StepStatus
-    step_name: StepName = Field(..., alias="stepName")
-    value: Optional[str] = None
+    run_id: UUID = Field(..., alias="runId")
+    project_id: str = Field(..., alias="projectId")
+    transaction_id: Optional[str] = Field(default=None, alias="transactionId")
+    amount: str
+    token: str
+    weight: float
 
     model_config = ConfigDict(
         populate_by_name=True
@@ -114,6 +115,21 @@ class Runs(BaseModel):
     worker_id: UUID = Field(..., alias="workerId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
     prompt: str
+
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class Logs(BaseModel):
+
+    id: Optional[UUID] = None
+    run_id: UUID = Field(..., alias="runId")
+    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
+    ended_at: Optional[datetime.datetime] = Field(default=None, alias="endedAt")
+    status: StepStatus
+    step_name: StepName = Field(..., alias="stepName")
+    value: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True

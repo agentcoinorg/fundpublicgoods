@@ -9,7 +9,7 @@ export const startWorker = async (
   prompt: string
 ): Promise<StartWorkerResponse> => {
   const response = await fetch(`${process.env.WORKERS_URL}/api/workers`, {
-    cache: "no-store",
+    cache: "no-cache",
     method: "POST",
     body: JSON.stringify({ prompt }),
     headers: {
@@ -43,7 +43,7 @@ export const regenerateStrategy = async (
   const response = await fetch(
     `${process.env.WORKERS_URL}/api/workers/${workerId}/runs`,
     {
-      cache: "no-store",
+      cache: "no-cache",
       method: "POST",
       body: JSON.stringify({ prompt }),
       headers: {

@@ -9,8 +9,8 @@ export default async function StrategyPage({
 }) {
   const supabase = createSupabaseServerClient();
 
-  // // Fetch the runs for this worker
-  const runs = await supabase
+  // Fetch the runs for this worker
+  const run = await supabase
     .from("runs")
     .select(
       `
@@ -28,12 +28,12 @@ export default async function StrategyPage({
     .order("created_at", { ascending: false })
     .single();
 
-  if (runs.error || !runs.data) {
-    console.error(runs.error);
+  if (run.error || !run.data) {
+    console.error(run.error);
     throw Error(`Runs with id ${params.id} not found.`);
   }
 
-  const data = runs.data.strategy_entries as unknown as StrategyWithProjects;
+  const data = run.data.strategy_entries as unknown as StrategyWithProjects;
 
   return (
     <Strategy
@@ -41,7 +41,8 @@ export default async function StrategyPage({
         ...s,
         selected: true,
       }))}
-      prompt={runs.data.prompt}
+      prompt={run.data.prompt}
+      runId={run.data.id}
     />
   );
 }
