@@ -119,7 +119,7 @@ export default function Strategy(props: {
         calculateUpdatedStrategy(prevStrategy, amount, token)
       );
     }
-  }, [amount, token]);
+  }, [amount]);
 
   console.log(currentStrategy)
 

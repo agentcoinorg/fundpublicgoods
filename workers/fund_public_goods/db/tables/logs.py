@@ -1,13 +1,14 @@
 from typing import Literal
-from supabase import Client
 import datetime
+from fund_public_goods.db.client import create_admin
 from fund_public_goods.db.entities import StepStatus, StepName
 
+
 def create(
-    db: Client,
     run_id: str,
     step_name: StepName,
 ):
+    db = create_admin()
     return db.table("logs").insert({
         "run_id": run_id,
         "step_name": step_name.value,
@@ -15,11 +16,11 @@ def create(
     }).execute()
 
 def update(
-    db: Client,
     log_id: str,
     status: Literal[StepStatus.IN_PROGRESS, StepStatus.COMPLETED, StepStatus.ERRORED],
     value: str | None
 ):
+    db = create_admin()
     ended_at = None
     if status == StepStatus.COMPLETED or status == StepStatus.ERRORED:
        ended_at = datetime.datetime.now().isoformat()

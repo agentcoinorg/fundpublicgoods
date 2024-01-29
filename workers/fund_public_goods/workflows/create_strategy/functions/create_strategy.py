@@ -1,8 +1,6 @@
 import json
-import typing
 from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
 import inngest
-from supabase import Client
 from fund_public_goods.lib.strategy.utils.assign_weights import assign_weights
 from fund_public_goods.lib.strategy.utils.evaluate_projects import (
     evaluate_projects,
@@ -15,23 +13,22 @@ from fund_public_goods.lib.strategy.models.weighted_project import WeightedProje
 from fund_public_goods.db.tables.projects import fetch_projects_data
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
-from fund_public_goods.db import client, logs
+from fund_public_goods.db import logs
 from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
-def fetch_matching_projects(supabase: Client, prompt: str):
-    projects = fetch_projects_data(supabase)
+
+def fetch_matching_projects(prompt: str):
+    projects = fetch_projects_data()
     matching_projects = get_top_matching_projects(prompt, projects)
     
     return [project.model_dump() for project in matching_projects]
 
-
-def initialize_logs(supabase: Client, run_id: str) -> str:
+def initialize_logs(run_id: str) -> str:
     log_ids: dict[StepName, str] = {}
 
     for step_name in StepName:
         new_log = logs.create(
-            db=supabase,
             run_id=run_id,
             step_name=step_name,
         ).data
@@ -50,16 +47,15 @@ async def create_strategy(
 ) -> str | None:
     data = CreateStrategyEvent.Data.model_validate(ctx.event.data)
     run_id = data.run_id
-    db = client.create_admin()
 
     prompt = await step.run(
         "extract_prompt",
-        lambda: get_prompt(db, run_id),
+        lambda: get_prompt(run_id),
     )
     
     log_ids_str = await step.run(
         "initialize_logs",
-        lambda: initialize_logs(db, run_id),
+        lambda: initialize_logs(run_id),
     )
     
     log_ids: dict[StepName, str] = json.loads(log_ids_str)
@@ -67,7 +63,6 @@ async def create_strategy(
     await step.run(
         "start_fetch_projects_data",
         lambda: logs.update(
-            db=db,
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.FETCH_PROJECTS],
             value=None,
@@ -75,7 +70,7 @@ async def create_strategy(
     )
 
     json_projects = await step.run(
-        "fetch_projects_data", lambda: fetch_matching_projects(db, prompt)
+        "fetch_projects_data", lambda: fetch_matching_projects(prompt)
     )
 
     projects = [Project(**json_project) for json_project in json_projects]
@@ -83,7 +78,6 @@ async def create_strategy(
     await step.run(
         "completed_fetch_projects_data",
         lambda: logs.update(
-            db=db,
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.FETCH_PROJECTS],
             value=f"Found {len(projects)} projects related to '{prompt}'",
@@ -93,7 +87,6 @@ async def create_strategy(
     await step.run(
         "start_assess_projects",
         lambda: logs.update(
-            db=db,
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.EVALUATE_PROJECTS],
             value=None,
@@ -108,7 +101,6 @@ async def create_strategy(
     await step.run(
         "completed_assess_projects",
         lambda: logs.update(
-            db=db,
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.EVALUATE_PROJECTS],
             value=f"Evaluated {len(assessed_projects)} projects",
@@ -118,7 +110,6 @@ async def create_strategy(
     await step.run(
         "start_determine_funding",
         lambda: logs.update(
-            db,
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.ANALYZE_FUNDING],
             value=None,
@@ -133,7 +124,6 @@ async def create_strategy(
     await step.run(
         "completed_determine_funding",
         lambda: logs.update(
-            db,
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.ANALYZE_FUNDING],
             value="Determined the relative funding that the best matching projects need",
@@ -143,7 +133,6 @@ async def create_strategy(
     await step.run(
         "start_synthesize_results",
         lambda: logs.update(
-            db,
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],
             value=None
@@ -151,13 +140,12 @@ async def create_strategy(
     )
 
     await step.run(
-        "save_strategy_to_db", lambda: insert_multiple(db, run_id, weighted_projects)
+        "save_strategy_to_db", lambda: insert_multiple(run_id, weighted_projects)
     )
     
     await step.run(
         "completed_synthesize_results",
         lambda: logs.update(
-            db,
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],
             value="Results generated"
