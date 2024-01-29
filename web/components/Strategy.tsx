@@ -100,14 +100,14 @@ export default function Strategy(props: {
   }, [tokens]);
 
   useEffect(() => {
-    if (amount !== "0" && token) {
+    if (amount !== "0") {
       const selectedStrategies = currentStrategy.filter(
         ({ selected }) => selected
       );
       const weights = selectedStrategies.map(
         (strategy) => strategy.weight
       ) as number[];
-      const amounts = distributeWeights(weights, +amount, token.decimals);
+      const amounts = distributeWeights(weights, +amount, 2);
 
       const updatedStrategy = currentStrategy.map((strategy, index) => {
         if (amounts.length >= index) {
@@ -119,7 +119,7 @@ export default function Strategy(props: {
 
       setCurrentStrategy(updatedStrategy);
     }
-  }, [amount, token]);
+  }, [amount]);
 
   return (
     <div className="flex justify-center py-10 flex-grow flex-column">
