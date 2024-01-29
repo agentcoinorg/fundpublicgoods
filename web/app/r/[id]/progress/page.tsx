@@ -1,9 +1,17 @@
 import Logs from "@/components/Logs";
 import TextField from "@/components/TextField";
 import { createSupabaseServerClient } from "@/utils/supabase-server";
+import { getServerSession } from "next-auth";
+import { cookies } from "next/headers";
 
 async function PromptField(props: { runId: string }) {
-  const supabase = createSupabaseServerClient()
+  const session = await getServerSession()
+
+  if (!session) {
+    throw new Error(`User needs to be signed in`)
+  }
+  
+  const supabase = createSupabaseServerClient(cookies(), session.supabaseAccessToken)
 
   const { data: run } = await supabase.from('runs').select(`
     id,

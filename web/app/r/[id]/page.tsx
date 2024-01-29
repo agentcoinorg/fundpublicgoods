@@ -1,13 +1,21 @@
 import Strategy from "@/components/Strategy";
 import { StrategyWithProjects } from "@/components/StrategyTable";
 import { createSupabaseServerClient } from "@/utils/supabase-server";
+import { getServerSession } from "next-auth";
+import { cookies } from "next/headers";
 
 export default async function StrategyPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const supabase = createSupabaseServerClient();
+  const session = await getServerSession()
+
+  if (!session) {
+    throw new Error(`User needs to be signed in`)
+  }
+
+  const supabase = createSupabaseServerClient(cookies(), session.supabaseAccessToken);
 
   // // Fetch the runs for this worker
   const runs = await supabase

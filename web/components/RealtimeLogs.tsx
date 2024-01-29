@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
 import Button from "./Button";
+import { useSession } from "next-auth/react";
 
 const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
   FETCH_PROJECTS: "Search for relevant projects",
@@ -56,7 +57,8 @@ export default function RealtimeLogs(props: {
   }
 }) {
   const [logs, setLogs] = useState<Tables<"logs">[]>(props.logs)
-  const supabase = createSupabaseBrowserClient();
+  const { data: session } = useSession()
+  const supabase = createSupabaseBrowserClient(session?.supabaseAccessToken ?? "");
   const router = useRouter()
 
   const sortedLogsWithSteps = logs.sort((a, b) => {
