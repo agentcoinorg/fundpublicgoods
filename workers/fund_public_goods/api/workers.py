@@ -1,5 +1,7 @@
-from fastapi import APIRouter, HTTPException
+from typing import Optional
+from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
+from supabase.lib.client_options import ClientOptions
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 from fund_public_goods.db import client, tables, entities
@@ -17,14 +19,22 @@ class Response(BaseModel):
 
 
 @router.post("/api/workers")
-async def workers(params: Params) -> Response:
+async def workers(params: Params, authorization: Optional[str] = Header(None)) -> Response:
+    if authorization:
+        supabase_auth_token = authorization.split(" ")[1]
+    else:
+        raise HTTPException(status_code=401, detail="Authorization header missing")
+    
     prompt = params.prompt if params.prompt else ""
 
     if prompt == "":
         raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
 
-    db = client.create_admin()
+    db = client.create(options=ClientOptions())
+    db.postgrest.auth(supabase_auth_token)
+    
     worker_id = tables.workers.insert(db)
+    
     run_id = tables.runs.insert(db, entities.Runs(
         worker_id=worker_id,
         prompt=prompt
