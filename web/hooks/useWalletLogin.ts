@@ -16,7 +16,6 @@ export default function useWalletLogin() {
     const nonce = await getCsrfToken()
 
     try {
-      const callbackUrl = "/protected"
       const message = new SiweMessage({
         domain: window.location.host,
         address,
@@ -33,7 +32,6 @@ export default function useWalletLogin() {
         message: JSON.stringify(message),
         redirect: false,
         signature: signedMessage,
-        callbackUrl,
       })
     } catch (error) {
       console.log(error)

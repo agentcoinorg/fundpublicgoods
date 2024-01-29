@@ -111,6 +111,7 @@ export const authOptions: AuthOptions = {
           }
           return null;
         } catch (e) {
+          console.log(e)
           return null;
         }
       },
@@ -125,6 +126,16 @@ export const authOptions: AuthOptions = {
     strategy: "jwt" as SessionStrategy,
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user && user.address) {
+        return {
+          ...token,
+          address: user.address,
+        };
+      }
+
+      return token;
+    },
     async session({ session, token }) {
       const signingSecret = process.env.SUPABASE_JWT_SECRET;
 
@@ -145,6 +156,7 @@ export const authOptions: AuthOptions = {
 
       session.user = {
         ...session.user,
+        address: token.address as string | undefined,
         id: token.sub,
       };
 
