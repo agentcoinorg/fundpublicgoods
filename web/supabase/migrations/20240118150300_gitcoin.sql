@@ -3,9 +3,9 @@ GRANT USAGE ON SCHEMA indexing TO service_role;
 GRANT ALL ON ALL TABLES IN SCHEMA indexing TO service_role;
 GRANT ALL ON ALL ROUTINES IN SCHEMA indexing TO service_role;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA indexing TO service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON TABLES TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON ROUTINES TO anon, authenticated, service_role;
-ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON TABLES TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON ROUTINES TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA indexing GRANT ALL ON SEQUENCES TO service_role;
 
 create table "indexing"."gitcoin_projects" (
     "id" text not null,
