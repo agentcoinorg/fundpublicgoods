@@ -1,7 +1,10 @@
 import os
+from dotenv import load_dotenv
 from typing import Optional
 from supabase import create_client, Client
 from supabase.lib.client_options import ClientOptions
+
+load_dotenv()
 
 def create(options: ClientOptions = ClientOptions()) -> Client:
     url: str | None = os.environ.get("NEXT_PUBLIC_SUPABASE_URL")

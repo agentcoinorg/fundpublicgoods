@@ -1,10 +1,11 @@
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
+
 from supabase.lib.client_options import ClientOptions
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
-from fund_public_goods.db import tables, entities
+from fund_public_goods.db import client, tables, entities
 
 router = APIRouter()
 
@@ -35,10 +36,10 @@ async def workers(params: Params, authorization: Optional[str] = Header(None)) -
     
     worker_id = tables.workers.insert(db)
     
-    run_id = tables.runs.insert(db, entities.Runs(
+    run_id = tables.runs.insert(entities.Runs(
         worker_id=worker_id,
         prompt=prompt
-    ))
+    ), db)
 
     await inngest_client.send(
         CreateStrategyEvent.Data(
