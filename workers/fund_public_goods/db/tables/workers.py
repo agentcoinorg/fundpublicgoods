@@ -14,7 +14,6 @@ def exists(worker_id: str) -> bool:
 
 
 def insert(db: Client) -> str:
-    db = create_admin()
     id = str(uuid.uuid4())
     db.table("workers").insert({"id": id}).execute()
     return id
