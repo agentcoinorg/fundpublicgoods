@@ -15,7 +15,7 @@ def create(options: ClientOptions = ClientOptions()) -> Client:
     if key is None:
         raise Exception("NEXT_PUBLIC_SUPABASE_ANON_KEY is not set")
 
-    return create_client(url, key)
+    return create_client(url, key, options)
 
 def create_admin(schema: Optional[str] = None) -> Client:
     url: str | None = os.environ.get("NEXT_PUBLIC_SUPABASE_URL")

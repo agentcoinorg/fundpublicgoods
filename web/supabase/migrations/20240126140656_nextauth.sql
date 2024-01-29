@@ -109,7 +109,7 @@ create table "public"."users" (
 
 alter table "public"."users" enable row level security;
 alter table "public"."users" OWNER TO "postgres";
-alter table "public"."workers" add column "user_id" uuid not null;
+alter table "public"."workers" add column "user_id" uuid DEFAULT auth.uid()not null;
 
 CREATE UNIQUE INDEX users_address_key ON public.users USING btree (address);
 CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id);
@@ -119,7 +119,6 @@ alter table "public"."users" add constraint "users_address_key" UNIQUE using ind
 
 alter table "public"."workers" add constraint "workers_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) not valid;
 alter table "public"."workers" validate constraint "workers_user_id_fkey";
-alter table "public"."workers" alter column "user_id" set default auth.uid();
 
 -- Drop old anon-only policies --
 drop policy "anon_logs_table_select_policy" on "public"."logs";
