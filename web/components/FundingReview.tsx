@@ -37,12 +37,12 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     const selectedNetwork = projects[0].network as NetworkId;
     const selectedToken = projects[0].token;
 
-    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(11155111);
+    const networkIndex = Object.values(SUPPORTED_NETWORKS).indexOf(selectedNetwork);
     const networkName = Object.keys(SUPPORTED_NETWORKS)[
       networkIndex
     ] as NetworkName;
     const token = getTokensForNetwork(networkName).find(
-      (t) => t.name == "WETH"
+      (t) => t.name == selectedToken
     );
 
     if (!token) {
@@ -66,8 +66,8 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     }
   }
 
-  const totalAmount = props.entries.reduce((previous, current) => {
-    return previous + Number(current.amount);
+  const totalAmount = props.entries.reduce((acc, x) => {
+    return acc + Number(x.amount);
   }, 0);
 
   return (
@@ -125,7 +125,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
             <div className="flex flex-col">
               <div>Funding {props.entries.length} projects</div>
               <div className="text-[12px] text-slate-500">
-                With a total funding of {totalAmount} USDC
+                With a total funding of {totalAmount.toFixed(2)} USDC
               </div>
             </div>
             <Button onClick={transferFunds}>Submit</Button>

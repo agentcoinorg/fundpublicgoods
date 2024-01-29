@@ -49,46 +49,91 @@ export function redistributeWeightsProportionally(
 ): number[] {
   const currentWeight = weights[index];
   const weightDifference = newWeight - currentWeight;
-  // Filter out the index being modified and any zero weights for redistribution.
-  const redistributableIndexes = weights
-    .map((_, idx) => idx)
-    .filter((idx) => idx !== index && weights[idx] > 0);
-  const totalRedistributableWeight = weights.reduce(
-    (acc, weight, idx) => (idx !== index && weight > 0 ? acc + weight : acc),
+
+  // Calculate the total weight available for redistribution, excluding the index being modified.
+  let totalAvailableForRedistribution = weights.reduce(
+    (acc, weight, idx) => acc + (idx !== index && weight > 0 ? weight : 0),
     0
   );
 
-  // Calculate the adjustment per redistributable weight.
+  // If the new weight is larger than the current, ensure we do not subtract more than what's available.
   let adjustmentPerWeight = 0;
-  if (redistributableIndexes.length > 0 && totalRedistributableWeight > 0) {
-    adjustmentPerWeight = weightDifference / redistributableIndexes.length;
+
+  const validWeightsLength = weights.filter(
+    (w, i) => i !== index && w > 0
+  ).length;
+
+  if (weightDifference > 0 && totalAvailableForRedistribution > 0) {
+    // Calculate how much each redistributable weight should adjust, without going negative.
+    adjustmentPerWeight =
+      Math.min(weightDifference, totalAvailableForRedistribution) /
+      validWeightsLength;
   }
 
-  // Apply adjustments.
+  // Iterate on weights array and modify weights that are greater than 0
   let newWeights = weights.map((weight, idx) => {
     if (idx === index) {
       return newWeight; // Set the new weight for the specified index.
-    } else if (redistributableIndexes.includes(idx)) {
-      // Calculate new weight, ensuring it does not go below zero.
-      let adjustedWeight = weight - adjustmentPerWeight;
-      return Math.max(0, adjustedWeight);
+    } else if (weight > 0) {
+      // Adjust weights proportionally, ensuring they do not go negative.
+      let adjustedWeight = Math.max(0, weight - adjustmentPerWeight);
+      return adjustedWeight;
     }
     return weight; // Leave zero weights as is.
   });
 
-  // Ensure the total sums to 1 by making final adjustments due to rounding.
+  // Recalculate the total to account for any rounding and adjustment errors.
   let totalNewWeights = newWeights.reduce((acc, curr) => acc + curr, 0);
+  // Adjust for any rounding error to ensure the sum of weights equals 1.
   let roundingError = 1 - totalNewWeights;
-
-  // Apply rounding error correction evenly across non-zero weights if necessary.
-  if (roundingError !== 0 && redistributableIndexes.length > 0) {
+  if (roundingError > 0) {
     newWeights = newWeights.map((weight, idx) =>
-      redistributableIndexes.includes(idx)
-        ? weight + roundingError / redistributableIndexes.length
+      idx !== index && weight > 0
+        ? weight + roundingError / validWeightsLength
         : weight
     );
   }
 
-  // Final round to ensure two decimal places, applied to all weights.
-  return newWeights.map((weight) => parseFloat(weight.toFixed(2)));
+  // Ensure the sum of all weights is 1 by applying final adjustments if necessary.
+  totalNewWeights = newWeights.reduce((acc, curr) => acc + curr, 0);
+  roundingError = 1 - totalNewWeights;
+
+  // if rounding error is negative it means that total new weights is bigger than one
+  let differenceAccumulator;
+  if (roundingError < 0) {
+    newWeights = newWeights.map((weight, i) => {
+      if (i !== index && weight > 0 && roundingError != 0) {
+        differenceAccumulator = weight + roundingError;
+        if (differenceAccumulator < 0) {
+          roundingError = differenceAccumulator;
+          return 0;
+        } else {
+          roundingError = 0;
+          return differenceAccumulator;
+        }
+      } else {
+        return weight;
+      }
+    });
+  }
+
+  // if rounding error is positive it means that total weights is less than one
+  if (roundingError > 0) {
+    newWeights = newWeights.map((weight, i) => {
+      if (i !== index && weight > 0 && roundingError != 0) {
+        differenceAccumulator = weight - roundingError;
+        if (differenceAccumulator > 0) {
+          roundingError = 0;
+          return differenceAccumulator;
+        } else {
+          roundingError = differenceAccumulator;
+          return differenceAccumulator;
+        }
+      } else {
+        return weight;
+      }
+    });
+  }
+
+  return newWeights.map((weight) => parseFloat(weight.toFixed(4)));
 }

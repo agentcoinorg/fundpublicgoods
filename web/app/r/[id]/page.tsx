@@ -62,8 +62,8 @@ export default async function StrategyPage({
     };
   });
 
-  const amount = run.data.funding_entries.reduce((previous, current) => {
-    return previous + Number(current.amount);
+  const amount = run.data.funding_entries.reduce((acc, x) => {
+    return acc + Number(x.amount);
   }, 0);
 
   return (

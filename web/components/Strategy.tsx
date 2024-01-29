@@ -58,7 +58,7 @@ export default function Strategy(props: {
   const tokens = network ? getTokensForNetwork(network) : [];
 
   const selectedStrategiesLength = currentStrategy.filter(
-    ({ selected }) => selected
+    (x) => x.selected
   ).length;
 
   async function connect() {
@@ -67,7 +67,7 @@ export default function Strategy(props: {
 
   async function createFundingPlan() {
     const strategies = currentStrategy
-      .filter(({ selected }) => selected)
+      .filter((x) => x.selected)
       .map((strategy) => ({
         // TODO: Check why weight is nullable
         amount: strategy.amount as string,
@@ -75,7 +75,6 @@ export default function Strategy(props: {
         project_id: strategy.project_id,
       }));
 
-    console.log(strategies)
     if (!token) {
       return;
     }
@@ -96,41 +95,29 @@ export default function Strategy(props: {
     strategy: StrategyWithProjects,
     amount: string
   ) => {
-    const selectedStrategies = strategy.filter(({ selected }) => selected);
+    const selectedStrategies = strategy.filter((x) => x.selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
     const amounts = distributeWeights(weights, +amount, 2);
     let amountIndex = 0;
-    return strategy.map(s => {
-      if (s.selected) {
-        const amount = amounts[amountIndex].toFixed(2);
-        amountIndex++;
-        return {
-          ...s,
-          amount,
-        };
-      } else {
-        return  {
-          ...s,
-          amount: undefined
-        };
-      }
-    });
+    return strategy.map(s => ({
+      ...s,
+      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined
+    }));
   };
+
+  function updateWeights() {
+    if (amount !== "0") {
+      setCurrentStrategy((prevStrategy) => {
+        return calculateUpdatedStrategy(prevStrategy, amount);
+      });
+    }
+  }
 
   useEffect(() => {
     if (tokens.length) {
       setToken(tokens[0]);
     }
   }, [tokens]);
-
-  useEffect(() => {
-    if (amount !== "0") {
-      setCurrentStrategy((prevStrategy) => {
-        return calculateUpdatedStrategy(prevStrategy, amount)
-      }
-      );
-    }
-  }, [amount]);
 
   return (
     <div className="flex justify-center py-10 flex-grow flex-column">
@@ -165,6 +152,12 @@ export default function Strategy(props: {
                 />
               }
               value={amount}
+              onBlur={updateWeights}
+              onKeyDown={(event: React.KeyboardEvent) => {
+                if (event.key === "Enter" && amount !== "0") {
+                  updateWeights();
+                }
+              }}
               onChange={(e) => {
                 const newValue = e.target.value;
                 // Allow only numbers with optional single leading zero, and only one decimal point
