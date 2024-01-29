@@ -21,20 +21,6 @@ class StepStatus(str, Enum):
     NOT_STARTED = 'NOT_STARTED'
     
 
-class Applications(BaseModel):
-
-    id: str
-    created_at: int = Field(..., alias="createdAt")
-    recipient: str
-    network: int
-    round: str
-    answers: Optional[Json] = None
-    project_id: str = Field(..., alias="projectId")
-    model_config = ConfigDict(
-        populate_by_name=True
-    )
-
-
 class GitcoinApplications(BaseModel):
 
     id: str
@@ -80,15 +66,30 @@ class GitcoinProjects(BaseModel):
     )
 
 
-class Logs(BaseModel):
+class Applications(BaseModel):
+
+    id: str
+    created_at: int = Field(..., alias="createdAt")
+    recipient: str
+    network: int
+    round: str
+    answers: Optional[Json] = None
+    project_id: str = Field(..., alias="projectId")
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class FundingEntries(BaseModel):
 
     id: Optional[UUID] = None
-    run_id: UUID = Field(..., alias="runId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    ended_at: Optional[datetime.datetime] = Field(default=None, alias="endedAt")
-    status: StepStatus
-    step_name: StepName = Field(..., alias="stepName")
-    value: Optional[str] = None
+    run_id: UUID = Field(..., alias="runId")
+    project_id: str = Field(..., alias="projectId")
+    transaction_id: Optional[str] = Field(default=None, alias="transactionId")
+    amount: str
+    token: str
+    weight: float
 
     model_config = ConfigDict(
         populate_by_name=True
@@ -114,6 +115,21 @@ class Runs(BaseModel):
     worker_id: UUID = Field(..., alias="workerId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
     prompt: str
+
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class Logs(BaseModel):
+
+    id: Optional[UUID] = None
+    run_id: UUID = Field(..., alias="runId")
+    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
+    ended_at: Optional[datetime.datetime] = Field(default=None, alias="endedAt")
+    status: StepStatus
+    step_name: StepName = Field(..., alias="stepName")
+    value: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True

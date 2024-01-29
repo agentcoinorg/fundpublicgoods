@@ -1,14 +1,15 @@
 from typing import Any, Dict
 from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.models.project import Project
-from supabase import Client, PostgrestAPIResponse
+from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
+from fund_public_goods.db.client import create_admin
 
 
 def insert(
-    db: Client,
     row: Projects
 ):
+    db = create_admin()
     db.table("projects").insert({
         "id": row.id,
         "updated_at": row.updated_at,
@@ -18,9 +19,9 @@ def insert(
     }).execute()
 
 def upsert(
-    db: Client,
     row: Projects
 ):
+    db = create_admin()
     db.table("projects").upsert({
         "id": row.id,
         "updated_at": row.updated_at,
@@ -30,9 +31,9 @@ def upsert(
     }).execute()
 
 def get(
-    db: Client,
     project_id: str
 ) -> Projects | None:
+    db = create_admin()
     result = (db.table("projects")
         .select("id", "updated_at", "title", "description", "website")
         .eq("id", project_id)
@@ -51,7 +52,8 @@ def get(
         website=data["website"]
     )
 
-def get_projects(db: Client) -> PostgrestAPIResponse[Dict[str, Any]]:
+def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
+    db = create_admin()
     return (
         db.table("projects")
         .select(
@@ -60,8 +62,8 @@ def get_projects(db: Client) -> PostgrestAPIResponse[Dict[str, Any]]:
         .execute()
     )
 
-def fetch_projects_data(supabase: Client) -> list[Project]:
-    response = get_projects(supabase)
+def fetch_projects_data() -> list[Project]:
+    response = get_projects()
     
     projects: list[Project] = []
 

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from supabase.lib.client_options import ClientOptions
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
-from fund_public_goods.db import client, tables, entities
+from fund_public_goods.db import tables, entities
 
 router = APIRouter()
 

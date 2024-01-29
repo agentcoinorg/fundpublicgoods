@@ -42,111 +42,79 @@ export interface Database {
             foreignKeyName: "applications_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "applications_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
           }
         ]
       }
-      gitcoin_applications: {
+      funding_entries: {
         Row: {
-          created_at: number
-          data: Json
+          amount: string
+          created_at: string
           id: string
-          pointer: string
           project_id: string
-          protocol: number
-          round_id: string
+          run_id: string
+          token: string
+          transaction_id: string | null
+          weight: number
         }
         Insert: {
-          created_at: number
-          data: Json
-          id: string
-          pointer: string
+          amount: string
+          created_at?: string
+          id?: string
           project_id: string
-          protocol: number
-          round_id: string
+          run_id: string
+          token: string
+          transaction_id?: string | null
+          weight: number
         }
         Update: {
-          created_at?: number
-          data?: Json
+          amount?: string
+          created_at?: string
           id?: string
-          pointer?: string
           project_id?: string
-          protocol?: number
-          round_id?: string
+          run_id?: string
+          token?: string
+          transaction_id?: string | null
+          weight?: number
         }
         Relationships: [
           {
-            foreignKeyName: "gitcoin_applications_project_id_fkey"
+            foreignKeyName: "funding_entries_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
-            referencedRelation: "gitcoin_projects"
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "funding_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "funding_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
+          },
+          {
+            foreignKeyName: "funding_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "runs"
             referencedColumns: ["id"]
           }
         ]
-      }
-      gitcoin_indexing_jobs: {
-        Row: {
-          created_at: string
-          error: string | null
-          id: string
-          is_failed: boolean
-          is_running: boolean
-          last_updated_at: string
-          network_id: number
-          skip_projects: number
-          skip_rounds: number
-          url: string
-        }
-        Insert: {
-          created_at?: string
-          error?: string | null
-          id?: string
-          is_failed?: boolean
-          is_running?: boolean
-          last_updated_at?: string
-          network_id: number
-          skip_projects?: number
-          skip_rounds?: number
-          url: string
-        }
-        Update: {
-          created_at?: string
-          error?: string | null
-          id?: string
-          is_failed?: boolean
-          is_running?: boolean
-          last_updated_at?: string
-          network_id?: number
-          skip_projects?: number
-          skip_rounds?: number
-          url?: string
-        }
-        Relationships: []
-      }
-      gitcoin_projects: {
-        Row: {
-          created_at: string
-          data: Json
-          id: string
-          pointer: string
-          protocol: number
-        }
-        Insert: {
-          created_at?: string
-          data: Json
-          id: string
-          pointer: string
-          protocol: number
-        }
-        Update: {
-          created_at?: string
-          data?: Json
-          id?: string
-          pointer?: string
-          protocol?: number
-        }
-        Relationships: []
       }
       logs: {
         Row: {
@@ -177,6 +145,13 @@ export interface Database {
           value?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "logs_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
+          },
           {
             foreignKeyName: "logs_run_id_fkey"
             columns: ["run_id"]
@@ -275,8 +250,22 @@ export interface Database {
             foreignKeyName: "strategy_entries_project_id_fkey"
             columns: ["project_id"]
             isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["project_id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
             referencedRelation: "projects"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "strategy_entries_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "funding_entries_view"
+            referencedColumns: ["run_id"]
           },
           {
             foreignKeyName: "strategy_entries_run_id_fkey"
@@ -304,7 +293,19 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      funding_entries_view: {
+        Row: {
+          amount: string | null
+          description: string | null
+          network: number | null
+          project_id: string | null
+          recipient: string | null
+          run_id: string | null
+          title: string | null
+          token: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

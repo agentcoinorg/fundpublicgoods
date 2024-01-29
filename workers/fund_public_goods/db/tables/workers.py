@@ -1,8 +1,9 @@
-from supabase import Client
+from fund_public_goods.db.client import create, create_admin
 import uuid
 
 
-def exists(db: Client, worker_id: str) -> bool:
+def exists(worker_id: str) -> bool:
+    db = create()
     try:
         worker = db.table('workers').select('id').eq('id', worker_id).execute()
         if (worker.error):
@@ -12,7 +13,8 @@ def exists(db: Client, worker_id: str) -> bool:
         return False
 
 
-def insert(db: Client) -> str:
+def insert() -> str:
+    db = create_admin()
     id = str(uuid.uuid4())
     db.table("workers").insert({"id": id}).execute()
     return id
