@@ -81,11 +81,6 @@ export function redistributeWeightsProportionally(
   let roundingError = 1 - totalNewWeights;
 
   // Apply rounding error correction evenly across non-zero weights if necessary.
-  //   console.log(newWeights.reduce((acc, current) => {
-  //     return acc + current
-  //   }, 0))
-  console.log(totalNewWeights);
-  console.log(roundingError);
   if (roundingError !== 0 && redistributableIndexes.length > 0) {
     newWeights = newWeights.map((weight, idx) =>
       redistributableIndexes.includes(idx)
@@ -94,14 +89,6 @@ export function redistributeWeightsProportionally(
     );
   }
 
-  console.log(
-    newWeights.reduce((acc, current) => {
-      return acc + current;
-    }, 0)
-  );
-  console.log(
-    newWeights.map((weight) => parseFloat(weight.toFixed(2)))
-  )
   // Final round to ensure two decimal places, applied to all weights.
   return newWeights.map((weight) => parseFloat(weight.toFixed(2)));
 }
