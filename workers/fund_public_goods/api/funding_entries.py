@@ -1,4 +1,4 @@
-from fund_public_goods.db.tables.funding_entries import FundingEntries, insert_multiple
+from fund_public_goods.db.tables.funding_entries import FundingEntryData, insert_multiple
 from fund_public_goods.db import client, tables
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -32,7 +32,7 @@ async def funding_entries(run_id: str, body: Body) -> Response:
 
     funding_entries = []
     for strategy in body.strategies:
-        entry = FundingEntries(
+        entry = FundingEntryData(
             project_id=strategy.project_id,
             amount=strategy.amount,
             token=body.token,
