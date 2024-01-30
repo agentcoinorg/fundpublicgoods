@@ -6,27 +6,37 @@ import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
+import ProgressBar from "./ProgressBar";
 import Button from "./Button";
 
-const UNSTARTED_TEXTS: Record<Tables<"logs">["step_name"], string> = {
+type StepName = Tables<"logs">["step_name"];
+
+const UNSTARTED_TEXTS: Record<StepName, string> = {
   FETCH_PROJECTS: "Search for relevant projects",
   EVALUATE_PROJECTS: "Evaluate proof of impact",
   ANALYZE_FUNDING: "Analyze funding needs",
   SYNTHESIZE_RESULTS: "Synthesize results",
 }
 
-const LOADING_TEXTS: Record<Tables<"logs">["step_name"], string> = {
+const LOADING_TEXTS: Record<StepName, string> = {
   FETCH_PROJECTS: "Searching for relevant projects...",
   EVALUATE_PROJECTS: "Evaluating proof of impact...",
   ANALYZE_FUNDING: "Analyzing funding needs...",
   SYNTHESIZE_RESULTS: "Synthesizing results...",
 }
 
-const STEPS_ORDER: Record<Tables<"logs">["step_name"], number> = {
+const STEPS_ORDER: Record<StepName, number> = {
   FETCH_PROJECTS: 1,
   EVALUATE_PROJECTS: 2,
   ANALYZE_FUNDING: 3,
   SYNTHESIZE_RESULTS: 4,
+}
+
+const STEP_TIME_ESTS: Record<StepName, number> = {
+  FETCH_PROJECTS: 60,
+  EVALUATE_PROJECTS: 25,
+  ANALYZE_FUNDING: 20,
+  SYNTHESIZE_RESULTS: 15
 }
 
 const getLogMessage = (log: Tables<"logs">) => {
@@ -111,10 +121,21 @@ export default function RealtimeLogs(props: {
     };
   }, [supabase, props.run.id]);
 
+  const totalSteps = sortedLogsWithSteps.length;
+  const stepTimes = sortedLogsWithSteps.map((x) => STEP_TIME_ESTS[x.step_name]);
+  let currentStep = sortedLogsWithSteps.findIndex((x) => x.status === "IN_PROGRESS");
+
+  if (currentStep < 0) {
+    currentStep = sortedLogsWithSteps[totalSteps - 1].status === "COMPLETED" ?
+      totalSteps + 1 :
+      0;
+  }
+
   return (
     <>
       <div className="flex flex-col gap-4">
         <p>Results:</p>
+        <ProgressBar stepTimes={stepTimes} curStep={currentStep} className={"!stroke-indigo-500 text-indigo-200 rounded-lg"} />
         <div className="flex flex-col gap-2">
           { sortedLogsWithSteps.map(log => (
             <div key={log.id} className={clsx(
