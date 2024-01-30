@@ -1,9 +1,9 @@
 import Logs from "@/components/Logs";
 import TextField from "@/components/TextField";
-import { createSupabaseServerClient } from "@/utils/supabase-server";
+import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
 async function PromptField(props: { runId: string }) {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClientWithSession()
 
   const { data: run } = await supabase.from('runs').select(`
     id,

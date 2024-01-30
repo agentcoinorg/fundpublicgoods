@@ -1,22 +1,14 @@
 import { Database } from "@/supabase/dbTypes";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
-import { authOptions } from "./authOptions";
 
-export const createSupabaseServerClient = (
-  cookieStore: ReturnType<typeof cookies>,
-  supabaseAccessToken: string
+export const createSupabaseAdminClient = (
+  cookieStore: ReturnType<typeof cookies>
 ) => {
-  const client = createServerClient<Database>(
+  return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
-      global: {
-        headers: {
-          Authorization: `Bearer ${supabaseAccessToken}`,
-        },
-      },
       cookies: {
         get(name: string) {
           return cookieStore.get(name)?.value;
@@ -42,20 +34,4 @@ export const createSupabaseServerClient = (
       },
     }
   );
-
-  // https://stackoverflow.com/questions/76649583
-  client.realtime.setAuth(supabaseAccessToken)
-  client.functions.setAuth(supabaseAccessToken);
-  (client as any).rest.headers.Authorization = `Bearer ${supabaseAccessToken}`
-  return client
 };
-
-export const createSupabaseServerClientWithSession = async () => {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    throw new Error(`User needs to have a session`)
-  }
-
-  return createSupabaseServerClient(cookies(), session.supabaseAccessToken)
-}

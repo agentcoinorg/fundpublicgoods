@@ -1,10 +1,9 @@
 import uuid
 from fund_public_goods.db.entities import Runs
-from fund_public_goods.db.client import create, create_admin
+from fund_public_goods.db.client import create, create_admin, Client
 
 
-def insert(row: Runs) -> str:
-    db = create_admin()
+def insert(row: Runs, db: Client = create_admin()) -> str:
     id = str(uuid.uuid4())
     db.table("runs").insert({
         "id": id,

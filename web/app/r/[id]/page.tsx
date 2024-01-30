@@ -1,13 +1,13 @@
 import Strategy from "@/components/Strategy";
 import { StrategyWithProjects } from "@/components/StrategyTable";
-import { createSupabaseServerClient } from "@/utils/supabase-server";
+import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
 export default async function StrategyPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClientWithSession()
 
   // Fetch the runs for this worker
   const run = await supabase

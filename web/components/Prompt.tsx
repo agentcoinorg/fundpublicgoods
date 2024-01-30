@@ -1,13 +1,12 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
-import TextField from "./TextField";
-import ChatInputButton from "./ChatInputButton";
+import { useState } from "react";
 import { SparkleIcon } from "./Icons";
 import { startWorker } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "./LoadingCircle";
 import PromptInput from "./PromptInput";
+import useSession from "@/hooks/useSession";
 
 const PROMPT_SUGESTIONS = [
   "Ethereum infrastructure",
@@ -22,13 +21,18 @@ const PROMPT_SUGESTIONS = [
 export default function Prompt() {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
+  const { data: session } = useSession()
 
   const router = useRouter();
 
   const sendPrompt = async (prompt: string) => {
     setIsWaiting(true);
     try {
-      const response = await startWorker(prompt);
+      if (!session) {
+        throw new Error("User needs to have a session")
+      }
+
+      const response = await startWorker(prompt, session.supabaseAccessToken);
       router.push(`/r/${response.runId}/progress`)
     } finally {
       setIsWaiting(false);
@@ -59,6 +63,7 @@ export default function Prompt() {
                 isWaiting={isWaiting}
                 sendPrompt={sendPrompt}
                 prompt={prompt}
+                disabled={!session}
               />
             </div>
             <div className='space-y-4'>
@@ -70,6 +75,7 @@ export default function Prompt() {
                   <div key={index}>
                     <button
                       className='text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300'
+                      disabled={!session}
                       onClick={async () => {
                         setPrompt(suggestion);
                         await sendPrompt(suggestion);
