@@ -40,6 +40,11 @@ custom:
 functions:
   fund-public-goods:
     handler: fund_public_goods.main.handler
+    package:
+      exclude:
+        - ./**
+      include:
+        - ./fund_public_goods/**
     layers:
       - { Ref: PythonRequirementsLambdaLayer }
     events:
