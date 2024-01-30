@@ -4,7 +4,10 @@ import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import { redistributeWeights } from "@/utils/distributeWeights";
+import {
+  applyUserWeight,
+  redistributeWeights,
+} from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 
 export type StrategyEntry = Tables<"strategy_entries">;
@@ -65,7 +68,7 @@ export function StrategyTable(props: StrategyTableProps) {
 
   function handleSelectProject(
     e: ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) {
     const isSelected = e.target.checked;
     const selectedWeights = props.strategy.map((s, i) =>
@@ -89,7 +92,38 @@ export function StrategyTable(props: StrategyTableProps) {
     props.modifyStrategy(newStrategy);
   }
 
-  function handleWeightUpdate(value: string, index: number) {}
+  function handleWeightUpdate(value: string, index: number) {
+    const weights = defaultWeights.map((w, i) => {
+      if (props.strategy[i].selected) {
+        return w * 100
+      } else {
+        return 0
+      }
+    });
+    const overwrites = props.strategy.map((s) => {
+      if (s.selected) {
+        return (s.weight as number) * 100;
+      } else {
+        return 0
+      }
+    });
+    const newPercentages = applyUserWeight(weights, overwrites, {
+      percentage: +value,
+      index,
+    });
+    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
+    console.log(newPercentages);
+    const newStrategy = props.strategy.map((s, i) => {
+      const weight = +newPercentages[i].toFixed(2) / 100;
+      const amount = +props.totalAmount * weight;
+      return {
+        ...s,
+        weight,
+        amount: props.totalAmount ? amount.toFixed(2) : undefined,
+      };
+    });
+    props.modifyStrategy(newStrategy);
+  }
 
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
@@ -119,9 +153,7 @@ export function StrategyTable(props: StrategyTableProps) {
               <TextField
                 type="checkbox"
                 checked={entry.selected}
-                onChange={(e) =>
-                  handleSelectProject(e, index)
-                }
+                onChange={(e) => handleSelectProject(e, index)}
               />
             </td>
             <td className="min-w-6/12 w-full">
