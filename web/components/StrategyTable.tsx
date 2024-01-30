@@ -5,7 +5,7 @@ import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
 import { redistributeWeightsProportionally } from "@/utils/distributeWeights";
-import { ChangeEvent, FocusEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
@@ -32,6 +32,7 @@ export function StrategyTable(props: StrategyTableProps) {
     )
   );
 
+  const defaultWeights = props.strategy.map(s => s.defaultWeight)
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
 
@@ -83,6 +84,7 @@ export function StrategyTable(props: StrategyTableProps) {
         ...s,
         weight: index === i ? 1 : 0,
         selected: index === i,
+        amount: index === i && props.totalAmount ? Number(props.totalAmount).toFixed(2) : undefined
       }));
       setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
       props.modifyStrategy(newStrategy);
@@ -95,6 +97,7 @@ export function StrategyTable(props: StrategyTableProps) {
         ...s,
         weight: s.defaultWeight,
         selected: true,
+        amount: props.totalAmount ? (+props.totalAmount * s.defaultWeight).toFixed(2) : undefined
       }));
       setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
       props.modifyStrategy(newStrategy);
@@ -152,6 +155,7 @@ export function StrategyTable(props: StrategyTableProps) {
     });
     props.modifyStrategy(newStrategy);
   }
+
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
       <thead>
