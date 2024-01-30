@@ -27,26 +27,21 @@ provider:
 custom:
   pythonRequirements:
     dockerizePip: true
-    layer:
-      name: fund-public-goods-deps
-      description: Dependencies of fund-public-goods
-      compatibleRuntimes:
-        - python3.10
+    slim: true
+    zip: true
+
   customDomain:
     domainName: api.dev.fundpublicgoods.ai
     certificateName: api.dev.fundpublicgoods.ai
     createRoute53Record: true
 
 functions:
-  fund-public-goods:
+  main:
     handler: fund_public_goods.main.handler
     package:
-      exclude:
-        - ./**
-      include:
-        - ./fund_public_goods/**
-    layers:
-      - { Ref: PythonRequirementsLambdaLayer }
+      patterns:
+        - '!**'
+        - 'fund_public_goods/**'
     events:
       - http:
           path: /{path+}
