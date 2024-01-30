@@ -111,7 +111,7 @@ export const authOptions: AuthOptions = {
           }
           return null;
         } catch (e) {
-          console.log(e)
+          console.error(e)
           return null;
         }
       },
