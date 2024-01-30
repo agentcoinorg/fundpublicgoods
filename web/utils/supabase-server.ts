@@ -1,6 +1,8 @@
 import { Database } from "@/supabase/dbTypes";
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
+import { authOptions } from "./authOptions";
 
 export const createSupabaseServerClient = (
   cookieStore: ReturnType<typeof cookies>,
@@ -47,3 +49,13 @@ export const createSupabaseServerClient = (
   (client as any).rest.headers.Authorization = `Bearer ${supabaseAccessToken}`
   return client
 };
+
+export const createSupabaseServerClientWithSession = async () => {
+  const session = await getServerSession(authOptions)
+
+  if (!session) {
+    throw new Error(`User needs to have a session`)
+  }
+
+  return createSupabaseServerClient(cookies(), session.supabaseAccessToken)
+}
