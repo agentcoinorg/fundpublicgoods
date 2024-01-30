@@ -4,7 +4,7 @@ import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import { redistributeWeightsProportionally } from "@/utils/distributeWeights";
+import { redistributeWeights } from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 
 export type StrategyEntry = Tables<"strategy_entries">;
@@ -32,7 +32,7 @@ export function StrategyTable(props: StrategyTableProps) {
     )
   );
 
-  const defaultWeights = props.strategy.map(s => s.defaultWeight)
+  const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
 
@@ -66,49 +66,13 @@ export function StrategyTable(props: StrategyTableProps) {
   function handleSelectProject(
     e: ChangeEvent<HTMLInputElement>,
     index: number,
-    entry: {
-      selected: boolean;
-      weight: number;
-      defaultWeight: number;
-    }
   ) {
     const isSelected = e.target.checked;
-    const currentWeights = props.strategy.map((entry, i) => {
-      const strategySelected = (index == i && isSelected) || entry.selected;
-      return strategySelected ? (entry.weight as number) : 0;
-    });
-
-    const allWeightsAreZero = currentWeights.filter((c) => c === 0).length === props.strategy.length;
-    if (isSelected && allWeightsAreZero) {
-      const newStrategy = props.strategy.map((s, i) => ({
-        ...s,
-        weight: index === i ? 1 : 0,
-        selected: index === i,
-        amount: index === i && props.totalAmount ? Number(props.totalAmount).toFixed(2) : undefined
-      }));
-      setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
-      props.modifyStrategy(newStrategy);
-      return;
-    }
-
-    const isSelectingAllWeights = isSelected && currentWeights.filter((c) => c !== 0).length === props.strategy.length - 1
-    if (isSelectingAllWeights) {
-      const newStrategy = props.strategy.map((s) => ({
-        ...s,
-        weight: s.defaultWeight,
-        selected: true,
-        amount: props.totalAmount ? (+props.totalAmount * s.defaultWeight).toFixed(2) : undefined
-      }));
-      setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
-      props.modifyStrategy(newStrategy);
-      return;
-    }
-
-    const newWeights = redistributeWeightsProportionally(
-      currentWeights,
-      index,
-      isSelected ? entry.defaultWeight : 0
+    const selectedWeights = props.strategy.map((s, i) =>
+      i === index ? isSelected : s.selected
     );
+    const newWeights = redistributeWeights(defaultWeights, selectedWeights);
+
     setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
     const newStrategy = props.strategy.map((s, i) => {
       const amount = +props.totalAmount * newWeights[i];
@@ -125,36 +89,7 @@ export function StrategyTable(props: StrategyTableProps) {
     props.modifyStrategy(newStrategy);
   }
 
-  function handleWeightUpdate(value: string, index: number) {
-    const currentValue = +value;
-    if (isNaN(currentValue) || currentValue > 100 || currentValue < 0) {
-      setFormattedWeights(
-        props.strategy.map(({ weight }) => ((weight || 0) * 100).toFixed(2))
-      );
-      return;
-    }
-    const currentWeights = props.strategy.map((entry) => {
-      return entry.selected ? (entry.weight as number) : 0;
-    });
-    const newWeights = redistributeWeightsProportionally(
-      currentWeights,
-      index,
-      parseFloat(value) / 100
-    );
-
-    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
-    const newStrategy = props.strategy.map((s, i) => {
-      const amount = +props.totalAmount * newWeights[i];
-      const isSelected = newWeights[i] > 0;
-      return {
-        ...s,
-        weight: newWeights[i],
-        amount: props.totalAmount && s.selected ? amount.toFixed(2) : undefined,
-        selected: isSelected,
-      };
-    });
-    props.modifyStrategy(newStrategy);
-  }
+  function handleWeightUpdate(value: string, index: number) {}
 
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
@@ -185,11 +120,7 @@ export function StrategyTable(props: StrategyTableProps) {
                 type="checkbox"
                 checked={entry.selected}
                 onChange={(e) =>
-                  handleSelectProject(e, index, {
-                    selected: entry.selected,
-                    weight: entry.weight as number,
-                    defaultWeight: entry.defaultWeight,
-                  })
+                  handleSelectProject(e, index)
                 }
               />
             </td>
