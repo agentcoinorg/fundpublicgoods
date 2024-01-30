@@ -76,6 +76,31 @@ export function StrategyTable(props: StrategyTableProps) {
       const strategySelected = (index == i && isSelected) || entry.selected;
       return strategySelected ? (entry.weight as number) : 0;
     });
+
+    const allWeightsAreZero = currentWeights.filter((c) => c === 0).length === props.strategy.length;
+    if (isSelected && allWeightsAreZero) {
+      const newStrategy = props.strategy.map((s, i) => ({
+        ...s,
+        weight: index === i ? 1 : 0,
+        selected: index === i,
+      }));
+      setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
+      props.modifyStrategy(newStrategy);
+      return;
+    }
+
+    const isSelectingAllWeights = isSelected && currentWeights.filter((c) => c !== 0).length === props.strategy.length - 1
+    if (isSelectingAllWeights) {
+      const newStrategy = props.strategy.map((s) => ({
+        ...s,
+        weight: s.defaultWeight,
+        selected: true,
+      }));
+      setFormattedWeights(newStrategy.map((s) => (s.weight * 100).toFixed(2)));
+      props.modifyStrategy(newStrategy);
+      return;
+    }
+
     const newWeights = redistributeWeightsProportionally(
       currentWeights,
       index,

@@ -76,8 +76,7 @@ export function redistributeWeightsProportionally(
       return newWeight; // Set the new weight for the specified index.
     } else if (weight > 0) {
       // Adjust weights proportionally, ensuring they do not go negative.
-      let adjustedWeight = Math.max(0, weight - adjustmentPerWeight);
-      return adjustedWeight;
+      return Math.max(0, weight - adjustmentPerWeight);
     }
     return weight; // Leave zero weights as is.
   });
