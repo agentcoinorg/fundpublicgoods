@@ -1,3 +1,8 @@
+try:
+  import unzip_requirements # type: ignore
+except ImportError:
+  pass
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
