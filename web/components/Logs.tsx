@@ -1,10 +1,10 @@
 "use server"
 
-import { createSupabaseServerClient } from "@/utils/supabase-server";
+import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 import RealtimeLogs from "./RealtimeLogs";
 
 export default async function Logs(props: { runId: string }) {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClientWithSession()
 
   const { data: run } = await supabase.from('runs').select(`
     id,

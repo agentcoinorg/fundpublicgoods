@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import LoadingCircle from "./LoadingCircle";
 import ProgressBar from "./ProgressBar";
 import Button from "./Button";
+import useSession from "@/hooks/useSession";
 
 type StepName = Tables<"logs">["step_name"];
 
@@ -53,6 +54,11 @@ const checkIfFinished = (logs: Tables<"logs">[]) => {
     return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
   })
   const lastStep = sortedLogs.slice(-1)[0];
+
+  if (!lastStep) {
+    return false
+  }
+
   const isFinished = lastStep.status === "COMPLETED" && lastStep.step_name === "SYNTHESIZE_RESULTS"
 
   return isFinished
@@ -66,7 +72,8 @@ export default function RealtimeLogs(props: {
   }
 }) {
   const [logs, setLogs] = useState<Tables<"logs">[]>(props.logs)
-  const supabase = createSupabaseBrowserClient();
+  const { data: session } = useSession()
+  const supabase = createSupabaseBrowserClient(session?.supabaseAccessToken ?? "");
   const router = useRouter()
 
   const sortedLogsWithSteps = logs.sort((a, b) => {

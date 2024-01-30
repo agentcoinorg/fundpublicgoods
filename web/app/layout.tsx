@@ -5,6 +5,7 @@ import "./globals.css";
 import WalletProvider from "./WalletProvider";
 import Main from "./main";
 import { Logo } from "@/components/Logo";
+import AuthProvider from "@/components/Providers";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -54,11 +55,13 @@ export default function RootLayout({
     <html lang='en'>
       <body className={sans.className}>
         <WalletProvider>
-          <Main>
-            <Header />
-            {children}
-            <Footer />
-          </Main>
+          <AuthProvider>
+            <Main>
+              <Header />
+              {children}
+              <Footer />
+            </Main>
+          </AuthProvider>
         </WalletProvider>
       </body>
     </html>

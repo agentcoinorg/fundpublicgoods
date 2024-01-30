@@ -6,7 +6,8 @@ interface StartWorkerResponse {
 }
 
 export const startWorker = async (
-  prompt: string
+  prompt: string,
+  supabaseAccessToken: string
 ): Promise<StartWorkerResponse> => {
   const response = await fetch(`${process.env.WORKERS_URL}/api/workers`, {
     cache: "no-cache",
@@ -14,6 +15,7 @@ export const startWorker = async (
     body: JSON.stringify({ prompt }),
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${supabaseAccessToken}`
     },
   });
 
@@ -38,7 +40,8 @@ interface RegenerateRunResponse {
 
 export const regenerateStrategy = async (
   prompt: string,
-  workerId: string
+  workerId: string,
+  supabaseAccessToken: string
 ): Promise<RegenerateRunResponse> => {
   const response = await fetch(
     `${process.env.WORKERS_URL}/api/workers/${workerId}/runs`,
@@ -48,6 +51,7 @@ export const regenerateStrategy = async (
       body: JSON.stringify({ prompt }),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${supabaseAccessToken}`
       },
     }
   );
