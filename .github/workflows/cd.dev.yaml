@@ -3,7 +3,7 @@ name: CD Dev
 on:
   push: 
     branches:
-      - main
+      - release/dev
 
 jobs:
   Deploy-Dev:
@@ -59,6 +59,7 @@ jobs:
           DEV_NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_URL }}
           DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           DEV_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
+          DEV_OPENAI_API_KEY: ${{ secrets.DEV_OPENAI_API_KEY}}
 
       - uses: supabase/setup-cli@v1
         with:

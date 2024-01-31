@@ -15,7 +15,6 @@ import {
   TokenInformation,
   getSupportedNetworkFromWallet,
   getTokensForNetwork,
-  splitTransferFunds,
 } from "@/utils/ethereum";
 import useWalletLogin from "@/hooks/useWalletLogin";
 import useSession from "@/hooks/useSession";
@@ -44,13 +43,14 @@ export default function Strategy(props: {
   strategy: StrategyWithProjects;
   prompt: string;
   runId: string;
+  amount: string;
 }) {
   const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
     props.strategy
   );
   const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
-  const [amount, setAmount] = useState<string>("0");
+  const [amount, setAmount] = useState<string>(props.amount);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin()
   const router = useRouter();
@@ -58,12 +58,10 @@ export default function Strategy(props: {
   const network: NetworkName | undefined =
     getSupportedNetworkFromWallet(wallet);
 
-  console.log("network", network);
-
   const tokens = network ? getTokensForNetwork(network) : [];
 
   const selectedStrategiesLength = currentStrategy.filter(
-    ({ selected }) => selected
+    (x) => x.selected
   ).length;
 
   async function connect() {
@@ -73,7 +71,7 @@ export default function Strategy(props: {
 
   async function createFundingPlan() {
     const strategies = currentStrategy
-      .filter(({ selected }) => selected)
+      .filter((x) => x.selected)
       .map((strategy) => ({
         // TODO: Check why weight is nullable
         amount: strategy.amount as string,
@@ -97,33 +95,33 @@ export default function Strategy(props: {
     // TODO: Attach current prompt with regenerate action
   }
 
+  const calculateUpdatedStrategy = (
+    strategy: StrategyWithProjects,
+    amount: string
+  ) => {
+    const selectedStrategies = strategy.filter((x) => x.selected);
+    const weights = selectedStrategies.map((s) => s.weight) as number[];
+    const amounts = distributeWeights(weights, +amount, 2);
+    let amountIndex = 0;
+    return strategy.map(s => ({
+      ...s,
+      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined
+    }));
+  };
+
+  function updateWeights() {
+    if (amount !== "0") {
+      setCurrentStrategy((prevStrategy) => {
+        return calculateUpdatedStrategy(prevStrategy, amount);
+      });
+    }
+  }
+
   useEffect(() => {
     if (tokens.length) {
       setToken(tokens[0]);
     }
   }, [tokens]);
-
-  useEffect(() => {
-    if (amount !== "0") {
-      const selectedStrategies = currentStrategy.filter(
-        ({ selected }) => selected
-      );
-      const weights = selectedStrategies.map(
-        (strategy) => strategy.weight
-      ) as number[];
-      const amounts = distributeWeights(weights, +amount, 2);
-
-      const updatedStrategy = currentStrategy.map((strategy, index) => {
-        if (amounts.length >= index) {
-          strategy.amount = amounts[index].toFixed(2);
-        }
-
-        return strategy;
-      });
-
-      setCurrentStrategy(updatedStrategy);
-    }
-  }, [amount]);
 
   return (
     <div className="flex justify-center py-10 flex-grow flex-column">
@@ -158,6 +156,12 @@ export default function Strategy(props: {
                 />
               }
               value={amount}
+              onBlur={updateWeights}
+              onKeyDown={(event: React.KeyboardEvent) => {
+                if (event.key === "Enter" && amount !== "0") {
+                  updateWeights();
+                }
+              }}
               onChange={(e) => {
                 const newValue = e.target.value;
                 // Allow only numbers with optional single leading zero, and only one decimal point
@@ -177,6 +181,7 @@ export default function Strategy(props: {
           <StrategyTable
             strategy={currentStrategy}
             modifyStrategy={setCurrentStrategy}
+            totalAmount={amount}
           />
         </div>
         {!wallet ? (
@@ -194,7 +199,7 @@ export default function Strategy(props: {
           />
         ) : (
           <Information
-            title={`Funding ${currentStrategy.length} ${pluralize(
+            title={`Funding ${selectedStrategiesLength} ${pluralize(
               ["project", "projects"],
               selectedStrategiesLength
             )}`}
