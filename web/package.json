@@ -23,17 +23,19 @@
     "clsx": "^2.1.0",
     "ethers": "5.7.2",
     "jsonwebtoken": "^9.0.2",
-    "siwe": "^2.1.4",
     "next": "14.0.4",
     "next-auth": "4.24.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "siwe": "^2.1.4",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.12",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "10.0.1",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
