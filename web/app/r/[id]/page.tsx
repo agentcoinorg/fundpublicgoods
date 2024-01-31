@@ -9,13 +9,11 @@ export default async function StrategyPage({
 }) {
   const supabase = await createSupabaseServerClientWithSession()
 
-  // Fetch the runs for this worker
   const run = await supabase
     .from("runs")
     .select(
       `
       id,
-      worker_id,
       created_at,
       prompt,
       strategy_entries(

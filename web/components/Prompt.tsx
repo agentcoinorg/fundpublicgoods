@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { SparkleIcon } from "./Icons";
-import { startWorker } from "@/app/actions";
 import { useRouter } from "next/navigation";
 import LoadingCircle from "./LoadingCircle";
 import PromptInput from "./PromptInput";
 import useSession from "@/hooks/useSession";
+import { startRun } from "@/app/actions";
 
 const PROMPT_SUGESTIONS = [
   "Ethereum infrastructure",
@@ -32,7 +32,7 @@ export default function Prompt() {
         throw new Error("User needs to have a session")
       }
 
-      const response = await startWorker(prompt, session.supabaseAccessToken);
+      const response = await startRun(prompt, session.supabaseAccessToken);
       router.push(`/r/${response.runId}/progress`)
     } finally {
       setIsWaiting(false);
