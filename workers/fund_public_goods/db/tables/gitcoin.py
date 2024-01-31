@@ -24,7 +24,9 @@ def upsert_project(project: GitcoinProjects, created_at: int):
         updated_at=created_at,
         title=project.data["title"],
         description=project.data["description"],
-        website=project.data["website"]
+        website=project.data["website"],
+        twitter=project.data["projectTwitter"],
+        logo=project.data["logoImg"],
     )
 
     if result == None:
