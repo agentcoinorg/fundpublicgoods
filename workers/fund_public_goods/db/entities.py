@@ -103,6 +103,8 @@ class Projects(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
+    twitter: Optional[str] = None
+    logo: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True
