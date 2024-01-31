@@ -14,6 +14,7 @@ alter table "public"."runs" drop column "worker_id";
 alter table "public"."runs" add column "user_id" uuid not null;
 alter table "public"."runs" add constraint "runs_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) not valid;
 alter table "public"."runs" validate constraint "runs_user_id_fkey";
+alter table "public"."runs" alter column "user_id" set default auth.uid();
 
 create policy "Users can only insert runs of their own"
 on "public"."runs"
