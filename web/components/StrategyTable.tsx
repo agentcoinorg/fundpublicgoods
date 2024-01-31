@@ -110,12 +110,9 @@ export function StrategyTable(props: StrategyTableProps) {
     }
 
     const weights = props.strategy.map((w) => {
-      if (w.selected) {
-        return w.defaultWeight * 100;
-      } else {
-        return 0;
-      }
+      return w.selected ? w.defaultWeight * 100 : 0;
     });
+
     const newPercentages = applyUserWeight(weights, {
       percentage: numberValue,
       index,
@@ -128,6 +125,7 @@ export function StrategyTable(props: StrategyTableProps) {
         ...s,
         amount: props.totalAmount ? amount.toFixed(2) : undefined,
         weight,
+        selected: !(weight === 0),
       };
     });
     props.modifyStrategy(newStrategy);
