@@ -32,7 +32,7 @@ def remove_duplicate_projects(projects: list[Project]) -> list[Project]:
 
     return unique_projects
 
-def adjust_weights(weights: list[int]) -> list[int]:
+def adjust_weights(weights: list[float]) -> list[float]:
     # Adjust initial weights to make their sum equal to target_sum
     excess = (sum(weights) - 1.0) / len(weights)
     adjusted_weights = [weight - excess for weight in weights]
