@@ -165,21 +165,27 @@ export interface Database {
         Row: {
           description: string | null
           id: string
+          logo: string | null
           title: string | null
+          twitter: string | null
           updated_at: number
           website: string | null
         }
         Insert: {
           description?: string | null
           id: string
+          logo?: string | null
           title?: string | null
+          twitter?: string | null
           updated_at: number
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
+          logo?: string | null
           title?: string | null
+          twitter?: string | null
           updated_at?: number
           website?: string | null
         }
@@ -276,20 +282,52 @@ export interface Database {
           }
         ]
       }
+      users: {
+        Row: {
+          address: string | null
+          created_at: string
+          id: string
+          is_anon: boolean
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          is_anon: boolean
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          id?: string
+          is_anon?: boolean
+        }
+        Relationships: []
+      }
       workers: {
         Row: {
           created_at: string
           id: string
+          user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
+          user_id?: string
         }
         Update: {
           created_at?: string
           id?: string
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "workers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {
