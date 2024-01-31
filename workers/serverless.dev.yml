@@ -27,7 +27,6 @@ provider:
 custom:
   pythonRequirements:
     dockerizePip: true
-    slim: true
     zip: true
 
   customDomain:
