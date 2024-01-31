@@ -16,6 +16,8 @@ import {
   getSupportedNetworkFromWallet,
   getTokensForNetwork,
 } from "@/utils/ethereum";
+import useWalletLogin from "@/hooks/useWalletLogin";
+import useSession from "@/hooks/useSession";
 
 function Information(props: {
   title: string;
@@ -50,6 +52,7 @@ export default function Strategy(props: {
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
   const [amount, setAmount] = useState<string>(props.amount);
   const [{ wallet }, connectWallet] = useConnectWallet();
+  const loginWithWallet = useWalletLogin()
   const router = useRouter();
   const pathname = usePathname();
   const network: NetworkName | undefined =
@@ -63,6 +66,7 @@ export default function Strategy(props: {
 
   async function connect() {
     await connectWallet();
+    await loginWithWallet();
   }
 
   async function createFundingPlan() {

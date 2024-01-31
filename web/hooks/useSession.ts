@@ -2,7 +2,7 @@ import { Session } from "next-auth"
 import { signIn, useSession as useNextAuthSession } from "next-auth/react"
 
 const anonSignIn = async () => {
-  await signIn('credentials', {
+  await signIn('anon-login', {
     redirect: false
   })
 }
