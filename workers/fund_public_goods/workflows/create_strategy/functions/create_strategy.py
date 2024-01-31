@@ -20,7 +20,7 @@ from fund_public_goods.workflows.create_strategy.events import CreateStrategyEve
 
 def fetch_matching_projects(prompt: str):
     projects = fetch_projects_data()
-    matching_projects = get_top_matching_projects(prompt, projects)
+    matching_projects = get_top_matching_projects(prompt, projects)[:10]
     
     return [project.model_dump() for project in matching_projects]
 
