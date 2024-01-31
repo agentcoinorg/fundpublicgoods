@@ -19,29 +19,28 @@ provider:
     INNGEST_ENV: fundpublicgoods-dev
     INNGEST_SIGNING_KEY: ${env:DEV_INNGEST_SIGNING_KEY}
     INNGEST_EVENT_KEY: ${env:DEV_INNGEST_EVENT_KEY}
-    RESEND_API_KEY: ${env:DEV_RESEND_API_KEY}
     NEXT_PUBLIC_SUPABASE_URL: ${env:DEV_NEXT_PUBLIC_SUPABASE_URL}
     NEXT_PUBLIC_SUPABASE_ANON_KEY: ${env:DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY}
     SUPABASE_SERVICE_ROLE_KEY: ${env:DEV_SUPABASE_SERVICE_ROLE_KEY}
+    OPENAI_API_KEY: ${env:DEV_OPENAI_API_KEY}
 
 custom:
   pythonRequirements:
     dockerizePip: true
-    layer:
-      name: fund-public-goods-deps
-      description: Dependencies of fund-public-goods
-      compatibleRuntimes:
-        - python3.10
+    zip: true
+
   customDomain:
     domainName: api.dev.fundpublicgoods.ai
     certificateName: api.dev.fundpublicgoods.ai
     createRoute53Record: true
 
 functions:
-  fund-public-goods:
+  main:
     handler: fund_public_goods.main.handler
-    layers:
-      - { Ref: PythonRequirementsLambdaLayer }
+    package:
+      patterns:
+        - '!**'
+        - 'fund_public_goods/**'
     events:
       - http:
           path: /{path+}

@@ -6,6 +6,7 @@ import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
 import { redistributeWeights } from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
+import Image from "next/image";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
@@ -92,10 +93,10 @@ export function StrategyTable(props: StrategyTableProps) {
   function handleWeightUpdate(value: string, index: number) {}
 
   return (
-    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100">
+    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
       <thead>
         <tr>
-          <th className="pr-0">
+          <th className="pr-0 w-10">
             <TextField
               type="checkbox"
               indeterminate={!allChecked && someChecked}
@@ -103,10 +104,10 @@ export function StrategyTable(props: StrategyTableProps) {
               onChange={handleSelectAll}
             />
           </th>
-          <th className="text-left">PROJECT</th>
-          <th className="text-left">WEIGHTING</th>
-          {!!wallet && <th className="text-left">AMOUNT</th>}
-          <th className="text-left whitespace-nowrap">SMART RANKING</th>
+          <th className="text-left w-full">PROJECT</th>
+          <th className="text-left w-32">WEIGHTING</th>
+          {!!wallet && <th className="text-left w-20">AMOUNT</th>}
+          <th className="text-left whitespace-nowrap w-32">SMART RANKING</th>
         </tr>
       </thead>
       <tbody className="w-full">
@@ -115,7 +116,7 @@ export function StrategyTable(props: StrategyTableProps) {
             key={index}
             className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50"
           >
-            <td className="pr-0">
+            <td className="pr-0 w-10">
               <TextField
                 type="checkbox"
                 checked={entry.selected}
@@ -124,15 +125,23 @@ export function StrategyTable(props: StrategyTableProps) {
                 }
               />
             </td>
-            <td className="min-w-6/12 w-full">
-              <div className="space-y-px">
-                <div>{entry.project.title}</div>
+            <td className="flex gap-2 w-full">
+              <div className="flex flex-col justify-center w-8">
+                { entry.project.logo ? <Image className="rounded-full"
+                  width={32}
+                  height={32}
+                  alt="logo"
+                  src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                /> : <div className="w-8 h-8 rounded-full bg-white" /> }
+              </div>
+              <div className="space-y-px flex-1 max-w-[calc(100%-40px)]">
+                <div className="line-clamp-1">{entry.project.title}</div>
                 <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
                   {entry.project.description}
                 </div>
               </div>
             </td>
-            <td className="min-w-[130px]">
+            <td className="w-32">
               <TextField
                 readOnly={!entry.selected}
                 onChange={(e) => {
@@ -151,10 +160,8 @@ export function StrategyTable(props: StrategyTableProps) {
                 value={formattedWeights[index]}
               />
             </td>
-            {!!wallet && (
-              <td className="min-w-[80px]">{`$${entry.amount || "0.00"}`}</td>
-            )}
-            <td>
+            {!!wallet && <td className="w-20">{`$${entry.amount || "0.00"}`}</td>}
+            <td className="w-32">
               <div className="w-full">
                 <Score rank={entry.impact ?? 0} />
               </div>
