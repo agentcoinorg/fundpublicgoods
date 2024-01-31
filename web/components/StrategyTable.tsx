@@ -35,22 +35,30 @@ export function StrategyTable(props: StrategyTableProps) {
       ).toFixed(2)
     )
   );
+  const [overwrittenWeights, setOverwrittenWeights] = useState(
+    props.strategy.map((_) => 0)
+  );
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
 
+  const undoModificationOfWeight = (currentWeight: number, index: number) => {
+    setFormattedWeights((weights) => {
+      const currentWeights = [...weights];
+      const weight = currentWeight * 100;
+      currentWeights[index] = weight.toFixed(2);
+      return currentWeights;
+    });
+  };
+
   function handleSelectAll(e: ChangeEvent<HTMLInputElement>) {
+    setOverwrittenWeights(props.strategy.map((_) => 0));
     const selected = e.target.checked;
-    if (selected) {
-      setFormattedWeights(
-        props.strategy.map(({ defaultWeight }) =>
-          (defaultWeight * 100).toFixed(2)
-        )
-      );
-    } else {
-      setFormattedWeights(props.strategy.map((_) => "0.00"));
-    }
+    const newWeights = props.strategy.map(({ defaultWeight }) => {
+     return selected ? (defaultWeight * 100).toFixed(2) : "0.00"
+    });
+    setFormattedWeights(newWeights);
     props.modifyStrategy(
       props.strategy.map((s) => {
         let amount;
@@ -91,6 +99,7 @@ export function StrategyTable(props: StrategyTableProps) {
     });
     newStrategy[index].selected = e.target.checked;
     props.modifyStrategy(newStrategy);
+    setOverwrittenWeights(props.strategy.map((_) => 0));
   }
 
   function handleWeightUpdate(value: string, index: number) {
@@ -101,12 +110,28 @@ export function StrategyTable(props: StrategyTableProps) {
     }
 
     if (isNaN(numberValue) || numberValue > 100 || numberValue < 0) {
-      setFormattedWeights((weights) => {
-        const currentWeights = [...weights];
-        const weight = currentWeight * 100;
-        currentWeights[index] = weight.toFixed(2);
-        return currentWeights;
-      });
+      undoModificationOfWeight(currentWeight, index);
+      return;
+    }
+
+    const newOverwrittenWeights = overwrittenWeights.map((w, i) => {
+      if (i === index) return numberValue;
+      return w;
+    });
+
+    if (newOverwrittenWeights.reduce((acc, x) => acc + x) > 100) {
+      undoModificationOfWeight(currentWeight, index);
+      return;
+    }
+
+    const modifiedWeights = props.strategy.map((s, i) => {
+      if (!s.selected || i === index) return true;
+
+      return !!newOverwrittenWeights[i];
+    });
+
+    if (modifiedWeights.every((w) => w)) {
+      undoModificationOfWeight(currentWeight, index);
       return;
     }
 
@@ -114,10 +139,11 @@ export function StrategyTable(props: StrategyTableProps) {
       return w.selected ? w.defaultWeight * 100 : 0;
     });
 
-    const newPercentages = applyUserWeight(weights, {
+    const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
       percentage: numberValue,
       index,
     });
+    setOverwrittenWeights(newOverwrittenWeights);
     setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     const newStrategy = props.strategy.map((s, i) => {
       const weight = newPercentages[i] / 100;
@@ -165,12 +191,17 @@ export function StrategyTable(props: StrategyTableProps) {
             </td>
             <td className="flex gap-2 w-full">
               <div className="flex flex-col justify-center w-8">
-                { entry.project.logo ? <Image className="rounded-full"
-                  width={32}
-                  height={32}
-                  alt="logo"
-                  src={`https://ipfs.io/ipfs/${entry.project.logo}`}
-                /> : <div className="w-8 h-8 rounded-full bg-white" /> }
+                {entry.project.logo ? (
+                  <Image
+                    className="rounded-full"
+                    width={32}
+                    height={32}
+                    alt="logo"
+                    src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                  />
+                ) : (
+                  <div className="w-8 h-8 rounded-full bg-white" />
+                )}
               </div>
               <div className="space-y-px flex-1 max-w-[calc(100%-40px)]">
                 <div className="line-clamp-1">{entry.project.title}</div>
@@ -198,7 +229,9 @@ export function StrategyTable(props: StrategyTableProps) {
                 value={formattedWeights[index]}
               />
             </td>
-            {!!wallet && <td className="w-20">{`$${entry.amount || "0.00"}`}</td>}
+            {!!wallet && (
+              <td className="w-20">{`$${entry.amount || "0.00"}`}</td>
+            )}
             <td className="w-32">
               <div className="w-full">
                 <Score rank={entry.impact ?? 0} />
