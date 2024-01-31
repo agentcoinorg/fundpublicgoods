@@ -1,3 +1,12 @@
+try:
+  import unzip_requirements # type: ignore
+except ImportError:
+  pass
+
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
