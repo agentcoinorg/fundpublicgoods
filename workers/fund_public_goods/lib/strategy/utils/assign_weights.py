@@ -1,3 +1,4 @@
+from fund_public_goods.lib.strategy.utils.utils import adjust_weights
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -56,6 +57,8 @@ Report:
 """
     
 def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProject]) -> list[WeightedProject]:
+    print("weights report:")
+    print(weights_report)
     evaluated_projects_by_id = {project.project.id: project for project in evaluated_projects}
     
     extract_weights_prompt = ChatPromptTemplate.from_messages([
@@ -70,13 +73,23 @@ def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProje
     })
     
     weighted_projects: list[WeightedProject] = []
-    
-    for json_weight in json_weights:
+    weights = [weight["weight"] for weight in json_weights]
+
+    print("these are the weights :-D")
+    print(weights)
+    print(sum(weights))
+    if not sum(weights) == 1.0:
+        print("woops, we need to create new weights")
+        weights = adjust_weights(weights)
+        print("they have been created")
+        print(weights)
+
+    for i, json_weight in enumerate(json_weights):
         evaluated_project = evaluated_projects_by_id[json_weight["project_id"]]
         weighted_project = WeightedProject(
             project=evaluated_project.project,
             evaluation=evaluated_project.evaluation,
-            weight=json_weight["weight"]
+            weight=weights[i]
         )
         weighted_projects.append(weighted_project)
     
