@@ -67,66 +67,85 @@ export function applyUserWeight(
     index: number;
   }
 ) {
-  if (weights.length !== overwrites.length) {
-    throw new Error("Weights and overwrites must have the same size");
-  }
-
   // 1- Get the total of the current distribution based on selected weights
   const total = weights.reduce((acc, x) => {
     return acc + x;
   }, 0);
 
-  // 2- Get the new weight of given percentage based on total
-  const newWeight = (edit.percentage / 100) * total;
-  let newOverwrites = [...overwrites];
-  newOverwrites[edit.index] = newWeight;
+  // 2- Update weights collection with the new weight
+  let newOverwrites = [...weights];
+  newOverwrites[edit.index] = edit.percentage;
 
-  // 3- Get the diffence of the new weights, if its different to one we must decrease/increase other weights
-  const totalOverwrite = newOverwrites.reduce((acc, x) => {
+  // 3- Get the diffence of the new weights
+  let totalOverwrite = newOverwrites.reduce((acc, x) => {
     return acc + x;
   }, 0);
 
-  const deltaDifference = totalOverwrite - 100;
-  // 4- If difference is greater than 0 we must decrease the other weights
-  if (deltaDifference > 0) {
-    const sumOfAllWeights = weights.reduce((acc, x, index) => {
-      if (index === edit.index) {
-        return acc;
-      }
+  if (weights.some((w) => w === 0)) {
+    overwrites[edit.index] = edit.percentage ;
+    totalOverwrite = overwrites.reduce((acc, x) => {
       return acc + x;
     }, 0);
+  }
+  const deltaDifference = totalOverwrite - 100;
 
+  // 4- If there's a difference we must:
+  // Calculate the sum of all weights (excluding the one being updated)
+  // Get the percentage of how much should we decrease/increase
+  // Update each weight (excluding the one being updated) with the given percentage
+  const sumOfAllWeights = weights.reduce((acc, x, index) => {
+    if (index === edit.index) {
+      return acc;
+    }
+    return acc + x;
+  }, 0);
+
+  // 4.1- If difference is greater than 0 we must decrease the other weights
+  if (deltaDifference > 0) {
     const decreaseRoots = weights.map((weight) => {
-      return (weight / sumOfAllWeights) * deltaDifference;
+      const percentage = (weight / sumOfAllWeights) * deltaDifference;
+      return percentage / 100;
     });
-
     newOverwrites = decreaseRoots.map((decreasePercentage, index) => {
       if (index === edit.index) {
         return edit.percentage;
       }
-      return weights[index] - total * (decreasePercentage / 100);
+
+      if (weights[index] === 0) {
+        return 0;
+      }
+      const weight = weights.some(w => w === 0) ? overwrites[index] : weights[index]
+      const amountToUpdate = weight - total * decreasePercentage;
+      const newPercentage = amountToUpdate / (total / 100);
+      return newPercentage;
     });
   }
 
-  // 5- If difference is lesser than 0 we must decrease the other weights
+  // 4.2- If difference is lesser than 0 we must decrease the other weights
   if (deltaDifference < 0) {
-    const sumOfAllWeights = weights.reduce((acc, x, index) => {
-      if (index === edit.index) {
-        return acc;
-      }
-      return acc + x;
-    }, 0);
-
     const increaseRoots = weights.map((weight) => {
-      return (weight / sumOfAllWeights) * Math.abs(deltaDifference);
+      const percentage = (weight / sumOfAllWeights) * Math.abs(deltaDifference);
+      return percentage / 100;
     });
-
     newOverwrites = increaseRoots.map((increasePercentage, index) => {
       if (index === edit.index) {
         return edit.percentage;
       }
-      return weights[index] + total * (increasePercentage / 100);
+
+      if (weights[index] === 0) {
+        return 0;
+      }
+      const weight = weights.some(w => w === 0) ? overwrites[index] : weights[index]
+      const amountToUpdate = weight + total * increasePercentage;
+      const newPercentage = amountToUpdate / (total / 100);
+      return newPercentage;
     });
   }
+
+  console.log(
+    newOverwrites.reduce((acc, x) => {
+      return acc + x;
+    }, 0)
+  );
   return newOverwrites;
 }

@@ -93,33 +93,35 @@ export function StrategyTable(props: StrategyTableProps) {
   }
 
   function handleWeightUpdate(value: string, index: number) {
-    const weights = defaultWeights.map((w, i) => {
-      if (props.strategy[i].selected) {
-        return w * 100
+    if (+value === (props.strategy[index].weight as number) * 100) {
+      return;
+    }
+    const weights = props.strategy.map((w) => {
+      if (w.selected) {
+        return w.defaultWeight * 100;
       } else {
-        return 0
+        return 0;
       }
     });
-    const overwrites = props.strategy.map((s) => {
-      if (s.selected) {
-        return (s.weight as number) * 100;
-      } else {
+    const overwrites = formattedWeights.map((w, i) => {
+      if (props.strategy[i].selected) {
         return 0
       }
+      return parseFloat(w);
     });
     const newPercentages = applyUserWeight(weights, overwrites, {
       percentage: +value,
       index,
     });
+    console.log(newPercentages)
     setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
-    console.log(newPercentages);
     const newStrategy = props.strategy.map((s, i) => {
-      const weight = +newPercentages[i].toFixed(2) / 100;
+      const weight = newPercentages[i] / 100;
       const amount = +props.totalAmount * weight;
       return {
         ...s,
-        weight,
         amount: props.totalAmount ? amount.toFixed(2) : undefined,
+        weight,
       };
     });
     props.modifyStrategy(newStrategy);
