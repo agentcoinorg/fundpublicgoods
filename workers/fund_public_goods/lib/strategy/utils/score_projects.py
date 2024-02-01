@@ -33,7 +33,7 @@ Do not include any other contents in your response. Always use snake case. All f
 
 Project reports:
 
-{evaluation_report}
+{reports}
 """
 
 def score_projects(projects_with_report: list[tuple[Project, str]]) -> list[ProjectScores]:
