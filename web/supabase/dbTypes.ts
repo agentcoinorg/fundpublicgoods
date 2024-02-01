@@ -223,31 +223,37 @@ export interface Database {
       strategy_entries: {
         Row: {
           created_at: string
+          funding_needed: number | null
           id: string
           impact: number | null
           interest: number | null
           project_id: string
           reasoning: string | null
+          report: string | null
           run_id: string
           weight: number | null
         }
         Insert: {
           created_at?: string
+          funding_needed?: number | null
           id?: string
           impact?: number | null
           interest?: number | null
           project_id: string
           reasoning?: string | null
+          report?: string | null
           run_id: string
           weight?: number | null
         }
         Update: {
           created_at?: string
+          funding_needed?: number | null
           id?: string
           impact?: number | null
           interest?: number | null
           project_id?: string
           reasoning?: string | null
+          report?: string | null
           run_id?: string
           weight?: number | null
         }
