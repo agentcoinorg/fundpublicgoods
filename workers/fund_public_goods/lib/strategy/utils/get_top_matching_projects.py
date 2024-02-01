@@ -2,7 +2,7 @@ from chromadb import EphemeralClient
 from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import CommaSeparatedListOutputParser
+from langchain_core.output_parsers import StrOutputParser
 from fund_public_goods.lib.strategy.utils.utils import stringify_projects
 from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
 from fund_public_goods.lib.strategy.utils.utils import get_project_text, remove_duplicate_projects
@@ -33,7 +33,7 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     
     llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
 
-    reranking_chain = reranking_prompt | llm | CommaSeparatedListOutputParser()
+    reranking_chain = reranking_prompt | llm | StrOutputParser()
     
     separator = "\n-----\n"
     
@@ -41,7 +41,7 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
         "prompt": prompt,
         "separator": separator,
         "projects": stringify_projects(projects=projects, separator=separator)
-    })
+    }).split(',')
     
     reranked_projects: list[Project] = [projects_by_id[id] for id in top_ids]
     

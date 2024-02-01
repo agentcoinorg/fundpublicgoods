@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 from fund_public_goods.lib.strategy.models.project import Project
-from fund_public_goods.lib.strategy.models.project_evaluation import ProjectEvaluation
+from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
 
 class WeightedProject(BaseModel):
     project: Project
-    evaluation: ProjectEvaluation
+    scores: ProjectScores
     weight: float
 
     def __getitem__(self, item):

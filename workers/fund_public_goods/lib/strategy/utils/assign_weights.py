@@ -75,7 +75,7 @@ def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProje
         evaluated_project = evaluated_projects_by_id[json_weight["project_id"]]
         weighted_project = WeightedProject(
             project=evaluated_project.project,
-            evaluation=evaluated_project.evaluation,
+            scores=evaluated_project.evaluation,
             weight=json_weight["weight"]
         )
         weighted_projects.append(weighted_project)
