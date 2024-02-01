@@ -1,12 +1,11 @@
 import json
+from typing import Any
 from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
+from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 import inngest
-from fund_public_goods.lib.strategy.utils.assign_weights import assign_weights
-from fund_public_goods.lib.strategy.utils.evaluate_projects import (
-    evaluate_projects,
-)
-from fund_public_goods.lib.strategy.models.evaluated_project import (
-    EvaluatedProject,
+from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
+from fund_public_goods.lib.strategy.utils.evaluate_project import (
+    evaluate_project,
 )
 from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
@@ -17,6 +16,46 @@ from fund_public_goods.db import logs
 from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
+PROMPT_MATCH_WEIGHT = 1/3
+IMPACT_WEIGHT = 1/3
+FUNDING_NEEDED_WEIGHT = 1/3
+
+def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects_scores: list[ProjectScores]):
+    projects_by_id = { project_with_report[0].id: project_with_report for project_with_report in projects_with_reports }
+    weighted_projects: list[WeightedProject] = []
+    
+    for project_scores in projects_scores:
+        weight = (
+            (project_scores.prompt_match * PROMPT_MATCH_WEIGHT) +
+            (project_scores.impact * IMPACT_WEIGHT) +
+            (project_scores.funding_needed * FUNDING_NEEDED_WEIGHT)
+        )
+        
+        (project, report) = projects_by_id[project_scores.project_id]
+        
+        weighted_projects.append(
+            WeightedProject(
+                project=project,
+                report=report,
+                scores=project_scores,
+                weight=weight
+            )
+        )
+        
+    return [project.model_dump() for project in weighted_projects]
+
+
+def evaluate_projects(prompt: str, projects: list[Project]) -> list[dict[str, Any]]:
+    projects_with_reports: list[tuple[Project, str]] = []
+    
+    for project in projects:
+        report = evaluate_project(prompt, project)
+        projects_with_reports.append((project, report))
+        
+    return [{
+        "project": project.model_dump(),
+        "report": report
+    } for (project, report) in projects_with_reports]
 
 def fetch_matching_projects(prompt: str):
     projects = fetch_projects_data()
@@ -93,17 +132,20 @@ async def create_strategy(
         ),
     )
 
-    json_asessed_projects = await step.run(
-        "assess_projects", lambda: evaluate_projects(prompt, projects)
-    )
-    assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects]  # type: ignore
+    projects_with_reports: list[tuple[Project, str]] = []
+    
+    for project in projects:
+        report = await step.run(
+            f"assess_project_{project.id}", lambda: evaluate_project(prompt, project)
+        )
+        projects_with_reports.append((project, report))
     
     await step.run(
         "completed_assess_projects",
         lambda: logs.update(
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.EVALUATE_PROJECTS],
-            value=f"Evaluated {len(assessed_projects)} projects",
+            value=f"Evaluated {len(projects_with_reports)} projects",
         ),
     )
     
@@ -116,10 +158,16 @@ async def create_strategy(
         ),
     )
 
-    json_weighted_projects: list[WeightedProject] = await step.run(
-        "determine_funding", lambda: assign_weights(assessed_projects)
+    json_project_scores = await step.run(
+        "determine_funding", lambda: score_projects(projects_with_reports)
     )
-    weighted_projects = [WeightedProject(**x) for x in json_weighted_projects]  # type: ignore
+    project_scores = [ProjectScores(**x) for x in json_project_scores]  # type: ignore
+    
+    json_weighted_projects = await step.run(
+        "determine_funding", lambda: calculate_weights(projects_with_reports, project_scores)
+    )
+    
+    weighted_projects = [WeightedProject(**json_weighted_project) for json_weighted_project in json_weighted_projects]
     
     await step.run(
         "completed_determine_funding",
