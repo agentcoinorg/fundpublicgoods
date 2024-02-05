@@ -24,17 +24,9 @@ def fetch_matching_projects(prompt: str):
     
     return [project.model_dump() for project in matching_projects]
 
-def initialize_logs(run_id: str) -> str:
-    log_ids: dict[StepName, str] = {}
-
-    for step_name in StepName:
-        new_log = logs.create(
-            run_id=run_id,
-            step_name=step_name,
-        ).data
-        
-        log_ids[step_name] = new_log[0]["id"]
-
+def fetch_log_ids(run_id: str) -> str:
+    result = logs.get(run_id)
+    log_ids: dict[StepName, str] = {log['step_name']: log['id'] for log in result} # type: ignore
     return json.dumps(log_ids)
 
 @inngest.create_function(
@@ -54,12 +46,12 @@ async def create_strategy(
     )
     
     log_ids_str = await step.run(
-        "initialize_logs",
-        lambda: initialize_logs(run_id),
+        "fetch_logs",
+        lambda: fetch_log_ids(run_id),
     )
-    
+
     log_ids: dict[StepName, str] = json.loads(log_ids_str)
-    
+
     await step.run(
         "start_fetch_projects_data",
         lambda: logs.update(
