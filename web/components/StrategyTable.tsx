@@ -66,7 +66,7 @@ export function StrategyTable(props: StrategyTableProps) {
 
   function handleSelectProject(
     e: ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) {
     const isSelected = e.target.checked;
     const selectedWeights = props.strategy.map((s, i) =>
@@ -93,55 +93,57 @@ export function StrategyTable(props: StrategyTableProps) {
   function handleWeightUpdate(value: string, index: number) {}
 
   return (
-    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
+    <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
       <thead>
         <tr>
-          <th className="pr-0 w-10">
+          <th className='pr-0 w-10'>
             <TextField
-              type="checkbox"
+              type='checkbox'
               indeterminate={!allChecked && someChecked}
               checked={allChecked}
               onChange={handleSelectAll}
             />
           </th>
-          <th className="text-left w-full">PROJECT</th>
-          <th className="text-left w-32">WEIGHTING</th>
-          {!!wallet && <th className="text-left w-20">AMOUNT</th>}
-          <th className="text-left whitespace-nowrap w-32">SMART RANKING</th>
+          <th className='text-left w-full'>PROJECT</th>
+          <th className='text-left w-32'>WEIGHTING</th>
+          {!!wallet && <th className='text-left w-20'>AMOUNT</th>}
+          <th className='text-left whitespace-nowrap w-32'>SMART RANKING</th>
         </tr>
       </thead>
-      <tbody className="w-full">
+      <tbody className='w-full'>
         {props.strategy.map((entry, index) => (
           <tr
             key={index}
-            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50"
-          >
-            <td className="pr-0 w-10">
+            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50'>
+            <td className='pr-0 w-10'>
               <TextField
-                type="checkbox"
+                type='checkbox'
                 checked={entry.selected}
-                onChange={(e) =>
-                  handleSelectProject(e, index)
-                }
+                onChange={(e) => handleSelectProject(e, index)}
               />
             </td>
-            <td className="flex gap-2 w-full">
-              <div className="flex flex-col justify-center w-8">
-                { entry.project.logo ? <Image className="rounded-full"
-                  width={32}
-                  height={32}
-                  alt="logo"
-                  src={`https://ipfs.io/ipfs/${entry.project.logo}`}
-                /> : <div className="w-8 h-8 rounded-full bg-white" /> }
+            <td className='flex gap-2 w-full'>
+              <div className='flex flex-col justify-center w-8'>
+                {entry.project.logo ? (
+                  <Image
+                    className='rounded-full'
+                    width={32}
+                    height={32}
+                    alt='logo'
+                    src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                  />
+                ) : (
+                  <div className='w-8 h-8 rounded-full bg-white' />
+                )}
               </div>
-              <div className="space-y-px flex-1 max-w-[calc(100%-40px)]">
-                <div className="line-clamp-1">{entry.project.title}</div>
-                <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+              <div className='space-y-px flex-1 max-w-[calc(100%-40px)]'>
+                <div className='line-clamp-1'>{entry.project.title}</div>
+                <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
                   {entry.project.description}
                 </div>
               </div>
             </td>
-            <td className="w-32">
+            <td className='w-32'>
               <TextField
                 readOnly={!entry.selected}
                 onChange={(e) => {
@@ -155,14 +157,16 @@ export function StrategyTable(props: StrategyTableProps) {
                   }
                 }}
                 onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                className="!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white"
+                className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
                 rightAdornment={"%"}
                 value={formattedWeights[index]}
               />
             </td>
-            {!!wallet && <td className="w-20">{`$${entry.amount || "0.00"}`}</td>}
-            <td className="w-32">
-              <div className="w-full">
+            {!!wallet && (
+              <td className='w-20'>{`$${entry.amount || "0.00"}`}</td>
+            )}
+            <td className='w-32'>
+              <div className='w-full'>
                 <Score rank={entry.impact ?? 0} />
               </div>
             </td>

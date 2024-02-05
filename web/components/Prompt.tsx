@@ -21,7 +21,7 @@ const PROMPT_SUGESTIONS = [
 export default function Prompt() {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -29,11 +29,11 @@ export default function Prompt() {
     setIsWaiting(true);
     try {
       if (!session) {
-        throw new Error("User needs to have a session")
+        throw new Error("User needs to have a session");
       }
 
       const response = await startWorker(prompt, session.supabaseAccessToken);
-      router.push(`/r/${response.runId}/progress`)
+      router.push(`/r/${response.runId}/progress`);
     } finally {
       setIsWaiting(false);
     }
@@ -45,8 +45,8 @@ export default function Prompt() {
         {isWaiting ? (
           <div className='w-full'>
             <div className='flex flex-col justify-center items-center gap-2'>
-              <LoadingCircle className='w-[40px] h-[40px] ml-10' />
-              <div className='flex text-md pl-12 text-center'>Loading</div>
+              <LoadingCircle className='w-[40px] h-[40px]' />
+              <div className='flex text-md text-center'>Loading</div>
             </div>
           </div>
         ) : (
