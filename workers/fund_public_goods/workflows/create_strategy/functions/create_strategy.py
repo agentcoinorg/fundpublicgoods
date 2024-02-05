@@ -1,4 +1,5 @@
 import json
+import math
 from typing import Any
 from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
 from fund_public_goods.lib.strategy.utils.score_projects import score_projects
@@ -16,16 +17,18 @@ from fund_public_goods.db import logs
 from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
+
 PROMPT_MATCH_WEIGHT = 1/3
 IMPACT_WEIGHT = 1/3
 FUNDING_NEEDED_WEIGHT = 1/3
 
-def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects_scores: list[ProjectScores]):
+
+def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects_scores: list[ProjectScores]) -> list[WeightedProject]:
     projects_by_id = { project_with_report[0].id: project_with_report for project_with_report in projects_with_reports }
-    weighted_projects: list[WeightedProject] = []
+    smart_ranked_projects: list[dict[str, Any]] = []
     
     for project_scores in projects_scores:
-        weight = (
+        smart_ranking = (
             (project_scores.prompt_match * PROMPT_MATCH_WEIGHT) +
             (project_scores.impact * IMPACT_WEIGHT) +
             (project_scores.funding_needed * FUNDING_NEEDED_WEIGHT)
@@ -33,16 +36,27 @@ def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects
         
         (project, report) = projects_by_id[project_scores.project_id]
         
-        weighted_projects.append(
-            WeightedProject(
-                project=project,
-                report=report,
-                scores=project_scores,
-                weight=weight
-            )
+        smart_ranked_projects.append(
+            {
+                "project": project,
+                "report": report,
+                "scores": project_scores,
+                "smart_ranking": smart_ranking
+            }
         )
         
-    return [project.model_dump() for project in weighted_projects]
+    total_score = math.fsum([project["smart_ranking"] for project in smart_ranked_projects])
+    weighted_projects: list[WeightedProject] = [
+        WeightedProject(
+            project=smart_ranked_project["projects"],
+            report=smart_ranked_project["report"],
+            scores=smart_ranked_project["scores"],
+            smart_ranking=smart_ranked_project["smart_ranking"],
+            weight=(smart_ranked_project["smart_ranking"] / total_score) * 100,
+        ) for smart_ranked_project in smart_ranked_projects
+    ]
+        
+    return weighted_projects
 
 
 def evaluate_projects(prompt: str, projects: list[Project]) -> list[dict[str, Any]]:
@@ -164,10 +178,10 @@ async def create_strategy(
     project_scores = [ProjectScores(**x) for x in json_project_scores]  # type: ignore
     
     json_weighted_projects = await step.run(
-        "determine_funding", lambda: calculate_weights(projects_with_reports, project_scores)
+        "calculate_weights", lambda: calculate_weights(projects_with_reports, project_scores)
     )
     
-    weighted_projects = [WeightedProject(**json_weighted_project) for json_weighted_project in json_weighted_projects]
+    weighted_projects = [WeightedProject(**json_weighted_project) for json_weighted_project in json_weighted_projects] # type: ignore
     
     await step.run(
         "completed_determine_funding",

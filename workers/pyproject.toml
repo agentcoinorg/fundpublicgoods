@@ -23,6 +23,7 @@ pysqlite3-binary = "^0.5.2.post3"
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"
 types-requests = "^2.31.0.20240106"
+pytest = "^8.0.0"
 
 [tool.mypy]
 check_untyped_defs = true

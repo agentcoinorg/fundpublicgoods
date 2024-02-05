@@ -7,6 +7,7 @@ class WeightedProject(BaseModel):
     report: str
     scores: ProjectScores
     weight: float
+    smart_ranking: float
 
     def __getitem__(self, item):
         return getattr(self, item)

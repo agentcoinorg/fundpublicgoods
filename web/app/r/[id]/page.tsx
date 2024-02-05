@@ -9,13 +9,11 @@ export default async function StrategyPage({
 }) {
   const supabase = await createSupabaseServerClientWithSession()
 
-  // Fetch the runs for this worker
   const run = await supabase
     .from("runs")
     .select(
       `
       id,
-      worker_id,
       created_at,
       prompt,
       strategy_entries(
@@ -60,7 +58,7 @@ export default async function StrategyPage({
       selected: run.data.funding_entries.length === 0,
       defaultWeight: s.weight as number
     };
-  });
+  }).sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
   const amount = run.data.funding_entries.reduce((acc, x) => {
     return acc + Number(x.amount);
