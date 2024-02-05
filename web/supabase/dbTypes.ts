@@ -165,21 +165,27 @@ export interface Database {
         Row: {
           description: string | null
           id: string
+          logo: string | null
           title: string | null
+          twitter: string | null
           updated_at: number
           website: string | null
         }
         Insert: {
           description?: string | null
           id: string
+          logo?: string | null
           title?: string | null
+          twitter?: string | null
           updated_at: number
           website?: string | null
         }
         Update: {
           description?: string | null
           id?: string
+          logo?: string | null
           title?: string | null
+          twitter?: string | null
           updated_at?: number
           website?: string | null
         }
@@ -190,26 +196,26 @@ export interface Database {
           created_at: string
           id: string
           prompt: string
-          worker_id: string
+          user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           prompt: string
-          worker_id: string
+          user_id?: string
         }
         Update: {
           created_at?: string
           id?: string
           prompt?: string
-          worker_id?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "runs_worker_id_fkey"
-            columns: ["worker_id"]
+            foreignKeyName: "runs_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "workers"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
@@ -276,18 +282,24 @@ export interface Database {
           }
         ]
       }
-      workers: {
+      users: {
         Row: {
+          address: string | null
           created_at: string
           id: string
+          is_anon: boolean
         }
         Insert: {
+          address?: string | null
           created_at?: string
           id?: string
+          is_anon: boolean
         }
         Update: {
+          address?: string | null
           created_at?: string
           id?: string
+          is_anon?: boolean
         }
         Relationships: []
       }

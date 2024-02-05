@@ -3,6 +3,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.output_parsers.json import JsonOutputParser
 import json
+from fund_public_goods.lib.strategy.utils.utils import adjust_weights
 from fund_public_goods.lib.strategy.models.evaluated_project import EvaluatedProject
 from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
 
@@ -15,7 +16,7 @@ The user wants to donate to these projects.
 Be sure to include the ID of each project in your answer.
 
 Your job is to assign a donation weight percentage (number from 0 to 1 with 2 decimal places) to each of the projects so that the
-user can distribute the funds he wants to donate accordingly across projects.
+user can distribute the funds he wants to donate accordingly across projects. The sum of all weights must be equal to 1.
 
 Provide thorough reasoning for each assigned weight.
 
@@ -56,6 +57,8 @@ Report:
 """
     
 def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProject]) -> list[WeightedProject]:
+    print("weights report:")
+    print(weights_report)
     evaluated_projects_by_id = {project.project.id: project for project in evaluated_projects}
     
     extract_weights_prompt = ChatPromptTemplate.from_messages([
@@ -70,13 +73,17 @@ def extract_weights(weights_report: str, evaluated_projects: list[EvaluatedProje
     })
     
     weighted_projects: list[WeightedProject] = []
-    
-    for json_weight in json_weights:
+    weights = [weight["weight"] for weight in json_weights]
+
+    if not sum(weights) == 1.0:
+        weights = adjust_weights(weights)
+
+    for i, json_weight in enumerate(json_weights):
         evaluated_project = evaluated_projects_by_id[json_weight["project_id"]]
         weighted_project = WeightedProject(
             project=evaluated_project.project,
             evaluation=evaluated_project.evaluation,
-            weight=json_weight["weight"]
+            weight=weights[i]
         )
         weighted_projects.append(weighted_project)
     

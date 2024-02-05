@@ -4,18 +4,27 @@ import { AuthOptions, SessionStrategy } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import { createSupabaseAdminClient } from "./supabase-admin";
+import { SiweMessage } from "siwe";
 
 export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
+      id: "anon-login",
       name: "Anon",
-      credentials: {},
-      async authorize() {
+      credentials: {
+        id: { label: "id", type: "text" },
+      },
+      async authorize(credentials) {
         try {
+          if (!credentials?.id) {
+            throw new Error("No anon ID supplied")
+          }
+
           const supabase = createSupabaseAdminClient(cookies())
           const { data: insertData, error: insertError } = await supabase
           .from('users')
-          .insert({
+          .upsert({
+            id: credentials.id,
             is_anon: true
           })
           .select("id")
@@ -38,6 +47,82 @@ export const authOptions: AuthOptions = {
         }
       },
     }),
+    CredentialsProvider({
+      id: "siwe",
+      name: "Ethereum",
+      credentials: {
+        message: {
+          label: "Message",
+          type: "text",
+          placeholder: "0x0",
+        },
+        signature: {
+          label: "Signature",
+          type: "text",
+          placeholder: "0x0",
+        },
+      },
+      async authorize(credentials) {
+        try {
+          const siwe = new SiweMessage(
+            JSON.parse(credentials?.message || "{}")
+          );
+
+          if (!process.env.NEXTAUTH_URL) {
+            throw new Error(`NEXTAUTH_URL env missing`);
+          }
+
+          const nextAuthUrl = new URL(process.env.NEXTAUTH_URL);
+          // https://stackoverflow.com/questions/77074980
+          const nonce = cookies()
+            .get("next-auth.csrf-token")
+            ?.value.split("|")[0];
+
+          const result = await siwe.verify({
+            signature: credentials?.signature || "",
+            domain: nextAuthUrl.host,
+            nonce,
+          });
+
+          if (result.success) {
+            const supabase = createSupabaseAdminClient(cookies());
+            const { data: existingUser } = await supabase
+              .from("users")
+              .select("id, address")
+              .eq("address", siwe.address)
+              .limit(1)
+              .single();
+
+            if (existingUser) {
+              return existingUser;
+            }
+
+            const { data: newUser, error } = await supabase
+              .from("users")
+              .insert({
+                address: siwe.address,
+                is_anon: false,
+              })
+              .select("id, address, is_anon")
+              .limit(1)
+              .single();
+
+            if (error) {
+              console.log(error);
+              throw new Error(
+                `Could not insert new user with address: ${siwe.address}`
+              );
+            }
+
+            return newUser;
+          }
+          return null;
+        } catch (e) {
+          console.error(e)
+          return null;
+        }
+      },
+    }),
   ],
   adapter: SupabaseAdapter({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL as string,
@@ -48,6 +133,16 @@ export const authOptions: AuthOptions = {
     strategy: "jwt" as SessionStrategy,
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user && user.address) {
+        return {
+          ...token,
+          address: user.address,
+        };
+      }
+
+      return token;
+    },
     async session({ session, token }) {
       const signingSecret = process.env.SUPABASE_JWT_SECRET;
 
@@ -68,6 +163,7 @@ export const authOptions: AuthOptions = {
 
       session.user = {
         ...session.user,
+        address: token.address as string | undefined,
         id: token.sub,
       };
 

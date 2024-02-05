@@ -16,6 +16,8 @@ def insert(
         "title": row.title,
         "description": row.description,
         "website": row.website,
+        "twitter": row.twitter,
+        "logo": row.logo
     }).execute()
 
 def upsert(
@@ -28,6 +30,8 @@ def upsert(
         "title": row.title,
         "description": row.description,
         "website": row.website,
+        "twitter": row.twitter,
+        "logo": row.logo
     }).execute()
 
 def get(
@@ -35,7 +39,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "website")
+        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -49,7 +53,9 @@ def get(
         updated_at=data["updated_at"],
         title=data["title"],
         description=data["description"],
-        website=data["website"]
+        website=data["website"],
+        twitter=data["twitter"],
+        logo=data["logo"]
     )
 
 def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
@@ -57,7 +63,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, twitter, logo, applications(id, recipient, round, answers)"
         )
         .execute()
     )
@@ -82,6 +88,8 @@ def fetch_projects_data() -> list[Project]:
             title=item.get("title", ""),
             description=item.get("description", ""),
             website=item.get("website", ""),
+            twitter=item.get("twitter", ""),
+            logo=item.get("logo", ""),
             answers=answers,
         )
         

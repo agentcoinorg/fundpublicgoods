@@ -103,6 +103,8 @@ class Projects(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
+    twitter: Optional[str] = None
+    logo: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True
@@ -112,7 +114,6 @@ class Projects(BaseModel):
 class Runs(BaseModel):
 
     id: Optional[UUID] = None
-    worker_id: UUID = Field(..., alias="workerId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
     prompt: str
 
@@ -146,17 +147,6 @@ class StrategyEntries(BaseModel):
     impact: Optional[float] = None
     interest: Optional[float] = None
     weight: Optional[float] = None
-
-    model_config = ConfigDict(
-        populate_by_name=True
-    )
-
-
-class Workers(BaseModel):
-
-    id: Optional[UUID] = None
-    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-
 
     model_config = ConfigDict(
         populate_by_name=True

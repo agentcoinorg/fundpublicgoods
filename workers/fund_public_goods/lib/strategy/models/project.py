@@ -6,6 +6,8 @@ class Project(BaseModel):
     title: str
     description: str
     website: str
+    twitter: str
+    logo: str
     answers: list[Answer]
 
     def __getitem__(self, item):
