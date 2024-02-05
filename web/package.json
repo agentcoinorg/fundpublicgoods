@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "jest --verbose",
     "db:start": "supabase start",
     "db:reset": "supabase db reset",
     "db:stop": "supabase stop",
@@ -31,6 +32,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.11",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
@@ -39,9 +41,11 @@
     "autoprefixer": "10.0.1",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
+    "jest": "^29.7.0",
     "postcss": "8.4.33",
     "supabase": "1.131.5",
     "tailwindcss": "3.3.0",
+    "ts-jest": "^29.1.2",
     "typescript": "5.3.3"
   }
 }

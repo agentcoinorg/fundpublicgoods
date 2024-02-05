@@ -43,3 +43,6 @@ jobs:
         SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
         NEXT_PUBLIC_INFURA_PROJECT_ID: ${{ secrets.DEV_NEXT_PUBLIC_INFURA_PROJECT_ID}}
         WORKERS_URL: ${{ secrets.DEV_WORKERS_URL }}
+
+    - name: Test
+      run: yarn test
