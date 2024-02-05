@@ -144,7 +144,6 @@ export function StrategyTable(props: StrategyTableProps) {
       percentage: numberValue,
       index,
     });
-    console.log(newPercentages)
     setOverwrittenWeights(newOverwrittenWeights);
     setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     const newStrategy = props.strategy.map((s, i) => {
