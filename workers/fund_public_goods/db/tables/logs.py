@@ -1,5 +1,6 @@
-from typing import Literal, Any
+import uuid
 import datetime
+from typing import Literal
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.client import create_admin
 from fund_public_goods.db.entities import Logs, StepStatus
@@ -10,7 +11,17 @@ def insert_multiple(logs: list[Logs]):
 
     return (
         db.table("logs")
-        .insert(logs)
+        .insert(
+            [
+                {
+                    "run_id": str(log.run_id),
+                    "status": log.status,
+                    "step_name": log.step_name,
+                    "value": log.value
+                }
+                for log in logs
+            ]
+        )
         .execute()
     )
 
