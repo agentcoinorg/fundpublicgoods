@@ -58,7 +58,7 @@ export default async function StrategyPage({
       selected: run.data.funding_entries.length === 0,
       defaultWeight: s.weight as number
     };
-  });
+  }).sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
   const amount = run.data.funding_entries.reduce((acc, x) => {
     return acc + Number(x.amount);
