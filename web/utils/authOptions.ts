@@ -11,13 +11,20 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       id: "anon-login",
       name: "Anon",
-      credentials: {},
-      async authorize() {
+      credentials: {
+        id: { label: "id", type: "text" },
+      },
+      async authorize(credentials) {
         try {
+          if (!credentials?.id) {
+            throw new Error("No anon ID supplied")
+          }
+
           const supabase = createSupabaseAdminClient(cookies())
           const { data: insertData, error: insertError } = await supabase
           .from('users')
-          .insert({
+          .upsert({
+            id: credentials.id,
             is_anon: true
           })
           .select("id")
