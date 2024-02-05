@@ -17,6 +17,8 @@ import {
   getTokensForNetwork,
 } from "@/utils/ethereum";
 import useWalletLogin from "@/hooks/useWalletLogin";
+import useSession from "@/hooks/useSession";
+import { startRun } from "@/app/actions";
 
 function Information(props: {
   title: string;
@@ -52,6 +54,7 @@ export default function Strategy(props: {
   const [amount, setAmount] = useState<string>(props.amount);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin()
+  const { data: session } = useSession()
   const router = useRouter();
   const pathname = usePathname();
   const network: NetworkName | undefined =
@@ -90,8 +93,12 @@ export default function Strategy(props: {
     router.push(`${pathname}/transaction`);
   }
 
-  async function regenerateStrat() {
-    // TODO: Attach current prompt with regenerate action
+  async function regenerateStrat(prompt: string) {
+    if (!session) {
+      throw new Error("User needs to have a session")
+    }
+    const response = await startRun(prompt, session.supabaseAccessToken);
+    router.push(`/s/${response.runId}`)
   }
 
   const calculateUpdatedStrategy = (
@@ -129,6 +136,11 @@ export default function Strategy(props: {
           label="Results for"
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !!currentPromp) {
+              regenerateStrat(currentPromp);
+            }
+          }}
         />
         <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
           <p>

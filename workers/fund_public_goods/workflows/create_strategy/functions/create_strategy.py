@@ -1,7 +1,6 @@
 import json
 from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
-from fund_public_goods.lib.strategy.utils.initialize_logs import initialize_logs
 from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 import inngest
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
@@ -16,6 +15,11 @@ from fund_public_goods.db import logs
 from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
+
+def fetch_log_ids(run_id: str) -> str:
+    result = logs.get(run_id)
+    log_ids: dict[StepName, str] = {log['step_name']: log['id'] for log in result} # type: ignore
+    return json.dumps(log_ids)
 
 @inngest.create_function(
     fn_id="create_strategy",
@@ -34,12 +38,12 @@ async def create_strategy(
     )
     
     log_ids_str = await step.run(
-        "initialize_logs",
-        lambda: initialize_logs(run_id),
+        "fetch_logs",
+        lambda: fetch_log_ids(run_id),
     )
-    
+
     log_ids: dict[StepName, str] = json.loads(log_ids_str)
-    
+
     await step.run(
         "start_fetch_projects_data",
         lambda: logs.update(
