@@ -51,8 +51,8 @@ def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects
             project=smart_ranked_project["project"],
             report=smart_ranked_project["report"],
             scores=smart_ranked_project["scores"],
-            smart_ranking=smart_ranked_project["smart_ranking"],
-            weight=(smart_ranked_project["smart_ranking"] / total_score) * 100,
+            smart_ranking=round(smart_ranked_project["smart_ranking"], 2),
+            weight=(smart_ranked_project["smart_ranking"] / total_score),
         ) for smart_ranked_project in smart_ranked_projects
     ]
         
