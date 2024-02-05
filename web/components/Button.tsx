@@ -50,10 +50,10 @@ const Button = ({
           hierarchyClasses[hierarchy],
           sizeClasses[size],
           variantClass,
+          className,
           disabled
-            ? "!cursor-default !opacity-60 bg-indigo-400 hover:!bg-indigo-400 !border-indigo-300 shadow-none !text-indigo-200"
-            : "cursor-pointer",
-          className
+            ? "!cursor-default !opacity-60 !bg-indigo-400 hover:!bg-indigo-400 !border-indigo-300 shadow-none !text-indigo-200"
+            : "cursor-pointer"
         )}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}

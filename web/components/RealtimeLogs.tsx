@@ -157,7 +157,6 @@ export default function RealtimeLogs(props: {
   return (
     <>
       <div className='flex flex-col gap-4'>
-        <p>Results:</p>
         <ProgressBar
           stepTimes={stepTimes}
           curStep={currentStep}
@@ -171,7 +170,7 @@ export default function RealtimeLogs(props: {
                 "p-4 flex flex-nowrap items-center gap-2 border rounded-lg",
                 log.status === "NOT_STARTED"
                   ? "bg-indigo-500/30 border-indigo-400"
-                  : "cursor-pointer border-indigo-500 bg-indigo-white hover:bg-indigo-200"
+                  : "cursor-pointer border-indigo-500 bg-indigo-white hover:bg-indigo-200 shadow-md shadow-primary-shadow/20"
               )}>
               {log.status === "IN_PROGRESS" ? (
                 <LoadingCircle
