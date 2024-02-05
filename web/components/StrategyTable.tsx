@@ -105,7 +105,8 @@ export function StrategyTable(props: StrategyTableProps) {
   function handleWeightUpdate(value: string, index: number) {
     const numberValue = parseFloat(value);
     const currentWeight = props.strategy[index].weight as number;
-    if ((numberValue / 100).toFixed(2) === currentWeight.toFixed(2)) {
+
+    if (numberValue / 100 === currentWeight) {
       return;
     }
 
@@ -143,6 +144,7 @@ export function StrategyTable(props: StrategyTableProps) {
       percentage: numberValue,
       index,
     });
+    console.log(newPercentages)
     setOverwrittenWeights(newOverwrittenWeights);
     setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     const newStrategy = props.strategy.map((s, i) => {
