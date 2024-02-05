@@ -1,19 +1,32 @@
-from typing import Literal
+from typing import Literal, Any
 import datetime
+from supabase import PostgrestAPIResponse
 from fund_public_goods.db.client import create_admin
-from fund_public_goods.db.entities import StepStatus, StepName
+from fund_public_goods.db.entities import Logs, StepStatus, StepName
 
 
-def create(
-    run_id: str,
-    step_name: StepName,
-):
+def insert_multiple(run_id: str):
     db = create_admin()
-    return db.table("logs").insert({
-        "run_id": run_id,
-        "step_name": step_name.value,
-        "status": StepStatus.NOT_STARTED.value
-    }).execute()
+
+    return (
+        db.table("logs")
+        .insert(
+            [
+                {
+                    "run_id": run_id,
+                    "status": (
+                        StepStatus.IN_PROGRESS.value
+                        if step_name == StepName.FETCH_PROJECTS
+                        else StepStatus.NOT_STARTED.value
+                    ),
+                    "step_name": step_name.value,
+                }
+                for step_name in StepName
+            ]
+        )
+        .execute()
+    )
+
 
 def update(
     log_id: str,
@@ -30,3 +43,13 @@ def update(
         "value": value,
         "ended_at": ended_at
     }).eq("id", log_id).execute()
+
+
+def get(run_id: str) -> list[Logs] | None:
+    db = create_admin()
+    result: PostgrestAPIResponse[Logs, Any] = (
+        db.table("logs").select("*").eq("run_id", run_id).execute()
+    )
+    if not result.data:
+        return None
+    return result.data

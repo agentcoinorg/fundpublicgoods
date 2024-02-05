@@ -35,6 +35,7 @@ async def runs(params: Params, authorization: Optional[str] = Header(None)) -> R
     run_id = tables.runs.insert(entities.Runs(
         prompt=prompt
     ), db)
+    tables.logs.insert_multiple(run_id)
     await inngest_client.send(
         CreateStrategyEvent.Data(run_id=run_id).to_event()
     )

@@ -47,7 +47,7 @@ export default function RealtimeLogs(props: {
           schema: "public",
           filter: `run_id=eq.${props.run.id}`,
         },
-        async () => {
+        () => {
           router.refresh()
         }
       )
@@ -63,9 +63,12 @@ export default function RealtimeLogs(props: {
   let currentStep = sortedLogsWithSteps.findIndex((x) => x.status === "IN_PROGRESS");
 
   if (currentStep < 0) {
-    currentStep = sortedLogsWithSteps[totalSteps - 1].status === "COMPLETED" ?
-      totalSteps + 1 :
-      0;
+    const lastStep = sortedLogsWithSteps[totalSteps - 1]
+    if (!!lastStep) {
+      currentStep = lastStep.status === "COMPLETED" ? totalSteps + 1 : 0;
+    } else {
+      currentStep = 0
+    }
   }
 
   return (
@@ -74,7 +77,7 @@ export default function RealtimeLogs(props: {
         <p>Results:</p>
         <ProgressBar stepTimes={stepTimes} curStep={currentStep} className={"!stroke-indigo-500 text-indigo-200 rounded-lg"} />
         <div className="flex flex-col gap-2">
-          { sortedLogsWithSteps.map(log => (
+          {sortedLogsWithSteps.map(log => (
             <div key={log.id} className={clsx(
               "p-4 flex flex-nowrap items-center gap-2 border border-indigo-500 rounded-lg bg-indigo-500/50 cursor-pointer",
               log.status === "IN_PROGRESS" ? "text-indigo-50" : ""
@@ -89,7 +92,7 @@ export default function RealtimeLogs(props: {
               )}>{ getLogMessage(log) }</p>
               <div className="w-6 h-6"></div>
             </div>
-          )) }
+          ))}
         </div>
       </div>
     </>

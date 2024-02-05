@@ -37,6 +37,11 @@ def initialize_logs(run_id: str) -> str:
 
     return json.dumps(log_ids)
 
+def fetch_log_ids(run_id: str) -> str:
+    result = logs.get(run_id)
+    log_ids: dict[StepName, str] = {log['step_name']: log['id'] for log in result}
+    return json.dumps(log_ids)
+
 @inngest.create_function(
     fn_id="create_strategy",
     trigger=CreateStrategyEvent.trigger,
@@ -54,12 +59,12 @@ async def create_strategy(
     )
     
     log_ids_str = await step.run(
-        "initialize_logs",
-        lambda: initialize_logs(run_id),
+        "test_fetch_logs",
+        lambda: fetch_log_ids(run_id),
     )
-    
+
     log_ids: dict[StepName, str] = json.loads(log_ids_str)
-    
+
     await step.run(
         "start_fetch_projects_data",
         lambda: logs.update(
