@@ -1,7 +1,7 @@
 import json
-import math
-from typing import Any
-from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
+from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
+from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
+from fund_public_goods.lib.strategy.utils.initialize_logs import initialize_logs
 from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 import inngest
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
@@ -10,85 +10,12 @@ from fund_public_goods.lib.strategy.utils.evaluate_project import (
 )
 from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
-from fund_public_goods.db.tables.projects import fetch_projects_data
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.db import logs
 from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
-
-PROMPT_MATCH_WEIGHT = 1/3
-IMPACT_WEIGHT = 1/3
-FUNDING_NEEDED_WEIGHT = 1/3
-
-
-def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects_scores: list[ProjectScores]) -> list[WeightedProject]:
-    projects_by_id = { project_with_report[0].id: project_with_report for project_with_report in projects_with_reports }
-    smart_ranked_projects: list[dict[str, Any]] = []
-    
-    for project_scores in projects_scores:
-        smart_ranking = (
-            (project_scores.prompt_match * PROMPT_MATCH_WEIGHT) +
-            (project_scores.impact * IMPACT_WEIGHT) +
-            (project_scores.funding_needed * FUNDING_NEEDED_WEIGHT)
-        )
-        
-        (project, report) = projects_by_id[project_scores.project_id]
-        
-        smart_ranked_projects.append(
-            {
-                "project": project,
-                "report": report,
-                "scores": project_scores,
-                "smart_ranking": smart_ranking
-            }
-        )
-        
-    total_score = math.fsum([project["smart_ranking"] for project in smart_ranked_projects])
-    weighted_projects: list[WeightedProject] = [
-        WeightedProject(
-            project=smart_ranked_project["project"],
-            report=smart_ranked_project["report"],
-            scores=smart_ranked_project["scores"],
-            smart_ranking=round(smart_ranked_project["smart_ranking"], 2),
-            weight=(smart_ranked_project["smart_ranking"] / total_score),
-        ) for smart_ranked_project in smart_ranked_projects
-    ]
-        
-    return weighted_projects
-
-
-def evaluate_projects(prompt: str, projects: list[Project]) -> list[dict[str, Any]]:
-    projects_with_reports: list[tuple[Project, str]] = []
-    
-    for project in projects:
-        report = evaluate_project(prompt, project)
-        projects_with_reports.append((project, report))
-        
-    return [{
-        "project": project.model_dump(),
-        "report": report
-    } for (project, report) in projects_with_reports]
-
-def fetch_matching_projects(prompt: str):
-    projects = fetch_projects_data()
-    matching_projects = get_top_matching_projects(prompt, projects)[:10]
-    
-    return [project.model_dump() for project in matching_projects]
-
-def initialize_logs(run_id: str) -> str:
-    log_ids: dict[StepName, str] = {}
-
-    for step_name in StepName:
-        new_log = logs.create(
-            run_id=run_id,
-            step_name=step_name,
-        ).data
-        
-        log_ids[step_name] = new_log[0]["id"]
-
-    return json.dumps(log_ids)
 
 @inngest.create_function(
     fn_id="create_strategy",
