@@ -17,7 +17,6 @@ import {
   getTokensForNetwork,
 } from "@/utils/ethereum";
 import useWalletLogin from "@/hooks/useWalletLogin";
-import useSession from "@/hooks/useSession";
 
 function Information(props: {
   title: string;
