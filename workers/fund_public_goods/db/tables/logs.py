@@ -47,7 +47,7 @@ def update(
 
 def get(run_id: str) -> list[Logs] | None:
     db = create_admin()
-    result: PostgrestAPIResponse[Logs, Any] = (
+    result: PostgrestAPIResponse[Logs] = (
         db.table("logs").select("*").eq("run_id", run_id).execute()
     )
     if not result.data:
