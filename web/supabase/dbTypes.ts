@@ -231,6 +231,7 @@ export interface Database {
           reasoning: string | null
           report: string | null
           run_id: string
+          smart_ranking: number | null
           weight: number | null
         }
         Insert: {
@@ -243,6 +244,7 @@ export interface Database {
           reasoning?: string | null
           report?: string | null
           run_id: string
+          smart_ranking?: number | null
           weight?: number | null
         }
         Update: {
@@ -255,6 +257,7 @@ export interface Database {
           reasoning?: string | null
           report?: string | null
           run_id?: string
+          smart_ranking?: number | null
           weight?: number | null
         }
         Relationships: [
