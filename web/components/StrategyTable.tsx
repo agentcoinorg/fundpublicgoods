@@ -10,6 +10,8 @@ import {
 } from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import Modal from "./ModalBase";
+import ProjectModal from "./ProjectModal";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
@@ -38,6 +40,7 @@ export function StrategyTable(props: StrategyTableProps) {
   const [overwrittenWeights, setOverwrittenWeights] = useState(
     props.strategy.map((_) => 0)
   );
+  const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
@@ -180,8 +183,8 @@ export function StrategyTable(props: StrategyTableProps) {
         {props.strategy.map((entry, index) => (
           <tr
             key={index}
-            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50'>
-            <td className='pr-0 w-10'>
+            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer'>
+            <td className='pr-0 w-10 check'>
               <TextField
                 type='checkbox'
                 checked={entry.selected}
@@ -239,6 +242,11 @@ export function StrategyTable(props: StrategyTableProps) {
           </tr>
         ))}
       </tbody>
+      <ProjectModal
+        isOpen={showProjectModal}
+        title='Project Title'
+        onClose={() => setShowProjectModal(false)}
+      />
     </table>
   );
 }
