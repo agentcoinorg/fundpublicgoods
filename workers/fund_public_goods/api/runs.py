@@ -1,8 +1,10 @@
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
-from fund_public_goods.db import tables, entities
-from fastapi import APIRouter, HTTPException
+from fund_public_goods.db import tables, entities, client
+from fastapi import APIRouter, HTTPException, Header
 from pydantic import BaseModel
+from typing import Optional
+from supabase.lib.client_options import ClientOptions
 
 router = APIRouter()
 
@@ -15,23 +17,24 @@ class Response(BaseModel):
     run_id: str
 
 
-@router.post("/api/workers/{worker_id}/runs")
-async def runs(worker_id: str, params: Params) -> Response:
+@router.post("/api/runs")
+async def runs(params: Params, authorization: Optional[str] = Header(None)) -> Response:
+    if authorization:
+        supabase_auth_token = authorization.split(" ")[1]
+    else:
+        raise HTTPException(status_code=401, detail="Authorization header missing")
+    
     prompt = params.prompt if params.prompt else ""
 
     if prompt == "":
         raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
 
-    worker_exists = tables.workers.exists(worker_id)
-    if not worker_exists:
-        raise HTTPException(
-            status_code=400, detail=f"Worker with ID: {worker_id} is not valid"
-        )
-
+    db = client.create(options=ClientOptions())
+    db.postgrest.auth(supabase_auth_token)
+    
     run_id = tables.runs.insert(entities.Runs(
-        worker_id=worker_id,
         prompt=prompt
-    ))
+    ), db)
     await inngest_client.send(
         CreateStrategyEvent.Data(run_id=run_id).to_event()
     )

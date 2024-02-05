@@ -4,7 +4,10 @@ import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import { redistributeWeights } from "@/utils/distributeWeights";
+import {
+  applyUserWeight,
+  redistributeWeights,
+} from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 
@@ -32,22 +35,30 @@ export function StrategyTable(props: StrategyTableProps) {
       ).toFixed(2)
     )
   );
+  const [overwrittenWeights, setOverwrittenWeights] = useState(
+    props.strategy.map((_) => 0)
+  );
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
 
+  const undoModificationOfWeight = (currentWeight: number, index: number) => {
+    setFormattedWeights((weights) => {
+      const currentWeights = [...weights];
+      const weight = currentWeight * 100;
+      currentWeights[index] = weight.toFixed(2);
+      return currentWeights;
+    });
+  };
+
   function handleSelectAll(e: ChangeEvent<HTMLInputElement>) {
+    setOverwrittenWeights(props.strategy.map((_) => 0));
     const selected = e.target.checked;
-    if (selected) {
-      setFormattedWeights(
-        props.strategy.map(({ defaultWeight }) =>
-          (defaultWeight * 100).toFixed(2)
-        )
-      );
-    } else {
-      setFormattedWeights(props.strategy.map((_) => "0.00"));
-    }
+    const newWeights = props.strategy.map(({ defaultWeight }) => {
+      return selected ? (defaultWeight * 100).toFixed(2) : "0.00";
+    });
+    setFormattedWeights(newWeights);
     props.modifyStrategy(
       props.strategy.map((s) => {
         let amount;
@@ -88,9 +99,64 @@ export function StrategyTable(props: StrategyTableProps) {
     });
     newStrategy[index].selected = e.target.checked;
     props.modifyStrategy(newStrategy);
+    setOverwrittenWeights(props.strategy.map((_) => 0));
   }
 
-  function handleWeightUpdate(value: string, index: number) {}
+  function handleWeightUpdate(value: string, index: number) {
+    const numberValue = parseFloat(value);
+    const currentWeight = props.strategy[index].weight as number;
+    if ((numberValue / 100).toFixed(2) === currentWeight.toFixed(2)) {
+      return;
+    }
+
+    if (isNaN(numberValue) || numberValue > 100 || numberValue < 0) {
+      undoModificationOfWeight(currentWeight, index);
+      return;
+    }
+
+    const newOverwrittenWeights = overwrittenWeights.map((w, i) => {
+      if (i === index) return numberValue;
+      return w;
+    });
+
+    if (newOverwrittenWeights.reduce((acc, x) => acc + x) > 100) {
+      undoModificationOfWeight(currentWeight, index);
+      return;
+    }
+
+    const modifiedWeights = props.strategy.map((s, i) => {
+      if (!s.selected || i === index) return true;
+
+      return !!newOverwrittenWeights[i];
+    });
+
+    if (modifiedWeights.every((w) => w)) {
+      undoModificationOfWeight(currentWeight, index);
+      return;
+    }
+
+    const weights = props.strategy.map((w) => {
+      return w.selected ? w.defaultWeight * 100 : 0;
+    });
+
+    const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
+      percentage: numberValue,
+      index,
+    });
+    setOverwrittenWeights(newOverwrittenWeights);
+    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
+    const newStrategy = props.strategy.map((s, i) => {
+      const weight = newPercentages[i] / 100;
+      const amount = +props.totalAmount * weight;
+      return {
+        ...s,
+        amount: props.totalAmount ? amount.toFixed(2) : undefined,
+        weight,
+        selected: !(weight === 0),
+      };
+    });
+    props.modifyStrategy(newStrategy);
+  }
 
   return (
     <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
