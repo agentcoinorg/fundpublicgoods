@@ -48,7 +48,7 @@ def calculate_weights(projects_with_reports: list[tuple[Project, str]], projects
     total_score = math.fsum([project["smart_ranking"] for project in smart_ranked_projects])
     weighted_projects: list[WeightedProject] = [
         WeightedProject(
-            project=smart_ranked_project["projects"],
+            project=smart_ranked_project["project"],
             report=smart_ranked_project["report"],
             scores=smart_ranked_project["scores"],
             smart_ranking=smart_ranked_project["smart_ranking"],
