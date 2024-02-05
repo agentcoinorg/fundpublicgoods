@@ -59,7 +59,7 @@ async def create_strategy(
     )
     
     log_ids_str = await step.run(
-        "test_fetch_logs",
+        "fetch_logs",
         lambda: fetch_log_ids(run_id),
     )
 
