@@ -21,6 +21,7 @@
     "workers:build": "cd workers && poetry run build-check",
     "workers:dev": "yarn workers:env && cd workers && poetry run python -m uvicorn fund_public_goods.main:app --reload",
     "workers:env": "if [ \"$CICD\" != \"true\" ]; then cp .env ./workers/.env; fi",
+    "workers:test": "cd workers && poetry run pytest -v -s",
     "workers:types": "cd ops && poetry run generate-types",
     "events:dev": "npx inngest-cli dev",
     "ops:install": "cd ops && poetry install",

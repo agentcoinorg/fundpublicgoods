@@ -196,26 +196,26 @@ export interface Database {
           created_at: string
           id: string
           prompt: string
-          worker_id: string
+          user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
           prompt: string
-          worker_id: string
+          user_id?: string
         }
         Update: {
           created_at?: string
           id?: string
           prompt?: string
-          worker_id?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "runs_worker_id_fkey"
-            columns: ["worker_id"]
+            foreignKeyName: "runs_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "workers"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
@@ -302,32 +302,6 @@ export interface Database {
           is_anon?: boolean
         }
         Relationships: []
-      }
-      workers: {
-        Row: {
-          created_at: string
-          id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "workers_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
       }
     }
     Views: {
