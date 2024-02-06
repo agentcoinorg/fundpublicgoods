@@ -110,7 +110,8 @@ export function StrategyTable(props: StrategyTableProps) {
   function handleWeightUpdate(value: string, index: number) {
     const numberValue = parseFloat(value);
     const currentWeight = props.strategy[index].weight as number;
-    if ((numberValue / 100).toFixed(2) === currentWeight.toFixed(2)) {
+
+    if (numberValue / 100 === currentWeight) {
       return;
     }
 

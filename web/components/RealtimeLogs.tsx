@@ -1,44 +1,15 @@
 "use client";
 
-import { Tables } from "@/supabase/dbTypes";
-import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import LoadingCircle from "./LoadingCircle";
-import ProgressBar from "./ProgressBar";
-import Button from "./Button";
+import { useEffect } from "react";
+import { Tables } from "@/supabase/dbTypes";
+import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
+import LoadingCircle from "@/components/LoadingCircle";
+import ProgressBar from "@/components/ProgressBar";
 import useSession from "@/hooks/useSession";
+import { UNSTARTED_TEXTS, LOADING_TEXTS, STEPS_ORDER, STEP_TIME_ESTS } from "@/utils/logs";
 
-type StepName = Tables<"logs">["step_name"];
-
-const UNSTARTED_TEXTS: Record<StepName, string> = {
-  FETCH_PROJECTS: "Search for relevant projects",
-  EVALUATE_PROJECTS: "Evaluate proof of impact",
-  ANALYZE_FUNDING: "Analyze funding needs",
-  SYNTHESIZE_RESULTS: "Synthesize results",
-};
-
-const LOADING_TEXTS: Record<StepName, string> = {
-  FETCH_PROJECTS: "Searching for relevant projects...",
-  EVALUATE_PROJECTS: "Evaluating proof of impact...",
-  ANALYZE_FUNDING: "Analyzing funding needs...",
-  SYNTHESIZE_RESULTS: "Synthesizing results...",
-};
-
-const STEPS_ORDER: Record<StepName, number> = {
-  FETCH_PROJECTS: 1,
-  EVALUATE_PROJECTS: 2,
-  ANALYZE_FUNDING: 3,
-  SYNTHESIZE_RESULTS: 4,
-};
-
-const STEP_TIME_ESTS: Record<StepName, number> = {
-  FETCH_PROJECTS: 60,
-  EVALUATE_PROJECTS: 25,
-  ANALYZE_FUNDING: 20,
-  SYNTHESIZE_RESULTS: 15,
-};
 
 const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
@@ -53,22 +24,6 @@ const getLogMessage = (log: Tables<"logs">) => {
   }
 };
 
-const checkIfFinished = (logs: Tables<"logs">[]) => {
-  const sortedLogs = logs.sort((a, b) => {
-    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
-  });
-  const lastStep = sortedLogs.slice(-1)[0];
-
-  if (!lastStep) {
-    return false;
-  }
-
-  const isFinished =
-    lastStep.status === "COMPLETED" &&
-    lastStep.step_name === "SYNTHESIZE_RESULTS";
-
-  return isFinished;
-};
 
 export default function RealtimeLogs(props: {
   logs: Tables<"logs">[];
@@ -77,22 +32,13 @@ export default function RealtimeLogs(props: {
     prompt: string;
   };
 }) {
-  const [logs, setLogs] = useState<Tables<"logs">[]>(props.logs);
-  const { data: session } = useSession();
-  const supabase = createSupabaseBrowserClient(
-    session?.supabaseAccessToken ?? ""
-  );
-  const router = useRouter();
+  const { data: session } = useSession()
+  const supabase = createSupabaseBrowserClient(session?.supabaseAccessToken ?? "");
+  const router = useRouter()
 
-  const sortedLogsWithSteps = logs.sort((a, b) => {
-    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
-  });
-
-  const isFinished = checkIfFinished(sortedLogsWithSteps);
-
-  const navigateToStrategy = () => {
-    router.push(`./`);
-  };
+  const sortedLogsWithSteps = props.logs.sort((a, b) => {
+    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
+  })
 
   useEffect(() => {
     const channel = supabase
@@ -105,33 +51,8 @@ export default function RealtimeLogs(props: {
           schema: "public",
           filter: `run_id=eq.${props.run.id}`,
         },
-        async () => {
-          const response = await supabase
-            .from("logs")
-            .select(
-              `
-            id,
-            run_id,
-            created_at,
-            value,
-            ended_at,
-            status,
-            step_name
-          `
-            )
-            .eq("run_id", props.run.id);
-          const updatedLogs = response.data;
-
-          if (!updatedLogs) {
-            throw new Error(`Logs for Run with ID '${props.run.id}' not found`);
-          }
-
-          setLogs([...updatedLogs]);
-
-          if (checkIfFinished(updatedLogs)) {
-            navigateToStrategy();
-            return;
-          }
+        () => {
+          router.refresh()
         }
       )
       .subscribe();
@@ -148,10 +69,12 @@ export default function RealtimeLogs(props: {
   );
 
   if (currentStep < 0) {
-    currentStep =
-      sortedLogsWithSteps[totalSteps - 1].status === "COMPLETED"
-        ? totalSteps + 1
-        : 0;
+    const lastStep = sortedLogsWithSteps[totalSteps - 1]
+    if (!!lastStep) {
+      currentStep = lastStep.status === "COMPLETED" ? totalSteps + 1 : 0;
+    } else {
+      currentStep = 0
+    }
   }
 
   return (
@@ -198,9 +121,6 @@ export default function RealtimeLogs(props: {
           ))}
         </div>
       </div>
-      <Button disabled={!isFinished} onClick={() => navigateToStrategy()}>
-        View Results
-      </Button>
     </>
   );
 }

@@ -1,16 +1,14 @@
 import json
-from fund_public_goods.lib.strategy.utils.get_top_matching_projects import get_top_matching_projects
+from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
+from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
+from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 import inngest
-from fund_public_goods.lib.strategy.utils.assign_weights import assign_weights
-from fund_public_goods.lib.strategy.utils.evaluate_projects import (
-    evaluate_projects,
-)
-from fund_public_goods.lib.strategy.models.evaluated_project import (
-    EvaluatedProject,
+from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
+from fund_public_goods.lib.strategy.utils.evaluate_project import (
+    evaluate_project,
 )
 from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
-from fund_public_goods.db.tables.projects import fetch_projects_data
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.db import logs
@@ -18,23 +16,9 @@ from fund_public_goods.db.entities import StepName, StepStatus
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 
 
-def fetch_matching_projects(prompt: str):
-    projects = fetch_projects_data()
-    matching_projects = get_top_matching_projects(prompt, projects)
-    
-    return [project.model_dump() for project in matching_projects]
-
-def initialize_logs(run_id: str) -> str:
-    log_ids: dict[StepName, str] = {}
-
-    for step_name in StepName:
-        new_log = logs.create(
-            run_id=run_id,
-            step_name=step_name,
-        ).data
-        
-        log_ids[step_name] = new_log[0]["id"]
-
+def fetch_log_ids(run_id: str) -> str:
+    result = logs.get(run_id)
+    log_ids: dict[StepName, str] = {log['step_name']: log['id'] for log in result} # type: ignore
     return json.dumps(log_ids)
 
 @inngest.create_function(
@@ -54,12 +38,12 @@ async def create_strategy(
     )
     
     log_ids_str = await step.run(
-        "initialize_logs",
-        lambda: initialize_logs(run_id),
+        "fetch_logs",
+        lambda: fetch_log_ids(run_id),
     )
-    
+
     log_ids: dict[StepName, str] = json.loads(log_ids_str)
-    
+
     await step.run(
         "start_fetch_projects_data",
         lambda: logs.update(
@@ -93,17 +77,20 @@ async def create_strategy(
         ),
     )
 
-    json_asessed_projects = await step.run(
-        "assess_projects", lambda: evaluate_projects(prompt, projects)
-    )
-    assessed_projects = [EvaluatedProject(**x) for x in json_asessed_projects]  # type: ignore
+    projects_with_reports: list[tuple[Project, str]] = []
+    
+    for project in projects:
+        report = await step.run(
+            f"assess_project_{project.id}", lambda: evaluate_project(prompt, project)
+        )
+        projects_with_reports.append((project, report))
     
     await step.run(
         "completed_assess_projects",
         lambda: logs.update(
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.EVALUATE_PROJECTS],
-            value=f"Evaluated {len(assessed_projects)} projects",
+            value=f"Evaluated {len(projects_with_reports)} projects",
         ),
     )
     
@@ -116,10 +103,16 @@ async def create_strategy(
         ),
     )
 
-    json_weighted_projects: list[WeightedProject] = await step.run(
-        "determine_funding", lambda: assign_weights(assessed_projects)
+    json_project_scores = await step.run(
+        "determine_funding", lambda: score_projects(projects_with_reports)
     )
-    weighted_projects = [WeightedProject(**x) for x in json_weighted_projects]  # type: ignore
+    project_scores = [ProjectScores(**x) for x in json_project_scores]  # type: ignore
+    
+    json_weighted_projects = await step.run(
+        "calculate_weights", lambda: calculate_weights(projects_with_reports, project_scores)
+    )
+    
+    weighted_projects = [WeightedProject(**json_weighted_project) for json_weighted_project in json_weighted_projects] # type: ignore
     
     await step.run(
         "completed_determine_funding",

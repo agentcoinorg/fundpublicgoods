@@ -31,9 +31,8 @@ export default function Prompt() {
       if (!session) {
         throw new Error("User needs to have a session");
       }
-
       const response = await startRun(prompt, session.supabaseAccessToken);
-      router.push(`/r/${response.runId}/progress`);
+      router.push(`/s/${response.runId}`)
     } finally {
       setIsWaiting(false);
     }
