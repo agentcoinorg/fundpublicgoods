@@ -13,8 +13,14 @@ def insert(
         "network": row.network,
         "round": row.round,
         "answers": row.answers,
-        "project_id": row.project_id
+        "project_id": row.project_id,
+        "title": row.title,
+        "description": row.description,
+        "website": row.website,
+        "twitter": row.twitter,
+        "logo": row.logo
     }).execute()
+
 
 def get_applications(
     project_id: str

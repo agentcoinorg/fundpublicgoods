@@ -75,6 +75,11 @@ class Applications(BaseModel):
     round: str
     answers: Optional[Json] = None
     project_id: str = Field(..., alias="projectId")
+    title: str
+    description: str
+    website: str
+    logo: Optional[str] = None
+    twitter: Optional[str] = None
     model_config = ConfigDict(
         populate_by_name=True
     )
@@ -98,13 +103,7 @@ class FundingEntries(BaseModel):
 
 class Projects(BaseModel):
 
-    id: str
-    updated_at: int = Field(..., alias="updatedAt")
-    title: Optional[str] = None
-    description: Optional[str] = None
-    website: Optional[str] = None
-    twitter: Optional[str] = None
-    logo: Optional[str] = None
+    id: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True
