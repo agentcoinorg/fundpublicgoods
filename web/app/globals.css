@@ -27,7 +27,7 @@ td {
 }
 
 .checkbox {
-  @apply rounded border-2 border-indigo-500 w-5 h-5 transition-colors duration-300 cursor-pointer hover:border-indigo-400;
+  @apply rounded border-2 border-indigo-500 w-5 h-5 transition-colors duration-300 hover:border-indigo-400;
 }
 
 .checkbox.checked {

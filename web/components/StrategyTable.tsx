@@ -12,14 +12,19 @@ import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
 import WeightingModal from "./WeightingModal";
+import { NetworkName } from "@/utils/ethereum";
+import clsx from "clsx";
 
 export type StrategyEntry = Tables<"strategy_entries">;
-export type Project = Tables<"projects">;
+export type Project = Tables<"projects"> & {
+  applications: Tables<"applications">[];
+};
 export type StrategyInformation = StrategyEntry & {
   project: Project;
   selected: boolean;
   amount?: string;
   defaultWeight: number;
+  network: NetworkName;
 };
 export type StrategyWithProjects = StrategyInformation[];
 
@@ -27,6 +32,7 @@ export interface StrategyTableProps {
   strategy: StrategyWithProjects;
   modifyStrategy: (projects: StrategyWithProjects) => void;
   totalAmount: string;
+  selectedNetwork: NetworkName;
 }
 
 export function StrategyTable(props: StrategyTableProps) {
@@ -173,7 +179,7 @@ export function StrategyTable(props: StrategyTableProps) {
   function openProjectDetails(strategy: StrategyInformation) {
     setShowStrategyDetails({
       show: true,
-      strategy
+      strategy,
     });
   }
 
@@ -199,13 +205,32 @@ export function StrategyTable(props: StrategyTableProps) {
         {props.strategy.map((entry, index) => (
           <tr
             key={index}
-            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
+            className={clsx(
+              "w-full border-indigo-100/80 border-t-2",
+              props.selectedNetwork !== entry.network
+                ? "opacity-50 cursor-not-allowed"
+                : "bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
+            )}
           >
-            <td className="pr-0 w-10 check">
+            <td
+              className={clsx(
+                "pr-0 w-10 check",
+                props.selectedNetwork === entry.network
+                  ? "cursor-pointer"
+                  : "cursor-not-allowed"
+              )}
+            >
               <TextField
                 type="checkbox"
-                checked={entry.selected}
-                onChange={(e) => handleSelectProject(e, index)}
+                checked={
+                  props.selectedNetwork === entry.network && entry.selected
+                }
+                disabled={props.selectedNetwork !== entry.network}
+                onChange={(e) => {
+                  if (props.selectedNetwork === entry.network) {
+                    handleSelectProject(e, index);
+                  }
+                }}
               />
             </td>
             <td className="flex gap-2 w-full">
@@ -253,7 +278,10 @@ export function StrategyTable(props: StrategyTableProps) {
             )}
             <td className="w-32">
               <div className="w-full">
-                <Score onClick={() => openProjectDetails(entry)} rank={entry.impact ?? 0} />
+                <Score
+                  onClick={() => openProjectDetails(entry)}
+                  rank={entry.impact ?? 0}
+                />
               </div>
             </td>
           </tr>
@@ -270,7 +298,6 @@ export function StrategyTable(props: StrategyTableProps) {
         title={showStrategyDetails.strategy?.project.title || "Project"}
         onClose={() => setShowStrategyDetails({ show: false })}
       />
-
     </table>
   );
 }

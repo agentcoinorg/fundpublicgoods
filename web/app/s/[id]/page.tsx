@@ -2,7 +2,7 @@ import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategyWithProjects } from "@/components/StrategyTable";
 import TextField from "@/components/TextField";
-import { Tables } from "@/supabase/dbTypes";
+import { getNetworkNameFromChainId } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -22,7 +22,13 @@ export default async function StrategyPage({
       prompt,
       strategy_entries(
         *,
-        project:projects(*)
+        project:projects(
+          *,
+          applications(
+            network,
+            created_at
+          )
+        )
       ),
       funding_entries(
         amount,
@@ -55,11 +61,7 @@ export default async function StrategyPage({
       <div className="w-full flex justify-center h-full p-16">
         <div className="w-full max-w-3xl flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <TextField
-              label="Results for"
-              value={run.data.prompt}
-              readOnly
-            />
+            <TextField label="Results for" value={run.data.prompt} readOnly />
           </div>
           <div className="w-full h-[1px] bg-indigo-500" />
           <RealtimeLogs
@@ -75,6 +77,10 @@ export default async function StrategyPage({
 
   const strategy = data
     .map((s) => {
+      const latestApplication = s.project.applications
+        .sort((a, b) => a.created_at - b.created_at)
+        .slice(-1)[0];
+      s.network = getNetworkNameFromChainId(latestApplication.network);
       if (run.data.funding_entries.length) {
         const selected = run.data.funding_entries.find(
           ({ project_id }) => s.project_id === project_id
@@ -88,6 +94,7 @@ export default async function StrategyPage({
           defaultWeight: s.weight as number,
         };
       }
+
       return {
         ...s,
         selected: run.data.funding_entries.length === 0,

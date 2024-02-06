@@ -5,7 +5,8 @@ import { SiweMessage } from "siwe";
 
 export default function useWalletLogin() {
   const [{ wallet }, connect] = useConnectWallet()
-
+  // console.log('checking the wallet')
+  // console.log(wallet)
   const handleLogin = async () => {
     const walletToUse = wallet ?? (await connect())[0]
 

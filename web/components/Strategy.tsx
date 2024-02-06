@@ -13,7 +13,6 @@ import { distributeWeights } from "@/utils/distributeWeights";
 import {
   NetworkName,
   TokenInformation,
-  getSupportedNetworkFromWallet,
   getTokensForNetwork,
 } from "@/utils/ethereum";
 import useWalletLogin from "@/hooks/useWalletLogin";
@@ -28,10 +27,10 @@ function Information(props: {
   disabled?: boolean;
 }) {
   return (
-    <div className='flex flex-wrap justify-between'>
-      <div className='flex flex-col'>
-        <div className='text-lg font-semibold'>{props.title}</div>
-        <div className='text-xs text-subdued'>{props.subtitle}</div>
+    <div className="flex flex-wrap justify-between">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">{props.title}</div>
+        <div className="text-xs text-subdued">{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}
@@ -49,18 +48,20 @@ export default function Strategy(props: {
   const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
     props.strategy
   );
+  const [selectedNetwork, setSelectedNetwork] =
+    useState<NetworkName>("Mainnet");
   const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
   const [amount, setAmount] = useState<string>(props.amount);
   const [{ wallet }, connectWallet] = useConnectWallet();
-  const loginWithWallet = useWalletLogin()
-  const { data: session } = useSession()
+  const loginWithWallet = useWalletLogin();
+  const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const network: NetworkName | undefined =
-    getSupportedNetworkFromWallet(wallet);
-
-  const tokens = network ? getTokensForNetwork(network) : [];
+  const uniqueNetworks = Array.from(
+    new Set(props.strategy.map((s) => s.network))
+  );
+  const tokens = getTokensForNetwork(selectedNetwork);
 
   const selectedStrategiesLength = currentStrategy.filter(
     (x) => x.selected
@@ -95,10 +96,10 @@ export default function Strategy(props: {
 
   async function regenerateStrat(prompt: string) {
     if (!session) {
-      throw new Error("User needs to have a session")
+      throw new Error("User needs to have a session");
     }
     const response = await startRun(prompt, session.supabaseAccessToken);
-    router.push(`/s/${response.runId}`)
+    router.push(`/s/${response.runId}`);
   }
 
   const calculateUpdatedStrategy = (
@@ -123,17 +124,11 @@ export default function Strategy(props: {
     }
   }
 
-  useEffect(() => {
-    if (tokens.length) {
-      setToken(tokens[0]);
-    }
-  }, [tokens]);
-
   return (
-    <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
-      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
+    <div className="flex justify-center py-10 px-6 flex-grow flex-column">
+      <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
         <TextField
-          label='Results for'
+          label="Results for"
           value={currentPromp}
           onChange={(e) => setCurrentPrompt(e.target.value)}
           onKeyDown={(e) => {
@@ -142,7 +137,7 @@ export default function Strategy(props: {
             }
           }}
         />
-        <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
+        <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
           <p>
             I&apos;ve evaluated the impact of Ethereum infrastructure projects
             on the Gitcoin project registry and Optimism Retroactive Public
@@ -151,10 +146,19 @@ export default function Strategy(props: {
             each project.
           </p>
         </div>
-        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
+        <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
+          <div>
+            <Dropdown
+              items={uniqueNetworks.filter((n) => n !== selectedNetwork)}
+              field={{ value: selectedNetwork }}
+              onChange={(newValue) => {
+                setSelectedNetwork(newValue as NetworkName);
+              }}
+            />
+          </div>
           {!!wallet && token && (
             <TextField
-              label='Total Funding Amount'
+              label="Total Funding Amount"
               rightAdornment={
                 <Dropdown
                   items={tokens.map((x) => x.name)}
@@ -193,6 +197,7 @@ export default function Strategy(props: {
             strategy={currentStrategy}
             modifyStrategy={setCurrentStrategy}
             totalAmount={amount}
+            selectedNetwork={selectedNetwork}
           />
         </div>
         {!wallet ? (
@@ -205,7 +210,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action='Connect →'
+            action="Connect →"
             onClick={() => connect()}
           />
         ) : (
@@ -215,7 +220,7 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action='Next →'
+            action="Next →"
             onClick={createFundingPlan}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
           />
