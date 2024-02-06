@@ -31,6 +31,8 @@ export default async function StrategyPage({
         project_id
       ),
       logs(
+        id,
+        run_id,
         created_at,
         value,
         ended_at,
@@ -47,7 +49,7 @@ export default async function StrategyPage({
     throw Error(`Runs with id ${params.id} not found.`);
   }
 
-  const strategyCreated = checkIfFinished(run.data.logs as Tables<"logs">[]);
+  const strategyCreated = checkIfFinished(run.data.logs);
   if (!strategyCreated) {
     return (
       <div className="w-full flex justify-center h-full p-16">
@@ -61,7 +63,7 @@ export default async function StrategyPage({
           </div>
           <div className="w-full h-[1px] bg-indigo-500" />
           <RealtimeLogs
-            logs={run.data.logs as Tables<"logs">[]}
+            logs={run.data.logs}
             run={{ id: params.id, prompt: run.data.prompt }}
           />
         </div>
