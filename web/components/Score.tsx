@@ -8,7 +8,7 @@ export default function Score({
 }: {
   rank: number;
   icon?: boolean;
-  onClick: () => void
+  onClick?: () => void
 }) {
   return (
     <div className='flex flex-wrap gap-2 items-center justify-between'>

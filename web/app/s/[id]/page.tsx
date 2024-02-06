@@ -42,21 +42,6 @@ export default async function StrategyPage({
     .eq("id", params.id)
     .single();
 
-    const anothjerRun = await supabase
-    .from("funding_entries")
-    .select(
-      `
-        amount,
-        token,
-        weight,
-        project_id,
-        run_id
-
-    `
-    )
-    // .eq("run_id", params.id)
-  console.log(anothjerRun)
-  // console.log(run.data)
   if (run.error || !run.data) {
     console.error(run.error);
     throw Error(`Runs with id ${params.id} not found.`);
@@ -109,12 +94,10 @@ export default async function StrategyPage({
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
-  // console.log(run.data.funding_entries)
   const amount = run.data.funding_entries.reduce((acc, x) => {
     return acc + Number(x.amount);
   }, 0);
 
-  // console.log(amount)
   return (
     <Strategy
       strategy={strategy}
