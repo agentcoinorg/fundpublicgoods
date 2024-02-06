@@ -10,7 +10,6 @@ import {
 } from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import Modal from "./ModalBase";
 import ProjectModal from "./ProjectModal";
 import WeightingModal from "./WeightingModal";
 
@@ -41,7 +40,7 @@ export function StrategyTable(props: StrategyTableProps) {
   const [overwrittenWeights, setOverwrittenWeights] = useState(
     props.strategy.map((_) => 0)
   );
-  const [showProjectModal, setShowProjectModal] = useState<boolean>(true);
+  const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
   const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
@@ -164,6 +163,10 @@ export function StrategyTable(props: StrategyTableProps) {
     props.modifyStrategy(newStrategy);
   }
 
+  function openProjectDetails() {
+    setShowProjectModal(true)
+  }
+
   return (
     <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
       <thead>
@@ -239,7 +242,7 @@ export function StrategyTable(props: StrategyTableProps) {
             )}
             <td className='w-32'>
               <div className='w-full'>
-                <Score rank={entry.impact ?? 0} />
+                <Score onClick={openProjectDetails} rank={entry.impact ?? 0} />
               </div>
             </td>
           </tr>

@@ -2,6 +2,7 @@ import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategyWithProjects } from "@/components/StrategyTable";
 import TextField from "@/components/TextField";
+import { Tables } from "@/supabase/dbTypes";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -30,8 +31,6 @@ export default async function StrategyPage({
         project_id
       ),
       logs(
-        id,
-        run_id,
         created_at,
         value,
         ended_at,
@@ -41,15 +40,29 @@ export default async function StrategyPage({
     `
     )
     .eq("id", params.id)
-    .order("created_at", { ascending: false })
     .single();
 
+    const anothjerRun = await supabase
+    .from("funding_entries")
+    .select(
+      `
+        amount,
+        token,
+        weight,
+        project_id,
+        run_id
+
+    `
+    )
+    // .eq("run_id", params.id)
+  console.log(anothjerRun)
+  // console.log(run.data)
   if (run.error || !run.data) {
     console.error(run.error);
     throw Error(`Runs with id ${params.id} not found.`);
   }
 
-  const strategyCreated = checkIfFinished(run.data.logs);
+  const strategyCreated = checkIfFinished(run.data.logs as Tables<"logs">[]);
   if (!strategyCreated) {
     return (
       <div className="w-full flex justify-center h-full p-16">
@@ -63,7 +76,7 @@ export default async function StrategyPage({
           </div>
           <div className="w-full h-[1px] bg-indigo-500" />
           <RealtimeLogs
-            logs={run.data.logs}
+            logs={run.data.logs as Tables<"logs">[]}
             run={{ id: params.id, prompt: run.data.prompt }}
           />
         </div>
@@ -96,10 +109,12 @@ export default async function StrategyPage({
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
+  // console.log(run.data.funding_entries)
   const amount = run.data.funding_entries.reduce((acc, x) => {
     return acc + Number(x.amount);
   }, 0);
 
+  // console.log(amount)
   return (
     <Strategy
       strategy={strategy}
