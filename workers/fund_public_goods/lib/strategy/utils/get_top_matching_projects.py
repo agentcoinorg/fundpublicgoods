@@ -6,6 +6,7 @@ from langchain_core.output_parsers import StrOutputParser
 from fund_public_goods.lib.strategy.utils.utils import stringify_projects
 from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
 from fund_public_goods.lib.strategy.utils.utils import get_project_text, remove_duplicate_projects
+from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 
@@ -17,8 +18,8 @@ You will receive a list of project information abstracts divided by '{separator}
 and you will reorder them based on how much they relate to the user's prompt.
 
 You will return a comma-seaparted list of PROJECT_IDs, without quotes.
-PROJECT_IDs are as specified in the list of projects, **do not** modify
-them in any way, return them exactly as presented to you.
+PROJECT_IDs are as specified, **do not** modify in any way,
+return them exactly as written.
 
 Ranked from best matching to worst matching.
 
@@ -28,7 +29,6 @@ Projects: {projects}
 """
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    projects_by_id = { f"{project.id}": project for project in projects}
     
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
@@ -45,15 +45,17 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
         "separator": separator,
         "projects": stringify_projects(projects=projects, separator=separator)
     })
-    top_ids = top_ids_res.split(',')
-    
-    for id in top_ids:
-        if id not in projects_by_id:
+    top_ids_split = top_ids_res.split(',')
+    top_ids = strings_to_numbers(top_ids_split)
+
+    for i in range(len(top_ids)):
+        id = top_ids[i]
+        if (id is None) or (id > len(projects) or id < 0):
             raise Exception(
-                f"ID {id} not found in projects_by_id ({projects_by_id.keys()}). Llm response ({top_ids_res}). Response split ({top_ids})"
+                f"ID {id} not found in projects array (len {len(projects)}). Llm response ({top_ids_res}). Response split ({top_ids_split})"
             )
 
-    reranked_projects: list[Project] = [projects_by_id[id] for id in top_ids]
+    reranked_projects: list[Project] = [projects[id] for id in top_ids]
     
     return reranked_projects
 
@@ -77,7 +79,7 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         client=db_client,
         collection_name="projects"
     )
-        
+    
     top_matches: list[Project] = []
     
     for query in queries:
@@ -86,7 +88,7 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         for match in matches:
             matched_project = projects_by_id[match.metadata["id"]]
             top_matches.append(matched_project)
-            
+    
     unique_projects = remove_duplicate_projects(top_matches)
     reranked_projects = rerank_top_projects(prompt=prompt, projects=unique_projects)
     
