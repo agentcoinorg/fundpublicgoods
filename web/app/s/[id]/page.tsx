@@ -2,6 +2,7 @@ import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategyWithProjects } from "@/components/StrategyTable";
 import TextField from "@/components/TextField";
+import { Tables } from "@/supabase/dbTypes";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -41,7 +42,6 @@ export default async function StrategyPage({
     `
     )
     .eq("id", params.id)
-    .order("created_at", { ascending: false })
     .single();
 
   if (run.error || !run.data) {

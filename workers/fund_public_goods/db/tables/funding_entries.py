@@ -25,26 +25,16 @@ def insert_multiple(run_id: str, entries: list[FundingEntryData]):
     if exists(run_id):
         delete_from_run(run_id)
 
-    rows = []
-    for entry in entries:
-        rows.append(FundingEntries(
-            run_id=UUID(run_id),
-            project_id=entry.project_id,
-            amount=str(entry.amount),
-            token=entry.token,
-            weight=entry.weight
-        ))
-
     db.table("funding_entries").insert(
         [
             {
-                "run_id": row.run_id,
+                "run_id": run_id,
                 "project_id": row.project_id,
                 "amount": row.amount,
                 "token": row.token,
                 "weight": row.weight
             }
-            for row in rows
+            for row in entries
         ]
     ).execute()
 
