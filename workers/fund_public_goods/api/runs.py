@@ -1,4 +1,5 @@
 from fund_public_goods.inngest_client import inngest_client
+from fund_public_goods.lib.strategy.utils.initialize_logs import initialize_logs
 from fund_public_goods.workflows.create_strategy.events import CreateStrategyEvent
 from fund_public_goods.db import tables, entities, client
 from fastapi import APIRouter, HTTPException, Header
@@ -35,6 +36,7 @@ async def runs(params: Params, authorization: Optional[str] = Header(None)) -> R
     run_id = tables.runs.insert(entities.Runs(
         prompt=prompt
     ), db)
+    initialize_logs(run_id)
     await inngest_client.send(
         CreateStrategyEvent.Data(run_id=run_id).to_event()
     )

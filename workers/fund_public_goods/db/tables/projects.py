@@ -83,13 +83,16 @@ def fetch_projects_data() -> list[Project]:
                     answer=answer.get("answer", None)
                 ))
         
+        # Remove all None values
+        project_data = {k: v for k, v in item.items() if v is not None}
+
         project = Project(
-            id=item.get("id", ""),
-            title=item.get("title", ""),
-            description=item.get("description", ""),
-            website=item.get("website", ""),
-            twitter=item.get("twitter", ""),
-            logo=item.get("logo", ""),
+            id=project_data.get("id", ""),
+            title=project_data.get("title", ""),
+            description=project_data.get("description", ""),
+            website=project_data.get("website", ""),
+            twitter=project_data.get("twitter", ""),
+            logo=project_data.get("logo", ""),
             answers=answers,
         )
         
