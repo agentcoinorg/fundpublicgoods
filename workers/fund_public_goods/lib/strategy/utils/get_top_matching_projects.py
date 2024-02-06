@@ -47,16 +47,20 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
+    reranked_projects: list[Project]
 
     for i in range(len(top_ids)):
         id = top_ids[i]
-        if (id is None) or (id > len(projects) or id < 0):
+        if id is None:
+            raise Exception(
+                f"The LLM has responded with a non-number at index {i}. Llm response ({top_ids_res}). Response split ({top_ids_split})"
+            )
+        if id > len(projects) or id < 0:
             raise Exception(
                 f"ID {id} not found in projects array (len {len(projects)}). Llm response ({top_ids_res}). Response split ({top_ids_split})"
             )
+        reranked_projects.append(projects[id])
 
-    reranked_projects: list[Project] = [projects[id] for id in top_ids]
-    
     return reranked_projects
 
 

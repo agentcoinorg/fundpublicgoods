@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev
+      - release/dev
+      - release/prod
   pull_request:
 
 jobs:

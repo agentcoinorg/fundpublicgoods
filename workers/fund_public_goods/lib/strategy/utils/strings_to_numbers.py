@@ -1,5 +1,5 @@
-def strings_to_numbers(strings: list[str]):
-    numbers = []
+def strings_to_numbers(strings: list[str]) -> list[int | None]:
+    numbers: list[int | None] = []
     for item in strings:
         try:
             # Convert to integer and append to the list
