@@ -4,7 +4,14 @@ from fund_public_goods.lib.strategy.models.project import Project
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
 from fund_public_goods.db.client import create_admin
+from urllib.parse import urlparse
 
+
+def merge_projects(project_ids: list[str]):
+    db = create_admin()
+    return db.rpc('merge_projects', {
+        "project_ids": project_ids
+    }).execute()
 
 def insert(
     row: Projects
@@ -12,12 +19,6 @@ def insert(
     db = create_admin()
     db.table("projects").insert({
         "id": row.id,
-        "updated_at": row.updated_at,
-        "title": row.title,
-        "description": row.description,
-        "website": row.website,
-        "twitter": row.twitter,
-        "logo": row.logo
     }).execute()
 
 def upsert(
@@ -63,7 +64,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, twitter, logo, applications(id, recipient, round, answers)"
+            "id, applications(website)"
         )
         .execute()
     )
