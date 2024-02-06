@@ -1,14 +1,13 @@
 import inngest
-from fund_public_goods.workflows.index_gitcoin.events import IndexGitcoinPageEvent
-from fund_public_goods.db.tables.gitcoin import get_non_running_job, is_any_job_running, start_job
-
+from fund_public_goods.workflows.egress_gitcoin.events import EgressGitcoinPageEvent
+from fund_public_goods.db.tables.gitcoin_egress import get_non_running_job, is_any_job_running, start_job
 
 @inngest.create_function(
-    fn_id="start_index_gitcoin",
+    fn_id="start_egress_gitcoin",
     trigger=inngest.TriggerCron(cron="* * * * *"), # every 1 minute
     # trigger=inngest.TriggerCron(cron="*/15 * * * *"), # every 15 minutes
 )
-async def start_index_gitcoin(
+async def start_egress_gitcoin(
     ctx: inngest.Context,
     step: inngest.Step,
 ) -> str:
@@ -32,15 +31,12 @@ async def start_index_gitcoin(
     await step.run("start_job", lambda: start_job(job["id"]))
 
     await step.send_event(
-        "index_gitcoin_page", 
-        IndexGitcoinPageEvent.Data(
-            url = job["url"], 
-            network_id = job["networkId"],
-            project_page_size = 100,
-            skip_rounds = job["skipRounds"],
-            skip_projects = job["skipProjects"],
-            job_id=job["id"]
+        "egress_gitcoin_page", 
+        EgressGitcoinPageEvent.Data(
+            skip_applications = job["skipApplications"],
+            job_id=job["id"],
+            application_page_size = 100
         ).to_event()
     )
 
-    return "Started job: ID=" + job["id"] + ", URL=" + job["url"]
+    return "Started job: ID=" + job["id"]

@@ -30,6 +30,23 @@ class GitcoinApplications(BaseModel):
     pointer: str
     round_id: str = Field(..., alias="roundId")
     project_id: str = Field(..., alias="projectId")
+    network: int
+
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class GitcoinEgressJobs(BaseModel):
+
+    id: Optional[UUID] = None
+    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
+    is_running: bool = False
+    skip_applications: int = 0
+    last_updated_at: Optional[datetime.datetime] = Field(default=None, alias="lastUpdatedAt")
+    is_failed: bool = False
+    error: Optional[str] = None
+
     model_config = ConfigDict(
         populate_by_name=True
     )
@@ -103,19 +120,8 @@ class Projects(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
     website: Optional[str] = None
-    twitter: Optional[str] = None
     logo: Optional[str] = None
-
-    model_config = ConfigDict(
-        populate_by_name=True
-    )
-
-
-class Runs(BaseModel):
-
-    id: Optional[UUID] = None
-    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    prompt: str
+    twitter: Optional[str] = None
 
     model_config = ConfigDict(
         populate_by_name=True
@@ -148,6 +154,17 @@ class StrategyEntries(BaseModel):
     interest: Optional[float] = None
     weight: Optional[float] = None
 
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
+class Users(BaseModel):
+
+    id: Optional[UUID] = None
+    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
+    address: Optional[str] = None
+    is_anon: bool = Field(..., alias="isAnon")
     model_config = ConfigDict(
         populate_by_name=True
     )

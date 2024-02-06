@@ -2,9 +2,8 @@ import datetime
 import json
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinIndexingJobs
 from fund_public_goods.db.client import create_admin
-from fund_public_goods.db import tables, entities
 
-def upsert_project(project: GitcoinProjects, created_at: int):
+def upsert_project(project: GitcoinProjects):
     db = create_admin("indexing")
 
     db.table("gitcoin_projects").upsert({
@@ -14,31 +13,12 @@ def upsert_project(project: GitcoinProjects, created_at: int):
         "data": project.data
     }).execute()
 
-    result = tables.projects.get(project.id)
-
-    if result and result.updated_at > created_at:
-        return
-
-    row = entities.Projects(
-        id=project.id,
-        updated_at=created_at,
-        title=project.data["title"],
-        description=project.data["description"],
-        website=project.data["website"],
-        twitter=project.data.get("projectTwitter", ""),
-        logo=project.data.get("logoImg", ""),
-    )
-
-    if result == None:
-        tables.projects.insert(row)
-    else:
-        tables.projects.upsert(row)
-
-def save_application(app: GitcoinApplications, network: int):
+def save_application(app: GitcoinApplications):
     db = create_admin("indexing")
 
     db.table("gitcoin_applications").insert({
         "id": app.id,
+        "network": app.network,
         "created_at": app.created_at,
         "protocol": app.protocol,
         "pointer": app.pointer,
@@ -46,16 +26,6 @@ def save_application(app: GitcoinApplications, network: int):
         "project_id": app.project_id,
         "data": app.data
     }).execute()
-
-    tables.applications.insert(entities.Applications(
-        id=app.id,
-        created_at=app.created_at,
-        recipient=app.data["application"]["recipient"],
-        network=network,
-        round=app.round_id,
-        answers=json.dumps(app.data["application"]["answers"]),
-        project_id=app.project_id
-    ))
 
 def get_non_running_job() -> GitcoinIndexingJobs | None: 
     db = create_admin("indexing")
