@@ -41,8 +41,8 @@ export function StrategyTable(props: StrategyTableProps) {
   const [overwrittenWeights, setOverwrittenWeights] = useState(
     props.strategy.map((_) => 0)
   );
-  const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
-  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(true);
+  const [showProjectModal, setShowProjectModal] = useState<boolean>(true);
+  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
