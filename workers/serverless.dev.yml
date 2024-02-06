@@ -11,7 +11,7 @@ provider:
   name: aws
   runtime: python3.10
   region: us-east-1
-  memorySize: 256
+  memorySize: 2048
   timeout: 300
   environment:
     DEPLOYMENT_STAGE: dev
