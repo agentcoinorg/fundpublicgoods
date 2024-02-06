@@ -19,6 +19,7 @@ langchain-openai = "^0.0.2.post1"
 chromadb = "^0.4.22"
 langchain-community = "^0.0.13"
 pysqlite3-binary = "^0.5.2.post3"
+validators = "^0.22.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"

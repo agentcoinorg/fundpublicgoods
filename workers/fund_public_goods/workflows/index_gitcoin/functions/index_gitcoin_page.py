@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import cast
 import json
+from fund_public_goods.workflows.index_gitcoin.events.ingest_projects import IngestProjectsEvent
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.lib.gitcoin.models import ApplicationInfo, RoundInfo
@@ -92,6 +93,11 @@ async def index_gitcoin_page(
         await step.run("upsert_project_" + str(i), lambda: upsert_project(project, application.created_at))
         
         await step.run("save_application_" + str(i), lambda: save_application(application, data.network_id))
+        
+    await step.send_event(
+        "ingest_projects", 
+        IngestProjectsEvent.Data().to_event(ts = future_timestamp(PAGE_REQUEST_FREQUENCY_SECONDS))
+    )
 
     total_skip_rounds = 0
     total_skip_projects = 0
