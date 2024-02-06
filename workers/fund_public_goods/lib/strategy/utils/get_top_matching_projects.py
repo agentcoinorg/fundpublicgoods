@@ -16,7 +16,10 @@ You are a professional public goods projects evaluator.
 You will receive a list of project information abstracts divided by '{separator}'
 and you will reorder them based on how much they relate to the user's prompt.
 
-You will return a comma-seaparted list of project IDs, without quotes.
+You will return a comma-seaparted list of PROJECT_IDs, without quotes.
+PROJECT_IDs are as specified in the list of projects, **do not** modify
+them in any way, return them exactly as presented to you.
+
 Ranked from best matching to worst matching.
 
 User's prompt: {prompt}
@@ -26,7 +29,7 @@ Projects: {projects}
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     projects_by_id = { f"{project.id}": project for project in projects}
-    print(projects_by_id)
+    
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
     ])
@@ -37,12 +40,19 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     
     separator = "\n-----\n"
     
-    top_ids = reranking_chain.invoke({
+    top_ids_res = reranking_chain.invoke({
         "prompt": prompt,
         "separator": separator,
         "projects": stringify_projects(projects=projects, separator=separator)
-    }).split(',')
+    })
+    top_ids = top_ids_res.split(',')
     
+    for id in top_ids:
+        if id not in projects_by_id:
+            raise Exception(
+                f"ID {id} not found in projects_by_id ({projects_by_id.keys()}). Llm response ({top_ids_res}). Response split ({top_ids})"
+            )
+
     reranked_projects: list[Project] = [projects_by_id[id] for id in top_ids]
     
     return reranked_projects
