@@ -1,11 +1,12 @@
-from typing import Literal, Any
+import uuid
 import datetime
+from typing import Literal
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.client import create_admin
-from fund_public_goods.db.entities import Logs, StepStatus, StepName
+from fund_public_goods.db.entities import Logs, StepStatus
 
 
-def insert_multiple(run_id: str):
+def insert_multiple(logs: list[Logs]):
     db = create_admin()
 
     return (
@@ -13,20 +14,16 @@ def insert_multiple(run_id: str):
         .insert(
             [
                 {
-                    "run_id": run_id,
-                    "status": (
-                        StepStatus.IN_PROGRESS.value
-                        if step_name == StepName.FETCH_PROJECTS
-                        else StepStatus.NOT_STARTED.value
-                    ),
-                    "step_name": step_name.value,
+                    "run_id": str(log.run_id),
+                    "status": log.status,
+                    "step_name": log.step_name,
+                    "value": log.value
                 }
-                for step_name in StepName
+                for log in logs
             ]
         )
         .execute()
     )
-
 
 def update(
     log_id: str,

@@ -147,6 +147,7 @@ class StrategyEntries(BaseModel):
     impact: Optional[float] = None
     interest: Optional[float] = None
     weight: Optional[float] = None
+    smart_ranking: Optional[float] = Field(default=None, alias="smartRanking")
 
     model_config = ConfigDict(
         populate_by_name=True
