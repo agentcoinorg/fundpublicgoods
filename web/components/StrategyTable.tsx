@@ -12,6 +12,7 @@ import { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import Modal from "./ModalBase";
 import ProjectModal from "./ProjectModal";
+import WeightingModal from "./WeightingModal";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
@@ -41,6 +42,7 @@ export function StrategyTable(props: StrategyTableProps) {
     props.strategy.map((_) => 0)
   );
   const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
+  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(true);
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
@@ -242,6 +244,11 @@ export function StrategyTable(props: StrategyTableProps) {
           </tr>
         ))}
       </tbody>
+      <WeightingModal
+        isOpen={showWeightingModal}
+        title='Customize Project Weightings'
+        onClose={() => setShowWeightingModal(false)}
+      />
       <ProjectModal
         isOpen={showProjectModal}
         title='Project Title'
