@@ -25,8 +25,8 @@ Projects: {projects}
 """
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    projects_by_id = {project.id: project for project in projects}
-    
+    projects_by_id = { f"{project.id}": project for project in projects}
+    print(projects_by_id)
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
     ])
