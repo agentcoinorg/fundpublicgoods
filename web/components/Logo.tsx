@@ -12,7 +12,6 @@ export const Logo = ({ size = 179, className }: LogoProps) => {
       <SparkleIcon size={16} className='z-0' />
       <svg
         width={size}
-        height='auto'
         viewBox='0 0 179 18'
         className={clsx("h-auto overflow-visible relative", className)}
         fill='none'

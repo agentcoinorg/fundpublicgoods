@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  @apply font-medium text-indigo-900;
+  @apply font-medium text-indigo-800;
 }
 
 p {
@@ -19,7 +19,7 @@ a {
 }
 
 th {
-  @apply px-4 pt-4 pb-2 text-indigo-900/50 font-semibold text-xs leading-none uppercase;
+  @apply px-4 pt-4 pb-2 text-indigo-800/50 font-semibold text-xs leading-none uppercase;
 }
 
 td {
@@ -53,5 +53,5 @@ td {
 }
 
 .text-subdued {
-  @apply text-indigo-900/60;
+  @apply text-indigo-800/60;
 }
