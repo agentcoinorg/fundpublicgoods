@@ -15,6 +15,7 @@ provider:
   timeout: 300
   environment:
     DEPLOYMENT_STAGE: dev
+    WORKERS_URL: ${env:DEV_WORKERS_URL}
     INNGEST_PROD: true
     INNGEST_ENV: fundpublicgoods-dev
     INNGEST_SIGNING_KEY: ${env:DEV_INNGEST_SIGNING_KEY}

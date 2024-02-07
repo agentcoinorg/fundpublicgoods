@@ -83,54 +83,50 @@ export default function RealtimeLogs(props: {
   }
 
   return (
-    <>
-      <div className='space-y-2'>
-        <div className='text-subdued text-[10px]'>{`~${"5:23"} remaining`}</div>
-        <ProgressBar
-          stepTimes={stepTimes}
-          curStep={currentStep}
-          className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
-        />
-        {sortedLogsWithSteps.map((log) => (
-          <>
-            {log.status !== "NOT_STARTED" && (
-              <div className='flex items-center space-x-2' key={log.id}>
-                {log.status === "IN_PROGRESS" ? (
-                  <LoadingCircle
-                    hideText={true}
-                    className='!stroke-indigo-500 text-indigo-200'
-                  />
-                ) : log.status === "COMPLETED" ? (
-                  <div
-                    className='text-sm px-0.5 h-4 flex items-center'
-                    role='img'
-                    aria-label='check mark symbol'>
-                    ✅
-                  </div>
-                ) : (
-                  <div
-                    className='text-sm px-0.5 h-4 flex items-center'
-                    role='img'
-                    aria-label='no entry'>
-                    ⛔️
-                  </div>
-                )}
-                <p
-                  className={clsx(
-                    "text-xs leading-tight",
-                    log.status === "IN_PROGRESS"
-                      ? "text-indigo-500"
-                      : log.status === "COMPLETED"
-                      ? "text-green-600"
-                      : "text-red-500"
-                  )}>
-                  {getLogMessage(log)}
-                </p>
+    <div className='space-y-2'>
+      <div className='text-subdued text-[10px]'>{`~${"5:23"} remaining`}</div>
+      <ProgressBar
+        stepTimes={stepTimes}
+        curStep={currentStep}
+        className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
+      />
+      {sortedLogsWithSteps
+        .filter((log) => log.status !== "NOT_STARTED")
+        .map((log) => (
+          <div className='flex items-center space-x-2' key={log.id}>
+            {log.status === "IN_PROGRESS" ? (
+              <LoadingCircle
+                hideText={true}
+                className='!stroke-indigo-500 text-indigo-200'
+              />
+            ) : log.status === "COMPLETED" ? (
+              <div
+                className='text-sm px-0.5 h-4 flex items-center'
+                role='img'
+                aria-label='check mark symbol'>
+                ✅
+              </div>
+            ) : (
+              <div
+                className='text-sm px-0.5 h-4 flex items-center'
+                role='img'
+                aria-label='no entry'>
+                ⛔️
               </div>
             )}
-          </>
+            <p
+              className={clsx(
+                "text-xs leading-tight",
+                log.status === "IN_PROGRESS"
+                  ? "text-indigo-500"
+                  : log.status === "COMPLETED"
+                  ? "text-green-600"
+                  : "text-red-500"
+              )}>
+              {getLogMessage(log)}
+            </p>
+          </div>
         ))}
-      </div>
-    </>
+    </div>
   );
 }
