@@ -22,6 +22,7 @@ update "indexing"."gitcoin_indexing_jobs"
         "skip_projects" = 0;
 
 delete from "indexing"."gitcoin_applications";
+delete from "indexing"."gitcoin_projects";
 
 alter table "indexing"."gitcoin_applications" 
     add column "network" int not null;
