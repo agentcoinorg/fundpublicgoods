@@ -4,8 +4,8 @@ from fund_public_goods.db.tables.gitcoin_egress import get_non_running_job, is_a
 
 @inngest.create_function(
     fn_id="start_egress_gitcoin",
-    trigger=inngest.TriggerCron(cron="* * * * *"), # every 1 minute
-    # trigger=inngest.TriggerCron(cron="*/15 * * * *"), # every 15 minutes
+    # trigger=inngest.TriggerCron(cron="* * * * *"), # every 1 minute
+    trigger=inngest.TriggerCron(cron="*/15 * * * *"), # every 15 minutes
 )
 async def start_egress_gitcoin(
     ctx: inngest.Context,
