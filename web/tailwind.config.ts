@@ -28,7 +28,7 @@ const config: Config = {
         wrapper: `768px`,
       },
       animation: {
-        gradientText: "gradientText 4s infinite ease-in-out",
+        gradientText: "gradientText 2s infinite ease-in-out",
         slideIn: "slideIn 0.3s forwards ease-in",
         slideInAffected:
           "slideInAffected 0.2s var(--delay, 0.3s) forwards ease-in-out",
