@@ -33,10 +33,8 @@ async def runs(background_tasks: BackgroundTasks, params: Params, authorization:
         raise HTTPException(status_code=401, detail="Authorization header missing")
     
     prompt = params.prompt if params.prompt else ""
-
     if prompt == "":
         raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
-
     db = client.create(options=ClientOptions())
     db.postgrest.auth(supabase_auth_token)
     
