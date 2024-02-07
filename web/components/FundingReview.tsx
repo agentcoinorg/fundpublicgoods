@@ -99,22 +99,23 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
             Transaction Overview
           </div>
           <div className='p-6 bg-indigo-25 rounded-2xl border-2 border-indigo-200 space-y-6 '>
-            <div className='grid grid-cols-12 w-full'>
-              <div className='flex flex-col col-span-4'>
-                <div className='rounded-md p-1.5 border-2 border-indigo-100 bg-white leading-none space-y-1.5'>
+            <div className='grid grid-cols-12 w-full items-center'>
+              <div className='flex flex-col col-span-5'>
+                <div className='rounded-xl p-4 border-2 border-indigo-100 bg-white leading-none space-y-2'>
                   <div className='text-[10px] text-indigo-400 uppercase tracking-wider leading-none'>
                     Sending
                   </div>
                   <div className='text-md leading-none'>
-                    {totalAmount.toFixed(2)} USDC
+                    {totalAmount.toFixed(2)}
+                    <span className='ml-1 text-xs text-subdued'>USDC</span>
                   </div>
                 </div>
               </div>
-              <div className='col-span-4 flex justify-center pt-3'>
+              <div className='col-span-2 flex justify-center'>
                 <ArrowRight size={20} weight='bold' />
               </div>
-              <div className='flex flex-col col-span-4'>
-                <div className='rounded-md p-1.5 border-2 border-indigo-100 bg-white leading-none space-y-1.5'>
+              <div className='flex flex-col col-span-5'>
+                <div className='rounded-xl p-4 border-2 border-indigo-100 bg-white leading-none space-y-2'>
                   <div className='text-[10px] text-indigo-400 uppercase tracking-wider leading-none'>
                     Recipient
                   </div>
