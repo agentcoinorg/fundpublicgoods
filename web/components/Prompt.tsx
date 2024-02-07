@@ -7,6 +7,7 @@ import LoadingCircle from "./LoadingCircle";
 import PromptInput from "./PromptInput";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
+import clsx from "clsx";
 
 const PROMPT_SUGESTIONS = [
   "Ethereum infrastructure",
@@ -32,7 +33,7 @@ export default function Prompt() {
         throw new Error("User needs to have a session");
       }
       const response = await startRun(prompt, session.supabaseAccessToken);
-      router.push(`/s/${response.runId}`)
+      router.push(`/s/${response.runId}`);
     } finally {
       setIsWaiting(false);
     }
@@ -51,7 +52,11 @@ export default function Prompt() {
         ) : (
           <div className='w-full space-y-8'>
             <div className='flex flex-wrap w-full justify-center items-center space-x-2 group/prompt'>
-              <h1 className='text-4xl font-bold text-shadow-lg text-shadow-primary-shadow'>
+              <h1
+                className={clsx(
+                  "text-4xl font-bold text-shadow-lg text-shadow-primary-shadow leading-[1.35] bg-clip-text cursor-default",
+                  "hover:bg-gradient-to-r hover:from-indigo-300 hover:via-blue-600 hover:to-indigo-300 hover:inline-block hover:text-transparent hover:animate-gradientText"
+                )}>
                 Fund public goods like magic
               </h1>
               <SparkleIcon size={40} className='drop-shadow-sm' />

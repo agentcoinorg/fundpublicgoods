@@ -28,11 +28,21 @@ const config: Config = {
         wrapper: `768px`,
       },
       animation: {
+        gradientText: "gradientText 4s infinite ease-in-out",
         slideIn: "slideIn 0.3s forwards ease-in",
         slideInAffected:
           "slideInAffected 0.2s var(--delay, 0.3s) forwards ease-in-out",
       },
       keyframes: {
+        gradientText: {
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+          "0%,100%": {
+            backgroundSize: "200%",
+            backgroundPosition: "0% 50%",
+          },
+        },
         slideIn: {
           "0%": {
             opacity: "0",
