@@ -5,8 +5,8 @@ from fund_public_goods.db.tables.gitcoin import get_non_running_job, is_any_job_
 
 @inngest.create_function(
     fn_id="start_index_gitcoin",
-    trigger=inngest.TriggerCron(cron="* * * * *"), # every 1 minute
-    # trigger=inngest.TriggerCron(cron="*/15 * * * *"), # every 15 minutes
+    # trigger=inngest.TriggerCron(cron="* * * * *"), # every 1 minute
+    trigger=inngest.TriggerCron(cron="*/15 * * * *"), # every 15 minutes
 )
 async def start_index_gitcoin(
     ctx: inngest.Context,
