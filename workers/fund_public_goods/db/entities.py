@@ -128,6 +128,18 @@ class Projects(BaseModel):
     )
 
 
+class Runs(BaseModel):
+
+    id: Optional[UUID] = None
+    created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
+    prompt: str
+    user_id: Optional[UUID] = Field(default=None, alias="userId")
+
+    model_config = ConfigDict(
+        populate_by_name=True
+    )
+
+
 class Logs(BaseModel):
 
     id: Optional[UUID] = None
@@ -153,6 +165,8 @@ class StrategyEntries(BaseModel):
     impact: Optional[float] = None
     interest: Optional[float] = None
     weight: Optional[float] = None
+    funding_needed: Optional[float] = Field(default=None, alias="fundingNeeded")
+    report: Optional[str] = None
     smart_ranking: Optional[float] = Field(default=None, alias="smartRanking")
 
     model_config = ConfigDict(
