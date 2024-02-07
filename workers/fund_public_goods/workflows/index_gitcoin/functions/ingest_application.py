@@ -2,10 +2,7 @@ import json
 from urllib.parse import urlparse
 from fund_public_goods.db.entities import Applications, GitcoinApplications, Projects
 from fund_public_goods.db.tables import applications, projects
-from fund_public_goods.db.tables.gitcoin import get_all_application_projects
 from fund_public_goods.db.tables.projects import get_projects, merge_projects
-from fund_public_goods.workflows.index_gitcoin.events.ingest_projects import IngestProjectsEvent
-import inngest
 import uuid
 import re
 
@@ -57,17 +54,3 @@ def process_application(application: GitcoinApplications, network: int):
             logo=application_project.get("logoImg", "")
         )
     )
-    
-    
-
-@inngest.create_function(
-    fn_id="ingest_projects",
-    trigger=IngestProjectsEvent.trigger,
-)
-async def ingest_projects(
-    ctx: inngest.Context,
-    step: inngest.Step,
-) -> str | None:
-    
-    
-    return "done"
