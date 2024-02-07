@@ -50,7 +50,7 @@ def get(
 
     return Projects(
         id=data["id"],
-        updated_at=data["updated_at"],
+        updatedAt=data["updated_at"],
         title=data["title"],
         description=data["description"],
         website=data["website"],

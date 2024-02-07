@@ -7,8 +7,6 @@ from fund_public_goods.lib.strategy.utils.evaluate_project import evaluate_proje
 from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
 from fund_public_goods.lib.strategy.models.project import Project
-from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
-from fund_public_goods.lib.strategy.models.weighted_project import WeightedProject
 from supabase.lib.client_options import ClientOptions
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel
@@ -62,9 +60,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         value=None,
     )
 
-    json_projects = fetch_matching_projects(prompt)
-
-    projects = [Project(**json_project) for json_project in json_projects]
+    projects = fetch_matching_projects(prompt)
 
     tables.logs.update(
         status=StepStatus.COMPLETED,
