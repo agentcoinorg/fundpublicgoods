@@ -1,16 +1,45 @@
-import { StrategyWithProjects } from "@/components/StrategyTable";
+import { Tables } from "@/supabase/dbTypes";
 import {
   applyUserWeight,
+  distributeWeights,
   redistributeWeights,
 } from "@/utils/distributeWeights";
-import { useState } from "react";
+import { NetworkName } from "@/utils/ethereum";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export function useWeightsHandler(
-  strategies: StrategyWithProjects,
-  modifyStrategies: (s: StrategyWithProjects) => void,
-  totalAmount: string
-) {
-  const [overwrittenWeights, setOverwrittenWeights] = useState(
+export interface StrategiesHandler {
+  strategies: StrategiesWithProjects;
+  formatted: { weights: string[]; update: Dispatch<SetStateAction<string[]>> };
+  overwritten: number[];
+  handleWeightUpdate: (value: string, index: number) => void;
+  handleSelectAll: (isChecked: boolean) => void;
+  handleSelectProject: (isChecked: boolean, index: number) => void;
+  handleAmountUpdate: (amount: string) => void;
+}
+
+export type StrategyEntry = Tables<"strategy_entries">;
+export type Project = Tables<"projects"> & {
+  applications: Tables<"applications">[];
+};
+export type StrategyInformation = StrategyEntry & {
+  project: Project;
+  selected: boolean;
+  amount?: string;
+  defaultWeight: number;
+  network: NetworkName;
+  disabled?: boolean;
+};
+export type StrategiesWithProjects = StrategyInformation[];
+
+export function useStrategiesHandler(
+  initStrategies: StrategiesWithProjects,
+  totalAmount: string,
+  currentNetwork: NetworkName
+): StrategiesHandler {
+  const [strategies, modifyStrategies] =
+    useState<StrategiesWithProjects>(initStrategies);
+
+  const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
     Array(strategies.length).fill(0)
   );
   const [formattedWeights, setFormattedWeights] = useState(
@@ -88,22 +117,22 @@ export function useWeightsHandler(
     modifyStrategies(newStrategies);
   };
 
-  function handleSelectAll(isSelected: boolean) {
+  function handleSelectAll(isChecked: boolean) {
     setOverwrittenWeights(Array(strategies.length).fill(0));
     const newWeights = strategies.map(({ defaultWeight }) => {
-      return isSelected ? (defaultWeight * 100).toFixed(2) : "0.00";
+      return isChecked ? (defaultWeight * 100).toFixed(2) : "0.00";
     });
     setFormattedWeights(newWeights);
     modifyStrategies(
       strategies.map((s) => {
         let amount;
-        if (isSelected && totalAmount) {
+        if (isChecked && totalAmount) {
           amount = (+totalAmount * s.defaultWeight).toFixed(2);
         }
         return {
           ...s,
-          selected: isSelected,
-          weight: isSelected ? s.defaultWeight : 0.0,
+          selected: isChecked,
+          weight: isChecked ? s.defaultWeight : 0.0,
           amount,
         };
       })
@@ -132,15 +161,47 @@ export function useWeightsHandler(
     setOverwrittenWeights(Array(strategies.length).fill(0));
   }
 
+  function handleAmountUpdate(amount: string) {
+    const selectedStrategies = strategies.filter((x) => x.selected);
+    const weights = selectedStrategies.map((s) => s.weight) as number[];
+    const amounts = distributeWeights(weights, +amount, 2);
+    let amountIndex = 0;
+    modifyStrategies(
+      strategies.map((s) => ({
+        ...s,
+        amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+      }))
+    );
+  }
+
+  function sanitizeStrategies(
+    s: StrategiesWithProjects
+  ): StrategiesWithProjects {
+    const _strategies = s.map((s) => {
+      return {
+        ...s,
+        disabled: s.network !== currentNetwork,
+      };
+    });
+    _strategies.sort((a, b) => {
+      if (!a.disabled) {
+        return -1;
+      }
+      return (b.impact || 0) - (a.impact || 0)
+    });
+    return _strategies;
+  }
+
   return {
-    strategies,
+    strategies: sanitizeStrategies(strategies),
     formatted: {
-        weights: formattedWeights,
-        update: setFormattedWeights
+      weights: formattedWeights,
+      update: setFormattedWeights,
     },
     overwritten: overwrittenWeights,
     handleWeightUpdate,
     handleSelectAll,
     handleSelectProject,
+    handleAmountUpdate,
   };
 }

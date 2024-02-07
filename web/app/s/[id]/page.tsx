@@ -1,6 +1,6 @@
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
-import { StrategyWithProjects } from "@/components/StrategyTable";
+import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
 import { getNetworkNameFromChainId } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
@@ -73,9 +73,9 @@ export default async function StrategyPage({
     );
   }
 
-  const data = run.data.strategy_entries as unknown as StrategyWithProjects;
+  const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
-  const strategy = data
+  const strategies = data
     .map((s) => {
       const latestApplication = s.project.applications
         .sort((a, b) => a.created_at - b.created_at)
@@ -109,7 +109,7 @@ export default async function StrategyPage({
 
   return (
     <Strategy
-      strategy={strategy}
+      fetchedStrategies={strategies}
       prompt={run.data.prompt}
       runId={run.data.id}
       amount={amount.toString()}

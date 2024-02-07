@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Button from "./Button";
-import { StrategyTable, StrategyWithProjects } from "./StrategyTable";
+import { StrategyTable } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
 import { usePathname, useRouter } from "next/navigation";
 import { createFundingEntries } from "@/app/actions/createFundingPlan";
-import { distributeWeights } from "@/utils/distributeWeights";
 import {
   NetworkName,
   TokenInformation,
@@ -18,6 +17,10 @@ import {
 import useWalletLogin from "@/hooks/useWalletLogin";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
+import {
+  StrategiesWithProjects,
+  useStrategiesHandler,
+} from "@/hooks/useStrategiesHandler";
 
 function Information(props: {
   title: string;
@@ -40,32 +43,33 @@ function Information(props: {
 }
 
 export default function Strategy(props: {
-  strategy: StrategyWithProjects;
+  fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
   amount: string;
+  network?: NetworkName;
 }) {
-  const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
-    props.strategy
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
+    props.network ?? "Mainnet"
   );
-  const [selectedNetwork, setSelectedNetwork] =
-    useState<NetworkName>("Mainnet");
-  const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
-  const [token, setToken] = useState<TokenInformation | undefined>(undefined);
   const [amount, setAmount] = useState<string>(props.amount);
+  const strategiesHandler = useStrategiesHandler(
+    props.fetchedStrategies,
+    amount,
+    selectedNetwork
+  );
+  const { strategies, handleAmountUpdate } = strategiesHandler;
+  const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin();
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const uniqueNetworks = Array.from(
-    new Set(props.strategy.map((s) => s.network))
-  );
+  const uniqueNetworks = Array.from(new Set(strategies.map((s) => s.network)));
   const tokens = getTokensForNetwork(selectedNetwork);
+  const [token, setToken] = useState<TokenInformation | undefined>(undefined);
 
-  const selectedStrategiesLength = currentStrategy.filter(
-    (x) => x.selected
-  ).length;
+  const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   async function connect() {
     await connectWallet();
@@ -73,7 +77,7 @@ export default function Strategy(props: {
   }
 
   async function createFundingPlan() {
-    const strategies = currentStrategy
+    const filteredStrategies = strategies
       .filter((x) => x.selected)
       .map((strategy) => ({
         // TODO: Check why weight is nullable
@@ -87,7 +91,7 @@ export default function Strategy(props: {
     }
 
     await createFundingEntries(props.runId, {
-      strategies,
+      strategies: filteredStrategies,
       token: token.name,
       decimals: token.decimals,
     });
@@ -102,38 +106,28 @@ export default function Strategy(props: {
     router.push(`/s/${response.runId}`);
   }
 
-  const calculateUpdatedStrategy = (
-    strategy: StrategyWithProjects,
-    amount: string
-  ) => {
-    const selectedStrategies = strategy.filter((x) => x.selected);
-    const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, 2);
-    let amountIndex = 0;
-    return strategy.map((s) => ({
-      ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
-    }));
-  };
-
   function updateWeights() {
     if (amount !== "0") {
-      setCurrentStrategy((prevStrategy) => {
-        return calculateUpdatedStrategy(prevStrategy, amount);
-      });
+      handleAmountUpdate(amount);
     }
   }
+
+  useEffect(() => {
+    if (tokens.length) {
+      setToken(tokens[0]);
+    }
+  }, [tokens]);
 
   return (
     <div className="flex justify-center py-10 px-6 flex-grow flex-column">
       <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
         <TextField
           label="Results for"
-          value={currentPromp}
+          value={currentPrompt}
           onChange={(e) => setCurrentPrompt(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && !!currentPromp) {
-              regenerateStrat(currentPromp);
+            if (e.key === "Enter" && !!currentPrompt) {
+              regenerateStrat(currentPrompt);
             }
           }}
         />
@@ -193,12 +187,7 @@ export default function Strategy(props: {
               }}
             />
           )}
-          <StrategyTable
-            strategy={currentStrategy}
-            modifyStrategy={setCurrentStrategy}
-            totalAmount={amount}
-            selectedNetwork={selectedNetwork}
-          />
+          <StrategyTable {...strategiesHandler} />
         </div>
         {!wallet ? (
           <Information

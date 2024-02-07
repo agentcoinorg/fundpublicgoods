@@ -1,54 +1,27 @@
 "use client";
 
-import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import {
-  applyUserWeight,
-  redistributeWeights,
-} from "@/utils/distributeWeights";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
 import WeightingModal from "./WeightingModal";
-import { NetworkName } from "@/utils/ethereum";
 import clsx from "clsx";
-import { useWeightsHandler } from "@/hooks/useWeightsHandler";
+import {
+  StrategyInformation,
+  StrategiesHandler,
+} from "@/hooks/useStrategiesHandler";
 
-export type StrategyEntry = Tables<"strategy_entries">;
-export type Project = Tables<"projects"> & {
-  applications: Tables<"applications">[];
-};
-export type StrategyInformation = StrategyEntry & {
-  project: Project;
-  selected: boolean;
-  amount?: string;
-  defaultWeight: number;
-  network: NetworkName;
-};
-export type StrategyWithProjects = StrategyInformation[];
-
-export interface StrategyTableProps {
-  strategy: StrategyWithProjects;
-  modifyStrategy: (projects: StrategyWithProjects) => void;
-  totalAmount: string;
-  selectedNetwork: NetworkName;
-}
-
-export function StrategyTable(props: StrategyTableProps) {
+export function StrategyTable(props: StrategiesHandler) {
   const [{ wallet }] = useConnectWallet();
   const {
     strategies,
     formatted: { weights: formattedWeights, update: setFormattedWeights },
     handleWeightUpdate,
     handleSelectProject,
-    handleSelectAll
-  } = useWeightsHandler(
-    props.strategy,
-    props.modifyStrategy,
-    props.totalAmount
-  );
+    handleSelectAll,
+  } = props;
 
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
     show: boolean;
@@ -93,7 +66,7 @@ export function StrategyTable(props: StrategyTableProps) {
             key={index}
             className={clsx(
               "w-full border-indigo-100/80 border-t-2",
-              props.selectedNetwork !== entry.network
+              entry.disabled
                 ? "opacity-50 cursor-not-allowed"
                 : "bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
             )}
@@ -101,15 +74,13 @@ export function StrategyTable(props: StrategyTableProps) {
             <td
               className={clsx(
                 "pr-0 w-10 check",
-                props.selectedNetwork === entry.network
-                  ? "cursor-pointer"
-                  : "cursor-not-allowed"
+                !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
               )}
             >
               <TextField
                 type="checkbox"
                 checked={entry.selected}
-                disabled={props.selectedNetwork !== entry.network}
+                disabled={entry.disabled}
                 onChange={(e) => {
                   handleSelectProject(e.target.checked, index);
                 }}
