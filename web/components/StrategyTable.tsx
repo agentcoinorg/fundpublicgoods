@@ -48,8 +48,6 @@ export function StrategyTable(props: StrategyTableProps) {
     show: false,
   });
 
-  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
-
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
   const someChecked = props.strategy.some((s) => s.selected);
