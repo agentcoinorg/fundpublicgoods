@@ -5,7 +5,9 @@ from fastapi import APIRouter, HTTPException, Header, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional
 import os
+import asyncio
 import httpx
+
 
 api_url = os.getenv("WORKERS_URL")
 router = APIRouter()
@@ -13,20 +15,26 @@ router = APIRouter()
 class Params(BaseModel):
     prompt: str
 
-
 class Response(BaseModel):
     run_id: str
 
 async def run(run_id: str, authorization: str):
-    async with httpx.AsyncClient() as client:
-        await client.post(
-            f"{api_url}/api/runs/run",
-            json={"run_id": run_id},
-            headers={"Authorization": authorization}
-        )
+    client = httpx.AsyncClient()
+
+    async def task():
+        try:
+            await client.post(
+                f"{api_url}/api/runs/run",
+                json={"run_id": run_id},
+                headers={"Authorization": authorization}
+            )
+        finally:
+            await client.aclose()
+
+    asyncio.create_task(task())
 
 @router.post("/api/runs")
-async def runs(background_tasks: BackgroundTasks, params: Params, authorization: Optional[str] = Header(None)) -> Response:
+async def runs(params: Params, authorization: Optional[str] = Header(None)) -> Response:
     if authorization:
         supabase_auth_token = authorization.split(" ")[1]
     else:
@@ -45,6 +53,6 @@ async def runs(background_tasks: BackgroundTasks, params: Params, authorization:
     ), db)
     initialize_logs(run_id)
 
-    background_tasks.add_task(run, run_id, authorization)
+    await run(run_id, authorization)
 
     return Response(run_id=run_id)
