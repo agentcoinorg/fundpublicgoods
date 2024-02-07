@@ -54,8 +54,96 @@ const config: Config = {
           },
         },
       },
+      typography: (theme: (path: string) => any) => ({
+        DEFAULT: {
+          css: {
+            color: theme("colors.indigo.800"),
+            strong: {
+              color: theme("colors.indigo.800"),
+            },
+            "ol > li::marker": {
+              color: theme("colors.indigo.500"),
+            },
+            "ul > li::marker": {
+              color: theme("colors.indigo.500"),
+            },
+            li: {
+              color: theme("colors.indigo.800"),
+            },
+            h1: {
+              color: theme("colors.indigo.800"),
+            },
+            h2: {
+              color: theme("colors.indigo.800"),
+            },
+            h3: {
+              color: theme("colors.indigo.800"),
+            },
+            h4: {
+              color: theme("colors.indigo.800"),
+            },
+            h5: {
+              color: theme("colors.indigo.800"),
+            },
+            h6: {
+              color: theme("colors.indigo.800"),
+            },
+          },
+        },
+        xs: {
+          css: {
+            fontSize: "10px",
+            lineHeight: "150%",
+            p: {
+              fontSize: "10px",
+              lineHeight: "150%",
+            },
+            h1: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "1rem",
+              lineHeight: "120%",
+            },
+            h2: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "0.75rem",
+              lineHeight: "120%",
+            },
+            h3: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "0.75rem",
+              lineHeight: "120%",
+            },
+            h4: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "0.75rem",
+              lineHeight: "120%",
+            },
+            h5: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "0.75rem",
+              lineHeight: "120%",
+            },
+            h6: {
+              marginTop: "0.5rem",
+              marginBottom: "0.5rem",
+              fontSize: "0.75rem",
+              lineHeight: "120%",
+            },
+          },
+        },
+        "hide-h1": {
+          css: {
+            h1: { display: "none" },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 export default config;

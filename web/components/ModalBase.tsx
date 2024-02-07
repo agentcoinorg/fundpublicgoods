@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import clsx from "clsx";
@@ -6,7 +6,7 @@ import { X } from "@phosphor-icons/react";
 import Button from "./Button";
 
 export interface ModalProps {
-  title: string;
+  title: string | ReactNode;
   isOpen: boolean;
   onClose: () => void;
   panelStyles?: {
@@ -29,10 +29,10 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
 
   const defaultContentStyles = clsx(
     "bg-white [scrollbar-gutter:stable]",
-    contentStyles?.padding ? contentStyles?.padding : "p-8 pr-[1.5rem]",
+    contentStyles?.padding ? contentStyles?.padding : "p-6 pr-[1rem]",
     contentStyles?.["max-h"]
       ? contentStyles?.["max-h"]
-      : "max-h-[calc(100vh-72px)] md:max-h-[calc(100vh-96px)]",
+      : "max-h-[calc(100vh-102px)] md:max-h-[calc(100vh-108px)]",
     contentStyles?.spacing ? contentStyles?.spacing : "space-y-8",
     contentStyles?.overflow ? contentStyles?.overflow : "overflow-y-auto",
     contentStyles?.other
@@ -47,21 +47,21 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
               <Transition.Child
                 as={Fragment}
                 enter='ease-out duration-300'
-                enterFrom='opacity-0 scale-95'
-                enterTo='opacity-100 scale-100'
+                enterFrom='opacity-0'
+                enterTo='opacity-100'
                 leave='ease-in duration-200'
-                leaveFrom='opacity-100 scale-100'
-                leaveTo='opacity-0 scale-95'>
+                leaveFrom='opacity-100'
+                leaveTo='opacity-0'>
                 <Dialog.Panel
                   className={clsx(
-                    "w-full transform overflow-hidden rounded-2xl rounded-none bg-indigo-800 text-left align-middle shadow-xl transition-all",
+                    "w-full transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all",
                     maxWidth
                   )}
                   onClick={(e) => {
                     e.stopPropagation();
                   }}>
-                  <div className='flex items-center justify-between border-b-2 border-indigo-600 bg-indigo-100 px-8 py-4'>
-                    <Dialog.Title as='h3' className='text-lg font-medium'>
+                  <div className='flex items-start justify-between pl-6 pr-7 pt-6 pb-3'>
+                    <Dialog.Title as='h3' className='text-base font-bold'>
                       {title}
                     </Dialog.Title>
                     <Button

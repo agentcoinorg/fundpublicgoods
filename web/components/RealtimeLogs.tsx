@@ -8,8 +8,13 @@ import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import LoadingCircle from "@/components/LoadingCircle";
 import ProgressBar from "@/components/ProgressBar";
 import useSession from "@/hooks/useSession";
-import { UNSTARTED_TEXTS, LOADING_TEXTS, STEPS_ORDER, STEP_TIME_ESTS } from "@/utils/logs";
-
+import {
+  UNSTARTED_TEXTS,
+  LOADING_TEXTS,
+  STEPS_ORDER,
+  STEP_TIME_ESTS,
+} from "@/utils/logs";
+import { Transition } from "@headlessui/react";
 
 const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
@@ -24,7 +29,6 @@ const getLogMessage = (log: Tables<"logs">) => {
   }
 };
 
-
 export default function RealtimeLogs(props: {
   logs: Tables<"logs">[];
   run: {
@@ -32,13 +36,15 @@ export default function RealtimeLogs(props: {
     prompt: string;
   };
 }) {
-  const { data: session } = useSession()
-  const supabase = createSupabaseBrowserClient(session?.supabaseAccessToken ?? "");
-  const router = useRouter()
+  const { data: session } = useSession();
+  const supabase = createSupabaseBrowserClient(
+    session?.supabaseAccessToken ?? ""
+  );
+  const router = useRouter();
 
   const sortedLogsWithSteps = props.logs.sort((a, b) => {
-    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name]
-  })
+    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
+  });
 
   useEffect(() => {
     const channel = supabase
@@ -52,7 +58,7 @@ export default function RealtimeLogs(props: {
           filter: `run_id=eq.${props.run.id}`,
         },
         () => {
-          router.refresh()
+          router.refresh();
         }
       )
       .subscribe();
@@ -69,57 +75,61 @@ export default function RealtimeLogs(props: {
   );
 
   if (currentStep < 0) {
-    const lastStep = sortedLogsWithSteps[totalSteps - 1]
+    const lastStep = sortedLogsWithSteps[totalSteps - 1];
     if (!!lastStep) {
       currentStep = lastStep.status === "COMPLETED" ? totalSteps + 1 : 0;
     } else {
-      currentStep = 0
+      currentStep = 0;
     }
   }
 
   return (
     <>
-      <div className='flex flex-col gap-4'>
+      <div className='space-y-2'>
         <ProgressBar
           stepTimes={stepTimes}
           curStep={currentStep}
           className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
         />
-        <div className='flex flex-col gap-2'>
-          {sortedLogsWithSteps.map((log) => (
-            <div
+        {sortedLogsWithSteps.map((log) => (
+          <>
+            <Transition
               key={log.id}
-              className={clsx(
-                "p-4 flex flex-nowrap items-center gap-2 border rounded-lg",
-                log.status === "NOT_STARTED"
-                  ? "bg-indigo-500/30 border-indigo-400"
-                  : "cursor-pointer border-indigo-500 bg-indigo-white hover:bg-indigo-200 shadow-md shadow-primary-shadow/20"
-              )}>
+              show={log.status === "IN_PROGRESS" || log.status === "COMPLETED"}
+              enter='transition-opacity duration-75'
+              enterFrom='opacity-0'
+              enterTo='opacity-100'
+              leave='transition-opacity duration-150'
+              leaveFrom='opacity-100'
+              leaveTo='opacity-0'>
               {log.status === "IN_PROGRESS" ? (
-                <LoadingCircle
-                  hideText={true}
-                  className='!stroke-indigo-500 text-indigo-200'
-                />
+                <div className='flex items-center space-x-2' key={log.id}>
+                  <LoadingCircle
+                    hideText={true}
+                    className='!stroke-indigo-500 text-indigo-200'
+                  />
+                  <p className='text-xs leading-tight text-indigo-500'>
+                    {getLogMessage(log)}
+                  </p>
+                </div>
+              ) : log.status === "COMPLETED" ? (
+                <div className='flex items-center space-x-2' key={log.id}>
+                  <div
+                    className='text-sm px-0.5 h-4 flex items-center'
+                    role='img'
+                    aria-label='check mark symbol'>
+                    ✅
+                  </div>
+                  <div className='text-xs leading-tight text-green-600'>
+                    {getLogMessage(log)}
+                  </div>
+                </div>
               ) : (
                 <></>
               )}
-              <p
-                className={clsx(
-                  "flex-1",
-                  log.status === "NOT_STARTED"
-                    ? "text-indigo-400"
-                    : log.status === "IN_PROGRESS"
-                    ? "text-indigo-500"
-                    : log.status === "COMPLETED"
-                    ? "text-indigo-800"
-                    : ""
-                )}>
-                {getLogMessage(log)}
-              </p>
-              <div className='w-6 h-6'></div>
-            </div>
-          ))}
-        </div>
+            </Transition>
+          </>
+        ))}
       </div>
     </>
   );
