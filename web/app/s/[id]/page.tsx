@@ -2,14 +2,9 @@ import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
-import {
-  NetworkId,
-  NetworkName,
-  getNetworkNameFromChainId,
-} from "@/utils/ethereum";
+import { NetworkName, getNetworkNameFromChainId } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
-import { redistributeWeights } from "@/utils/distributeWeights";
 
 export default async function StrategyPage({
   params,
@@ -81,34 +76,45 @@ export default async function StrategyPage({
 
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
-  const strategies = data.map((s) => {
-    if (run.data.funding_entries.length) {
-      const selected = run.data.funding_entries.find(
-        ({ project_id }) => s.project_id === project_id
-      );
-      const weight = selected?.weight || s.weight || 0;
+  const strategies = data
+    .map((s) => {
+      if (run.data.funding_entries.length) {
+        const selected = run.data.funding_entries.find(
+          ({ project_id }) => s.project_id === project_id
+        );
+        const weight = selected?.weight || s.weight || 0;
+
+        const lastApplication = s.project.applications
+          .sort((a, b) => a.created_at - b.created_at)
+          .slice(-1)[0];
+        const applicationNetwork = getNetworkNameFromChainId(
+          lastApplication.network
+        );
+        const network = selected
+          ? (selected.network as NetworkName)
+          : applicationNetwork;
+        return {
+          ...s,
+          network,
+          selected: !!selected,
+          amount: selected?.amount,
+          weight,
+          defaultWeight: s.weight as number,
+        };
+      }
+
+      const lastApplication = s.project.applications
+        .sort((a, b) => a.created_at - b.created_at)
+        .slice(-1)[0];
 
       return {
         ...s,
-        selected: !!selected,
-        amount: selected?.amount,
-        weight,
+        selected: run.data.funding_entries.length === 0,
         defaultWeight: s.weight as number,
-        disabled: selected?.network !== run.data.funding_entries[0].network,
+        network: getNetworkNameFromChainId(lastApplication.network),
       };
-    }
-
-    const lastApplication = s.project.applications
-      .sort((a, b) => a.created_at - b.created_at)
-      .slice(-1)[0];
-
-    return {
-      ...s,
-      selected: run.data.funding_entries.length === 0,
-      defaultWeight: s.weight as number,
-      network: getNetworkNameFromChainId(lastApplication.network),
-    };
-  }).sort((a, b) => (b.impact || 0) - (a.impact || 0));
+    })
+    .sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
   const amount = run.data.funding_entries.reduce((acc, x) => {
     return acc + Number(x.amount);

@@ -49,26 +49,29 @@ export default function Strategy(props: {
   amount: string;
   network?: NetworkName;
 }) {
+  console.log(props.network)
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
     props.network ?? "Mainnet"
   );
+  const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>(props.amount);
+  const [token, setToken] = useState<TokenInformation | undefined>(undefined);
+
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
     amount,
     selectedNetwork,
   );
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
-  const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin();
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const uniqueNetworks = Array.from(new Set(strategies.map((s) => s.network)));
   const tokens = getTokensForNetwork(selectedNetwork);
-  const [token, setToken] = useState<TokenInformation | undefined>(undefined);
-
+  
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
+  console.log(strategies)
+  const uniqueNetworks = Array.from(new Set(strategies.map((s) => s.network)));
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   async function connect() {
@@ -94,6 +97,7 @@ export default function Strategy(props: {
       strategies: filteredStrategies,
       token: token.name,
       decimals: token.decimals,
+      network: selectedNetwork
     });
     router.push(`${pathname}/transaction`);
   }

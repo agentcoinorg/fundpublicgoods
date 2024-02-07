@@ -42,38 +42,26 @@ export function useStrategiesHandler(
     initStrategies.map((s) => s.network === networkName)
   );
 
-  
   initStrategies = initStrategies.map((s, i) => {
     return {
       ...s,
       weight: weights[i],
       selected: weights[i] !== 0,
-      disabled: s.network !== networkName
+      disabled: s.network !== networkName,
     };
-  })
-  
+  });
+
   initStrategies.sort((a, b) => {
-    if (!a.disabled && !b.disabled) {
-      return (b.impact || 0) - (a.impact || 0)
+    if ((!a.disabled && !b.disabled) || (a.disabled && b.disabled)) {
+      return (b.impact || 0) - (a.impact || 0);
     }
 
-    if (a.disabled && b.disabled) {
-      return (b.impact || 0) - (a.impact || 0)
-    }
+    return -1;
+  });
 
-    if (a.disabled && !b.disabled) {
-      return -1
-    }
-
-    return -1
-  })
-
-  const [strategies, modifyStrategies] = useState<StrategiesWithProjects>(
-    initStrategies
-  );
-
+  const [strategies, modifyStrategies] = useState<StrategiesWithProjects>(initStrategies);
   const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
-    initStrategies.map((s) => s.weight as number)
+    Array(strategies.length).fill(0)
   );
   const [formattedWeights, setFormattedWeights] = useState(
     strategies.map(({ weight, defaultWeight, selected }) =>
@@ -128,7 +116,7 @@ export function useStrategiesHandler(
     }
 
     const weights = strategies.map((w) => {
-      return w.selected ? w.defaultWeight * 100 : 0;
+      return w.selected && !w.disabled ? w.defaultWeight * 100 : 0;
     });
 
     const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
@@ -212,31 +200,27 @@ export function useStrategiesHandler(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => s.network === network)
     );
-    const newStrategies = strategies.map((s, i) => {
-      return {
-        ...s,
-        weight: weights[i],
-        selected: weights[i] !== 0,
-        disabled: s.network !== network
-      };
-    }).sort((a, b) => {
-      if (!a.disabled && !b.disabled) {
-        return (b.impact || 0) - (a.impact || 0)
-      }
-  
-      if (a.disabled && b.disabled) {
-        return (b.impact || 0) - (a.impact || 0)
-      }
-  
-      if (a.disabled && !b.disabled) {
-        return -1
-      }
-  
-      return -1
-    })
-    setOverwrittenWeights(newStrategies.map(s => s.weight));
+    const amounts = distributeWeights(weights, +totalAmount, 2);
+    const newStrategies = strategies
+      .map((s, i) => {
+        return {
+          ...s,
+          amount: amounts[i].toFixed(2),
+          weight: weights[i],
+          selected: weights[i] !== 0,
+          disabled: s.network !== network,
+        };
+      })
+      .sort((a, b) => {
+        if ((!a.disabled && !b.disabled) || (a.disabled && b.disabled)) {
+          return (b.impact || 0) - (a.impact || 0);
+        }
+
+        return -1;
+      });
+    setOverwrittenWeights(Array(initStrategies.length).fill(0));
     setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
-    modifyStrategies(newStrategies)
+    modifyStrategies(newStrategies);
   }
 
   return {
@@ -250,6 +234,6 @@ export function useStrategiesHandler(
     handleSelectAll,
     handleSelectProject,
     handleAmountUpdate,
-    handleNetworkUpdate
+    handleNetworkUpdate,
   };
 }

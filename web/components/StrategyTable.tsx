@@ -32,8 +32,8 @@ export function StrategyTable(props: StrategiesHandler) {
 
   const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
 
-  const allChecked = strategies.every((s) => s.selected);
-  const someChecked = strategies.some((s) => s.selected);
+  const allChecked = strategies.filter(s => !s.disabled).every((s) => s.selected);
+  const someChecked = strategies.filter(s => !s.disabled).some((s) => s.selected);
 
   function openProjectDetails(strategy: StrategyInformation) {
     setShowStrategyDetails({
