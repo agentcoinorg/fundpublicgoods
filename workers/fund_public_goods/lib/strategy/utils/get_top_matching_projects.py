@@ -47,7 +47,7 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
-    reranked_projects: list[Project]
+    reranked_projects: list[Project] = []
 
     for i in range(len(top_ids)):
         id = top_ids[i]

@@ -10,15 +10,18 @@ import {
 } from "@/utils/distributeWeights";
 import { ChangeEvent, useState } from "react";
 import Image from "next/image";
+import ProjectModal from "./ProjectModal";
+import WeightingModal from "./WeightingModal";
 
 export type StrategyEntry = Tables<"strategy_entries">;
 export type Project = Tables<"projects">;
-export type StrategyWithProjects = (StrategyEntry & {
+export type StrategyInformation = StrategyEntry & {
   project: Project;
   selected: boolean;
   amount?: string;
   defaultWeight: number;
-})[];
+};
+export type StrategyWithProjects = StrategyInformation[];
 
 export interface StrategyTableProps {
   strategy: StrategyWithProjects;
@@ -38,6 +41,14 @@ export function StrategyTable(props: StrategyTableProps) {
   const [overwrittenWeights, setOverwrittenWeights] = useState(
     props.strategy.map((_) => 0)
   );
+  const [showStrategyDetails, setShowStrategyDetails] = useState<{
+    show: boolean;
+    strategy?: StrategyInformation;
+  }>({
+    show: false,
+  });
+
+  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
 
   const defaultWeights = props.strategy.map((s) => s.defaultWeight);
   const allChecked = props.strategy.every((s) => s.selected);
@@ -56,7 +67,7 @@ export function StrategyTable(props: StrategyTableProps) {
     setOverwrittenWeights(props.strategy.map((_) => 0));
     const selected = e.target.checked;
     const newWeights = props.strategy.map(({ defaultWeight }) => {
-     return selected ? (defaultWeight * 100).toFixed(2) : "0.00"
+      return selected ? (defaultWeight * 100).toFixed(2) : "0.00";
     });
     setFormattedWeights(newWeights);
     props.modifyStrategy(
@@ -159,6 +170,13 @@ export function StrategyTable(props: StrategyTableProps) {
     props.modifyStrategy(newStrategy);
   }
 
+  function openProjectDetails(strategy: StrategyInformation) {
+    setShowStrategyDetails({
+      show: true,
+      strategy
+    });
+  }
+
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
       <thead>
@@ -181,9 +199,9 @@ export function StrategyTable(props: StrategyTableProps) {
         {props.strategy.map((entry, index) => (
           <tr
             key={index}
-            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50"
+            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
           >
-            <td className="pr-0 w-10">
+            <td className="pr-0 w-10 check">
               <TextField
                 type="checkbox"
                 checked={entry.selected}
@@ -225,7 +243,7 @@ export function StrategyTable(props: StrategyTableProps) {
                   }
                 }}
                 onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                className="!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white"
+                className="!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"
                 rightAdornment={"%"}
                 value={formattedWeights[index]}
               />
@@ -235,12 +253,24 @@ export function StrategyTable(props: StrategyTableProps) {
             )}
             <td className="w-32">
               <div className="w-full">
-                <Score rank={entry.impact ?? 0} />
+                <Score onClick={() => openProjectDetails(entry)} rank={entry.impact ?? 0} />
               </div>
             </td>
           </tr>
         ))}
       </tbody>
+      <WeightingModal
+        isOpen={showWeightingModal}
+        title="Customize Project Weightings"
+        onClose={() => setShowWeightingModal(false)}
+      />
+      <ProjectModal
+        strategy={showStrategyDetails.strategy}
+        isOpen={showStrategyDetails.show}
+        title={showStrategyDetails.strategy?.project.title || "Project"}
+        onClose={() => setShowStrategyDetails({ show: false })}
+      />
+
     </table>
   );
 }
