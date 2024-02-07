@@ -3,11 +3,6 @@ try:
 except ImportError:
   pass
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
 from mangum import Mangum
@@ -17,10 +12,7 @@ from fund_public_goods.workflows.create_strategy.functions import functions as w
 from fund_public_goods.api import runs, funding_entries
 from fund_public_goods.get_version import router as get_version_router
 
-load_dotenv()
-
-app = FastAPI()
-
+app = FastAPI(title="Fund Public Goods", debug=False)
 
 inngest.fast_api.serve(app, inngest_client, [*worker_functions, *gitcoin_functions])
 app.include_router(runs.router)

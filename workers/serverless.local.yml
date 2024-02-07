@@ -1,0 +1,46 @@
+service: fund-public-goods
+
+plugins:
+  - serverless-offline
+  - serverless-python-requirements
+
+package: 
+  individually: true
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.10
+  memorySize: 2048
+  timeout: 300
+  environment:
+    DEPLOYMENT_STAGE: dev
+    INNGEST_PROD: true
+    INNGEST_ENV: fundpublicgoods-dev
+    NEXT_PUBLIC_SUPABASE_URL: ${env:NEXT_PUBLIC_SUPABASE_URL}
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: ${env:NEXT_PUBLIC_SUPABASE_ANON_KEY}
+    SUPABASE_SERVICE_ROLE_KEY: ${env:SUPABASE_SERVICE_ROLE_KEY}
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+
+custom:
+  pythonRequirements:
+    dockerFile: ./Dockerfile
+
+  serverless-offline:
+    httpPort: 8000
+    stage: 'dev'
+    noPrependStageInUrl: true
+    useDocker: true
+
+functions:
+  api:
+    handler: fund_public_goods.main.handler
+    package:
+      patterns:
+        - '!**'
+        - 'fund_public_goods/**'
+    events:
+      - http:
+          path: /{path+}
+          method: any

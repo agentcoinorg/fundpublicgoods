@@ -1,0 +1,10 @@
+relevant:
+https://www.serverless.com/plugins/serverless-offline#usage-with-other-plugins
+https://github.com/fortniteclipz-com/ts_services/blob/7df13296574127008d8d133bd580b117c5888839/serverless.yml#L30
+https://github.com/search?q=pythonRequirements%3A+++++dockerFile%3A&type=code
+https://www.serverless.com/plugins/serverless-python-requirements
+https://www.serverless.com/plugins/serverless-offline
+
+start & ping server from ./workers/ directory:
+> npx serverless offline start --config ./serverless.local.yml --verbose --debug *
+> curl http://localhost:8000/api/version

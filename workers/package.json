@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "poetry export -f requirements.txt --output requirements.txt --without-hashes --no-cache",
+    "dev": "npx serverless offline --config ./serverless.local.yml --verbose --debug *",
     "deploy:dev": "npx serverless deploy --config ./serverless.dev.yml --stage dev",
     "deploy:prod": "npx serverless deploy --config ./serverless.prod.yml --stage prod",
     "package": "npx serverless package"
@@ -11,6 +13,7 @@
   "devDependencies": {
     "serverless": "3.38.0",
     "serverless-domain-manager": "7.3.3",
+    "serverless-offline": "git+https://github.com/BenjaminBergerM/serverless-offline.git#update-docker-image-source",
     "serverless-python-requirements": "6.0.1"
   }
 }
