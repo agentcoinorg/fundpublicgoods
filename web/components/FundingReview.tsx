@@ -105,13 +105,13 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
                   <div className='text-[10px] text-indigo-400 uppercase tracking-wider leading-none'>
                     Sending
                   </div>
-                  <div className='text-md leading-none'>
+                  <div className='text-md leading-none text-indigo-600 font-bold'>
                     {totalAmount.toFixed(2)}
                     <span className='ml-1 text-xs text-subdued'>USDC</span>
                   </div>
                 </div>
               </div>
-              <div className='col-span-2 flex justify-center'>
+              <div className='col-span-2 flex justify-center text-indigo-600'>
                 <ArrowRight size={20} weight='bold' />
               </div>
               <div className='flex flex-col col-span-5'>
@@ -119,7 +119,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
                   <div className='text-[10px] text-indigo-400 uppercase tracking-wider leading-none'>
                     Recipient
                   </div>
-                  <div className='text-md leading-none'>
+                  <div className='text-md leading-none text-indigo-600'>
                     {props.entries.length} projects
                   </div>
                 </div>
