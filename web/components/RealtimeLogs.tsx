@@ -14,7 +14,6 @@ import {
   STEPS_ORDER,
   STEP_TIME_ESTS,
 } from "@/utils/logs";
-import { Transition } from "@headlessui/react";
 
 const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
@@ -86,6 +85,7 @@ export default function RealtimeLogs(props: {
   return (
     <>
       <div className='space-y-2'>
+        <div className='text-subdued text-[10px]'>{`~${"5:23"} remaining`}</div>
         <ProgressBar
           stepTimes={stepTimes}
           curStep={currentStep}
@@ -93,41 +93,41 @@ export default function RealtimeLogs(props: {
         />
         {sortedLogsWithSteps.map((log) => (
           <>
-            <Transition
-              key={log.id}
-              show={log.status === "IN_PROGRESS" || log.status === "COMPLETED"}
-              enter='transition-opacity duration-75'
-              enterFrom='opacity-0'
-              enterTo='opacity-100'
-              leave='transition-opacity duration-150'
-              leaveFrom='opacity-100'
-              leaveTo='opacity-0'>
-              {log.status === "IN_PROGRESS" ? (
-                <div className='flex items-center space-x-2' key={log.id}>
+            {log.status !== "NOT_STARTED" && (
+              <div className='flex items-center space-x-2' key={log.id}>
+                {log.status === "IN_PROGRESS" ? (
                   <LoadingCircle
                     hideText={true}
                     className='!stroke-indigo-500 text-indigo-200'
                   />
-                  <p className='text-xs leading-tight text-indigo-500'>
-                    {getLogMessage(log)}
-                  </p>
-                </div>
-              ) : log.status === "COMPLETED" ? (
-                <div className='flex items-center space-x-2' key={log.id}>
+                ) : log.status === "COMPLETED" ? (
                   <div
                     className='text-sm px-0.5 h-4 flex items-center'
                     role='img'
                     aria-label='check mark symbol'>
                     ✅
                   </div>
-                  <div className='text-xs leading-tight text-green-600'>
-                    {getLogMessage(log)}
+                ) : (
+                  <div
+                    className='text-sm px-0.5 h-4 flex items-center'
+                    role='img'
+                    aria-label='no entry'>
+                    ⛔️
                   </div>
-                </div>
-              ) : (
-                <></>
-              )}
-            </Transition>
+                )}
+                <p
+                  className={clsx(
+                    "text-xs leading-tight",
+                    log.status === "IN_PROGRESS"
+                      ? "text-indigo-500"
+                      : log.status === "COMPLETED"
+                      ? "text-green-600"
+                      : "text-red-500"
+                  )}>
+                  {getLogMessage(log)}
+                </p>
+              </div>
+            )}
           </>
         ))}
       </div>
