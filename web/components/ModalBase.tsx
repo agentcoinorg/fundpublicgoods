@@ -49,25 +49,25 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
                 enter='ease-out duration-300'
                 enterFrom='opacity-0'
                 enterTo='opacity-100'
-                leave='ease-in duration-200'
+                leave='ease-in duration-50'
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'>
                 <Dialog.Panel
                   className={clsx(
-                    "w-full transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all",
+                    "w-full overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl",
                     maxWidth
                   )}
                   onClick={(e) => {
                     e.stopPropagation();
                   }}>
-                  <div className='flex items-start justify-between pl-6 pr-7 pt-6 pb-3'>
+                  <div className='flex items-start justify-between px-6 pt-6 pb-3'>
                     <Dialog.Title as='h3' className='text-base font-bold'>
                       {title}
                     </Dialog.Title>
                     <Button
                       variant='icon'
                       onClick={onClose}
-                      className='group translate-x-2 transform !shadow-none !bg-transparent'>
+                      className='group translate-x-3 -translate-y-3 transform !shadow-none !bg-transparent'>
                       <X
                         size={20}
                         weight='bold'

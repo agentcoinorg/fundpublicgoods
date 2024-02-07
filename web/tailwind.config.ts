@@ -61,6 +61,9 @@ const config: Config = {
             strong: {
               color: theme("colors.indigo.800"),
             },
+            a: {
+              color: theme("colors.indigo.600"),
+            },
             "ol > li::marker": {
               color: theme("colors.indigo.500"),
             },
@@ -134,11 +137,9 @@ const config: Config = {
               fontSize: "0.75rem",
               lineHeight: "120%",
             },
-          },
-        },
-        "hide-h1": {
-          css: {
-            h1: { display: "none" },
+            hr: {
+              display: "none",
+            },
           },
         },
       }),

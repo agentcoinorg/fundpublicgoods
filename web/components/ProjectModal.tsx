@@ -1,6 +1,6 @@
 import {
   ArrowSquareOut,
-  CaretDown,
+  CaretRight,
   GlobeSimple,
   TwitterLogo,
 } from "@phosphor-icons/react/dist/ssr";
@@ -8,7 +8,7 @@ import Modal, { ModalProps } from "./ModalBase";
 import Score from "./Score";
 import { StrategyInformation } from "./StrategyTable";
 import ReactMarkdown from "react-markdown";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import clsx from "clsx";
 import { SparkleIcon } from "./Icons";
 import Image from "next/image";
@@ -84,9 +84,35 @@ const ProjectModal = ({
   onClose,
   strategy,
 }: ProjectModalProps) => {
-  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
-  const [scoreExpanded, setScoreExpanded] = useState(false);
-  const [reportExpanded, setReportExpanded] = useState(false);
+  const MAX_LENGTH = 500;
+
+  const [descriptionExpanded, setDescriptionExpanded] =
+    useState<boolean>(false);
+  const [scoreExpanded, setScoreExpanded] = useState<boolean>(false);
+  const [reportExpanded, setReportExpanded] = useState<boolean>(false);
+
+  let shortDescription = !!(
+    (strategy?.project?.description?.length ?? 0) < MAX_LENGTH
+  );
+  let shortScore = !!((strategy?.reasoning?.length ?? 0) < MAX_LENGTH);
+  let shortReport = !!((strategy?.report?.length ?? 0) < MAX_LENGTH);
+
+  useEffect(() => {
+    shortDescription = !!(
+      (strategy?.project?.description?.length ?? 0) < MAX_LENGTH
+    );
+    setDescriptionExpanded(shortDescription);
+  }, [strategy?.project?.description]);
+
+  useEffect(() => {
+    shortScore = !!((strategy?.reasoning?.length ?? 0) < MAX_LENGTH);
+    setScoreExpanded(shortScore);
+  }, [strategy?.reasoning]);
+
+  useEffect(() => {
+    shortReport = !!((strategy?.report?.length ?? 0) < MAX_LENGTH);
+    setReportExpanded(shortReport);
+  }, [strategy?.report]);
 
   return (
     <Modal
@@ -98,19 +124,25 @@ const ProjectModal = ({
         <div className='space-y-4'>
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
             <div
-              onClick={() => setDescriptionExpanded(!descriptionExpanded)}
+              onClick={
+                !shortDescription
+                  ? () => setDescriptionExpanded(!descriptionExpanded)
+                  : undefined
+              }
               className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
               <h2 className='text-sm font-bold leading-none'>
                 Project Description
               </h2>
-              <CaretDown
-                size={16}
-                weight='bold'
-                className={clsx(
-                  "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
-                  descriptionExpanded && "rotate-180"
-                )}
-              />
+              {!shortDescription && (
+                <CaretRight
+                  size={16}
+                  weight='bold'
+                  className={clsx(
+                    "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
+                    descriptionExpanded && "-rotate-90"
+                  )}
+                />
+              )}
             </div>
             <div
               className={clsx(
@@ -132,7 +164,9 @@ const ProjectModal = ({
 
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
             <div
-              onClick={() => setScoreExpanded(!scoreExpanded)}
+              onClick={
+                !shortScore ? () => setScoreExpanded(!scoreExpanded) : undefined
+              }
               className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
               <div className='flex items-center space-x-2'>
                 <h2 className='text-sm font-bold leading-none'>Score</h2>
@@ -144,14 +178,16 @@ const ProjectModal = ({
                   />
                 </div>
               </div>
-              <CaretDown
-                size={16}
-                weight='bold'
-                className={clsx(
-                  "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
-                  scoreExpanded && "rotate-180"
-                )}
-              />
+              {!shortScore && (
+                <CaretRight
+                  size={16}
+                  weight='bold'
+                  className={clsx(
+                    "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
+                    scoreExpanded && "-rotate-90"
+                  )}
+                />
+              )}
             </div>
             <div className='grid gap-2 grid-cols-3 items-center'>
               {[
@@ -168,12 +204,12 @@ const ProjectModal = ({
                 <div
                   className='rounded-md p-1.5 border border-indigo-300 bg-white leading-none space-y-1.5 w-full'
                   key={i}>
-                  <div className='text-[8px] text-indigo-400 uppercase tracking-wide leading-none'>
+                  <div className='text-[8px] text-indigo-400 uppercase tracking-wider leading-none'>
                     {item.category}
                   </div>
-                  <div className='text-md'>
+                  <div className='text-xs'>
                     {((item.value as number) * 10).toFixed(2)}
-                    <span className='text-xs text-indigo-400 leading-none'>
+                    <span className='text-[10px] text-indigo-400 leading-none'>
                       /10
                     </span>
                   </div>
@@ -198,24 +234,30 @@ const ProjectModal = ({
 
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
             <div
-              onClick={() => setReportExpanded(!reportExpanded)}
+              onClick={
+                !shortReport
+                  ? () => setReportExpanded(!reportExpanded)
+                  : undefined
+              }
               className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
               <h2 className='text-sm font-bold leading-none'>Report</h2>
-              <CaretDown
-                size={16}
-                weight='bold'
-                className={clsx(
-                  "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
-                  reportExpanded && "rotate-180"
-                )}
-              />
+              {!shortReport && (
+                <CaretRight
+                  size={16}
+                  weight='bold'
+                  className={clsx(
+                    "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
+                    reportExpanded && "-rotate-90"
+                  )}
+                />
+              )}
             </div>
             <div
               className={clsx(
                 "text-[10px] leading-normal",
                 !reportExpanded && "line-clamp-3"
               )}>
-              <div className='prose prose-xs prose-hide-h1'>
+              <div className='prose prose-xs'>
                 <ReactMarkdown>{strategy?.report}</ReactMarkdown>
               </div>
             </div>
