@@ -1,4 +1,4 @@
-from chromadb import EphemeralClient
+import chromadb
 from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -59,7 +59,10 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         texts.append(project_text)
         metadatas.append({ "id": project["id"] })
     
-    db_client = EphemeralClient()
+    db_client = chromadb.HttpClient(host='localhost', port=6666)
+
+    # TODO: need to only send the query here, and move the document upload to the egress pipeline
+
     collection = Chroma.from_texts(
         texts=texts,
         metadatas=metadatas,
@@ -67,7 +70,7 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         client=db_client,
         collection_name="projects"
     )
-        
+
     top_matches: list[Project] = []
     
     for query in queries:
