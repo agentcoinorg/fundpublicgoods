@@ -3,13 +3,19 @@ import json
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinEgressJobs
 from fund_public_goods.db.client import create_admin
 from fund_public_goods.db import tables, entities
+from pydantic import BaseModel
 
-def get_application_range(first: int, skip: int) -> list[tuple[GitcoinApplications, GitcoinProjects]]:
+class AppWithProject(BaseModel):
+    app: GitcoinApplications
+    project: GitcoinProjects
+
+def get_application_range(first: int, skip: int) -> list[dict]:
     db = create_admin("indexing")
 
     result = (db.table("gitcoin_applications")
         .select(
             "id", 
+            "network",
             "created_at", 
             "protocol", 
             "pointer", 
@@ -19,13 +25,13 @@ def get_application_range(first: int, skip: int) -> list[tuple[GitcoinApplicatio
             "gitcoin_projects(id, protocol, pointer, data)"
         )
         .order("created_at", desc=False)
-        .skip(skip)
+        .offset(skip)
         .limit(first)
         .execute())
     
     return [
-        (
-            GitcoinApplications(
+        AppWithProject(
+            app = GitcoinApplications(
                 id = data["id"],
                 network = data["network"],
                 created_at = data["created_at"],
@@ -33,21 +39,23 @@ def get_application_range(first: int, skip: int) -> list[tuple[GitcoinApplicatio
                 pointer = data["pointer"],
                 round_id = data["round_id"],
                 project_id = data["project_id"],
-                data = json.loads(data["data"])
+                data = json.dumps(data["data"])
             ), 
-            GitcoinProjects(
+            project = GitcoinProjects(
                 id = data["gitcoin_projects"]["id"],
                 protocol = data["gitcoin_projects"]["protocol"],
                 pointer = data["gitcoin_projects"]["pointer"],
-                data = json.loads(data["gitcoin_projects"]["data"])
+                data = json.dumps(data["gitcoin_projects"]["data"])
             )
-        ) for data in result.data
+        # We need to dump the model with `round_trip=True` 
+        # to avoid not being able to parse it back because of the `data` fields and their Json types
+        ).model_dump(round_trip=True) for data in result.data
     ]
 
-def upsert_project(project: GitcoinProjects):
+def upsert_project(project: GitcoinProjects, updated_at: int):
     row = entities.Projects(
         id=project.id,
-        updated_at=datetime.datetime.utcnow().isoformat(),
+        updated_at=updated_at,
         title=project.data["title"],
         description=project.data["description"],
         website=project.data["website"],

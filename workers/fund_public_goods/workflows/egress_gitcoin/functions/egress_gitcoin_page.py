@@ -1,10 +1,8 @@
-from datetime import datetime
 from typing import cast
 import inngest
 from pydantic import parse_obj_as
-from fund_public_goods.db.entities import GitcoinApplications, GitcoinProjects
 from fund_public_goods.workflows.egress_gitcoin.events import EgressGitcoinPageEvent
-from fund_public_goods.db.tables.gitcoin_egress import get_application_range, upsert_application, stop_and_mark_job_as_failed, stop_job, update_job_progress, upsert_project
+from fund_public_goods.db.tables.gitcoin_egress import AppWithProject, get_application_range, upsert_application, stop_and_mark_job_as_failed, stop_job, update_job_progress, upsert_project
 
 async def on_egress_gitcoin_page_failure(
     ctx: inngest.Context,
@@ -27,7 +25,7 @@ async def egress_gitcoin_page(
     data = EgressGitcoinPageEvent.Data.model_validate(ctx.event.data)
 
     result = await step.run("fetch_applications", lambda: get_application_range(first=data.application_page_size, skip=data.skip_applications))
-    apps_with_project = parse_obj_as(list[tuple[GitcoinApplications, GitcoinProjects]], result)
+    apps_with_project = parse_obj_as(list[AppWithProject], result)
 
     if not apps_with_project:
         await step.run("stop_job", lambda: stop_job(data.job_id))
@@ -35,9 +33,10 @@ async def egress_gitcoin_page(
         return "No more applications"
 
     for i in range(len(apps_with_project)):
-        (app, project) = apps_with_project[i]
+        project = apps_with_project[i].project
+        app = apps_with_project[i].app
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project))
+        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, app.created_at))
         
         await step.run("upsert_application_" + str(i), lambda: upsert_application(app))
 
