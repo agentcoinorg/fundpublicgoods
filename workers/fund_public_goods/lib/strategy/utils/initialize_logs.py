@@ -7,11 +7,7 @@ def initialize_logs(run_id: str):
     logs.insert_multiple([
         Logs(
             run_id=run_id,
-            status=(
-                StepStatus.IN_PROGRESS.value
-                if step_name == StepName.FETCH_PROJECTS
-                else StepStatus.NOT_STARTED.value
-            ),
+            status=StepStatus.NOT_STARTED.value,
             step_name=step_name.value,
         )
         for step_name in StepName
