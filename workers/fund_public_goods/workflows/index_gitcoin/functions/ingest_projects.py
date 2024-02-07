@@ -1,59 +1,64 @@
+import json
+from urllib.parse import urlparse
+from fund_public_goods.db.entities import Applications, GitcoinApplications, Projects
+from fund_public_goods.db.tables import applications, projects
+from fund_public_goods.db.tables.gitcoin import get_all_application_projects
+from fund_public_goods.db.tables.projects import get_projects, merge_projects
 from fund_public_goods.workflows.index_gitcoin.events.ingest_projects import IngestProjectsEvent
-from typing import Set, List, Dict
-from collections import defaultdict
 import inngest
-import validators
+import uuid
+import re
 
 
-def is_valid_url(url: str) -> bool:
-    if not (url.startswith('http://') or url.startswith('https://')):
-        url = 'http://' + url
-    return validators.url(url)
-
-
-Graph = Dict[str, Set[str]]
-
-
-def add_edge(graph: Graph, vertex_a: str, vertex_b: str) -> None:
-    graph[vertex_a].add(vertex_b)
-    graph[vertex_b].add(vertex_a)
-
-
-def dfs(graph: Graph, start: str, visited: Set[str], component: List[str]) -> None:
-    visited.add(start)
-    component.append(start)
-    for neighbour in graph[start]:
-        if neighbour not in visited:
-            dfs(graph, neighbour, visited, component)
-
-
-def get_connected_components(graph: Graph) -> List[List[str]]:
-    visited: Set[str] = set()
-    components: List[List[str]] = []
-    for vertex in graph.keys():
-        if vertex not in visited:
-            component: List[str] = []
-            dfs(graph, vertex, visited, component)
-            components.append(component)
-    return components
-
-
-def group_projects(data: List[tuple[str, str]]) -> List[Dict[str, List[str]]]:
-    graph: Graph = defaultdict(set)
+def sanitize_url(url: str) -> str:
+    sanitized_url = re.sub(r'^https?:\/\/', '', url, flags=re.IGNORECASE)
+    sanitized_url = re.sub(r'\/+$', '', sanitized_url)
+    sanitized_url = re.sub(r'^www\.', '', sanitized_url)
     
-    for website, project_name in data:
-        add_edge(graph, website, project_name)
-    
-    components: List[List[str]] = get_connected_components(graph)
-    
-    project_groups: List[Dict[str, List[str]]] = []
-    for component in components:
-        websites: List[str] = [node for node in component if 'com' in node]
-        project_names: List[str] = [node for node in component if 'com' not in node]
-        project_groups.append({'websites': websites, 'project_names': project_names})
-    
-    return project_groups
+    return sanitized_url
 
+
+def process_application(application: GitcoinApplications, network: int):
+    existing_projects = get_projects().data
+    application_project = application.data['application']['project']
+    
+    matches = []
+    for existing_project in existing_projects:
+        project_websites = [urlparse(app['website']).netloc for app in existing_project['applications']]
+        
+        if urlparse(application_project['website']).netloc in project_websites:
+            matches.append(existing_project)
+            
+    if len(matches) == 0:
+        new_project_id = str(uuid.uuid4())
+        projects.insert(
+            Projects(
+                id=new_project_id
+            )
+        )
+    elif len(matches) == 1:
+        new_project_id = matches[0]['id']
+    else:
+        new_project_id = merge_projects([project['id'] for project in matches]).data[0]
+        
+    applications.insert(
+        Applications(
+            id=application.id,
+            createdAt=application.created_at,
+            recipient=application.data["application"]["recipient"],
+            network=network,
+            round=application.round_id,
+            answers=json.dumps(application.data["application"]["answers"]),
+            projectId=new_project_id,
+            title=application_project['title'],
+            description=application_project.get("description", ""),
+            website=application_project['website'],
+            twitter=application_project.get("projectTwitter", ""),
+            logo=application_project.get("logoImg", "")
+        )
+    )
+    
+    
 
 @inngest.create_function(
     fn_id="ingest_projects",
