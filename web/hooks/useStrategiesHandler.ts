@@ -15,6 +15,7 @@ export interface StrategiesHandler {
   handleSelectAll: (isChecked: boolean) => void;
   handleSelectProject: (isChecked: boolean, index: number) => void;
   handleAmountUpdate: (amount: string) => void;
+  handleNetworkUpdate: (network: NetworkName) => void;
 }
 
 export type StrategyEntry = Tables<"strategy_entries">;
@@ -34,13 +35,45 @@ export type StrategiesWithProjects = StrategyInformation[];
 export function useStrategiesHandler(
   initStrategies: StrategiesWithProjects,
   totalAmount: string,
-  currentNetwork: NetworkName
+  networkName: NetworkName
 ): StrategiesHandler {
-  const [strategies, modifyStrategies] =
-    useState<StrategiesWithProjects>(initStrategies);
+  const weights = redistributeWeights(
+    initStrategies.map((s) => s.defaultWeight as number),
+    initStrategies.map((s) => s.network === networkName)
+  );
+
+  
+  initStrategies = initStrategies.map((s, i) => {
+    return {
+      ...s,
+      weight: weights[i],
+      selected: weights[i] !== 0,
+      disabled: s.network !== networkName
+    };
+  })
+  
+  initStrategies.sort((a, b) => {
+    if (!a.disabled && !b.disabled) {
+      return (b.impact || 0) - (a.impact || 0)
+    }
+
+    if (a.disabled && b.disabled) {
+      return (b.impact || 0) - (a.impact || 0)
+    }
+
+    if (a.disabled && !b.disabled) {
+      return -1
+    }
+
+    return -1
+  })
+
+  const [strategies, modifyStrategies] = useState<StrategiesWithProjects>(
+    initStrategies
+  );
 
   const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
-    Array(strategies.length).fill(0)
+    initStrategies.map((s) => s.weight as number)
   );
   const [formattedWeights, setFormattedWeights] = useState(
     strategies.map(({ weight, defaultWeight, selected }) =>
@@ -174,26 +207,40 @@ export function useStrategiesHandler(
     );
   }
 
-  function sanitizeStrategies(
-    s: StrategiesWithProjects
-  ): StrategiesWithProjects {
-    const _strategies = s.map((s) => {
+  function handleNetworkUpdate(network: NetworkName) {
+    const weights = redistributeWeights(
+      strategies.map((s) => s.defaultWeight),
+      strategies.map((s) => s.network === network)
+    );
+    const newStrategies = strategies.map((s, i) => {
       return {
         ...s,
-        disabled: s.network !== currentNetwork,
+        weight: weights[i],
+        selected: weights[i] !== 0,
+        disabled: s.network !== network
       };
-    });
-    _strategies.sort((a, b) => {
-      if (!a.disabled) {
-        return -1;
+    }).sort((a, b) => {
+      if (!a.disabled && !b.disabled) {
+        return (b.impact || 0) - (a.impact || 0)
       }
-      return (b.impact || 0) - (a.impact || 0)
-    });
-    return _strategies;
+  
+      if (a.disabled && b.disabled) {
+        return (b.impact || 0) - (a.impact || 0)
+      }
+  
+      if (a.disabled && !b.disabled) {
+        return -1
+      }
+  
+      return -1
+    })
+    setOverwrittenWeights(newStrategies.map(s => s.weight));
+    setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
+    modifyStrategies(newStrategies)
   }
 
   return {
-    strategies: sanitizeStrategies(strategies),
+    strategies,
     formatted: {
       weights: formattedWeights,
       update: setFormattedWeights,
@@ -203,5 +250,6 @@ export function useStrategiesHandler(
     handleSelectAll,
     handleSelectProject,
     handleAmountUpdate,
+    handleNetworkUpdate
   };
 }

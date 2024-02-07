@@ -56,9 +56,9 @@ export default function Strategy(props: {
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
     amount,
-    selectedNetwork
+    selectedNetwork,
   );
-  const { strategies, handleAmountUpdate } = strategiesHandler;
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin();
@@ -146,6 +146,7 @@ export default function Strategy(props: {
               items={uniqueNetworks.filter((n) => n !== selectedNetwork)}
               field={{ value: selectedNetwork }}
               onChange={(newValue) => {
+                handleNetworkUpdate(newValue as NetworkName)
                 setSelectedNetwork(newValue as NetworkName);
               }}
             />

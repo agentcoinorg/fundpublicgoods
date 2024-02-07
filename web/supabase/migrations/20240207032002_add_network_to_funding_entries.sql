@@ -1,0 +1,1 @@
+UPDATE TABLE "public"."funding_entries" ADD network TEXT NOT NULL;

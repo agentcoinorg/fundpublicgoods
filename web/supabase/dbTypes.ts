@@ -59,6 +59,7 @@ export interface Database {
           amount: string
           created_at: string
           id: string
+          network: string
           project_id: string
           run_id: string
           token: string
@@ -69,6 +70,7 @@ export interface Database {
           amount: string
           created_at?: string
           id?: string
+          network?: string
           project_id: string
           run_id: string
           token: string
@@ -79,6 +81,7 @@ export interface Database {
           amount?: string
           created_at?: string
           id?: string
+          network?: string
           project_id?: string
           run_id?: string
           token?: string
