@@ -16,35 +16,6 @@ def insert(
         "project_id": row.project_id,
         "title": row.title,
         "description": row.description,
-        "website": row.website,
         "twitter": row.twitter,
         "logo": row.logo
     }).execute()
-
-
-def get_applications(
-    project_id: str
-) -> list[Applications]:
-    db = create_admin()
-    result = (db.table("applications")
-        .select("id, created_at, recipient, network, round, answers, project_id")
-        .eq("project_id", project_id)
-        .execute())
-
-    if not result.data:
-        return []
-
-    applications = []
-
-    for item in result.data:
-        applications.append(Applications(
-            id=item["id"],
-            created_at=item["created_at"],
-            recipient=item["recipient"],
-            network=item["network"],
-            round=item["round"],
-            answers=item["answers"],
-            project_id=item["project_id"]
-        ))
-
-    return applications

@@ -77,7 +77,6 @@ class Applications(BaseModel):
     project_id: str = Field(..., alias="projectId")
     title: str
     description: str
-    website: str
     logo: Optional[str] = None
     twitter: Optional[str] = None
     model_config = ConfigDict(
@@ -104,7 +103,8 @@ class FundingEntries(BaseModel):
 class Projects(BaseModel):
 
     id: Optional[str] = None
-
+    website: str
+    
     model_config = ConfigDict(
         populate_by_name=True
     )

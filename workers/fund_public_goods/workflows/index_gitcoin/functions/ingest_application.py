@@ -1,8 +1,8 @@
 import json
-from urllib.parse import urlparse
+from typing import cast
 from fund_public_goods.db.entities import Applications, GitcoinApplications, Projects
 from fund_public_goods.db.tables import applications, projects
-from fund_public_goods.db.tables.projects import get_projects, merge_projects
+from fund_public_goods.db.tables.projects import get_projects
 import uuid
 import re
 
@@ -16,27 +16,25 @@ def sanitize_url(url: str) -> str:
 
 
 def process_application(application: GitcoinApplications, network: int):
-    existing_projects = get_projects().data
+    existing_projects = get_projects()
     application_project = application.data['application']['project']
     
-    matches = []
+    matching_project_id = None
     for existing_project in existing_projects:
-        project_websites = [urlparse(app['website']).netloc for app in existing_project['applications']]
-        
-        if urlparse(application_project['website']).netloc in project_websites:
-            matches.append(existing_project)
+        if sanitize_url(application_project['website']) == sanitize_url(existing_project.website):
+            matching_project_id = existing_project.id
+            break
             
-    if len(matches) == 0:
+    if matching_project_id == None:
         new_project_id = str(uuid.uuid4())
         projects.insert(
             Projects(
-                id=new_project_id
+                id=new_project_id,
+                website=application_project['website']
             )
         )
-    elif len(matches) == 1:
-        new_project_id = matches[0]['id']
     else:
-        new_project_id = merge_projects([project['id'] for project in matches]).data[0]
+        new_project_id = cast(str, matching_project_id)
         
     applications.insert(
         Applications(
@@ -49,7 +47,6 @@ def process_application(application: GitcoinApplications, network: int):
             projectId=new_project_id,
             title=application_project['title'],
             description=application_project.get("description", ""),
-            website=application_project['website'],
             twitter=application_project.get("projectTwitter", ""),
             logo=application_project.get("logoImg", "")
         )

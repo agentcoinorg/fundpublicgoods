@@ -1,17 +1,8 @@
-from typing import Any, Dict
 from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.models.project import Project
-from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
 from fund_public_goods.db.client import create_admin
-from urllib.parse import urlparse
 
-
-def merge_projects(project_ids: list[str]):
-    db = create_admin()
-    return db.rpc('merge_projects', {
-        "project_ids": project_ids
-    }).execute()
 
 def insert(
     row: Projects
@@ -19,6 +10,7 @@ def insert(
     db = create_admin()
     db.table("projects").insert({
         "id": row.id,
+        "website": row.website,
     }).execute()
 
 def upsert(
@@ -27,12 +19,7 @@ def upsert(
     db = create_admin()
     db.table("projects").upsert({
         "id": row.id,
-        "updated_at": row.updated_at,
-        "title": row.title,
-        "description": row.description,
         "website": row.website,
-        "twitter": row.twitter,
-        "logo": row.logo
     }).execute()
 
 def get(
@@ -40,7 +27,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
+        .select("id", "website")
         .eq("id", project_id)
         .execute())
 
@@ -51,26 +38,23 @@ def get(
 
     return Projects(
         id=data["id"],
-        updated_at=data["updated_at"],
-        title=data["title"],
-        description=data["description"],
         website=data["website"],
-        twitter=data["twitter"],
-        logo=data["logo"]
     )
 
-def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
+def get_projects() -> list[Projects]:
     db = create_admin()
-    return (
+    data = (
         db.table("projects")
         .select(
-            "id, applications(website)"
+            "id, website"
         )
         .execute()
-    )
+    ).data
+    
+    return [Projects(**project) for project in data]
 
 def fetch_projects_data() -> list[Project]:
-    response = get_projects()
+    response = get_projects() # TODO: this doesn't return all the bottom info anymore
     
     projects: list[Project] = []
 

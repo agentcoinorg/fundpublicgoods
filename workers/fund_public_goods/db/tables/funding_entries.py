@@ -28,8 +28,8 @@ def insert_multiple(run_id: str, entries: list[FundingEntryData]):
     rows = []
     for entry in entries:
         rows.append(FundingEntries(
-            run_id=UUID(run_id),
-            project_id=entry.project_id,
+            runId=UUID(run_id),
+            projectId=entry.project_id,
             amount=str(entry.amount),
             token=entry.token,
             weight=entry.weight
