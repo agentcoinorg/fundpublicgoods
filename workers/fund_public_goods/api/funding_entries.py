@@ -3,6 +3,7 @@ from fund_public_goods.db import tables
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
+
 router = APIRouter()
 
 class StrategiesInformation(BaseModel):

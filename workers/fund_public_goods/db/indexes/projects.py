@@ -11,6 +11,7 @@ def add_chunk_ids(id, chunks):
             "id": f"{id}/chunk_{i}",
             "values": vec
         })
+    return vecs
 
 def upsert(
     id: str,
@@ -22,11 +23,9 @@ def upsert(
 
     # Chunk the description
     description_chunks = CharacterTextSplitter(
-        separator="\n\n",
-        chunk_size=1000,
+        chunk_size=800,
         chunk_overlap=200,
         length_function=len,
-        is_separator_regex=False,
     ).split_text(description)
 
     # Generate embeddings for each chunk
