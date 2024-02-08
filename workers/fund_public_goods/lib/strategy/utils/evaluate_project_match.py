@@ -7,7 +7,7 @@ from fund_public_goods.lib.strategy.models.project import Project
 evaluation_match_prompt_template = """
 You are a professional public goods projects evaluator.
 
-You will receive a project's information abstract and you will prepare a thorough rationale
+You will receive a project's information abstract and you will prepare a brief and concrete rationale
 assessing how well each project matches the user's prompt.
 
 User's prompt: {prompt}

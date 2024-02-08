@@ -1,7 +1,7 @@
 from enum import Enum
 from uuid import UUID
 import datetime
-from typing import Optional
+from typing import Any, Optional
 from pydantic import BaseModel, Json, Field, ConfigDict
 
 
@@ -90,7 +90,7 @@ class Applications(BaseModel):
     recipient: str
     network: int
     round: str
-    answers: Optional[Json] = None
+    answers: list[dict[str, Any]] = []
     gitcoin_project_id: str = Field(..., alias="gitcoinProjectId")
     project_id: str = Field(..., alias="projectId")
     model_config = ConfigDict(

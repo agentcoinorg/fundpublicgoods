@@ -15,11 +15,12 @@ def stringify_projects(projects: list[Project], separator: str) -> str:
 def get_project_text(project: Project, index: Optional[int] = None) -> str:
     id_to_use = index if index is not None else project.id
     result = f"ID: {id_to_use} \n"
-    answers = [application.model_dump().get('answers', []) for application in project.applications]
+    answer_groups = [application.model_dump().get('answers', []) for application in project.applications]
 
-    for answer in answers:
-        result += f"  Question: {answer.get('question', '')}\n"
-        result += f"  Answer: {answer.get('answer', '')}\n"
+    for answer_group in answer_groups:
+        for answer in answer_group:
+            result += f"  Question: {answer.get('question', '')}\n"
+            result += f"  Answer: {answer.get('answer', '')}\n"
 
     return result
 

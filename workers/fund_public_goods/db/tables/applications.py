@@ -13,7 +13,8 @@ def insert(
         "network": row.network,
         "round": row.round,
         "answers": row.answers,
-        "project_id": row.project_id
+        "project_id": row.project_id,
+        "gitcoin_project_id": row.gitcoin_project_id
     }).execute()
 
 def upsert(
@@ -27,7 +28,8 @@ def upsert(
         "network": row.network,
         "round": row.round,
         "answers": row.answers,
-        "project_id": row.project_id
+        "project_id": row.project_id,
+        "gitcoin_project_id": row.gitcoin_project_id
     }).execute()
 
 def get_applications(

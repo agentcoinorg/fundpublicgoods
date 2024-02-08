@@ -1,3 +1,4 @@
+import json
 from typing import Any, Dict
 from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.models.project import Project
@@ -25,13 +26,14 @@ def upsert(
 ):
     db = create_admin()
     db.table("projects").upsert({
-        "gitcoin_id": row.id,
+        "id": row.id,
         "updated_at": row.updated_at,
         "title": row.title,
         "description": row.description,
         "website": row.website,
         "twitter": row.twitter,
-        "logo": row.logo
+        "logo": row.logo,
+        "gitcoin_id": row.gitcoin_id
     }).execute()
 
 def get(
@@ -64,7 +66,7 @@ def get_project_by_website(sanitized_website: str) -> PostgrestAPIResponse[Dict[
     return (
         db.table("projects")
         .select(
-            "id, website"
+            "id, website, updated_at"
         )
         .eq('website', sanitized_website)
         .execute()
@@ -90,7 +92,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, twitter, logo, applications(*)"
+            "*, applications(*)"
         )
         .execute()
     )

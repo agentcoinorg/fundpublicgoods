@@ -43,11 +43,12 @@ def evaluate_project_impact_and_funding(prompt: str, project: Project):
     evaluation_chain = evaluation_prompt | llm | StrOutputParser()
     
     project_text = f"ID: {project.id} \n"
-    answers = [application.model_dump().get('answers', []) for application in project.applications]
+    answer_groups = [application.model_dump().get('answers', []) for application in project.applications]
 
-    for answer in answers:
-        project_text += f"  Question: {answer.get('question', '')}\n"
-        project_text += f"  Answer: {answer.get('answer', '')}\n"
+    for answer_group in answer_groups:
+        for answer in answer_group:
+            project_text += f"  Question: {answer.get('question', '')}\n"
+            project_text += f"  Answer: {answer.get('answer', '')}\n"
     
     evaluation_report = evaluation_chain.invoke({
         "prompt": prompt,

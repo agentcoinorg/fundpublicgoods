@@ -104,7 +104,7 @@ def upsert_application(project_id: str, app: GitcoinApplications):
         recipient=app.data["application"]["recipient"],
         network=app.network,
         round=app.round_id,
-        answers=json.dumps(app.data["application"]["answers"]),
+        answers=app.data["application"]["answers"],
         gitcoinProjectId=app.project_id,
         projectId=project_id
     ))
