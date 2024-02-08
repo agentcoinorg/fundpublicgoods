@@ -47,12 +47,12 @@ def get_applications(
     for item in result.data:
         applications.append(Applications(
             id=item["id"],
-            created_at=item["created_at"],
+            createdAt=item["created_at"],
             recipient=item["recipient"],
             network=item["network"],
             round=item["round"],
             answers=item["answers"],
-            project_id=item["project_id"]
+            projectId=item["project_id"]
         ))
 
     return applications

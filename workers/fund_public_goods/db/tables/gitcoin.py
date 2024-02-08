@@ -46,7 +46,7 @@ def get_non_running_job() -> GitcoinIndexingJobs | None:
     return GitcoinIndexingJobs(
         id = data["id"],
         url = data["url"],
-        network_id = data["network_id"],
+        networkId = data["network_id"],
         is_running = data["is_running"],
         skip_rounds = data["skip_rounds"],
         skip_projects = data["skip_projects"]

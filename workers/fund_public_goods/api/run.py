@@ -2,8 +2,8 @@ from fund_public_goods.db import tables, client
 from fund_public_goods.db.entities import StepStatus, StepName, Logs
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
-from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 from fund_public_goods.lib.strategy.utils.evaluate_project import evaluate_project
+from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
 from fund_public_goods.lib.strategy.models.project import Project

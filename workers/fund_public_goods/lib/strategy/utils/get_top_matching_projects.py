@@ -71,7 +71,14 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
     metadatas: list[dict] = []
       
     for project in projects:
-        project_text = get_project_text(project=project)
+        project_text = f"ID: {project.id} - Description: {project.description}\n"
+        sorted_applications = sorted(project.applications, key=lambda x: x.created_at, reverse=True)
+        latest_application_answers = sorted_applications[0].model_dump().get('answers', [])
+
+        for answer in latest_application_answers:
+            project_text += f"  Question: {answer.get('question', '')}\n"
+            project_text += f"  Answer: {answer.get('answer', '')}\n"
+
         texts.append(project_text)
         metadatas.append({ "id": project["id"] })
     

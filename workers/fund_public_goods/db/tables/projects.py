@@ -2,7 +2,7 @@ from typing import Any, Dict
 from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.models.project import Project
 from supabase import PostgrestAPIResponse
-from fund_public_goods.db.entities import Projects
+from fund_public_goods.db.entities import Applications, Projects
 from fund_public_goods.db.client import create_admin
 
 
@@ -63,7 +63,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, twitter, logo, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, twitter, logo, applications(*)"
         )
         .execute()
     )
@@ -74,14 +74,7 @@ def fetch_projects_data() -> list[Project]:
     projects: list[Project] = []
 
     for item in response.data:
-        answers: list[Answer] = []
-
-        for application in item.get("applications", []):
-            for answer in application.get("answers", []):
-                answers.append(Answer(
-                    question=answer.get("question", ""),
-                    answer=answer.get("answer", None)
-                ))
+        applications: list[Applications] = [Applications(**application) for application in item.get("applications", [])]
         
         # Remove all None values
         project_data = {k: v for k, v in item.items() if v is not None}
@@ -93,7 +86,7 @@ def fetch_projects_data() -> list[Project]:
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
-            answers=answers,
+            applications=applications,
         )
         
         projects.append(project)
