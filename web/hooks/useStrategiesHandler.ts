@@ -70,7 +70,7 @@ export function useStrategiesHandler(
     return -1;
   });
 
-  const [strategies, modifyStrategies] = useState<StrategiesWithProjects>(initStrategies);
+  const [strategies, modifyStrategies] = useState(initStrategies);
   const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
     Array(strategies.length).fill(0)
   );
@@ -133,8 +133,6 @@ export function useStrategiesHandler(
       percentage: numberValue,
       index,
     });
-    setOverwrittenWeights(newOverwrittenWeights);
-    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     const newStrategies = strategies.map((s, i) => {
       const weight = newPercentages[i] / 100;
       const amounts = distributeWeights(newPercentages, +totalAmount, 2).map(
@@ -147,32 +145,34 @@ export function useStrategiesHandler(
         selected: !(weight === 0),
       };
     });
+    setOverwrittenWeights(newOverwrittenWeights);
+    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     modifyStrategies(newStrategies);
   };
 
   const handleSelectAll = (isChecked: boolean) => {
-    setOverwrittenWeights(Array(strategies.length).fill(0));
     const newWeights = redistributeWeights(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => isChecked && !s.disabled)
     ).map((weight) => {
       return isChecked ? (weight * 100).toFixed(2) : "0.00";
     });
+    const amounts = distributeWeights(
+      newWeights.map((w) => +w),
+      +totalAmount,
+      2
+    ).map((w) => (w / 100).toFixed(2));
+    const newStrategies = strategies.map((s, i) => {
+      return {
+        ...s,
+        selected: !s.disabled && isChecked,
+        weight: !s.disabled && isChecked ? +newWeights[i] / 100 : 0.0,
+        amount: amounts[i],
+      };
+    });
+    setOverwrittenWeights(Array(strategies.length).fill(0));
     setFormattedWeights(newWeights);
-    modifyStrategies(
-      strategies.map((s, i) => {
-        let amount;
-        if (!s.disabled && isChecked && totalAmount) {
-          amount = (+totalAmount * s.defaultWeight).toFixed(2);
-        }
-        return {
-          ...s,
-          selected: !s.disabled && isChecked,
-          weight: !s.disabled && isChecked ? +newWeights[i] : 0.0,
-          amount,
-        };
-      })
-    );
+    modifyStrategies(newStrategies);
   };
 
   const handleSelectProject = (isChecked: boolean, index: number) => {
@@ -184,7 +184,6 @@ export function useStrategiesHandler(
       selectedWeights
     );
 
-    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
     const newStrategy = strategies.map((s, i) => {
       const amount = +totalAmount * newWeights[i];
       const strategySelected = (index == i && isChecked) || s.selected;
@@ -196,6 +195,7 @@ export function useStrategiesHandler(
       };
     });
     newStrategy[index].selected = isChecked;
+    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
     modifyStrategies(newStrategy);
     setOverwrittenWeights(Array(strategies.length).fill(0));
   };
@@ -205,12 +205,11 @@ export function useStrategiesHandler(
     const weights = selectedStrategies.map((s) => s.weight) as number[];
     const amounts = distributeWeights(weights, +amount, 2);
     let amountIndex = 0;
-    modifyStrategies(
-      strategies.map((s) => ({
-        ...s,
-        amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
-      }))
-    );
+    const newStrategies = strategies.map((s) => ({
+      ...s,
+      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+    }));
+    modifyStrategies(newStrategies);
   };
 
   function handleNetworkUpdate(network: NetworkName) {

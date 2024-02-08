@@ -71,19 +71,21 @@ export default async function StrategyPage({
 
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
+  const networks = data.flatMap((s) =>
+    s.project.applications.map((a) => getNetworkNameFromChainId(a.network))
+  );
+  const networksFromProjects = Array.from(new Set(networks));
+
   const strategies = data
-    .map((strategy) => {
+    .map((strategy, i) => {
       const lastApplication = strategy.project.applications
         .sort((a, b) => a.created_at - b.created_at)
         .slice(-1)[0];
-
-      console.log(strategy.project)
-
       return {
         ...strategy,
         defaultWeight: strategy.weight as number,
-        network: getNetworkNameFromChainId(lastApplication.network),
-        recipient: lastApplication.recipient
+        network: networks[i],
+        recipient: lastApplication.recipient,
       };
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
@@ -93,6 +95,7 @@ export default async function StrategyPage({
       fetchedStrategies={strategies}
       prompt={run.data.prompt}
       runId={run.data.id}
+      networks={networksFromProjects}
     />
   );
 }

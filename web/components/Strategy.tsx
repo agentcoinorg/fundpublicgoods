@@ -45,9 +45,10 @@ export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
+  networks: NetworkName[]
 }) {
   const [selectedNetwork, setSelectedNetwork] =
-    useState<NetworkName>("Mainnet");
+    useState<NetworkName>(props.networks[0]);
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
@@ -70,7 +71,6 @@ export default function Strategy(props: {
     handleNetworkUpdate,
     prepareDonation,
   } = strategiesHandler;
-  const uniqueNetworks = Array.from(new Set(strategies.map((s) => s.network)));
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   async function connect() {
@@ -129,7 +129,7 @@ export default function Strategy(props: {
         <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
           <div>
             <Dropdown
-              items={uniqueNetworks.filter((n) => n !== selectedNetwork)}
+              items={props.networks.filter((n) => n !== selectedNetwork)}
               field={{ value: selectedNetwork }}
               onChange={(newValue) => {
                 handleNetworkUpdate(newValue as NetworkName);
