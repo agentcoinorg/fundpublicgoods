@@ -24,16 +24,14 @@ import {
 export default function FundingReview(props: { id: string }) {
   const [plan] = useAtom<FundingEntry | undefined>(donationPlan);
   const router = useRouter();
+  const [showBreakdown, setShowBreakdown] = useState(false);
+  const [isTransferPending, setIsTransferPending] = useState(false);
+  const [{ wallet }] = useConnectWallet();
 
-  console.log({ plan });
   if (!plan) {
     router.push("/s/" + props.id);
     return;
   }
-
-  const [showBreakdown, setShowBreakdown] = useState(false);
-  const [isTransferPending, setIsTransferPending] = useState(false);
-  const [{ wallet }] = useConnectWallet();
 
   async function transferFunds() {
     if (!wallet || isTransferPending) return;
@@ -164,7 +162,7 @@ export default function FundingReview(props: { id: string }) {
           <div className="space-y-1">
             <div>Funding {plan.donations.length} projects</div>
             <div className="text-[12px] text-slate-500">
-              With a total funding of {totalAmount.toFixed(2)} USDC
+              With a total funding of {totalAmount.toFixed(2)} {plan.token.name}
             </div>
           </div>
           <Button onClick={transferFunds}>Submit</Button>
