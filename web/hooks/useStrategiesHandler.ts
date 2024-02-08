@@ -224,12 +224,15 @@ export function useStrategiesHandler(
           disabled: s.network !== network,
         };
       })
+      .sort((a, b) => (b.impact || 0) - (a.impact || 0))
       .sort((a, b) => {
-        if ((!a.disabled && !b.disabled) || (a.disabled && b.disabled)) {
+        if (!a.disabled && !b.disabled) {
           return (b.impact || 0) - (a.impact || 0);
         }
-
-        return -1;
+        if (a.disabled && b.disabled) {
+          return (b.impact || 0) - (a.impact || 0);
+        }
+        return a.disabled ? 1 : -1;
       });
     setOverwrittenWeights(Array(initStrategies.length).fill(0));
     setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
