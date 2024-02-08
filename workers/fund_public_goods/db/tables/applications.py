@@ -35,7 +35,7 @@ def get_applications(
 ) -> list[Applications]:
     db = create_admin()
     result = (db.table("applications")
-        .select("id, created_at, recipient, network, round, answers, project_id")
+        .select("id, created_at, recipient, gitcoin_project_id, network, round, answers, project_id")
         .eq("project_id", project_id)
         .execute())
 
@@ -52,7 +52,8 @@ def get_applications(
             network=item["network"],
             round=item["round"],
             answers=item["answers"],
-            projectId=item["project_id"]
+            projectId=item["project_id"],
+            gitcoinProjectId=item["gitcoin_project_id"],
         ))
 
     return applications

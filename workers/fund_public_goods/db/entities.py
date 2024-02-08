@@ -91,6 +91,7 @@ class Applications(BaseModel):
     network: int
     round: str
     answers: Optional[Json] = None
+    gitcoin_project_id: str = Field(..., alias="gitcoinProjectId")
     project_id: str = Field(..., alias="projectId")
     model_config = ConfigDict(
         populate_by_name=True
@@ -116,10 +117,11 @@ class FundingEntries(BaseModel):
 class Projects(BaseModel):
 
     id: str
+    gitcoin_id: str = Field(..., alias="gitcoinId")
     updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
     description: Optional[str] = None
-    website: Optional[str] = None
+    website: str
     logo: Optional[str] = None
     twitter: Optional[str] = None
 

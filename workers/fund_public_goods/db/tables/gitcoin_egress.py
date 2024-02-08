@@ -1,8 +1,11 @@
 import datetime
+import uuid
 import json
+import re
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinEgressJobs
 from fund_public_goods.db.client import create_admin
 from fund_public_goods.db import tables, entities
+from fund_public_goods.db.tables.projects import update_project
 from pydantic import BaseModel
 
 class AppWithProject(BaseModel):
@@ -34,11 +37,11 @@ def get_application_range(first: int, skip: int) -> list[dict]:
             app = GitcoinApplications(
                 id = data["id"],
                 network = data["network"],
-                created_at = data["created_at"],
+                createdAt = data["created_at"],
                 protocol = data["protocol"],
                 pointer = data["pointer"],
-                round_id = data["round_id"],
-                project_id = data["project_id"],
+                roundId = data["round_id"],
+                projectId = data["project_id"],
                 data = json.dumps(data["data"])
             ), 
             project = GitcoinProjects(
@@ -52,28 +55,58 @@ def get_application_range(first: int, skip: int) -> list[dict]:
         ).model_dump(round_trip=True) for data in result.data
     ]
 
-def upsert_project(project: GitcoinProjects, updated_at: int):
-    row = entities.Projects(
-        id=project.id,
-        updated_at=updated_at,
-        title=project.data["title"],
-        description=project.data["description"],
-        website=project.data["website"],
-        twitter=project.data.get("projectTwitter", ""),
-        logo=project.data.get("logoImg", ""),
-    )
+def sanitize_url(url: str) -> str:
+    sanitized_url = re.sub(r'^https?:\/\/', '', url, flags=re.IGNORECASE)
+    sanitized_url = re.sub(r'\/+$', '', sanitized_url)
+    sanitized_url = re.sub(r'^www\.', '', sanitized_url)
+    
+    return sanitized_url
 
-    tables.projects.upsert(row)
 
-def upsert_application(app: GitcoinApplications):
+def upsert_project(project: GitcoinProjects, updated_at: int) -> str:
+    sanitized_website = sanitize_url(project.data["website"])
+    existing_projects = tables.projects.get_project_by_website(sanitized_website).data
+    
+    if not existing_projects:
+        id = str(uuid.uuid4())
+        
+        row = entities.Projects(
+            id=id,
+            gitcoinId=project.id,
+            updatedAt=updated_at,
+            title=project.data["title"],
+            description=project.data["description"],
+            website=sanitized_website,
+            twitter=project.data.get("projectTwitter", ""),
+            logo=project.data.get("logoImg", ""),
+        )
+        tables.projects.upsert(row)
+        
+        return id
+    else:
+        if updated_at > existing_projects[0]['updated_at']:
+            update_project(
+                id=existing_projects[0]['id'],
+                updated_at=updated_at,
+                title=project.data["title"],
+                description=project.data["description"],
+                twitter=project.data.get("projectTwitter", ""),
+                logo=project.data.get("logoImg", "")
+            )
+        
+        return existing_projects[0]['id']
+    
+
+def upsert_application(project_id: str, app: GitcoinApplications):
     tables.applications.upsert(entities.Applications(
         id=app.id,
-        created_at=app.created_at,
+        createdAt=app.created_at,
         recipient=app.data["application"]["recipient"],
         network=app.network,
         round=app.round_id,
         answers=json.dumps(app.data["application"]["answers"]),
-        project_id=app.project_id
+        gitcoinProjectId=app.project_id,
+        projectId=project_id
     ))
 
 def get_non_running_job() -> GitcoinEgressJobs | None: 

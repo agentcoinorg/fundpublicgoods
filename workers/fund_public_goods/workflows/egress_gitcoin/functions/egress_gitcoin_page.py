@@ -11,7 +11,8 @@ async def on_egress_gitcoin_page_failure(
     error = ctx.event.data["error"]
     data = EgressGitcoinPageEvent.Data.model_validate(cast(dict, ctx.event.data["event"])["data"])
    
-    await step.run("stop_and_mark_job_as_failed", lambda: stop_and_mark_job_as_failed(data.job_id, error)) 
+    await step.run("stop_and_mark_job_as_failed", lambda: stop_and_mark_job_as_failed(data.job_id, error))
+    
 
 @inngest.create_function(
     fn_id="egress_gitcoin_page",
@@ -36,10 +37,10 @@ async def egress_gitcoin_page(
         project = apps_with_project[i].project
         app = apps_with_project[i].app
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, app.created_at))
+        project_id = await step.run("upsert_project_" + str(i), lambda: upsert_project(project, app.created_at))
         
-        await step.run("upsert_application_" + str(i), lambda: upsert_application(app))
-
+        await step.run("upsert_application_" + str(i), lambda: upsert_application(project_id, app))
+    
     total_skip_applications = data.skip_applications + len(apps_with_project)
 
     await step.run("update_job_progress", lambda: update_job_progress(data.job_id, total_skip_applications))

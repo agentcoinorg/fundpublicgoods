@@ -25,7 +25,7 @@ def upsert(
 ):
     db = create_admin()
     db.table("projects").upsert({
-        "id": row.id,
+        "gitcoin_id": row.id,
         "updated_at": row.updated_at,
         "title": row.title,
         "description": row.description,
@@ -39,7 +39,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
+        .select("id", "updated_at", "gitcoin_id", "title", "description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -55,7 +55,34 @@ def get(
         description=data["description"],
         website=data["website"],
         twitter=data["twitter"],
-        logo=data["logo"]
+        logo=data["logo"],
+        gitcoinId=data["gitcoin_id"]
+    )
+    
+def get_project_by_website(sanitized_website: str) -> PostgrestAPIResponse[Dict[str, Any]]:
+    db = create_admin()
+    return (
+        db.table("projects")
+        .select(
+            "id, website"
+        )
+        .eq('website', sanitized_website)
+        .execute()
+    )
+    
+def update_project(id: str, updated_at: int, title: str, description: str, logo: str, twitter: str) -> PostgrestAPIResponse[Dict[str, Any]]:
+    db = create_admin()
+    return (
+        db.table("projects")
+        .update({
+            "updated_at": updated_at,
+            "title": title,
+            "description": description,
+            "logo": logo,
+            "twitter": twitter
+        })
+        .eq('id', id)
+        .execute()
     )
 
 def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
