@@ -1,7 +1,7 @@
 import datetime
 import json
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinEgressJobs
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 from fund_public_goods.db import tables, entities
 from pydantic import BaseModel
 
@@ -51,30 +51,6 @@ def get_application_range(first: int, skip: int) -> list[dict]:
         # to avoid not being able to parse it back because of the `data` fields and their Json types
         ).model_dump(round_trip=True) for data in result.data
     ]
-
-def upsert_project(project: GitcoinProjects, updated_at: int):
-    row = entities.Projects(
-        id=project.id,
-        updated_at=updated_at,
-        title=project.data["title"],
-        description=project.data["description"],
-        website=project.data["website"],
-        twitter=project.data.get("projectTwitter", ""),
-        logo=project.data.get("logoImg", ""),
-    )
-
-    tables.projects.upsert(row)
-
-def upsert_application(app: GitcoinApplications):
-    tables.applications.upsert(entities.Applications(
-        id=app.id,
-        created_at=app.created_at,
-        recipient=app.data["application"]["recipient"],
-        network=app.network,
-        round=app.round_id,
-        answers=json.dumps(app.data["application"]["answers"]),
-        project_id=app.project_id
-    ))
 
 def get_non_running_job() -> GitcoinEgressJobs | None: 
     db = create_admin("indexing")

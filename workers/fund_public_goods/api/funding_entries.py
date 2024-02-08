@@ -1,10 +1,10 @@
 from fund_public_goods.db.tables.funding_entries import FundingEntryData, insert_multiple
-from fund_public_goods.db import client, tables
+from fund_public_goods.db import tables
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-router = APIRouter()
 
+router = APIRouter()
 
 class StrategiesInformation(BaseModel):
     project_id: str
