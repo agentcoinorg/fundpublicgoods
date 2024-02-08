@@ -29,10 +29,10 @@ function Information(props: {
   disabled?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap justify-between">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">{props.title}</div>
-        <div className="text-xs text-subdued">{props.subtitle}</div>
+    <div className='flex flex-wrap justify-between w-full px-1'>
+      <div className='flex flex-col w-full md:w-auto mb-2 md:mb-0'>
+        <div className='text-lg font-semibold'>{props.title}</div>
+        <div className='text-xs text-subdued'>{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}
@@ -45,10 +45,11 @@ export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
-  networks: NetworkName[]
+  networks: NetworkName[];
 }) {
-  const [selectedNetwork, setSelectedNetwork] =
-    useState<NetworkName>(props.networks[0]);
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
+    props.networks[0]
+  );
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
@@ -105,10 +106,10 @@ export default function Strategy(props: {
   }, [tokens]);
 
   return (
-    <div className="flex justify-center py-10 px-6 flex-grow flex-column">
-      <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
+    <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
+      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
         <TextField
-          label="Results for"
+          label='Results for'
           value={currentPrompt}
           onChange={(e) => setCurrentPrompt(e.target.value)}
           onKeyDown={(e) => {
@@ -117,7 +118,7 @@ export default function Strategy(props: {
             }
           }}
         />
-        <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
+        <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
           <p>
             I&apos;ve evaluated the impact of Ethereum infrastructure projects
             on the Gitcoin project registry and Optimism Retroactive Public
@@ -126,7 +127,7 @@ export default function Strategy(props: {
             each project.
           </p>
         </div>
-        <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
+        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
           <div>
             <Dropdown
               items={props.networks.filter((n) => n !== selectedNetwork)}
@@ -139,7 +140,7 @@ export default function Strategy(props: {
           </div>
           {!!wallet && token && (
             <TextField
-              label="Total Funding Amount"
+              label='Total Funding Amount'
               rightAdornment={
                 <Dropdown
                   items={tokens.map((x) => x.name)}
@@ -186,7 +187,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action="Connect →"
+            action='Connect →'
             onClick={() => connect()}
           />
         ) : (
@@ -196,7 +197,7 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action="Next →"
+            action='Next →'
             onClick={createFundingPlan}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
           />

@@ -7,7 +7,7 @@ const Disclaimer = () => {
   const [showDisclaimer, setShowDisclaimer] = useState<boolean>(true);
   return showDisclaimer ? (
     <div className='px-6'>
-      <div className='fixed bottom-16 left-1/2 transform -translate-x-1/2 max-w-screen-sm w-full z-10'>
+      <div className='fixed bottom-16 left-1/2 transform -translate-x-1/2 max-w-screen-sm w-[calc(100%-48px)] z-10'>
         <X
           onClick={() => setShowDisclaimer(false)}
           className='absolute top-4 right-4 text-indigo-800 hover:text-indigo-500 cursor-pointer'
