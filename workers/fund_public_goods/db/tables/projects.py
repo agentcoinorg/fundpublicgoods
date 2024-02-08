@@ -32,8 +32,7 @@ def upsert(
         "description": row.description,
         "website": row.website,
         "twitter": row.twitter,
-        "logo": row.logo,
-        "gitcoin_id": row.gitcoin_id
+        "logo": row.logo
     }).execute()
 
 def get(
@@ -41,7 +40,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "gitcoin_id", "title", "description", "website", "twitter", "logo")
+        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -57,8 +56,7 @@ def get(
         description=data["description"],
         website=data["website"],
         twitter=data["twitter"],
-        logo=data["logo"],
-        gitcoinId=data["gitcoin_id"]
+        logo=data["logo"]
     )
     
 def get_project_by_website(sanitized_website: str) -> PostgrestAPIResponse[Dict[str, Any]]:

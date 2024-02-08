@@ -9,7 +9,6 @@ drop view if exists "public"."funding_entries_view";
 alter table "public"."applications" add column "gitcoin_project_id" text not null;
 alter table "public"."applications" alter column "project_id" set data type uuid using "project_id"::uuid;
 
-alter table "public"."projects" add column "gitcoin_id" text not null;
 alter table "public"."projects" alter column "id" set data type uuid using "id"::uuid;
 alter table "public"."projects" alter column "id" set default gen_random_uuid();
 

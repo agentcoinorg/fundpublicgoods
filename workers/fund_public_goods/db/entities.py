@@ -117,7 +117,6 @@ class FundingEntries(BaseModel):
 class Projects(BaseModel):
 
     id: str
-    gitcoin_id: str = Field(..., alias="gitcoinId")
     updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
     description: Optional[str] = None
