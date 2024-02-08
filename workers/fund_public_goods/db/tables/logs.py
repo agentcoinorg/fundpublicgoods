@@ -1,8 +1,7 @@
-import uuid
 import datetime
-from typing import Literal
+from typing import Literal, Dict, Any
 from supabase import PostgrestAPIResponse
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.client import create_admin, Client
 from fund_public_goods.db.entities import Logs, StepStatus
 
 
@@ -42,11 +41,23 @@ def update(
     }).eq("id", log_id).execute()
 
 
-def get(run_id: str) -> list[Logs] | None:
-    db = create_admin()
-    result: PostgrestAPIResponse[Logs] = (
+def get(run_id: str, db: Client = create_admin()) -> list[Logs] | None:
+    result: PostgrestAPIResponse[Dict[str, Any]] = (
         db.table("logs").select("*").eq("run_id", run_id).execute()
     )
     if not result.data:
         return None
-    return result.data
+    data = result.data
+
+    return [
+        Logs(
+            id=log["id"],
+            run_id=log["run_id"],
+            created_at=log["created_at"],
+            ended_at=log["ended_at"],
+            status=log["status"],
+            step_name=log["step_name"],
+            value=log["value"],
+        )
+        for log in data
+    ]

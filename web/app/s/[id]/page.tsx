@@ -1,3 +1,4 @@
+import Disclaimer from "@/components/Disclaimer";
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
@@ -53,17 +54,17 @@ export default async function StrategyPage({
   const strategyCreated = checkIfFinished(run.data.logs);
   if (!strategyCreated) {
     return (
-      <div className="w-full flex justify-center h-full p-16">
-        <div className="w-full max-w-3xl flex flex-col gap-8">
+      <div className="w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-16">
+        <div className="w-full max-w-sm space-y-8">
           <div className="flex flex-col gap-2">
             <TextField label="Results for" value={run.data.prompt} readOnly />
           </div>
-          <div className="w-full h-[1px] bg-indigo-500" />
           <RealtimeLogs
             logs={run.data.logs}
             run={{ id: params.id, prompt: run.data.prompt }}
           />
         </div>
+        <Disclaimer />
       </div>
     );
   }
@@ -75,6 +76,8 @@ export default async function StrategyPage({
       const lastApplication = strategy.project.applications
         .sort((a, b) => a.created_at - b.created_at)
         .slice(-1)[0];
+
+      console.log(strategy.project)
 
       return {
         ...strategy,

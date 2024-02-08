@@ -1,16 +1,18 @@
-import inngest
 from pydantic import BaseModel
+import inngest
 
-class CreateStrategyEvent:
-    name: str = "on_create_strategy"
+class EgressGitcoinPageEvent():
+    name: str = "on_egress_gitcoin_page"
     trigger = inngest.TriggerEvent(event=name)
 
     class Data(BaseModel):
-        run_id: str
+        job_id: str
+        skip_applications: int
+        application_page_size: int
 
         def to_event(self, ts: int = 0):
             return inngest.Event(
-                name=CreateStrategyEvent.name,
+                name=EgressGitcoinPageEvent.name,
                 data=self.model_dump(),
                 ts=ts
             )

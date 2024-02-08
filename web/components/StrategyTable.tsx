@@ -6,12 +6,12 @@ import { useConnectWallet } from "@web3-onboard/react";
 import { useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
-import WeightingModal from "./WeightingModal";
 import clsx from "clsx";
 import {
   StrategyInformation,
   StrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
+import { SparkleIcon } from "./Icons";
 
 export function StrategyTable(props: StrategiesHandler) {
   const [{ wallet }] = useConnectWallet();
@@ -30,8 +30,6 @@ export function StrategyTable(props: StrategiesHandler) {
     show: false,
   });
 
-  const [showWeightingModal, setShowWeightingModal] = useState<boolean>(false);
-
   const allChecked = strategies.filter(s => !s.disabled).every((s) => s.selected);
   const someChecked = strategies.filter(s => !s.disabled).some((s) => s.selected);
 
@@ -43,21 +41,21 @@ export function StrategyTable(props: StrategiesHandler) {
   }
 
   return (
-    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
+    <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
       <thead>
         <tr>
-          <th className="pr-0 w-10">
+          <th className='pr-0 w-10'>
             <TextField
-              type="checkbox"
+              type='checkbox'
               indeterminate={!allChecked && someChecked}
               checked={allChecked}
               onChange={(e) => handleSelectAll(e.target.checked)}
             />
           </th>
-          <th className="text-left w-full">PROJECT</th>
-          <th className="text-left w-32">WEIGHTING</th>
-          {!!wallet && <th className="text-left w-20">AMOUNT</th>}
-          <th className="text-left whitespace-nowrap w-32">SMART RANKING</th>
+          <th className='text-left w-full'>PROJECT</th>
+          <th className='text-left w-32'>WEIGHTING</th>
+          {!!wallet && <th className='text-left w-20'>AMOUNT</th>}
+          <th className='text-left whitespace-nowrap w-32'>SMART RANKING</th>
         </tr>
       </thead>
       <tbody className="w-full">
@@ -78,7 +76,7 @@ export function StrategyTable(props: StrategiesHandler) {
               )}
             >
               <TextField
-                type="checkbox"
+                type='checkbox'
                 checked={entry.selected}
                 disabled={entry.disabled}
                 onChange={(e) => {
@@ -86,28 +84,30 @@ export function StrategyTable(props: StrategiesHandler) {
                 }}
               />
             </td>
-            <td className="flex gap-2 w-full">
-              <div className="flex flex-col justify-center w-8">
+            <td className='flex gap-2 w-full'>
+              <div className='flex flex-col justify-center w-8'>
                 {entry.project.logo ? (
                   <Image
-                    className="rounded-full"
+                    className='rounded-full border-2 border-indigo-300 object-fit'
                     width={32}
                     height={32}
-                    alt="logo"
+                    alt='logo'
                     src={`https://ipfs.io/ipfs/${entry.project.logo}`}
                   />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-white" />
+                  <div className='w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
+                    <SparkleIcon size={20} className='opacity-80' />
+                  </div>
                 )}
               </div>
-              <div className="space-y-px flex-1 max-w-[calc(100%-40px)]">
-                <div className="line-clamp-1">{entry.project.title}</div>
-                <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+              <div className='space-y-px flex-1 max-w-[calc(100%-40px)]'>
+                <div className='line-clamp-1'>{entry.project.title}</div>
+                <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
                   {entry.project.description}
                 </div>
               </div>
             </td>
-            <td className="w-32">
+            <td className='w-32'>
               <TextField
                 readOnly={!entry.selected}
                 onChange={(e) => {
@@ -121,13 +121,13 @@ export function StrategyTable(props: StrategiesHandler) {
                   }
                 }}
                 onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                className="!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"
+                className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
                 rightAdornment={"%"}
                 value={formattedWeights[index]}
               />
             </td>
             {!!wallet && (
-              <td className="w-20">{`$${entry.amount || "0.00"}`}</td>
+              <td className='w-20'>{`$${entry.amount || "0.00"}`}</td>
             )}
             <td className="w-32">
               <div className="w-full">
@@ -140,11 +140,6 @@ export function StrategyTable(props: StrategiesHandler) {
           </tr>
         ))}
       </tbody>
-      <WeightingModal
-        isOpen={showWeightingModal}
-        title="Customize Project Weightings"
-        onClose={() => setShowWeightingModal(false)}
-      />
       <ProjectModal
         strategy={showStrategyDetails.strategy}
         isOpen={showStrategyDetails.show}
