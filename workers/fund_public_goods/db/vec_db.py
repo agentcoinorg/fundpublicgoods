@@ -1,4 +1,4 @@
-import chromadb
+from pinecone import Pinecone
 
-def create() -> chromadb.HttpClient:
-    chromadb.HttpClient(host='localhost', port=6666)
+def create() -> Pinecone:
+    return Pinecone()

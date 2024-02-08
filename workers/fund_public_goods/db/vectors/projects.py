@@ -1,55 +1,49 @@
 from fund_public_goods.db.vec_db import create
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.text_splitter import CharacterTextSplitter
+
+
+def add_chunk_ids(id, chunks):
+    vecs = []
+    for i in range(len(chunks)):
+        vec = chunks[i]
+        vecs.append({
+            "id": f"{id}/chunk_{i}",
+            "values": vec
+        })
 
 def upsert(
     id: str,
-    title: str,
-    description: str,
-    website: str
+    description: str
 ):
-    client = create()
+    vec_db = create()
+    projects_index = vec_db.Index("projects")
+    embeddings = OpenAIEmbeddings()
 
-    # TODO:
-    # generate embeddings for (title, description(chunks), website)
-    # upload to (indexes OR namespaces?)
-        # id = projectid/chunk_{...}
+    # Chunk the description
+    description_chunks = CharacterTextSplitter(
+        separator="\n\n",
+        chunk_size=1000,
+        chunk_overlap=200,
+        length_function=len,
+        is_separator_regex=False,
+    ).create_documents([description])
 
-    index.upsert(
-        vectors=[
-            {"id": id, "values": vecs},
-        ],
-        namespace="projects"
+    # Generate embeddings for each chunk
+    description_vecs = embeddings.embed_documents(
+        description_chunks
     )
 
-    # NEED:
-    # - only search by description|title|website
-    # WANT:
-    # - remove unneeded words from description
+    # Upsert description chunks
+    projects_index.upsert(
+        vectors=add_chunk_ids(id, description_vecs),
+        namespace= "description"
+    )
 
-
+"""
 projects_index.query(
-  namespace="title",
-  vector=[query],
-  top_k=10,
-  include_values=True
+    namespace="description",
+    vector=query_vectors,
+    top_k=2
 )
-
-projects_index.query(
-  namespace="title",
-  vector=[query],
-  top_k=10,
-  include_values=True
-)
-
-# Returns:
-# {'matches': [{'id': 'vec3',
-#               'score': 0.0,
-#               'values': [0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3]},
-#              {'id': 'vec4',
-#               'score': 0.0799999237,
-#               'values': [0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4]},
-#              {'id': 'vec2',
-#               'score': 0.0800000429,
-#               'values': [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2]}],
-#  'namespace': 'ns1',
-#  'usage': {'read_units': 6}}
-
+"""
