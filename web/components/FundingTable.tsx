@@ -1,22 +1,23 @@
-import { SupportedERC20Tokens } from "@/utils/ethereum";
+import { TokenInformation } from "@/utils/ethereum";
 import truncateEthAddress from "@/utils/ethereum/truncateAddress";
 
 export interface FundingEntry {
-  recipient: string;
-  amount: string;
-  description: string;
-  title: string;
-  network: number;
-  token: SupportedERC20Tokens
+  network: string;
+  token: TokenInformation;
+  donations: {
+    description: string;
+    title: string;
+    amount: string;
+    recipient: string;
+  }[];
 }
 
-export default function FundingTable(props: {
-  fundingEntries: FundingEntry[];
-}) {
+export default function FundingTable(props: { plan: FundingEntry }) {
+  console.log(props.plan.donations)
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
       <tbody className="w-full">
-        {props.fundingEntries.map((fund, index) => (
+        {props.plan.donations.map((fund, index) => (
           <tr key={index}>
             <td className="w-8/12">
               <div className="flex flex-col">

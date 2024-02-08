@@ -8,7 +8,6 @@ import { useConnectWallet } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
 import { usePathname, useRouter } from "next/navigation";
-import { createFundingEntries } from "@/app/actions/createFundingPlan";
 import {
   NetworkName,
   TokenInformation,
@@ -46,21 +45,17 @@ export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
-  amount: string;
-  network?: NetworkName;
 }) {
-  console.log(props.network)
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
-    props.network ?? "Mainnet"
-  );
+  const [selectedNetwork, setSelectedNetwork] =
+    useState<NetworkName>("Mainnet");
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
-  const [amount, setAmount] = useState<string>(props.amount);
+  const [amount, setAmount] = useState<string>("0");
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
 
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
     amount,
-    selectedNetwork,
+    selectedNetwork
   );
   const [{ wallet }, connectWallet] = useConnectWallet();
   const loginWithWallet = useWalletLogin();
@@ -68,9 +63,13 @@ export default function Strategy(props: {
   const router = useRouter();
   const pathname = usePathname();
   const tokens = getTokensForNetwork(selectedNetwork);
-  
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
-  console.log(strategies)
+
+  const {
+    strategies,
+    handleAmountUpdate,
+    handleNetworkUpdate,
+    prepareDonation,
+  } = strategiesHandler;
   const uniqueNetworks = Array.from(new Set(strategies.map((s) => s.network)));
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
@@ -80,25 +79,8 @@ export default function Strategy(props: {
   }
 
   async function createFundingPlan() {
-    const filteredStrategies = strategies
-      .filter((x) => x.selected)
-      .map((strategy) => ({
-        // TODO: Check why weight is nullable
-        amount: strategy.amount as string,
-        weight: strategy.weight || 0,
-        project_id: strategy.project_id,
-      }));
-
-    if (!token) {
-      return;
-    }
-
-    await createFundingEntries(props.runId, {
-      strategies: filteredStrategies,
-      token: token.name,
-      decimals: token.decimals,
-      network: selectedNetwork
-    });
+    if (!token) return;
+    prepareDonation(token);
     router.push(`${pathname}/transaction`);
   }
 
@@ -150,7 +132,7 @@ export default function Strategy(props: {
               items={uniqueNetworks.filter((n) => n !== selectedNetwork)}
               field={{ value: selectedNetwork }}
               onChange={(newValue) => {
-                handleNetworkUpdate(newValue as NetworkName)
+                handleNetworkUpdate(newValue as NetworkName);
                 setSelectedNetwork(newValue as NetworkName);
               }}
             />

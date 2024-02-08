@@ -26,16 +26,10 @@ export default async function StrategyPage({
           *,
           applications(
             network,
-            created_at
+            created_at,
+            recipient
           )
         )
-      ),
-      funding_entries(
-        amount,
-        token,
-        weight,
-        project_id,
-        network
       ),
       logs(
         id,
@@ -77,60 +71,26 @@ export default async function StrategyPage({
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
   const strategies = data
-    .map((s) => {
-      if (run.data.funding_entries.length) {
-        const selected = run.data.funding_entries.find(
-          ({ project_id }) => s.project_id === project_id
-        );
-        const weight = selected?.weight || s.weight || 0;
-
-        const lastApplication = s.project.applications
-          .sort((a, b) => a.created_at - b.created_at)
-          .slice(-1)[0];
-        const applicationNetwork = getNetworkNameFromChainId(
-          lastApplication.network
-        );
-        const network = selected
-          ? (selected.network as NetworkName)
-          : applicationNetwork;
-        return {
-          ...s,
-          network,
-          selected: !!selected,
-          amount: selected?.amount,
-          weight,
-          defaultWeight: s.weight as number,
-        };
-      }
-
-      const lastApplication = s.project.applications
+    .map((strategy) => {
+      const lastApplication = strategy.project.applications
         .sort((a, b) => a.created_at - b.created_at)
         .slice(-1)[0];
 
+      console.log(lastApplication)
       return {
-        ...s,
-        selected: run.data.funding_entries.length === 0,
-        defaultWeight: s.weight as number,
+        ...strategy,
+        defaultWeight: strategy.weight as number,
         network: getNetworkNameFromChainId(lastApplication.network),
+        recipient: lastApplication.recipient
       };
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
-
-  const amount = run.data.funding_entries.reduce((acc, x) => {
-    return acc + Number(x.amount);
-  }, 0);
 
   return (
     <Strategy
       fetchedStrategies={strategies}
       prompt={run.data.prompt}
       runId={run.data.id}
-      amount={amount.toString()}
-      network={
-        run.data.funding_entries.length
-          ? (run.data.funding_entries[0].network as NetworkName)
-          : undefined
-      }
     />
   );
 }

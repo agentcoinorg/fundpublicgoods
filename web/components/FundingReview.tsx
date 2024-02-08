@@ -7,24 +7,30 @@ import clsx from "clsx";
 import { useConnectWallet } from "@web3-onboard/react";
 import { ethers } from "ethers";
 import {
-  NetworkId,
   NetworkName,
-  SUPPORTED_NETWORKS,
-  getNetworkNameFromChainId,
   getTokensForNetwork,
   splitTransferFunds,
 } from "@/utils/ethereum";
 import { useRouter } from "next/navigation";
+import { donationPlan } from "@/hooks/useStrategiesHandler";
+import { useAtom } from "jotai";
 
-export default function FundingReview(props: { entries: FundingEntry[] }) {
+export default function FundingReview(props: { id: string }) {
+  const [plan] = useAtom<FundingEntry | undefined>(donationPlan);
+  const router = useRouter()
+
+  console.log({ plan })
+  if (!plan) {
+    router.push('/s/' + props.id)
+    return
+  }
+
   const [showBreakdown, setShowBreakdown] = useState(false);
   const [isTransferPending, setIsTransferPending] = useState(false);
   const [{ wallet }] = useConnectWallet();
-  const router = useRouter();
 
   async function transferFunds() {
     if (!wallet || isTransferPending) return;
-    const projects = props.entries;
     const ethersProvider = new ethers.providers.Web3Provider(
       wallet.provider,
       "any"
@@ -35,22 +41,19 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     setIsTransferPending(true);
 
     // TODO: Handle interaction of funding in multiple chains
-    const selectedNetwork = projects[0].network;
-    const selectedToken = projects[0].token;
-
-    const networkName = getNetworkNameFromChainId(selectedNetwork)
-    const token = getTokensForNetwork(networkName).find(
-      (t) => t.name == selectedToken
+    const { network: selectedNetwork, token: selectedToken, donations } = plan as FundingEntry
+    const token = getTokensForNetwork(selectedNetwork as NetworkName).find(
+      (t) => t.name == selectedToken.name
     );
 
     if (!token) {
       throw new Error(`Token with name: ${selectedToken} is not valid`);
     }
-    const amounts = projects.map((project) => Number(project.amount));
-    console.log(projects, amounts, signer, token);
+    const amounts = donations.map((d) => Number(d.amount));
+    console.log(plan, amounts, signer, token);
     try {
       await splitTransferFunds(
-        projects.map((project) => project.recipient),
+        donations.map((d) => d.recipient),
         amounts,
         signer,
         token.address,
@@ -63,7 +66,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
     }
   }
 
-  const totalAmount = props.entries.reduce((acc, x) => {
+  const totalAmount = plan.donations.reduce((acc, x) => {
     return acc + Number(x.amount);
   }, 0);
 
@@ -97,11 +100,11 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
                 <div className="flex flex-col">
                   <div className="font-normal">Recipient</div>
                   <div className="text-2xl font-normal">
-                    {props.entries.length} projects
+                    {plan.donations.length} projects
                   </div>
                 </div>
               </div>
-              {showBreakdown && <FundingTable fundingEntries={props.entries} />}
+              {showBreakdown && <FundingTable plan={plan} />}
               <div className="border-t border-black" />
               <div className="flex flex-wrap justify-between">
                 <div>Gas: 0.001295 ETH</div>
@@ -120,7 +123,7 @@ export default function FundingReview(props: { entries: FundingEntry[] }) {
         <div>
           <div className="flex flex-wrap justify-between w-full">
             <div className="flex flex-col">
-              <div>Funding {props.entries.length} projects</div>
+              <div>Funding {plan.donations.length} projects</div>
               <div className="text-[12px] text-slate-500">
                 With a total funding of {totalAmount.toFixed(2)} USDC
               </div>
