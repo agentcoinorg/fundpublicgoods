@@ -16,6 +16,7 @@ class Body(BaseModel):
     strategies: list[StrategiesInformation]
     token: str
     decimals: int
+    network: str
 
 
 class Response(BaseModel):
@@ -40,5 +41,5 @@ async def funding_entries(run_id: str, body: Body) -> Response:
         )
         funding_entries.append(entry)
 
-    insert_multiple(run_id, funding_entries)
+    insert_multiple(run_id=run_id, network=body.network, entries=funding_entries)
     return Response(status=200)

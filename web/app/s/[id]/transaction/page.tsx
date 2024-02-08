@@ -1,19 +1,5 @@
 import FundingReview from "@/components/FundingReview";
-import { FundingEntry } from "@/components/FundingTable";
-import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const supabase = await createSupabaseServerClientWithSession()
-
-  const run = await supabase
-    .from("funding_entries_view")
-    .select("*")
-    .eq("run_id", params.id);
-
-  if (run.error || !run.data) {
-    console.error(run.error);
-    throw Error(`Run with ID ${params.id} not found.`);
-  }
-
-  return <FundingReview entries={run.data as FundingEntry[]} />;
+  return <FundingReview id={params.id} />;
 }

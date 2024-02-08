@@ -1,8 +1,11 @@
 "use server";
 
+import { NetworkName } from "@/utils/ethereum";
+
 interface CreateFundingPlanArguments {
   decimals: number;
   token: string;
+  network: NetworkName;
   strategies: Array<{
     project_id: string;
     weight: number;

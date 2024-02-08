@@ -62,6 +62,7 @@ def run():
     create_table_statements = [stmt.replace('"public".', '') for stmt in create_table_statements]
     # Remove some unsupported SQL features that break omymodels
     create_table_statements = [stmt.replace('DEFAULT "gen_random_uuid"() NOT NULL', '') for stmt in create_table_statements]
+    create_table_statements = [stmt.replace('DEFAULT "auth"."uid"() NOT NULL', '') for stmt in create_table_statements]
     create_table_statements = [stmt.replace('with time zone DEFAULT "now"() NOT NULL', '') for stmt in create_table_statements]
     create_table_statements = [stmt.replace('with time zone', '') for stmt in create_table_statements]
     create_table_statements = [re.sub(r'(?m)CONSTRAINT.*\n?', '', stmt) for stmt in create_table_statements]
