@@ -50,7 +50,7 @@ export default function FundingReview(props: { id: string }) {
       token: selectedToken,
       donations,
     } = plan as FundingEntry;
-    const token = getTokensForNetwork(selectedNetwork as NetworkName).find(
+    const token = getTokensForNetwork(selectedNetwork).find(
       (t) => t.name == selectedToken.name
     );
 
@@ -64,8 +64,9 @@ export default function FundingReview(props: { id: string }) {
         donations.map((d) => d.recipient),
         amounts,
         signer,
+        selectedNetwork,
         token.address,
-        token.decimals
+        token.decimals,
       );
     } catch (e) {
       throw e;

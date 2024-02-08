@@ -1,9 +1,9 @@
-import { TokenInformation } from "@/utils/ethereum";
+import { NetworkName, TokenInformation } from "@/utils/ethereum";
 import truncateEthAddress from "@/utils/ethereum/truncateAddress";
 import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 
 export interface FundingEntry {
-  network: string;
+  network: NetworkName;
   token: TokenInformation;
   donations: {
     description: string;
