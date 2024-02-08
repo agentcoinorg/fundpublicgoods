@@ -1,6 +1,6 @@
 import json
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications
-from fund_public_goods.db import tables, entities, vectors
+from fund_public_goods.db import tables, entities, indexes
 
 def upsert_project(project: GitcoinProjects, updated_at: int):
     entity = entities.Projects(
@@ -15,13 +15,10 @@ def upsert_project(project: GitcoinProjects, updated_at: int):
 
     tables.projects.upsert(entity)
 
-    vectors.projects.upsert(
+    indexes.projects.upsert(
         id=entity.id,
-        title=entity.title,
         description=entity.description,
-        website=entity.website
     )
-    # TODO: upsert [project.id]: { title, description, website }
 
 def upsert_application(app: GitcoinApplications):
     tables.applications.upsert(entities.Applications(
