@@ -73,11 +73,11 @@ async def index_gitcoin_page(
         application = GitcoinApplications(
             id = app.id,
             network=data.network_id,
-            created_at = app.created_at,
+            createdAt = app.created_at,
             protocol = app.protocol,
             pointer = app.pointer,
-            round_id = app.round_id,
-            project_id = project_id,
+            roundId = app.round_id,
+            projectId = project_id,
             data = json.dumps(app_data)
         )
 
