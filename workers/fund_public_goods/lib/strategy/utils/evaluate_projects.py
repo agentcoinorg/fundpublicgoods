@@ -1,16 +1,41 @@
-from typing import Any
+from fund_public_goods.lib.strategy.utils.utils import get_project_text
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from fund_public_goods.lib.strategy.models.project import Project
-from fund_public_goods.lib.strategy.utils.evaluate_project import evaluate_project
 
 
-def evaluate_projects(prompt: str, projects: list[Project]) -> list[dict[str, Any]]:
-    projects_with_reports: list[tuple[Project, str]] = []
+evaluation_prompt_template = """
+You are a professional public goods projects evaluator.
+
+You will receive a project's information abstract and you will prepare a thorough report
+assessing:
+
+- How well each project matches the user's prompt.
+- Project's impact.
+- How much funding does the project need
+
+You will provide clear and thorough reasoning for each criteria.
+
+Structure your output in markdown format
+
+User's prompt: {prompt}
+
+Project: {project}
+"""
+
+def evaluate_projects(prompt: str, projects: list[Project]) -> list[str]:
+    evaluation_prompt = ChatPromptTemplate.from_messages([
+        ("system", evaluation_prompt_template),
+    ])
     
-    for project in projects:
-        report = evaluate_project(prompt, project)
-        projects_with_reports.append((project, report))
+    llm = ChatOpenAI(model="gpt-3.5-turbo-0125") # type: ignore
+
+    evaluation_chain = evaluation_prompt | llm | StrOutputParser()
+    
+    evaluation_reports = evaluation_chain.batch([{
+        "prompt": prompt,
+        "project": get_project_text(project)
+    } for project in projects])
         
-    return [{
-        "project": project.model_dump(),
-        "report": report
-    } for (project, report) in projects_with_reports]
+    return evaluation_reports
