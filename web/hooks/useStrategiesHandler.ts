@@ -175,13 +175,11 @@ export function useStrategiesHandler(
     const selectedWeights = strategies.map((s, i) =>
       i === index ? isChecked : s.selected
     );
-    console.log(selectedWeights)
     const newWeights = redistributeWeights(
       strategies.map((s) => s.defaultWeight),
       selectedWeights
     );
 
-    console.log(newWeights)
     const amounts = distributeWeights(newWeights, +totalAmount, 2);
 
     const newStrategy = strategies.map((s, i) => {
@@ -201,9 +199,7 @@ export function useStrategiesHandler(
   const handleAmountUpdate = (amount: string) => {
     const selectedStrategies = strategies.filter((x) => x.selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
-    console.log(weights)
     const amounts = distributeWeights(weights, +amount, 2);
-    console.log(amounts)
     let amountIndex = 0;
     const newStrategies = strategies.map((s) => ({
       ...s,
@@ -228,12 +224,15 @@ export function useStrategiesHandler(
           disabled: s.network !== network,
         };
       })
+      .sort((a, b) => (b.impact || 0) - (a.impact || 0))
       .sort((a, b) => {
-        if ((!a.disabled && !b.disabled) || (a.disabled && b.disabled)) {
+        if (!a.disabled && !b.disabled) {
           return (b.impact || 0) - (a.impact || 0);
         }
-
-        return -1;
+        if (a.disabled && b.disabled) {
+          return (b.impact || 0) - (a.impact || 0);
+        }
+        return a.disabled ? 1 : -1;
       });
     setOverwrittenWeights(Array(initStrategies.length).fill(0));
     setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
