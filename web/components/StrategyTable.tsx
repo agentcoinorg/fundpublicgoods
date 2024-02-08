@@ -48,8 +48,18 @@ export function StrategyTable(props: StrategiesHandler) {
     <>
       <div className='space-y-2'>
         <div className='hidden md:grid grid-cols-12 gap-4 text-indigo-800/50 font-semibold text-xs leading-none uppercase px-4'>
-          <div className='col-span-6'>Project</div>
-          <div className='col-span-6 grid grid-cols-12'>
+          <div className='col-span-6 flex items-center space-x-4'>
+            <div className='w-10'>
+              <TextField
+                type='checkbox'
+                indeterminate={!allChecked && someChecked}
+                checked={allChecked}
+                onChange={(e) => handleSelectAll(e.target.checked)}
+              />
+            </div>
+            Project
+          </div>
+          <div className='col-span-6 grid grid-cols-12 items-center'>
             <div className='col-span-5'>Weighting</div>
             {!!wallet && <div className='col-span-4'>Amount</div>}
             <div className='col-span-3'>Score</div>
@@ -138,104 +148,6 @@ export function StrategyTable(props: StrategiesHandler) {
           ))}
         </div>
       </div>
-      <table className='hidden table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
-        <thead>
-          <tr>
-            <th className='pr-0 w-10'>
-              <TextField
-                type='checkbox'
-                indeterminate={!allChecked && someChecked}
-                checked={allChecked}
-                onChange={(e) => handleSelectAll(e.target.checked)}
-              />
-            </th>
-            <th className='text-left w-full'>PROJECT</th>
-            <th className='text-left w-32'>WEIGHTING</th>
-            {!!wallet && <th className='text-left w-20'>AMOUNT</th>}
-            <th className='text-left whitespace-nowrap w-32'>SMART RANKING</th>
-          </tr>
-        </thead>
-        <tbody className='w-full'>
-          {strategies.map((entry, index) => (
-            <tr
-              key={index}
-              className={clsx(
-                "w-full border-indigo-100/80 border-t-2",
-                entry.disabled
-                  ? "opacity-50 cursor-not-allowed"
-                  : "bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
-              )}>
-              <td
-                className={clsx(
-                  "pr-0 w-10 check",
-                  !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
-                )}>
-                <TextField
-                  type='checkbox'
-                  checked={entry.selected}
-                  disabled={entry.disabled}
-                  onChange={(e) => {
-                    handleSelectProject(e.target.checked, index);
-                  }}
-                />
-              </td>
-              <td className='flex gap-4 w-full'>
-                <div className='flex flex-col justify-center w-8'>
-                  {entry.project.logo ? (
-                    <Image
-                      className='rounded-full border-2 border-indigo-300 object-fit'
-                      width={32}
-                      height={32}
-                      alt='logo'
-                      src={`https://ipfs.io/ipfs/${entry.project.logo}`}
-                    />
-                  ) : (
-                    <div className='w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
-                      <SparkleIcon size={20} className='opacity-80' />
-                    </div>
-                  )}
-                </div>
-                <div className='space-y-px w-full'>
-                  <div className='line-clamp-1'>{entry.project.title}</div>
-                  <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
-                    {entry.project.description}
-                  </div>
-                </div>
-              </td>
-              <td className='w-32'>
-                <TextField
-                  readOnly={!entry.selected}
-                  onChange={(e) => {
-                    const currentWeights = [...formattedWeights];
-                    currentWeights[index] = e.target.value;
-                    setFormattedWeights(currentWeights);
-                  }}
-                  onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                    if (event.key === "Enter") {
-                      handleWeightUpdate(event.currentTarget.value, index);
-                    }
-                  }}
-                  onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                  className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
-                  rightAdornment={"%"}
-                  value={formattedWeights[index]}
-                />
-              </td>
-              {!!wallet && (
-                <td className='w-20'>{`$${entry.amount || "0.00"}`}</td>
-              )}
-              <td className='w-32'>
-                <div className='w-full'>
-                  <Score
-                    onClick={() => openProjectDetails(entry)}
-                    rank={entry.impact ?? 0}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
       <ProjectModal
         strategy={showStrategyDetails.strategy}
         isOpen={showStrategyDetails.show}
