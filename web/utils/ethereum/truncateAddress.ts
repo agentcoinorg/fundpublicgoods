@@ -6,7 +6,7 @@ import { isAddress } from "ethers/lib/utils";
  * @returns Truncated address
  */
 const truncateEthAddress = (address: string) => {
-  if (!isAddress) {
+  if (isAddress(address)) {
     return address.slice(0, 6).concat("...") + address.slice(-4)
   }
 };

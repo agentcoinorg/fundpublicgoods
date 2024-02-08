@@ -1,4 +1,3 @@
-import { NetworkName } from ".";
 import { SupportedTokensInformation } from "./supportedErc20Tokens";
 
 export const supportedErc20TokensByNetwork: SupportedTokensInformation = {
@@ -37,4 +36,18 @@ export const supportedErc20TokensByNetwork: SupportedTokensInformation = {
       name: "USDC",
     },
   },
+  zkSync: {
+    USDC: {
+      address: "0x3355df6d4c9c3035724fd0e3914de96a5a83aaf4",
+      decimals: 6,
+      name: "USDC",
+    }
+  },
+  Avalanche: {
+    USDC: {
+      address: "0xb97ef9ef8734c71904d8002f8b6bc66dd9c48a6e",
+      decimals: 6,
+      name: "USDC",
+    }
+  }
 };

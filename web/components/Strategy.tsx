@@ -2,23 +2,24 @@
 
 import { useEffect, useState } from "react";
 import Button from "./Button";
-import { StrategyTable, StrategyWithProjects } from "./StrategyTable";
+import { StrategyTable } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
 import { usePathname, useRouter } from "next/navigation";
-import { createFundingEntries } from "@/app/actions/createFundingPlan";
-import { distributeWeights } from "@/utils/distributeWeights";
 import {
   NetworkName,
   TokenInformation,
-  getSupportedNetworkFromWallet,
   getTokensForNetwork,
 } from "@/utils/ethereum";
 import useWalletLogin from "@/hooks/useWalletLogin";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
+import {
+  StrategiesWithProjects,
+  useStrategiesHandler,
+} from "@/hooks/useStrategiesHandler";
 
 function Information(props: {
   title: string;
@@ -28,10 +29,10 @@ function Information(props: {
   disabled?: boolean;
 }) {
   return (
-    <div className='flex flex-wrap justify-between'>
-      <div className='flex flex-col'>
-        <div className='text-lg font-semibold'>{props.title}</div>
-        <div className='text-xs text-subdued'>{props.subtitle}</div>
+    <div className="flex flex-wrap justify-between">
+      <div className="flex flex-col">
+        <div className="text-lg font-semibold">{props.title}</div>
+        <div className="text-xs text-subdued">{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.action}
@@ -41,30 +42,36 @@ function Information(props: {
 }
 
 export default function Strategy(props: {
-  strategy: StrategyWithProjects;
+  fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
-  amount: string;
+  networks: NetworkName[]
 }) {
-  const [currentStrategy, setCurrentStrategy] = useState<StrategyWithProjects>(
-    props.strategy
-  );
-  const [currentPromp, setCurrentPrompt] = useState<string>(props.prompt);
+  const [selectedNetwork, setSelectedNetwork] =
+    useState<NetworkName>(props.networks[0]);
+  const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
+  const [amount, setAmount] = useState<string>("0");
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
-  const [amount, setAmount] = useState<string>(props.amount);
+
+  const strategiesHandler = useStrategiesHandler(
+    props.fetchedStrategies,
+    amount,
+    selectedNetwork
+  );
   const [{ wallet }, connectWallet] = useConnectWallet();
-  const loginWithWallet = useWalletLogin()
-  const { data: session } = useSession()
+  const loginWithWallet = useWalletLogin();
+  const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const network: NetworkName | undefined =
-    getSupportedNetworkFromWallet(wallet);
+  const tokens = getTokensForNetwork(selectedNetwork);
 
-  const tokens = network ? getTokensForNetwork(network) : [];
-
-  const selectedStrategiesLength = currentStrategy.filter(
-    (x) => x.selected
-  ).length;
+  const {
+    strategies,
+    handleAmountUpdate,
+    handleNetworkUpdate,
+    prepareDonation,
+  } = strategiesHandler;
+  const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   async function connect() {
     await connectWallet();
@@ -72,54 +79,22 @@ export default function Strategy(props: {
   }
 
   async function createFundingPlan() {
-    const strategies = currentStrategy
-      .filter((x) => x.selected)
-      .map((strategy) => ({
-        // TODO: Check why weight is nullable
-        amount: strategy.amount as string,
-        weight: strategy.weight || 0,
-        project_id: strategy.project_id,
-      }));
-
-    if (!token) {
-      return;
-    }
-
-    await createFundingEntries(props.runId, {
-      strategies,
-      token: token.name,
-      decimals: token.decimals,
-    });
+    if (!token) return;
+    prepareDonation(token);
     router.push(`${pathname}/transaction`);
   }
 
   async function regenerateStrat(prompt: string) {
     if (!session) {
-      throw new Error("User needs to have a session")
+      throw new Error("User needs to have a session");
     }
     const response = await startRun(prompt, session.supabaseAccessToken);
-    router.push(`/s/${response.runId}`)
+    router.push(`/s/${response.runId}`);
   }
-
-  const calculateUpdatedStrategy = (
-    strategy: StrategyWithProjects,
-    amount: string
-  ) => {
-    const selectedStrategies = strategy.filter((x) => x.selected);
-    const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, 2);
-    let amountIndex = 0;
-    return strategy.map((s) => ({
-      ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
-    }));
-  };
 
   function updateWeights() {
     if (amount !== "0") {
-      setCurrentStrategy((prevStrategy) => {
-        return calculateUpdatedStrategy(prevStrategy, amount);
-      });
+      handleAmountUpdate(amount);
     }
   }
 
@@ -130,19 +105,19 @@ export default function Strategy(props: {
   }, [tokens]);
 
   return (
-    <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
-      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
+    <div className="flex justify-center py-10 px-6 flex-grow flex-column">
+      <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
         <TextField
-          label='Results for'
-          value={currentPromp}
+          label="Results for"
+          value={currentPrompt}
           onChange={(e) => setCurrentPrompt(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && !!currentPromp) {
-              regenerateStrat(currentPromp);
+            if (e.key === "Enter" && !!currentPrompt) {
+              regenerateStrat(currentPrompt);
             }
           }}
         />
-        <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
+        <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
           <p>
             I&apos;ve evaluated the impact of Ethereum infrastructure projects
             on the Gitcoin project registry and Optimism Retroactive Public
@@ -151,10 +126,20 @@ export default function Strategy(props: {
             each project.
           </p>
         </div>
-        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
+        <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
+          <div>
+            <Dropdown
+              items={props.networks.filter((n) => n !== selectedNetwork)}
+              field={{ value: selectedNetwork }}
+              onChange={(newValue) => {
+                handleNetworkUpdate(newValue as NetworkName);
+                setSelectedNetwork(newValue as NetworkName);
+              }}
+            />
+          </div>
           {!!wallet && token && (
             <TextField
-              label='Total Funding Amount'
+              label="Total Funding Amount"
               rightAdornment={
                 <Dropdown
                   items={tokens.map((x) => x.name)}
@@ -189,11 +174,7 @@ export default function Strategy(props: {
               }}
             />
           )}
-          <StrategyTable
-            strategy={currentStrategy}
-            modifyStrategy={setCurrentStrategy}
-            totalAmount={amount}
-          />
+          <StrategyTable {...strategiesHandler} />
         </div>
         {!wallet ? (
           <Information
@@ -205,7 +186,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action='Connect →'
+            action="Connect →"
             onClick={() => connect()}
           />
         ) : (
@@ -215,7 +196,7 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action='Next →'
+            action="Next →"
             onClick={createFundingPlan}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
           />
