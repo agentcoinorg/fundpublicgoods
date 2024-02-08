@@ -8,7 +8,7 @@
     "codegen": "yarn web:codegen && yarn ops:codegen",
     "build": "yarn web:build && yarn workers:build",
     "test": "yarn web:test",
-    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" \"yarn events:dev\" -k -n web,workers,events,vectordb",
+    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" \"yarn events:dev\" -k -n web,workers,events",
     "web:codegen": "cd web && yarn db:generate-types",
     "web:build": "yarn web:env && cd web && yarn build",
     "web:dev": "yarn web:env && cd web && yarn dev",
