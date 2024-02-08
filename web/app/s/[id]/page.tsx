@@ -2,7 +2,7 @@ import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
 import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
-import { NetworkName, getNetworkNameFromChainId } from "@/utils/ethereum";
+import { getNetworkNameFromChainId } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -76,7 +76,6 @@ export default async function StrategyPage({
         .sort((a, b) => a.created_at - b.created_at)
         .slice(-1)[0];
 
-      console.log(lastApplication)
       return {
         ...strategy,
         defaultWeight: strategy.weight as number,

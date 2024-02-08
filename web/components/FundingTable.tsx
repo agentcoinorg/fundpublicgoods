@@ -13,7 +13,6 @@ export interface FundingEntry {
 }
 
 export default function FundingTable(props: { plan: FundingEntry }) {
-  console.log(props.plan.donations)
   return (
     <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
       <tbody className="w-full">

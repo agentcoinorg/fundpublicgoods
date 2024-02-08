@@ -51,7 +51,7 @@ export function StrategyTable(props: StrategiesHandler) {
               type="checkbox"
               indeterminate={!allChecked && someChecked}
               checked={allChecked}
-              onChange={(e) => handleSelectAll(!!e.target.value)}
+              onChange={(e) => handleSelectAll(e.target.checked)}
             />
           </th>
           <th className="text-left w-full">PROJECT</th>

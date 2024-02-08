@@ -32,7 +32,7 @@ export type StrategyInformation = StrategyEntry & {
   defaultWeight: number;
   network: NetworkName;
   disabled?: boolean;
-  recipient: string
+  recipient: string;
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
@@ -43,7 +43,7 @@ export function useStrategiesHandler(
   totalAmount: string,
   networkName: NetworkName
 ): StrategiesHandler {
-  const [,setDonationPlan] = useAtom(donationPlan)
+  const [, setDonationPlan] = useAtom(donationPlan);
   const weights = redistributeWeights(
     initStrategies.map((s) => s.defaultWeight as number),
     initStrategies.map((s) => s.network === networkName)
@@ -137,10 +137,12 @@ export function useStrategiesHandler(
     setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
     const newStrategies = strategies.map((s, i) => {
       const weight = newPercentages[i] / 100;
-      const amount = +totalAmount * weight;
+      const amounts = distributeWeights(newPercentages, +totalAmount, 2).map(
+        (w) => w / 100
+      );
       return {
         ...s,
-        amount: totalAmount ? amount.toFixed(2) : undefined,
+        amount: amounts[i].toFixed(2),
         weight,
         selected: !(weight === 0),
       };
@@ -150,25 +152,28 @@ export function useStrategiesHandler(
 
   const handleSelectAll = (isChecked: boolean) => {
     setOverwrittenWeights(Array(strategies.length).fill(0));
-    const newWeights = strategies.map(({ defaultWeight }) => {
-      return isChecked ? (defaultWeight * 100).toFixed(2) : "0.00";
+    const newWeights = redistributeWeights(
+      strategies.map((s) => s.defaultWeight),
+      strategies.map((s) => isChecked && !s.disabled)
+    ).map((weight) => {
+      return isChecked ? (weight * 100).toFixed(2) : "0.00";
     });
     setFormattedWeights(newWeights);
     modifyStrategies(
-      strategies.filter(s => s.disabled).map((s) => {
+      strategies.map((s, i) => {
         let amount;
-        if (isChecked && totalAmount) {
+        if (!s.disabled && isChecked && totalAmount) {
           amount = (+totalAmount * s.defaultWeight).toFixed(2);
         }
         return {
           ...s,
-          selected: isChecked,
-          weight: isChecked ? s.defaultWeight : 0.0,
+          selected: !s.disabled && isChecked,
+          weight: !s.disabled && isChecked ? +newWeights[i] : 0.0,
           amount,
         };
       })
     );
-  }
+  };
 
   const handleSelectProject = (isChecked: boolean, index: number) => {
     const selectedWeights = strategies.map((s, i) =>
@@ -193,7 +198,7 @@ export function useStrategiesHandler(
     newStrategy[index].selected = isChecked;
     modifyStrategies(newStrategy);
     setOverwrittenWeights(Array(strategies.length).fill(0));
-  }
+  };
 
   const handleAmountUpdate = (amount: string) => {
     const selectedStrategies = strategies.filter((x) => x.selected);
@@ -206,7 +211,7 @@ export function useStrategiesHandler(
         amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
       }))
     );
-  }
+  };
 
   function handleNetworkUpdate(network: NetworkName) {
     const weights = redistributeWeights(
@@ -238,19 +243,19 @@ export function useStrategiesHandler(
 
   const prepareDonation = (token: TokenInformation) => {
     const donations = strategies
-    .filter((x) => x.selected)
-    .map((strategy) => ({
-      amount: strategy.amount as string,
-      description: strategy.project.description as string,
-      title: strategy.project.title as string,
-      recipient: strategy.recipient
-    }));
+      .filter((x) => x.selected)
+      .map((strategy) => ({
+        amount: strategy.amount as string,
+        description: strategy.project.description as string,
+        title: strategy.project.title as string,
+        recipient: strategy.recipient,
+      }));
     setDonationPlan({
       donations,
       network: networkName,
-      token
-    })
-  }
+      token,
+    });
+  };
 
   return {
     strategies,
@@ -264,6 +269,6 @@ export function useStrategiesHandler(
     handleSelectProject,
     handleAmountUpdate,
     handleNetworkUpdate,
-    prepareDonation
+    prepareDonation,
   };
 }
