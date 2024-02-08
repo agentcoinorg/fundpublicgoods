@@ -1,7 +1,7 @@
 import datetime
 import json
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications, GitcoinIndexingJobs
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 
 def upsert_project(project: GitcoinProjects):
     db = create_admin("indexing")

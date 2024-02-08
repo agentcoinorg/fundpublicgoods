@@ -40,6 +40,10 @@ next-env.d.ts
 .temp
 .env
 
+# Chroma
+.chroma
+chroma.log
+
 # python
 .venv
 __pycache__

@@ -8,7 +8,7 @@
     "codegen": "yarn web:codegen && yarn ops:codegen",
     "build": "yarn web:build && yarn workers:build",
     "test": "yarn web:test",
-    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" \"yarn events:dev\" -k -n web,workers,events",
+    "dev": "npx concurrently \"yarn web:dev\" \"yarn workers:dev\" \"yarn events:dev\" \"yarn vectordb:dev\" -k -n web,vectordb,workers,events,vectordb",
     "web:codegen": "cd web && yarn db:generate-types",
     "web:build": "yarn web:env && cd web && yarn build",
     "web:dev": "yarn web:env && cd web && yarn dev",
@@ -24,6 +24,7 @@
     "workers:test": "cd workers && poetry run pytest -v -s",
     "workers:types": "cd ops && poetry run generate-types",
     "events:dev": "npx inngest-cli dev",
+    "vectordb:dev": "cd workers && mkdir .chroma || true && chroma run --path .chroma --port 6666",
     "ops:install": "cd ops && poetry install",
     "ops:codegen": "cd ops && poetry run generate-types"
   },

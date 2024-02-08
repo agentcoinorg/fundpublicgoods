@@ -3,7 +3,7 @@ from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.models.project import Project
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 
 
 def insert(
