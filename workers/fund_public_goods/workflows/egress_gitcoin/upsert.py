@@ -15,10 +15,11 @@ def upsert_project(project: GitcoinProjects, updated_at: int):
 
     tables.projects.upsert(entity)
 
-    indexes.projects.upsert(
-        id=entity.id,
-        description=entity.description,
-    )
+    if entity.description:
+        indexes.projects.upsert(
+            id=entity.id,
+            description=entity.description,
+        )
 
 def upsert_application(app: GitcoinApplications):
     tables.applications.upsert(entities.Applications(
@@ -31,4 +32,8 @@ def upsert_application(app: GitcoinApplications):
         project_id=app.project_id
     ))
 
-    # TODO: upsert [app.id]: { [...answers, new] }
+    # TODO:
+    # user_query -> [indexed-questions]
+    # top_questions ->
+    # for each question
+        # user_query + question_filter -> [indexed-answers + question-filter]

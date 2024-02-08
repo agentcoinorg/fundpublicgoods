@@ -27,7 +27,7 @@ def upsert(
         chunk_overlap=200,
         length_function=len,
         is_separator_regex=False,
-    ).create_documents([description])
+    ).split_text(description)
 
     # Generate embeddings for each chunk
     description_vecs = embeddings.embed_documents(
