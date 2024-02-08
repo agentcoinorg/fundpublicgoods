@@ -1,17 +1,16 @@
 import {
-  ArrowSquareOut,
   CaretRight,
   GlobeSimple,
   TwitterLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import Modal, { ModalProps } from "./ModalBase";
 import Score from "./Score";
-import { StrategyInformation } from "./StrategyTable";
 import ReactMarkdown from "react-markdown";
 import { ReactNode, useEffect, useState } from "react";
 import clsx from "clsx";
 import { SparkleIcon } from "./Icons";
 import Image from "next/image";
+import { StrategyInformation } from "@/hooks/useStrategiesHandler";
 
 export type ProjectModalProps = ModalProps & {
   strategy?: StrategyInformation;

@@ -1,9 +1,9 @@
 import Disclaimer from "@/components/Disclaimer";
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
-import { StrategyWithProjects } from "@/components/StrategyTable";
+import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
-import { Tables } from "@/supabase/dbTypes";
+import { getNetworkNameFromChainId } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -23,13 +23,14 @@ export default async function StrategyPage({
       prompt,
       strategy_entries(
         *,
-        project:projects(*)
-      ),
-      funding_entries(
-        amount,
-        token,
-        weight,
-        project_id
+        project:projects(
+          *,
+          applications(
+            network,
+            created_at,
+            recipient
+          )
+        )
       ),
       logs(
         id,
@@ -53,10 +54,10 @@ export default async function StrategyPage({
   const strategyCreated = checkIfFinished(run.data.logs);
   if (!strategyCreated) {
     return (
-      <div className='w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-16'>
-        <div className='w-full max-w-sm space-y-8'>
-          <div className='flex flex-col gap-2'>
-            <TextField label='Results for' value={run.data.prompt} readOnly />
+      <div className="w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-16">
+        <div className="w-full max-w-sm space-y-8">
+          <div className="flex flex-col gap-2">
+            <TextField label="Results for" value={run.data.prompt} readOnly />
           </div>
           <RealtimeLogs
             logs={run.data.logs}
@@ -68,41 +69,33 @@ export default async function StrategyPage({
     );
   }
 
-  const data = run.data.strategy_entries as unknown as StrategyWithProjects;
+  const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
-  const strategy = data
-    .map((s) => {
-      if (run.data.funding_entries.length) {
-        const selected = run.data.funding_entries.find(
-          ({ project_id }) => s.project_id === project_id
-        );
-        const weight = selected?.weight || s.weight || 0;
-        return {
-          ...s,
-          selected: !!selected,
-          amount: selected?.amount,
-          weight,
-          defaultWeight: s.weight as number,
-        };
-      }
+  const networks = data.flatMap((s) =>
+    s.project.applications.map((a) => getNetworkNameFromChainId(a.network))
+  );
+  const networksFromProjects = Array.from(new Set(networks));
+
+  const strategies = data
+    .map((strategy, i) => {
+      const lastApplication = strategy.project.applications
+        .sort((a, b) => a.created_at - b.created_at)
+        .slice(-1)[0];
       return {
-        ...s,
-        selected: run.data.funding_entries.length === 0,
-        defaultWeight: s.weight as number,
+        ...strategy,
+        defaultWeight: strategy.weight as number,
+        network: networks[i],
+        recipient: lastApplication.recipient,
       };
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
 
-  const amount = run.data.funding_entries.reduce((acc, x) => {
-    return acc + Number(x.amount);
-  }, 0);
-
   return (
     <Strategy
-      strategy={strategy}
+      fetchedStrategies={strategies}
       prompt={run.data.prompt}
       runId={run.data.id}
-      amount={amount.toString()}
+      networks={networksFromProjects}
     />
   );
 }

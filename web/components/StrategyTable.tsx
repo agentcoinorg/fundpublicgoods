@@ -1,46 +1,28 @@
 "use client";
 
-import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import {
-  applyUserWeight,
-  redistributeWeights,
-} from "@/utils/distributeWeights";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
+import clsx from "clsx";
+import {
+  StrategyInformation,
+  StrategiesHandler,
+} from "@/hooks/useStrategiesHandler";
 import { SparkleIcon } from "./Icons";
 
-export type StrategyEntry = Tables<"strategy_entries">;
-export type Project = Tables<"projects">;
-export type StrategyInformation = StrategyEntry & {
-  project: Project;
-  selected: boolean;
-  amount?: string;
-  defaultWeight: number;
-};
-export type StrategyWithProjects = StrategyInformation[];
-
-export interface StrategyTableProps {
-  strategy: StrategyWithProjects;
-  modifyStrategy: (projects: StrategyWithProjects) => void;
-  totalAmount: string;
-}
-
-export function StrategyTable(props: StrategyTableProps) {
+export function StrategyTable(props: StrategiesHandler) {
   const [{ wallet }] = useConnectWallet();
-  const [formattedWeights, setFormattedWeights] = useState(
-    props.strategy.map(({ weight, defaultWeight, selected }) =>
-      (
-        (!selected ? 0 : weight && weight > 0 ? weight : defaultWeight) * 100
-      ).toFixed(2)
-    )
-  );
-  const [overwrittenWeights, setOverwrittenWeights] = useState(
-    props.strategy.map((_) => 0)
-  );
+  const {
+    strategies,
+    formatted: { weights: formattedWeights, update: setFormattedWeights },
+    handleWeightUpdate,
+    handleSelectProject,
+    handleSelectAll,
+  } = props;
+
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
     show: boolean;
     strategy?: StrategyInformation;
@@ -48,125 +30,8 @@ export function StrategyTable(props: StrategyTableProps) {
     show: false,
   });
 
-  const defaultWeights = props.strategy.map((s) => s.defaultWeight);
-  const allChecked = props.strategy.every((s) => s.selected);
-  const someChecked = props.strategy.some((s) => s.selected);
-
-  const undoModificationOfWeight = (currentWeight: number, index: number) => {
-    setFormattedWeights((weights) => {
-      const currentWeights = [...weights];
-      const weight = currentWeight * 100;
-      currentWeights[index] = weight.toFixed(2);
-      return currentWeights;
-    });
-  };
-
-  function handleSelectAll(e: ChangeEvent<HTMLInputElement>) {
-    setOverwrittenWeights(props.strategy.map((_) => 0));
-    const selected = e.target.checked;
-    const newWeights = props.strategy.map(({ defaultWeight }) => {
-      return selected ? (defaultWeight * 100).toFixed(2) : "0.00";
-    });
-    setFormattedWeights(newWeights);
-    props.modifyStrategy(
-      props.strategy.map((s) => {
-        let amount;
-        if (selected && props.totalAmount) {
-          amount = (+props.totalAmount * s.defaultWeight).toFixed(2);
-        }
-        return {
-          ...s,
-          selected,
-          weight: selected ? s.defaultWeight : 0.0,
-          amount,
-        };
-      })
-    );
-  }
-
-  function handleSelectProject(
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) {
-    const isSelected = e.target.checked;
-    const selectedWeights = props.strategy.map((s, i) =>
-      i === index ? isSelected : s.selected
-    );
-    const newWeights = redistributeWeights(defaultWeights, selectedWeights);
-
-    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
-    const newStrategy = props.strategy.map((s, i) => {
-      const amount = +props.totalAmount * newWeights[i];
-      const strategySelected = (index == i && isSelected) || s.selected;
-      return {
-        ...s,
-        weight: newWeights[i],
-        amount:
-          props.totalAmount && strategySelected ? amount.toFixed(2) : undefined,
-        selected: newWeights[i] > 0,
-      };
-    });
-    newStrategy[index].selected = e.target.checked;
-    props.modifyStrategy(newStrategy);
-    setOverwrittenWeights(props.strategy.map((_) => 0));
-  }
-
-  function handleWeightUpdate(value: string, index: number) {
-    const numberValue = parseFloat(value);
-    const currentWeight = props.strategy[index].weight as number;
-
-    if (numberValue / 100 === currentWeight) {
-      return;
-    }
-
-    if (isNaN(numberValue) || numberValue > 100 || numberValue < 0) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const newOverwrittenWeights = overwrittenWeights.map((w, i) => {
-      if (i === index) return numberValue;
-      return w;
-    });
-
-    if (newOverwrittenWeights.reduce((acc, x) => acc + x) > 100) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const modifiedWeights = props.strategy.map((s, i) => {
-      if (!s.selected || i === index) return true;
-
-      return !!newOverwrittenWeights[i];
-    });
-
-    if (modifiedWeights.every((w) => w)) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const weights = props.strategy.map((w) => {
-      return w.selected ? w.defaultWeight * 100 : 0;
-    });
-
-    const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
-      percentage: numberValue,
-      index,
-    });
-    setOverwrittenWeights(newOverwrittenWeights);
-    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
-    const newStrategy = props.strategy.map((s, i) => {
-      const weight = newPercentages[i] / 100;
-      const amount = +props.totalAmount * weight;
-      return {
-        ...s,
-        amount: props.totalAmount ? amount.toFixed(2) : undefined,
-        weight,
-        selected: !(weight === 0),
-      };
-    });
-    props.modifyStrategy(newStrategy);
-  }
+  const allChecked = strategies.filter(s => !s.disabled).every((s) => s.selected);
+  const someChecked = strategies.filter(s => !s.disabled).some((s) => s.selected);
 
   function openProjectDetails(strategy: StrategyInformation) {
     setShowStrategyDetails({
@@ -184,7 +49,7 @@ export function StrategyTable(props: StrategyTableProps) {
               type='checkbox'
               indeterminate={!allChecked && someChecked}
               checked={allChecked}
-              onChange={handleSelectAll}
+              onChange={(e) => handleSelectAll(e.target.checked)}
             />
           </th>
           <th className='text-left w-full'>PROJECT</th>
@@ -193,16 +58,30 @@ export function StrategyTable(props: StrategyTableProps) {
           <th className='text-left whitespace-nowrap w-32'>SMART RANKING</th>
         </tr>
       </thead>
-      <tbody className='w-full'>
-        {props.strategy.map((entry, index) => (
+      <tbody className="w-full">
+        {strategies.map((entry, index) => (
           <tr
             key={index}
-            className='w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer'>
-            <td className='pr-0 w-10 check'>
+            className={clsx(
+              "w-full border-indigo-100/80 border-t-2",
+              entry.disabled
+                ? "opacity-50 cursor-not-allowed"
+                : "bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
+            )}
+          >
+            <td
+              className={clsx(
+                "pr-0 w-10 check",
+                !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
+              )}
+            >
               <TextField
                 type='checkbox'
                 checked={entry.selected}
-                onChange={(e) => handleSelectProject(e, index)}
+                disabled={entry.disabled}
+                onChange={(e) => {
+                  handleSelectProject(e.target.checked, index);
+                }}
               />
             </td>
             <td className='flex gap-2 w-full'>
@@ -250,8 +129,8 @@ export function StrategyTable(props: StrategyTableProps) {
             {!!wallet && (
               <td className='w-20'>{`$${entry.amount || "0.00"}`}</td>
             )}
-            <td className='w-32'>
-              <div className='w-full'>
+            <td className="w-32">
+              <div className="w-full">
                 <Score
                   onClick={() => openProjectDetails(entry)}
                   rank={entry.impact ?? 0}
