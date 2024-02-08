@@ -107,7 +107,7 @@ export default function Strategy(props: {
 
   return (
     <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
-      <div className='flex flex-col gap-4 mx-auto max-w-wrapper space-y-4'>
+      <div className='flex flex-col gap-4 mx-auto max-w-wrapper w-full space-y-4'>
         <TextField
           label='Results for'
           value={currentPrompt}
@@ -127,54 +127,56 @@ export default function Strategy(props: {
             each project.
           </p>
         </div>
-        <div className='flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4'>
-          <div>
-            <Dropdown
-              items={props.networks.filter((n) => n !== selectedNetwork)}
-              field={{ value: selectedNetwork }}
-              onChange={(newValue) => {
-                handleNetworkUpdate(newValue as NetworkName);
-                setSelectedNetwork(newValue as NetworkName);
-              }}
-            />
-          </div>
-          {!!wallet && token && (
-            <TextField
-              label='Total Funding Amount'
-              rightAdornment={
-                <Dropdown
-                  items={tokens.map((x) => x.name)}
-                  field={{ value: token.name }}
-                  onChange={(val) =>
-                    setToken(
-                      tokens.find((x) => x.name === val) as TokenInformation
-                    )
+        <div className='space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4'>
+          <div className='space-y-2'>
+            <div>
+              <Dropdown
+                items={props.networks.filter((n) => n !== selectedNetwork)}
+                field={{ value: selectedNetwork }}
+                onChange={(newValue) => {
+                  handleNetworkUpdate(newValue as NetworkName);
+                  setSelectedNetwork(newValue as NetworkName);
+                }}
+              />
+            </div>
+            {!!wallet && token && (
+              <TextField
+                label='Total Funding Amount'
+                rightAdornment={
+                  <Dropdown
+                    items={tokens.map((x) => x.name)}
+                    field={{ value: token.name }}
+                    onChange={(val) =>
+                      setToken(
+                        tokens.find((x) => x.name === val) as TokenInformation
+                      )
+                    }
+                  />
+                }
+                value={amount}
+                onBlur={updateWeights}
+                onKeyDown={(event: React.KeyboardEvent) => {
+                  if (event.key === "Enter" && amount !== "0") {
+                    updateWeights();
                   }
-                />
-              }
-              value={amount}
-              onBlur={updateWeights}
-              onKeyDown={(event: React.KeyboardEvent) => {
-                if (event.key === "Enter" && amount !== "0") {
-                  updateWeights();
-                }
-              }}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                // Allow only numbers with optional single leading zero, and only one decimal point
-                if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
-                  setAmount(newValue);
-                } else {
-                  // Fix the value to remove the invalid characters, maintaining only one leading zero if present
-                  const fixedValue = newValue
-                    .replace(/[^0-9.]/g, "")
-                    .replace(/^0+(?=\d)/, "")
-                    .replace(/(\..*)\./g, "$1");
-                  setAmount(fixedValue);
-                }
-              }}
-            />
-          )}
+                }}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  // Allow only numbers with optional single leading zero, and only one decimal point
+                  if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
+                    setAmount(newValue);
+                  } else {
+                    // Fix the value to remove the invalid characters, maintaining only one leading zero if present
+                    const fixedValue = newValue
+                      .replace(/[^0-9.]/g, "")
+                      .replace(/^0+(?=\d)/, "")
+                      .replace(/(\..*)\./g, "$1");
+                    setAmount(fixedValue);
+                  }
+                }}
+              />
+            )}
+          </div>
           <StrategyTable {...strategiesHandler} />
         </div>
         {!wallet ? (
