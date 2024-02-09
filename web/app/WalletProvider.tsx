@@ -68,6 +68,10 @@ const web3Onboard = init({
     icon: "<svg>App Icon</svg>",
     description: "cool description",
   },
+  accountCenter: {
+    desktop: { enabled: false },
+    mobile: { enabled: false },
+  },
 });
 
 export default function WalletProvider({

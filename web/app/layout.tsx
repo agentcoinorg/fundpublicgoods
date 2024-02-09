@@ -4,8 +4,8 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import WalletProvider from "./WalletProvider";
 import Main from "./main";
-import { Logo } from "@/components/Logo";
 import AuthProvider from "@/components/Providers";
+import Header from "./Header";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -16,16 +16,6 @@ export const metadata: Metadata = {
   title: "fundpublicgoods.ai",
   description: "Fund Public Goods",
 };
-
-function Header() {
-  return (
-    <div className='flex w-full justify-between text-sm px-6 py-4 bg-indigo-300/80 border-b-2 border-indigo-400/20'>
-      <a href='/' className='flex'>
-        <Logo size={160} />
-      </a>
-    </div>
-  );
-}
 
 function Footer() {
   const year = new Date().getFullYear();
