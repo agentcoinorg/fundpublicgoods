@@ -9,6 +9,7 @@ import {
   ReactNode,
   forwardRef,
   useEffect,
+  MouseEventHandler,
 } from "react";
 
 export interface TextFieldProps
@@ -72,9 +73,14 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     return (
-      <div className={clsx("space-y-px", { "w-full": type !== "checkbox" })}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className={clsx("space-y-px", { "w-full": type !== "checkbox" })}
+      >
         {label && (
-          <label className='text-xs text-subdued font-medium leading-none'>
+          <label className="text-xs text-subdued font-medium leading-none">
             {label}
           </label>
         )}
@@ -87,7 +93,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               { indeterminate: checkStatus === "indeterminate" },
               className
             )}
-            onClick={handleCheck}>
+            onClick={handleCheck}
+          >
             <div
               className={clsx("checkmark", {
                 hidden: checkStatus !== "checked",
@@ -100,13 +107,14 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             />
           </div>
         ) : (
-          <div className='relative w-full group'>
+          <div className="relative w-full group">
             {leftAdornment && (
               <div
                 className={clsx(
                   "absolute left-4 top-1/2 -translate-y-1/2 transform",
                   leftAdornmentClassnames
-                )}>
+                )}
+              >
                 {leftAdornment}
               </div>
             )}
@@ -130,13 +138,14 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
                 className={clsx(
                   "absolute right-4 top-1/2 -translate-y-1/2 transform",
                   rightAdornmentClassnames
-                )}>
+                )}
+              >
                 {rightAdornment}
               </div>
             )}
           </div>
         )}
-        {error && <div className='text-xs text-red-500'>{error}</div>}
+        {error && <div className="text-xs text-red-500">{error}</div>}
       </div>
     );
   }
