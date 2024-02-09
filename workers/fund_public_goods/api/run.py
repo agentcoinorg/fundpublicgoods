@@ -60,9 +60,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         value=None,
     )
 
-    json_projects = fetch_matching_projects(prompt)
-
-    projects = [Project(**json_project) for json_project in json_projects]
+    projects = fetch_matching_projects(prompt)
 
     tables.logs.update(
         status=StepStatus.COMPLETED,
@@ -76,16 +74,16 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         value=None,
     )
 
-    projects_with_reports: list[tuple[Project, str]] = []
+    project_ids_with_reports: list[tuple[str, str]] = []
     
     for project in projects:
         report = evaluate_project(prompt, project)
-        projects_with_reports.append((project, report))
+        project_ids_with_reports.append((project.id, report))
     
     tables.logs.update(
         status=StepStatus.COMPLETED,
         log_id=log_ids[StepName.EVALUATE_PROJECTS],
-        value=f"Evaluated {len(projects_with_reports)} projects",
+        value=f"Evaluated {len(project_ids_with_reports)} projects",
     )
     
     tables.logs.update(
@@ -94,9 +92,9 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         value=None,
     )
 
-    project_scores = score_projects(projects_with_reports)
+    project_scores = score_projects(project_ids_with_reports)
     
-    weighted_projects = calculate_weights(projects_with_reports, project_scores)
+    weighted_projects = calculate_weights(project_ids_with_reports, project_scores)
     
     tables.logs.update(
         status=StepStatus.COMPLETED,

@@ -29,7 +29,7 @@ def insert_multiple(run_id: str, strategies: list[WeightedProject]) -> None:
                 "interest": entry.scores.prompt_match,
                 "funding_needed": entry.scores.funding_needed,
                 "report": entry.report,
-                "project_id": entry.project.id,
+                "project_id": entry.project_id,
                 "smart_ranking": entry.smart_ranking,
             }
             for entry in strategies

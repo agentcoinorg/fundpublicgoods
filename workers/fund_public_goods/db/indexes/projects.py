@@ -39,10 +39,15 @@ def upsert(
         namespace= "description"
     )
 
-"""
-projects_index.query(
-    namespace="description",
-    vector=query_vectors,
-    top_k=2
-)
-"""
+def query(query: str, k: int):
+    vec_db = create()
+    embeddings = OpenAIEmbeddings()
+    query_vec = embeddings.embed_documents(
+        [query]
+    )[0]
+    results = vec_db.Index("projects").query(
+        namespace="description",
+        vector=query_vec,
+        top_k=k
+    )
+    return results

@@ -1,15 +1,9 @@
-from chromadb import EphemeralClient
-from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.utils import stringify_projects
+from fund_public_goods.db import indexes, tables
 from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
-from fund_public_goods.lib.strategy.utils.utils import get_project_text, remove_duplicate_projects
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
-from langchain_openai import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
-
 
 reranking_prompt_template = """
 You are a professional public goods projects evaluator.
@@ -28,7 +22,7 @@ User's prompt: {prompt}
 Projects: {projects}
 """
 
-def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
+def rerank_top_projects(prompt: str, project_ids_with_description: list[tuple[str, str]]) -> list[str]:
     
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
@@ -43,11 +37,14 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     top_ids_res = reranking_chain.invoke({
         "prompt": prompt,
         "separator": separator,
-        "projects": stringify_projects(projects=projects, separator=separator)
+        "projects": separator.join([
+            f"ID: {i} - Description: {project_ids_with_description[i][1]}\n"
+            for i in range(len(project_ids_with_description))
+        ])
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
-    reranked_projects: list[Project] = []
+    reranked_project_ids: list[str] = []
 
     for i in range(len(top_ids)):
         id = top_ids[i]
@@ -55,45 +52,32 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
             raise Exception(
                 f"The LLM has responded with a non-number at index {i}. Llm response ({top_ids_res}). Response split ({top_ids_split})"
             )
-        if id > len(projects) or id < 0:
+        if id > len(project_ids_with_description) or id < 0:
             raise Exception(
-                f"ID {id} not found in projects array (len {len(projects)}). Llm response ({top_ids_res}). Response split ({top_ids_split})"
+                f"ID {id} not found in projects array (len {len(project_ids_with_description)}). Llm response ({top_ids_res}). Response split ({top_ids_split})"
             )
-        reranked_projects.append(projects[id])
+        reranked_project_ids.append(project_ids_with_description[id][0])
 
-    return reranked_projects
+    return reranked_project_ids
 
 
-def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    projects_by_id = {project.id: project for project in projects}
+def get_top_matching_projects(prompt: str) -> list[str]:
     queries = generate_queries(prompt=prompt, n=5)
-    texts: list[str] = []
-    metadatas: list[dict] = []
-      
-    for project in projects:
-        project_text = get_project_text(project=project)
-        texts.append(project_text)
-        metadatas.append({ "id": project["id"] })
     
-    db_client = EphemeralClient()
-    collection = Chroma.from_texts(
-        texts=texts,
-        metadatas=metadatas,
-        embedding=OpenAIEmbeddings(),
-        client=db_client,
-        collection_name="projects"
-    )
-    
-    top_matches: list[Project] = []
+    top_ids: list[str] = []
     
     for query in queries:
-        matches = collection.similarity_search(query, k=5)
-        
+        matches = indexes.projects.query(query, k=5).matches
+        """
+        sort by score (highest first):
+        [{ id: "project_id/chunk_0", score }]
+        """
+
         for match in matches:
-            matched_project = projects_by_id[match.metadata["id"]]
-            top_matches.append(matched_project)
+            top_ids.append(match.id.split("/")[0])
     
-    unique_projects = remove_duplicate_projects(top_matches)
-    reranked_projects = rerank_top_projects(prompt=prompt, projects=unique_projects)
+    unique_ids = list(set(top_ids))
+    projects = tables.projects.get_slim(unique_ids)
+    reranked_project_ids = rerank_top_projects(prompt, projects)
     
-    return reranked_projects
+    return reranked_project_ids

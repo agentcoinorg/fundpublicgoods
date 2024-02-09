@@ -58,44 +58,37 @@ def get(
         logo=data["logo"]
     )
 
-def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
+def get_all(
+    project_ids: list[str]
+) -> list[Projects]:
     db = create_admin()
-    return (
-        db.table("projects")
-        .select(
-            "id, updated_at, title, description, website, twitter, logo, applications(id, recipient, round, answers)"
-        )
-        .execute()
-    )
-
-def fetch_projects_data() -> list[Project]:
-    response = get_projects()
+    result = (db.table("projects")
+        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
+        .in_("id", project_ids)
+        .execute())
     
-    projects: list[Project] = []
+    return [
+        Projects(
+            id=data["id"],
+            updated_at=data["updated_at"],
+            title=data["title"],
+            description=data["description"],
+            website=data["website"],
+            twitter=data["twitter"],
+            logo=data["logo"]
+        ) for data in result.data
+    ]
 
-    for item in response.data:
-        answers: list[Answer] = []
-
-        for application in item.get("applications", []):
-            for answer in application.get("answers", []):
-                answers.append(Answer(
-                    question=answer.get("question", ""),
-                    answer=answer.get("answer", None)
-                ))
-        
-        # Remove all None values
-        project_data = {k: v for k, v in item.items() if v is not None}
-
-        project = Project(
-            id=project_data.get("id", ""),
-            title=project_data.get("title", ""),
-            description=project_data.get("description", ""),
-            website=project_data.get("website", ""),
-            twitter=project_data.get("twitter", ""),
-            logo=project_data.get("logo", ""),
-            answers=answers,
-        )
-        
-        projects.append(project)
-
-    return projects
+def get_slim(
+    project_ids: list[str]
+) -> list[tuple[str, str]]:
+    db = create_admin()
+    result = (db.table("projects")
+        .select("id", "description")
+        .in_("id", project_ids)
+        .execute())
+    
+    return [
+        (data["id"], data["description"])
+        for data in result.data
+    ]

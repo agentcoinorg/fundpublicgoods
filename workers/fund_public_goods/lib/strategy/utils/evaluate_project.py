@@ -1,8 +1,10 @@
-from fund_public_goods.lib.strategy.utils.utils import get_project_text
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from fund_public_goods.db.entities import Projects
 from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.utils.get_project_answers import get_project_answers
+from fund_public_goods.lib.strategy.utils.utils import get_project_text
 
 
 evaluation_prompt_template = """
@@ -24,7 +26,8 @@ User's prompt: {prompt}
 Project: {project}
 """
 
-def evaluate_project(prompt: str, project: Project):
+def evaluate_project(prompt: str, project: Projects):
+    answers = get_project_answers(project.id)
     evaluation_prompt = ChatPromptTemplate.from_messages([
         ("system", evaluation_prompt_template),
     ])
@@ -32,10 +35,18 @@ def evaluate_project(prompt: str, project: Project):
     llm = ChatOpenAI(model="gpt-3.5-turbo-0125") # type: ignore
 
     evaluation_chain = evaluation_prompt | llm | StrOutputParser()
-    
+
     evaluation_report = evaluation_chain.invoke({
         "prompt": prompt,
-        "project": get_project_text(project)
+        "project": get_project_text(Project(
+            id=project.id,
+            title=project.title,
+            description=project.description,
+            website=project.website,
+            twitter=project.twitter,
+            logo=project.logo,
+            answers=answers
+        ))
     })
-        
+    
     return evaluation_report

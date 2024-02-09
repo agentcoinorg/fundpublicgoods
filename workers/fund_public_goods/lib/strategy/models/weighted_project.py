@@ -3,7 +3,7 @@ from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
 
 class WeightedProject(BaseModel):
-    project: Project
+    project_id: str
     report: str
     scores: ProjectScores
     weight: float

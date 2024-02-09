@@ -1,7 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers.json import JsonOutputParser
-from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
 
 
@@ -36,8 +35,11 @@ Project reports:
 {reports}
 """
 
-def score_projects(projects_with_report: list[tuple[Project, str]]) -> list[ProjectScores]:
-    reports = [f"Project ID: {project.id}\n\n{report}" for (project, report) in projects_with_report]
+def score_projects(project_ids_with_report: list[tuple[str, str]]) -> list[ProjectScores]:
+    reports = [
+        f"Project ID: {project_tuple[0]}\n\n{report}"
+        for (project_tuple, report) in project_ids_with_report
+    ]
     
     score_projects_prompt = ChatPromptTemplate.from_messages([
         ("system", score_projects_prompt_template),
