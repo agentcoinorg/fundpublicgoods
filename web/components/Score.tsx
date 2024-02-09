@@ -1,4 +1,3 @@
-import { CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { ScoreIcon } from "./Icons";
 import clsx from "clsx";
 
