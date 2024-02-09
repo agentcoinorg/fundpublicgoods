@@ -1,20 +1,21 @@
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { NetworkName, SUPPORTED_NETWORKS } from "./supportedNetworks";
 
-const ERC20_ABI = [
+export const ERC20_ABI = [
   "function transfer(address to, uint256 value) external returns (bool)",
   "function transferFrom(address from, address to, uint256 value) external returns (bool)",
   "function approve(address spender, uint256 value) external returns (bool)",
   "function allowance(address owner, address spender) external view returns (uint256)",
+  "function balanceOf(address owner) external view returns (uint256)"
 ];
 
-const DISPERSE_ABI = [
+export const DISPERSE_ABI = [
   "function disperseEther(address[] recipients, uint256[] values) external payable",
   "function disperseToken(address token, address[] recipients, uint256[] values) external",
   "function disperseTokenSimple(address token, address[] recipients, uint256[] values) external",
 ];
 
-const DISPERSE_CONTRACT_ADDRESSES = Object.keys(SUPPORTED_NETWORKS).reduce((acc, network) => {
+export const DISPERSE_CONTRACT_ADDRESSES = Object.keys(SUPPORTED_NETWORKS).reduce((acc, network) => {
   return {
     ...acc,
     [network]: "0xD152f549545093347A162Dce210e7293f1452150",
@@ -55,22 +56,6 @@ export async function splitTransferFunds(
       value: totalValue,
     });
   } else {
-    // ERC20 token transfer
-    const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, signer);
-
-    const currentAllowance: BigNumber = await tokenContract.allowance(
-      await signer.getAddress(),
-      DISPERSE_CONTRACT_ADDRESSES[selectedNetwork]
-    );
-
-    if (currentAllowance.lt(totalValue)) {
-      const approveTx = await tokenContract.approve(
-        DISPERSE_CONTRACT_ADDRESSES[selectedNetwork],
-        totalValue
-      );
-      await approveTx.wait(1);
-    }
-
     const transferTx = await disperseContract.disperseTokenSimple(
       tokenAddress,
       validAddresses,

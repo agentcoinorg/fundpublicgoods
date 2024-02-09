@@ -54,10 +54,10 @@ export function useStrategiesHandler(
     };
   }).sort((a, b) => {
     if (!a.disabled && !b.disabled) {
-      return (b.impact || 0) - (a.impact || 0);
+      return (b.smart_ranking || 0) - (a.smart_ranking || 0);
     }
     if (a.disabled && b.disabled) {
-      return (b.impact || 0) - (a.impact || 0);
+      return (b.smart_ranking || 0) - (a.smart_ranking || 0);
     }
     return a.disabled ? 1 : -1;
   });
@@ -219,13 +219,13 @@ export function useStrategiesHandler(
           disabled: !s.networks.includes(network),
         };
       })
-      .sort((a, b) => (b.impact || 0) - (a.impact || 0))
+      .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0))
       .sort((a, b) => {
         if (!a.disabled && !b.disabled) {
-          return (b.impact || 0) - (a.impact || 0);
+          return (b.smart_ranking || 0) - (a.smart_ranking || 0);
         }
         if (a.disabled && b.disabled) {
-          return (b.impact || 0) - (a.impact || 0);
+          return (b.smart_ranking || 0) - (a.smart_ranking || 0);
         }
         return a.disabled ? 1 : -1;
       });

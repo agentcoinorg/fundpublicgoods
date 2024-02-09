@@ -97,7 +97,7 @@ export default async function StrategyPage({
         recipients: recipientInformation[i].recipients,
       };
     })
-    .sort((a, b) => (b.impact || 0) - (a.impact || 0));
+    .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0));
   
   const uniqueNetworks = Array.from(
     new Set(strategies.map((x) => x.networks).flat())
