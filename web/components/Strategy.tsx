@@ -18,28 +18,6 @@ import {
 import { useDonation } from "@/hooks/useDonation";
 import LoadingCircle from "./LoadingCircle";
 import { useToken } from "@/hooks/useToken";
-import { BigNumber } from "ethers";
-
-function Information(props: {
-  title: string;
-  subtitle: string;
-  onClick: () => void;
-  action: string;
-  disabled?: boolean;
-  loading?: boolean;
-}) {
-  return (
-    <div className="flex flex-wrap justify-between w-full px-1">
-      <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
-        <div className="text-lg font-semibold">{props.title}</div>
-        <div className="text-xs text-subdued">{props.subtitle}</div>
-      </div>
-      <Button disabled={props.disabled} onClick={props.onClick}>
-        {props.loading ? <LoadingCircle hideText /> : props.action}
-      </Button>
-    </div>
-  );
-}
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -91,7 +69,7 @@ export default function Strategy(props: {
   }
 
   const executeTransaction = async () => {
-    if (selectedStrategiesLength === 0 || amount === "0") return
+    if (selectedStrategiesLength === 0 || amount === "0") return;
 
     const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
     if (connectedChain && currentNetworkId !== +connectedChain.id) {
@@ -171,9 +149,22 @@ export default function Strategy(props: {
                 }}
               />
             </div>
-            {!!wallet && selectedToken && (
+          </div>
+          <StrategyTable {...strategiesHandler} />
+        </div>
+        {wallet ? (
+          <div className="flex flex-wrap justify-between items-center w-full px-1">
+            <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+              <div className="text-lg font-semibold">{`Funding ${selectedStrategiesLength} ${pluralize(
+                ["project", "projects"],
+                selectedStrategiesLength
+              )}`}</div>
+              <div className="text-xs text-subdued">
+                {"Please provide an amount you'd like to fund"}
+              </div>
+            </div>
+            <div>
               <TextField
-                label="Total Funding Amount"
                 error={
                   balance && +balance < +amount
                     ? `Insufficient ${selectedToken.name} balance`
@@ -213,35 +204,33 @@ export default function Strategy(props: {
                   }
                 }}
               />
-            )}
+            </div>
+
+            <Button
+              disabled={selectedStrategiesLength === 0 || amount === "0"}
+              onClick={executeTransaction}
+            >
+              {isTransactionPending ? <LoadingCircle hideText /> : "Next →"}
+            </Button>
           </div>
-          <StrategyTable {...strategiesHandler} />
-        </div>
-        {!wallet ? (
-          <Information
-            title={`${selectedStrategiesLength} ${props.prompt} ${pluralize(
-              ["project", "projects"],
-              selectedStrategiesLength
-            )}`}
-            subtitle={`Connect your wallet to fund ${pluralize(
-              ["this project", "these projects"],
-              selectedStrategiesLength
-            )}`}
-            action="Connect →"
-            onClick={() => connect()}
-          />
         ) : (
-          <Information
-            title={`Funding ${selectedStrategiesLength} ${pluralize(
-              ["project", "projects"],
-              selectedStrategiesLength
-            )}`}
-            subtitle="Please provide an amount you'd like to fund"
-            action={"Next →"}
-            onClick={executeTransaction}
-            disabled={selectedStrategiesLength === 0 || amount === "0"}
-            loading={isTransactionPending}
-          />
+          <div className="flex flex-wrap justify-between items-center w-full px-1">
+            <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+              <div className="text-lg font-semibold">
+                {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
+                  ["project", "projects"],
+                  selectedStrategiesLength
+                )}`}
+              </div>
+              <div className="text-xs text-subdued">
+                {`Connect your wallet to fund ${pluralize(
+                  ["this project", "these projects"],
+                  selectedStrategiesLength
+                )}`}
+              </div>
+            </div>
+            <Button onClick={() => connect()}>{"Connect →"}</Button>
+          </div>
         )}
       </div>
     </div>
