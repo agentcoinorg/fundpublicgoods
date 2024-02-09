@@ -172,7 +172,6 @@ const ProjectModal = ({
                 <div className='px-1 bg-white border border-indigo-300 rounded'>
                   <Score
                     rank={strategy.smart_ranking || 0.0}
-                    icon={false}
                     small
                   />
                 </div>

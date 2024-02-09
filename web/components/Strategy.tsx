@@ -32,10 +32,10 @@ function Information(props: {
   loading?: boolean;
 }) {
   return (
-    <div className="flex flex-wrap justify-between">
-      <div className="flex flex-col">
-        <div className="text-lg font-semibold">{props.title}</div>
-        <div className="text-xs text-subdued">{props.subtitle}</div>
+    <div className='flex flex-wrap justify-between w-full px-1'>
+      <div className='flex flex-col w-full md:w-auto mb-2 md:mb-0'>
+        <div className='text-lg font-semibold'>{props.title}</div>
+        <div className='text-xs text-subdued'>{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
         {props.loading ? <LoadingCircle hideText /> : props.action}
@@ -125,10 +125,10 @@ export default function Strategy(props: {
   }, [tokens]);
 
   return (
-    <div className="flex justify-center py-10 px-6 flex-grow flex-column">
-      <div className="flex flex-col gap-4 mx-auto max-w-wrapper space-y-4">
+    <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
+      <div className='flex flex-col gap-4 mx-auto max-w-wrapper w-full space-y-4'>
         <TextField
-          label="Results for"
+          label='Results for'
           value={currentPrompt}
           onChange={(e) => setCurrentPrompt(e.target.value)}
           onKeyDown={(e) => {
@@ -137,63 +137,61 @@ export default function Strategy(props: {
             }
           }}
         />
-        <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
+        <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
           <p>
-            I&apos;ve evaluated the impact of Ethereum infrastructure projects
-            on the Gitcoin project registry and Optimism Retroactive Public
-            Funding, and have listed the top 10 most impactful projects below.
-            I&apos;ve also allotted a weighting for each to appropriately fund
-            each project.
+          Take a moment to review the allocation strategy and make adjustments before moving forward with your donation. Be sure to select a network you have funds on.
           </p>
         </div>
-        <div className="flex flex-col gap-4 bg-indigo-50 shadow-xl shadow-primary-shadow/10 rounded-3xl border-2 border-indigo-200 p-4">
-          <div>
-            <Dropdown
-              items={props.networks.filter((n) => n !== selectedNetwork)}
-              field={{ value: selectedNetwork }}
-              onChange={(newValue) => {
-                handleNetworkUpdate(newValue as NetworkName);
-                setSelectedNetwork(newValue as NetworkName);
-              }}
-            />
-          </div>
-          {!!wallet && token && (
-            <TextField
-              label="Total Funding Amount"
-              rightAdornment={
-                <Dropdown
-                  items={tokens.map((x) => x.name)}
-                  field={{ value: token.name }}
-                  onChange={(val) =>
-                    setToken(
-                      tokens.find((x) => x.name === val) as TokenInformation
-                    )
+        <div className='space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4'>
+          <div className='space-y-2'>
+            <div>
+              <Dropdown
+                items={props.networks.filter((n) => n !== selectedNetwork)}
+                field={{ value: selectedNetwork }}
+                onChange={(newValue) => {
+                  handleNetworkUpdate(newValue as NetworkName);
+                  setSelectedNetwork(newValue as NetworkName);
+                }}
+              />
+            </div>
+            {!!wallet && token && (
+              <TextField
+                label='Total Funding Amount'
+                rightAdornment={
+                  <Dropdown
+                    items={tokens.map((x) => x.name)}
+                    field={{ value: token.name }}
+                    onChange={(val) =>
+                      setToken(
+                        tokens.find((x) => x.name === val) as TokenInformation
+                      )
+                    }
+                  />
+                }
+                value={amount}
+                onBlur={updateWeights}
+                onKeyDown={(event: React.KeyboardEvent) => {
+                  if (event.key === "Enter" && amount !== "0") {
+                    updateWeights();
                   }
-                />
-              }
-              value={amount}
-              onBlur={updateWeights}
-              onKeyDown={(event: React.KeyboardEvent) => {
-                if (event.key === "Enter" && amount !== "0") {
-                  updateWeights();
-                }
-              }}
-              onChange={(e) => {
-                const newValue = e.target.value;
-                // Allow only numbers with optional single leading zero, and only one decimal point
-                if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
-                  setAmount(newValue);
-                } else {
-                  // Fix the value to remove the invalid characters, maintaining only one leading zero if present
-                  const fixedValue = newValue
-                    .replace(/[^0-9.]/g, "")
-                    .replace(/^0+(?=\d)/, "")
-                    .replace(/(\..*)\./g, "$1");
-                  setAmount(fixedValue);
-                }
-              }}
-            />
-          )}
+                }}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  // Allow only numbers with optional single leading zero, and only one decimal point
+                  if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
+                    setAmount(newValue);
+                  } else {
+                    // Fix the value to remove the invalid characters, maintaining only one leading zero if present
+                    const fixedValue = newValue
+                      .replace(/[^0-9.]/g, "")
+                      .replace(/^0+(?=\d)/, "")
+                      .replace(/(\..*)\./g, "$1");
+                    setAmount(fixedValue);
+                  }
+                }}
+              />
+            )}
+          </div>
           <StrategyTable {...strategiesHandler} />
         </div>
         {!wallet ? (
@@ -206,7 +204,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action="Connect →"
+            action='Connect →'
             onClick={() => connect()}
           />
         ) : (
