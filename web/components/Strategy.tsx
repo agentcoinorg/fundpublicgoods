@@ -90,12 +90,15 @@ export default function Strategy(props: {
     if (!token) return;
     const donations = strategies
       .filter((x) => x.selected)
-      .map((strategy) => ({
-        amount: strategy.amount as string,
-        description: strategy.project.description as string,
-        title: strategy.project.title as string,
-        recipient: strategy.recipient,
-      }));
+      .map((strategy) => {
+        const networkIndex = strategy.networks.indexOf(selectedNetwork)
+        return {
+          amount: strategy.amount as string,
+          description: strategy.project.description as string,
+          title: strategy.project.title as string,
+          recipient: strategy.recipients[networkIndex],
+        }
+      });
 
     await executeDonation({
       donations,
