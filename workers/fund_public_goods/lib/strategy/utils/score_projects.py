@@ -37,8 +37,8 @@ Project reports:
 
 def score_projects(project_ids_with_report: list[tuple[str, str]]) -> list[ProjectScores]:
     reports = [
-        f"Project ID: {project_tuple[0]}\n\n{report}"
-        for (project_tuple, report) in project_ids_with_report
+        f"Project ID: {project_id}\n\n{report}"
+        for (project_id, report) in project_ids_with_report
     ]
     
     score_projects_prompt = ChatPromptTemplate.from_messages([

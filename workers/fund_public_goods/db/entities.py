@@ -1,4 +1,5 @@
 from enum import Enum
+import typing
 from uuid import UUID
 import datetime
 from typing import Optional
@@ -90,7 +91,7 @@ class Applications(BaseModel):
     recipient: str
     network: int
     round: str
-    answers: Optional[Json] = None
+    answers: list[dict[str, typing.Any]] = []
     project_id: str = Field(..., alias="projectId")
     model_config = ConfigDict(
         populate_by_name=True
