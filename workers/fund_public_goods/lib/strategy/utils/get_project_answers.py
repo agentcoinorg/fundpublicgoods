@@ -8,7 +8,7 @@ def get_project_answers(project_id: str) -> list[Answer]:
     )
     answers: list[Answer] = []
 
-    for application in applications:
+    for application in apps:
         for answer in application.answers:
             answers.append(Answer(
                 question=answer.get("question", ""),
