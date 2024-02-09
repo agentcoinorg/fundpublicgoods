@@ -20,6 +20,7 @@ import { useDonation } from "@/hooks/useDonation";
 import LoadingCircle from "./LoadingCircle";
 import { useToken } from "@/hooks/useToken";
 import ChatInputButton from "./ChatInputButton";
+import SuccessModal from "./SuccessModal";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -196,103 +197,98 @@ export default function Strategy(props: {
               </div>
             </div>
             <StrategyTable {...strategiesHandler} />
-          </div>
-          {wallet ? (
-            <div className='space-y-4'>
-              <div className='space-y-px'>
-                <div className='text-lg font-semibold'>{`Funding ${selectedStrategiesLength} ${pluralize(
-                  ["project", "projects"],
-                  selectedStrategiesLength
-                )}`}</div>
-                <div className='text-xs text-subdued'>
-                  {"Please provide an amount you'd like to fund"}
-                </div>
-              </div>
-              <div className='pt-4 border-t-2 border-indigo-100 flex justify-between items-center w-full space-x-4'>
-                <div className='max-w-md w-full'>
-                  <TextField
-                    className='h-[40px]'
-                    error={
-                      balance && +balance < +amount
-                        ? `Insufficient ${selectedToken.name} balance`
-                        : ""
-                    }
-                    rightAdornment={
-                      <Dropdown
-                        items={tokens
-                          .filter((x) => x.name !== selectedToken.name)
-                          .map((x) => x.name)}
-                        field={{ value: selectedToken.name }}
-                        onChange={async (newToken) =>
-                          await updateToken(newToken)
+            <div className='flex justify-between items-center w-full space-x-4 pt-4 border-t-2 border-indigo-100'>
+              {wallet ? (
+                <>
+                  <div className='max-w-md w-full'>
+                    <TextField
+                      className='h-12'
+                      placeholder='Enter the amount you want to fund'
+                      error={
+                        balance && +balance < +amount
+                          ? `Insufficient ${selectedToken.name} balance`
+                          : ""
+                      }
+                      rightAdornment={
+                        <Dropdown
+                          items={tokens
+                            .filter((x) => x.name !== selectedToken.name)
+                            .map((x) => x.name)}
+                          field={{ value: selectedToken.name }}
+                          onChange={async (newToken) =>
+                            await updateToken(newToken)
+                          }
+                        />
+                      }
+                      value={amount !== "0" ? amount : undefined}
+                      onBlur={updateWeights}
+                      onKeyDown={(event: React.KeyboardEvent) => {
+                        if (event.key === "Enter" && amount !== "0") {
+                          updateWeights();
                         }
-                      />
-                    }
-                    value={amount}
-                    onBlur={updateWeights}
-                    onKeyDown={(event: React.KeyboardEvent) => {
-                      if (event.key === "Enter" && amount !== "0") {
-                        updateWeights();
-                      }
-                    }}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      // Allow only numbers with optional single leading zero, and only one decimal point
-                      if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
-                        setAmount(newValue);
-                      } else {
-                        // Fix the value to remove the invalid characters, maintaining only one leading zero if present
-                        const fixedValue = newValue
-                          .replace(/[^0-9.]/g, "")
-                          .replace(/^0+(?=\d)/, "")
-                          .replace(/(\..*)\./g, "$1");
-                        setAmount(fixedValue);
-                      }
-                      if (balance) {
-                        setBalance(null);
-                      }
-                    }}
-                  />
-                </div>
-                <Button
-                  disabled={selectedStrategiesLength === 0 || amount === "0"}
-                  onClick={executeTransaction}>
-                  {isTransactionPending ? (
-                    <>
-                      <div>Pending</div>
-                      <LoadingCircle hideText color='white' />
-                    </>
-                  ) : (
-                    <>
-                      <div>Next</div>
-                      <ArrowRight weight='bold' size={16} />
-                    </>
-                  )}
-                </Button>
-              </div>
+                      }}
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        // Allow only numbers with optional single leading zero, and only one decimal point
+                        if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
+                          setAmount(newValue);
+                        } else {
+                          // Fix the value to remove the invalid characters, maintaining only one leading zero if present
+                          const fixedValue = newValue
+                            .replace(/[^0-9.]/g, "")
+                            .replace(/^0+(?=\d)/, "")
+                            .replace(/(\..*)\./g, "$1");
+                          setAmount(fixedValue);
+                        }
+                        if (balance) {
+                          setBalance(null);
+                        }
+                      }}
+                    />
+                  </div>
+                  <Button
+                    disabled={selectedStrategiesLength === 0 || amount === "0"}
+                    onClick={executeTransaction}>
+                    {isTransactionPending ? (
+                      <>
+                        <div>Pending</div>
+                        <LoadingCircle hideText color='white' />
+                      </>
+                    ) : (
+                      <>
+                        <div>{`Fund ${selectedStrategiesLength} ${pluralize(
+                          ["Project", "Projects"],
+                          selectedStrategiesLength
+                        )}`}</div>
+                        <ArrowRight weight='bold' size={16} />
+                      </>
+                    )}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className='flex flex-col w-full md:w-auto mb-2 md:mb-0'>
+                    <div className='text-lg font-semibold'>
+                      {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
+                        ["project", "projects"],
+                        selectedStrategiesLength
+                      )}`}
+                    </div>
+                    <div className='text-xs text-subdued'>
+                      {`Connect your wallet to fund ${pluralize(
+                        ["this project", "these projects"],
+                        selectedStrategiesLength
+                      )}`}
+                    </div>
+                  </div>
+                  <Button onClick={() => connect()}>
+                    <div>Connect</div>
+                    <ArrowRight weight='bold' size={16} />
+                  </Button>
+                </>
+              )}
             </div>
-          ) : (
-            <div className='flex flex-wrap justify-between items-center w-full px-1'>
-              <div className='flex flex-col w-full md:w-auto mb-2 md:mb-0'>
-                <div className='text-lg font-semibold'>
-                  {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
-                    ["project", "projects"],
-                    selectedStrategiesLength
-                  )}`}
-                </div>
-                <div className='text-xs text-subdued'>
-                  {`Connect your wallet to fund ${pluralize(
-                    ["this project", "these projects"],
-                    selectedStrategiesLength
-                  )}`}
-                </div>
-              </div>
-              <Button onClick={() => connect()}>
-                <div>Connect</div>
-                <ArrowRight weight='bold' size={16} />
-              </Button>
-            </div>
-          )}
+          </div>
         </div>
       </div>
       <Button
