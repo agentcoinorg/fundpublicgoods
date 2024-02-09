@@ -32,10 +32,10 @@ function Footer() {
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
       <div className='font-regular flex gap-x-[2px] text-[10px] text-indigo-800/70'>
-        <span>built by</span>
+        <span>a web3 agent by</span>
         <a
           className='underline font-semibold'
-          href='https://polywrap.io'
+          href='https://blog.polywrap.io'
           target='_blank'
           rel='noopener noreferrer'>
           polywrap
