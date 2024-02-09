@@ -28,12 +28,22 @@ const config: Config = {
         wrapper: `768px`,
       },
       animation: {
+        gradient: "gradient 2s infinite ease-in-out",
         gradientText: "gradientText 2s infinite ease-in-out",
         slideIn: "slideIn 0.3s forwards ease-in",
         slideInAffected:
           "slideInAffected 0.2s var(--delay, 0.3s) forwards ease-in-out",
       },
       keyframes: {
+        gradient: {
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+          "0%,100%": {
+            backgroundSize: "200%",
+            backgroundPosition: "0% 50%",
+          },
+        },
         gradientText: {
           "50%": {
             backgroundPosition: "100% 50%",

@@ -171,7 +171,11 @@ export function StrategyTable(props: StrategiesHandler) {
       <ProjectModal
         strategy={showStrategyDetails.strategy}
         isOpen={showStrategyDetails.show}
-        title={showStrategyDetails.strategy?.project.title || "Project"}
+        title={
+          <div className='line-clamp-1'>
+            {showStrategyDetails.strategy?.project.title || "Project"}
+          </div>
+        }
         onClose={() => setShowStrategyDetails({ show: false })}
       />
     </>

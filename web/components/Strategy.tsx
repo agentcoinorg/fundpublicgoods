@@ -35,6 +35,7 @@ export default function Strategy(props: {
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<string | null>();
   const [isRegenerating, setIsRegenerating] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const {
     execute: executeDonation,
     isTransactionPending,
@@ -128,6 +129,7 @@ export default function Strategy(props: {
       network: selectedNetwork,
       token: selectedToken,
     });
+    setShowSuccessModal(true);
   };
 
   async function regenerateStrat(prompt: string) {
@@ -298,6 +300,19 @@ export default function Strategy(props: {
         <div>Share this strategy</div>
         <Share weight='bold' size={16} className='text-[currentColor]' />
       </Button>
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        title={
+          <div className='text-xl text-center'>
+            {`You just funded ${selectedStrategiesLength} ${pluralize(
+              ["Project", "Projects"],
+              selectedStrategiesLength
+            )}!`}
+          </div>
+        }
+        onShare={() => window.open(tweetUrl, "__blank")}
+      />
     </>
   );
 }
