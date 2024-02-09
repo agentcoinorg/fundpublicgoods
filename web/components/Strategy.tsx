@@ -18,6 +18,7 @@ import {
 import { useDonation } from "@/hooks/useDonation";
 import LoadingCircle from "./LoadingCircle";
 import { useToken } from "@/hooks/useToken";
+import ChatInputButton from "./ChatInputButton";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -31,6 +32,7 @@ export default function Strategy(props: {
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<string | null>();
+  const [isRegenerating, setIsRegenerating] = useState(false)
   const {
     execute: executeDonation,
     isTransactionPending,
@@ -102,11 +104,13 @@ export default function Strategy(props: {
   };
 
   async function regenerateStrat(prompt: string) {
+    setIsRegenerating(true)
     if (!session) {
       throw new Error("User needs to have a session");
     }
     const response = await startRun(prompt, session.supabaseAccessToken);
     router.push(`/s/${response.runId}`);
+    setIsRegenerating(false)
   }
 
   function updateWeights() {
@@ -127,6 +131,17 @@ export default function Strategy(props: {
               regenerateStrat(currentPrompt);
             }
           }}
+          rightAdornment={
+            <ChatInputButton
+              running={isRegenerating}
+              message={currentPrompt }
+              handleSend={async () => {
+                if (currentPrompt) {
+                  await regenerateStrat(currentPrompt);
+                }
+              }}
+            />
+          }
         />
         <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
           <p>
