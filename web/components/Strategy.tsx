@@ -211,7 +211,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action='Support $'
+            action='Connect →'
             onClick={() => connect()}
           />
         ) : (
@@ -221,7 +221,7 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action={"Send $"}
+            action={"Next →"}
             onClick={executeTransaction}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
             loading={isTransactionPending}
