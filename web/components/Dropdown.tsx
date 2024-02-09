@@ -14,21 +14,24 @@ const Dropdown = ({ items, field, onChange }: DropdownProps) => {
   };
   return (
     <Listbox {...listboxProps}>
-      <div className='relative'>
-        <Listbox.Button className='text-sm leading-none flex space-x-1 hover:text-indigo-600 p-1.5 hover:bg-indigo-100 transition-colors duration-500 ease-in-out rounded-md'>
+      <div className="relative">
+        <Listbox.Button className="text-sm leading-none flex space-x-1 hover:text-indigo-600 p-1.5 hover:bg-indigo-100 transition-colors duration-500 ease-in-out rounded-md">
           <div>{field.value}</div>
-          <CaretDown weight='bold' />
+          <CaretDown weight="bold" />
         </Listbox.Button>
-        <Listbox.Options className='absolute z-10 mt-1 w-full bg-white shadow-lg shadow-primary-shadow/20 max-h-60 rounded-lg p-2 ring-1 ring-white ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
-          {items.map((item) => (
-            <Listbox.Option
-              key={item}
-              value={item}
-              className={`cursor-pointer select-none relative p-1.5 rounded-md hover:bg-indigo-50 hover:text-indigo-600`}>
-              {item}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
+        {items.length > 0 && (
+          <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg shadow-primary-shadow/20 max-h-60 rounded-lg p-2 ring-1 ring-white ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+            {items.map((item) => (
+              <Listbox.Option
+                key={item}
+                value={item}
+                className={`cursor-pointer select-none relative p-1.5 rounded-md hover:bg-indigo-50 hover:text-indigo-600`}
+              >
+                {item}
+              </Listbox.Option>
+            ))}
+          </Listbox.Options>
+        )}
       </div>
     </Listbox>
   );

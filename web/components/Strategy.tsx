@@ -32,11 +32,13 @@ export default function Strategy(props: {
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<string | null>();
-  const [isRegenerating, setIsRegenerating] = useState(false)
+  const [isRegenerating, setIsRegenerating] = useState(false);
   const {
     execute: executeDonation,
     isTransactionPending,
     getBalance,
+    getAllowance,
+    approve,
   } = useDonation();
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
@@ -87,6 +89,16 @@ export default function Strategy(props: {
       return;
     }
 
+    const allowance = await getAllowance(
+      wallet,
+      selectedToken,
+      selectedNetwork
+    );
+
+    if (+allowance < +amount) {
+      await approve(wallet, selectedToken, amount, selectedNetwork);
+    }
+
     const donations = strategies
       .filter((x) => x.selected)
       .map((strategy) => ({
@@ -104,13 +116,13 @@ export default function Strategy(props: {
   };
 
   async function regenerateStrat(prompt: string) {
-    setIsRegenerating(true)
+    setIsRegenerating(true);
     if (!session) {
       throw new Error("User needs to have a session");
     }
     const response = await startRun(prompt, session.supabaseAccessToken);
     router.push(`/s/${response.runId}`);
-    setIsRegenerating(false)
+    setIsRegenerating(false);
   }
 
   function updateWeights() {
@@ -134,7 +146,7 @@ export default function Strategy(props: {
           rightAdornment={
             <ChatInputButton
               running={isRegenerating}
-              message={currentPrompt }
+              message={currentPrompt}
               handleSend={async () => {
                 if (currentPrompt) {
                   await regenerateStrat(currentPrompt);
@@ -159,6 +171,9 @@ export default function Strategy(props: {
                 items={props.networks.filter((n) => n !== selectedNetwork)}
                 field={{ value: selectedNetwork }}
                 onChange={(newValue) => {
+                  if (props.networks.length === 1) {
+                    return;
+                  }
                   handleNetworkUpdate(newValue as NetworkName);
                   setSelectedNetwork(newValue as NetworkName);
                 }}
@@ -220,7 +235,6 @@ export default function Strategy(props: {
                 }}
               />
             </div>
-
             <Button
               disabled={selectedStrategiesLength === 0 || amount === "0"}
               onClick={executeTransaction}
