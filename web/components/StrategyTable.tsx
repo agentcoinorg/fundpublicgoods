@@ -60,9 +60,17 @@ export function StrategyTable(props: StrategiesHandler) {
             Project
           </div>
           <div className='col-span-6 grid grid-cols-12 items-center'>
-            <div className='col-span-5'>Weighting</div>
+            <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
+              Weighting
+            </div>
             {!!wallet && <div className='col-span-4'>Amount</div>}
-            <div className='col-span-3'>Score</div>
+            <div
+              className={clsx(
+                "text-right",
+                wallet ? "col-span-4" : "col-span-6"
+              )}>
+              Score
+            </div>
           </div>
         </div>
         <div className='w-full grid grid-cols-12 gap-2'>
@@ -95,7 +103,9 @@ export function StrategyTable(props: StrategiesHandler) {
                     />
                   </div>
                   <div className='space-x-2 flex'>
-                    <div className='flex flex-col justify-center w-12'>
+                    <div className='flex flex-col justify-center w-12 relative'>
+                      {/* TODO: update this with project chain icon */}
+                      <div className='absolute top-0 left-0 z-1 w-4 h-4 rounded-full shadow-sm shadow-primary-shadow/20 bg-red-500'></div>
                       {entry.project.logo ? (
                         <Image
                           className='rounded-full border-2 border-indigo-300 object-fit'
@@ -119,7 +129,7 @@ export function StrategyTable(props: StrategiesHandler) {
                   </div>
                 </div>
                 <div className='col-span-12 md:col-span-6 grid grid-cols-12 gap-4 items-center pt-3 md:pt-0 border-t-2 border-indigo-300 md:border-t-0'>
-                  <div className='col-span-5'>
+                  <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
                     <TextField
                       readOnly={!entry.selected}
                       onChange={(e) => {
@@ -145,7 +155,11 @@ export function StrategyTable(props: StrategiesHandler) {
                       entry.amount || "0.00"
                     }`}</div>
                   )}
-                  <div className='col-span-3'>
+                  <div
+                    className={clsx(
+                      "flex w-full justify-end",
+                      wallet ? "col-span-4" : "col-span-6"
+                    )}>
                     <Score rank={entry.smart_ranking ?? 0} />
                   </div>
                 </div>
