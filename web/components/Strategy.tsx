@@ -7,6 +7,7 @@ import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
+import { Share } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import {
   NetworkName,
@@ -76,6 +77,11 @@ export default function Strategy(props: {
     strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
+  const tweetHandles = props.fetchedStrategies.map((x) => `@${x.project.twitter}` || x.project.title).join("\n");
+  const tweetText = `Join me in supporting these awesome PGPs I found on fundpublicgoods.ai!\n\n` +
+    `${tweetHandles}\n\nLink: https://fundpublicgoods.ai/${props.runId}`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`
+
   async function connect() {
     await connectWallet();
   }
@@ -125,6 +131,7 @@ export default function Strategy(props: {
   }, [tokens]);
 
   return (
+    <>
     <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
       <div className='flex flex-col gap-4 mx-auto max-w-wrapper w-full space-y-4'>
         <TextField
@@ -144,7 +151,7 @@ export default function Strategy(props: {
         </div>
         <div className='space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4'>
           <div className='space-y-2'>
-            <div>
+            <div className="flex-row">
               <Dropdown
                 items={props.networks.filter((n) => n !== selectedNetwork)}
                 field={{ value: selectedNetwork }}
@@ -204,7 +211,7 @@ export default function Strategy(props: {
               ["this project", "these projects"],
               selectedStrategiesLength
             )}`}
-            action='Connect →'
+            action='Support $'
             onClick={() => connect()}
           />
         ) : (
@@ -214,7 +221,7 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action={"Next →"}
+            action={"Send $"}
             onClick={executeTransaction}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
             loading={isTransactionPending}
@@ -222,5 +229,13 @@ export default function Strategy(props: {
         )}
       </div>
     </div>
+    <Button
+      hierarchy='secondary'
+      onClick={() => window.open(tweetUrl, "__blank")}
+      className='!fixed !bottom-0 !right-0 !m-4'
+      type='submit'>
+      <Share weight='bold' size={20} className='text-[currentColor]' />
+    </Button>
+    </>
   );
 }
