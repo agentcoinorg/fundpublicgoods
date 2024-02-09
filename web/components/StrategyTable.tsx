@@ -148,7 +148,7 @@ export function StrategyTable(props: StrategiesHandler) {
                     }`}</div>
                   )}
                   <div className="col-span-3">
-                    <Score rank={entry.impact ?? 0} />
+                    <Score rank={entry.smart_ranking ?? 0} />
                   </div>
                 </div>
               </div>

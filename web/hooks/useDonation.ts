@@ -1,5 +1,7 @@
 import { useConnectWallet } from "@web3-onboard/react";
+import { WalletState } from "@web3-onboard/core";
 import {
+  ERC20_ABI,
   NetworkName,
   TokenInformation,
   getTokensForNetwork,
@@ -60,8 +62,22 @@ export function useDonation() {
     }
   };
 
+  const getBalance = async (wallet: WalletState, token: TokenInformation) => {
+    const ethersProvider = new ethers.providers.Web3Provider(
+      wallet.provider,
+      "any"
+    );
+
+    const signer = ethersProvider.getSigner();
+    const erc20Contract = new ethers.Contract(token.address, ERC20_ABI, signer);
+    const currentAddress = await signer.getAddress();
+    const balance = await erc20Contract.balanceOf(currentAddress);
+    return ethers.utils.formatUnits(balance.toString(), token.decimals);
+  };
+
   return {
     execute,
     isTransactionPending,
+    getBalance,
   };
 }

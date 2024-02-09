@@ -92,7 +92,7 @@ export default async function StrategyPage({
         recipient: recipientInformation[i].recipient,
       };
     })
-    .sort((a, b) => (b.impact || 0) - (a.impact || 0));
+    .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0));
   return (
     <Strategy
       fetchedStrategies={strategies}
