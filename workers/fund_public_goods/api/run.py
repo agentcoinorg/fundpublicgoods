@@ -75,7 +75,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
     )
 
     reports = evaluate_projects(prompt, projects)
-    projects_with_reports: list[tuple[Project, str]] = [(projects[i], reports[i]) for i in range(len(reports))]
+    project_ids_with_reports: list[tuple[str, str]] = [(projects[i].id, reports[i]) for i in range(len(reports))]
     
     tables.logs.update(
         status=StepStatus.COMPLETED,

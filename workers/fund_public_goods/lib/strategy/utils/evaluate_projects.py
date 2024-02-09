@@ -1,3 +1,5 @@
+from fund_public_goods.db.entities import Projects
+from fund_public_goods.lib.strategy.utils.get_project_answers import get_project_answers
 from fund_public_goods.lib.strategy.utils.utils import get_project_text
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -30,7 +32,26 @@ User's prompt: {prompt}
 Project: {project}
 """
 
-def evaluate_projects(prompt: str, projects: list[Project]) -> list[str]:
+def evaluate_projects(prompt: str, projects: list[Projects]) -> list[str]:
+    project_texts: list[str] = []
+    
+    for project in projects:
+        
+        answers = get_project_answers(project.id)
+        project_text = get_project_text(Project(
+                id=project.id,
+                title=project.title,
+                description=project.description,
+                website=project.website,
+                twitter=project.twitter,
+                logo=project.logo,
+                answers=answers
+            )
+        )
+        
+        project_texts.append(project_text)
+    
+    
     evaluation_prompt = ChatPromptTemplate.from_messages([
         ("system", evaluation_prompt_template),
     ])
@@ -41,7 +62,7 @@ def evaluate_projects(prompt: str, projects: list[Project]) -> list[str]:
     
     evaluation_reports = evaluation_chain.batch([{
         "prompt": prompt,
-        "project": get_project_text(project)
-    } for project in projects])
+        "project": project_text
+    } for project_text in project_texts])
         
     return evaluation_reports
