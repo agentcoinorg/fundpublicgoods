@@ -3,7 +3,7 @@ from fund_public_goods.db.entities import StepStatus, StepName, Logs
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.lib.strategy.utils.score_projects import score_projects
-from fund_public_goods.lib.strategy.utils.evaluate_project import evaluate_project
+from fund_public_goods.lib.strategy.utils.evaluate_projects import evaluate_projects
 from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
 from fund_public_goods.lib.strategy.models.project import Project
@@ -74,11 +74,8 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         value=None,
     )
 
-    project_ids_with_reports: list[tuple[str, str]] = []
-    
-    for project in projects:
-        report = evaluate_project(prompt, project)
-        project_ids_with_reports.append((project.id, report))
+    reports = evaluate_projects(prompt, projects)
+    projects_with_reports: list[tuple[Project, str]] = [(projects[i], reports[i]) for i in range(len(reports))]
     
     tables.logs.update(
         status=StepStatus.COMPLETED,

@@ -30,8 +30,12 @@ export function StrategyTable(props: StrategiesHandler) {
     show: false,
   });
 
-  const allChecked = strategies.filter(s => !s.disabled).every((s) => s.selected);
-  const someChecked = strategies.filter(s => !s.disabled).some((s) => s.selected);
+  const allChecked = strategies
+    .filter((s) => !s.disabled)
+    .every((s) => s.selected);
+  const someChecked = strategies
+    .filter((s) => !s.disabled)
+    .some((s) => s.selected);
 
   function openProjectDetails(strategy: StrategyInformation) {
     setShowStrategyDetails({
@@ -41,111 +45,123 @@ export function StrategyTable(props: StrategiesHandler) {
   }
 
   return (
-    <table className='table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full'>
-      <thead>
-        <tr>
-          <th className='pr-0 w-10'>
-            <TextField
-              type='checkbox'
-              indeterminate={!allChecked && someChecked}
-              checked={allChecked}
-              onChange={(e) => handleSelectAll(e.target.checked)}
-            />
-          </th>
-          <th className='text-left w-full'>PROJECT</th>
-          <th className='text-left w-32'>WEIGHTING</th>
-          {!!wallet && <th className='text-left w-20'>AMOUNT</th>}
-          <th className='text-left whitespace-nowrap w-32'>SMART RANKING</th>
-        </tr>
-      </thead>
-      <tbody className="w-full">
-        {strategies.map((entry, index) => (
-          <tr
-            key={index}
-            className={clsx(
-              "w-full border-indigo-100/80 border-t-2",
-              entry.disabled
-                ? "opacity-50 cursor-not-allowed"
-                : "bg-indigo-50/50 odd:bg-indigo-50 group/row hover:bg-white duration-200 transition-colors ease-in-out cursor-pointer"
-            )}
-          >
-            <td
-              className={clsx(
-                "pr-0 w-10 check",
-                !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
-              )}
-            >
+    <>
+      <div className="space-y-2">
+        <div className="hidden md:grid grid-cols-12 gap-4 text-indigo-800/50 font-semibold text-xs leading-none uppercase px-4">
+          <div className="col-span-6 flex items-center space-x-4">
+            <div className="w-10">
               <TextField
-                type='checkbox'
-                checked={entry.selected}
-                disabled={entry.disabled}
-                onChange={(e) => {
-                  handleSelectProject(e.target.checked, index);
-                }}
+                type="checkbox"
+                indeterminate={!allChecked && someChecked}
+                checked={allChecked}
+                onChange={(e) => handleSelectAll(e.target.checked)}
               />
-            </td>
-            <td className='flex gap-2 w-full'>
-              <div className='flex flex-col justify-center w-8'>
-                {entry.project.logo ? (
-                  <Image
-                    className='rounded-full border-2 border-indigo-300 object-fit'
-                    width={32}
-                    height={32}
-                    alt='logo'
-                    src={`https://ipfs.io/ipfs/${entry.project.logo}`}
-                  />
-                ) : (
-                  <div className='w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
-                    <SparkleIcon size={20} className='opacity-80' />
+            </div>
+            Project
+          </div>
+          <div className="col-span-6 grid grid-cols-12 items-center">
+            <div className="col-span-5">Weighting</div>
+            {!!wallet && <div className="col-span-4">Amount</div>}
+            <div className="col-span-3">Score</div>
+          </div>
+        </div>
+        <div className="w-full grid grid-cols-12 gap-4">
+          {strategies.map((entry, index) => (
+            <div
+              key={index}
+              className={clsx(
+                "bg-indigo-50 border-2 border-indigo-300 hover:bg-white transition-colors duration-200 w-full rounded-2xl shadow-sm hover:shadow-lg shadow-primary-shadow/20 p-4 col-span-12 space-y-3",
+                entry.disabled
+                  ? "opacity-20 cursor-not-allowed"
+                  : "cursor-pointer"
+              )}
+              onClick={() => openProjectDetails(entry)}
+            >
+              <div className="grid gap-4 grid-cols-12">
+                <div className="flex space-x-4 items-center w-full col-span-12 md:col-span-6">
+                  <div
+                    className={clsx(
+                      "check",
+                      !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
+                    )}
+                  >
+                    <TextField
+                      type="checkbox"
+                      checked={entry.selected}
+                      disabled={entry.disabled}
+                      onChange={(e) => {
+                        if (!entry.disabled){
+                          handleSelectProject(e.target.checked, index);
+                        }
+                      }}
+                    />
                   </div>
-                )}
-              </div>
-              <div className='space-y-px flex-1 max-w-[calc(100%-40px)]'>
-                <div className='line-clamp-1'>{entry.project.title}</div>
-                <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
-                  {entry.project.description}
+                  <div className="space-x-2 flex">
+                    <div className="flex flex-col justify-center w-12">
+                      {entry.project.logo ? (
+                        <Image
+                          className="rounded-full border-2 border-indigo-300 object-fit"
+                          width={48}
+                          height={48}
+                          alt="logo"
+                          src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300">
+                          <SparkleIcon size={20} className="opacity-80" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]">
+                      <div className="line-clamp-1">{entry.project.title}</div>
+                      <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+                        {entry.project.description}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-6 grid grid-cols-12 gap-4 items-center pt-3 md:pt-0 border-t-2 border-indigo-300 md:border-t-0">
+                  <div className="col-span-5">
+                    <TextField
+                      readOnly={!entry.selected}
+                      onChange={(e) => {
+                        const currentWeights = [...formattedWeights];
+                        currentWeights[index] = e.target.value;
+                        setFormattedWeights(currentWeights);
+                      }}
+                      onKeyDown={(
+                        event: React.KeyboardEvent<HTMLInputElement>
+                      ) => {
+                        if (event.key === "Enter") {
+                          handleWeightUpdate(event.currentTarget.value, index);
+                        }
+                      }}
+                      onBlur={(e) => handleWeightUpdate(e.target.value, index)}
+                      className="!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"
+                      rightAdornment={"%"}
+                      value={formattedWeights[index]}
+                    />
+                  </div>
+                  {!!wallet && (
+                    <div className="col-span-4">{`$${
+                      entry.amount || "0.00"
+                    }`}</div>
+                  )}
+                  <div className="col-span-3">
+                    <Score rank={entry.impact ?? 0} />
+                  </div>
                 </div>
               </div>
-            </td>
-            <td className='w-32'>
-              <TextField
-                readOnly={!entry.selected}
-                onChange={(e) => {
-                  const currentWeights = [...formattedWeights];
-                  currentWeights[index] = e.target.value;
-                  setFormattedWeights(currentWeights);
-                }}
-                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (event.key === "Enter") {
-                    handleWeightUpdate(event.currentTarget.value, index);
-                  }
-                }}
-                onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
-                rightAdornment={"%"}
-                value={formattedWeights[index]}
-              />
-            </td>
-            {!!wallet && (
-              <td className='w-20'>{`$${entry.amount || "0.00"}`}</td>
-            )}
-            <td className="w-32">
-              <div className="w-full">
-                <Score
-                  onClick={() => openProjectDetails(entry)}
-                  rank={entry.impact ?? 0}
-                />
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
+            </div>
+          ))}
+        </div>
+      </div>
       <ProjectModal
         strategy={showStrategyDetails.strategy}
         isOpen={showStrategyDetails.show}
         title={showStrategyDetails.strategy?.project.title || "Project"}
         onClose={() => setShowStrategyDetails({ show: false })}
       />
-    </table>
+    </>
   );
 }

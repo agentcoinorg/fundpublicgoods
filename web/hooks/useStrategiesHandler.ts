@@ -4,10 +4,8 @@ import {
   distributeWeights,
   redistributeWeights,
 } from "@/utils/distributeWeights";
-import { NetworkName, TokenInformation } from "@/utils/ethereum";
+import { NetworkName } from "@/utils/ethereum";
 import { Dispatch, SetStateAction, useState } from "react";
-import { useAtom, atom } from "jotai";
-import { FundingEntry } from "@/components/FundingTable";
 
 export interface StrategiesHandler {
   strategies: StrategiesWithProjects;
@@ -18,7 +16,6 @@ export interface StrategiesHandler {
   handleSelectProject: (isChecked: boolean, index: number) => void;
   handleAmountUpdate: (amount: string) => void;
   handleNetworkUpdate: (network: NetworkName) => void;
-  prepareDonation: (token: TokenInformation) => void;
 }
 
 export type StrategyEntry = Tables<"strategy_entries">;
@@ -36,15 +33,12 @@ export type StrategyInformation = StrategyEntry & {
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
-export const donationPlan = atom<FundingEntry | undefined>(undefined);
 
 export function useStrategiesHandler(
   initStrategies: StrategiesWithProjects,
   totalAmount: string,
   networkName: NetworkName
 ): StrategiesHandler {
-  const [, setDonationPlan] = useAtom(donationPlan);
-
   const preparedStrategies = initStrategies.map((s, i) => {
     const weights = redistributeWeights(
       initStrategies.map((s) => s.defaultWeight as number),
@@ -175,13 +169,11 @@ export function useStrategiesHandler(
     const selectedWeights = strategies.map((s, i) =>
       i === index ? isChecked : s.selected
     );
-    console.log(selectedWeights)
     const newWeights = redistributeWeights(
       strategies.map((s) => s.defaultWeight),
       selectedWeights
     );
 
-    console.log(newWeights)
     const amounts = distributeWeights(newWeights, +totalAmount, 2);
 
     const newStrategy = strategies.map((s, i) => {
@@ -201,9 +193,7 @@ export function useStrategiesHandler(
   const handleAmountUpdate = (amount: string) => {
     const selectedStrategies = strategies.filter((x) => x.selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
-    console.log(weights)
     const amounts = distributeWeights(weights, +amount, 2);
-    console.log(amounts)
     let amountIndex = 0;
     const newStrategies = strategies.map((s) => ({
       ...s,
@@ -228,33 +218,21 @@ export function useStrategiesHandler(
           disabled: s.network !== network,
         };
       })
+      .sort((a, b) => (b.impact || 0) - (a.impact || 0))
       .sort((a, b) => {
-        if ((!a.disabled && !b.disabled) || (a.disabled && b.disabled)) {
+        if (!a.disabled && !b.disabled) {
           return (b.impact || 0) - (a.impact || 0);
         }
-
-        return -1;
+        if (a.disabled && b.disabled) {
+          return (b.impact || 0) - (a.impact || 0);
+        }
+        return a.disabled ? 1 : -1;
       });
     setOverwrittenWeights(Array(initStrategies.length).fill(0));
     setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
     modifyStrategies(newStrategies);
   }
 
-  const prepareDonation = (token: TokenInformation) => {
-    const donations = strategies
-      .filter((x) => x.selected)
-      .map((strategy) => ({
-        amount: strategy.amount as string,
-        description: strategy.project.description as string,
-        title: strategy.project.title as string,
-        recipient: strategy.recipient,
-      }));
-    setDonationPlan({
-      donations,
-      network: networkName,
-      token,
-    });
-  };
 
   return {
     strategies,
@@ -268,6 +246,5 @@ export function useStrategiesHandler(
     handleSelectProject,
     handleAmountUpdate,
     handleNetworkUpdate,
-    prepareDonation,
   };
 }
