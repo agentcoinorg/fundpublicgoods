@@ -71,25 +71,28 @@ export default async function StrategyPage({
 
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
-  const networks = data.flatMap((s) =>
-    s.project.applications.map((a) => getNetworkNameFromChainId(a.network))
+  const recipientInformation = data.map((s) => {
+    const lastApplication = s.project.applications
+      .sort((a, b) => a.created_at - b.created_at)
+      .slice(-1)[0];
+    return {
+      network: getNetworkNameFromChainId(lastApplication.network),
+      recipient: lastApplication.recipient,
+    };
+  });
+  const networksFromProjects = Array.from(
+    new Set(recipientInformation.map((r) => r.network))
   );
-  const networksFromProjects = Array.from(new Set(networks));
-
   const strategies = data
     .map((strategy, i) => {
-      const lastApplication = strategy.project.applications
-        .sort((a, b) => a.created_at - b.created_at)
-        .slice(-1)[0];
       return {
         ...strategy,
         defaultWeight: strategy.weight as number,
-        network: networks[i],
-        recipient: lastApplication.recipient,
+        network: recipientInformation[i].network,
+        recipient: recipientInformation[i].recipient,
       };
     })
     .sort((a, b) => (b.impact || 0) - (a.impact || 0));
-
   return (
     <Strategy
       fetchedStrategies={strategies}

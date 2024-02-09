@@ -14,7 +14,7 @@ const DISPERSE_ABI = [
   "function disperseTokenSimple(address token, address[] recipients, uint256[] values) external",
 ];
 
-const DISPERSE_CONTRACT_ADDRESS = Object.keys(SUPPORTED_NETWORKS).reduce((acc, network) => {
+const DISPERSE_CONTRACT_ADDRESSES = Object.keys(SUPPORTED_NETWORKS).reduce((acc, network) => {
   return {
     ...acc,
     [network]: "0xD152f549545093347A162Dce210e7293f1452150",
@@ -33,7 +33,7 @@ export async function splitTransferFunds(
   tokenDecimals?: number,
 ) {
   const disperseContract = new ethers.Contract(
-    DISPERSE_CONTRACT_ADDRESS[selectedNetwork],
+    DISPERSE_CONTRACT_ADDRESSES[selectedNetwork],
     DISPERSE_ABI,
     signer
   );
@@ -60,12 +60,12 @@ export async function splitTransferFunds(
 
     const currentAllowance: BigNumber = await tokenContract.allowance(
       await signer.getAddress(),
-      DISPERSE_CONTRACT_ADDRESS
+      DISPERSE_CONTRACT_ADDRESSES[selectedNetwork]
     );
 
     if (currentAllowance.lt(totalValue)) {
       const approveTx = await tokenContract.approve(
-        DISPERSE_CONTRACT_ADDRESS,
+        DISPERSE_CONTRACT_ADDRESSES[selectedNetwork],
         totalValue
       );
       await approveTx.wait(1);
