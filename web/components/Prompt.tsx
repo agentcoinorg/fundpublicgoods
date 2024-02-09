@@ -34,8 +34,9 @@ export default function Prompt() {
       }
       const response = await startRun(prompt, session.supabaseAccessToken);
       router.push(`/s/${response.runId}`);
-    } finally {
+    } catch (e) {
       setIsWaiting(false);
+      throw e
     }
   };
 

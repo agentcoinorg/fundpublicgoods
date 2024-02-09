@@ -1,9 +1,9 @@
 import Disclaimer from "@/components/Disclaimer";
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
-import { StrategiesWithProjects } from "@/hooks/useStrategiesHandler";
+import { StrategiesWithProjects, Application } from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
-import { getNetworkNameFromChainId } from "@/utils/ethereum";
+import { getNetworkNameFromChainId, NetworkName } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
 import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
 
@@ -72,33 +72,42 @@ export default async function StrategyPage({
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
   const recipientInformation = data.map((s) => {
-    const lastApplication = s.project.applications
-      .sort((a, b) => a.created_at - b.created_at)
-      .slice(-1)[0];
+    const applications = s.project.applications
+      .sort((a, b) => a.created_at - b.created_at);
+
+    const appsByNetwork: Partial<Record<NetworkName, Application>> = {};
+    applications.forEach((app) => {
+      const networkName = getNetworkNameFromChainId(app.network);
+      if (!appsByNetwork[networkName]) {
+        appsByNetwork[networkName] = app;
+      }
+    });
+
     return {
-      network: getNetworkNameFromChainId(lastApplication.network),
-      recipient: lastApplication.recipient,
-    };
+      networks: Object.keys(appsByNetwork) as NetworkName[],
+      recipients: Object.values(appsByNetwork).map((x) => x.recipient)
+    }
   });
-  const networksFromProjects = Array.from(
-    new Set(recipientInformation.map((r) => r.network))
-  );
   const strategies = data
     .map((strategy, i) => {
       return {
         ...strategy,
         defaultWeight: strategy.weight as number,
-        network: recipientInformation[i].network,
-        recipient: recipientInformation[i].recipient,
+        networks: recipientInformation[i].networks,
+        recipients: recipientInformation[i].recipients,
       };
     })
-    .sort((a, b) => (b.impact || 0) - (a.impact || 0));
+    .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0));
+  
+  const uniqueNetworks = Array.from(
+    new Set(strategies.map((x) => x.networks).flat())
+  )
   return (
     <Strategy
       fetchedStrategies={strategies}
       prompt={run.data.prompt}
       runId={run.data.id}
-      networks={networksFromProjects}
+      networks={uniqueNetworks}
     />
   );
 }
