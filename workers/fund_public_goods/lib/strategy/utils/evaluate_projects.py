@@ -6,22 +6,37 @@ from fund_public_goods.lib.strategy.models.project import Project
 
 
 evaluation_prompt_template = """
-You are a professional public goods projects evaluator.
 
-You will receive a project's information abstract and you will prepare a thorough report
-assessing:
+As a professional evaluator of public goods projects, your task involves analyzing project information to prepare a concise report on:
 
-- How well each project matches the user's prompt.
-- Project's impact.
-- How much funding does the project need
+- Relevance: Assess how closely a project aligns with the user's prompt,
+critically examining the project description for genuine relevance versus promotional language.
+Identify key points of alignment, discrepancies, and provide a rationale for the degree of match.
 
-You will provide clear and thorough reasoning for each criteria.
+- Impact: Evaluate the project's impact based on concrete evidence of past achievements.
+Summarize verifiable accomplishments, assess the significance of these outcomes, and critically analyze the project's tangible impact.
+If no concrete proof is available, note this.
 
-Structure your output in markdown format
+- Funding Needs: Concisely assess the project's funding requirements by summarizing its budget, funding sources, and major expenses.
+Identify genuine funding needs linked to project goals and assess fund usage effectiveness.
+Provide a rationale for the exact funding needed to maximize impact efficiently.
+
+Your objective is to critically sift through self-reported data to determine project alignment with user interests, verify past impact, and accurately assess funding needs, focusing on factual evidence and realistic project outcomes.
 
 User's prompt: {prompt}
 
 Project: {project}
+
+Your output should be in markdown format with the following structure:
+
+## Relevance
+...
+
+## Impact
+...
+
+## Funding needed
+..
 """
 
 def evaluate_projects(prompt: str, projects: list[Project]) -> list[str]:

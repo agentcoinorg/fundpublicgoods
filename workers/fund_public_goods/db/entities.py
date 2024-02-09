@@ -161,7 +161,6 @@ class StrategyEntries(BaseModel):
     run_id: UUID = Field(..., alias="runId")
     project_id: str = Field(..., alias="projectId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    reasoning: Optional[str] = None
     impact: Optional[float] = None
     interest: Optional[float] = None
     weight: Optional[float] = None
