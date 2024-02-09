@@ -77,7 +77,7 @@ export default function Strategy(props: {
     strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
-  const tweetHandles = props.fetchedStrategies.map((x) => `@${x.project.twitter}` || x.project.title).join("\n");
+  const tweetHandles = props.fetchedStrategies.filter(x => x.project.twitter).map((x) => `@${x.project.twitter}`).join("\n");
   const tweetText = `Join me in supporting these awesome PGPs I found on fundpublicgoods.ai!\n\n` +
     `${tweetHandles}\n\nLink: https://fundpublicgoods.ai/${props.runId}`;
   const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`
