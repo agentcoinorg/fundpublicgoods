@@ -19,6 +19,7 @@ export interface StrategiesHandler {
 }
 
 export type StrategyEntry = Tables<"strategy_entries">;
+export type Application = Tables<"applications">;
 export type Project = Tables<"projects"> & {
   applications: Tables<"applications">[];
 };
@@ -27,9 +28,9 @@ export type StrategyInformation = StrategyEntry & {
   selected: boolean;
   amount?: string;
   defaultWeight: number;
-  network: NetworkName;
+  networks: NetworkName[];
   disabled?: boolean;
-  recipient: string;
+  recipients: string[];
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
@@ -42,14 +43,14 @@ export function useStrategiesHandler(
   const preparedStrategies = initStrategies.map((s, i) => {
     const weights = redistributeWeights(
       initStrategies.map((s) => s.defaultWeight as number),
-      initStrategies.map((s) => s.network === networkName)
+      initStrategies.map((s) => s.networks.includes(networkName))
     );
 
     return {
       ...s,
       weight: weights[i],
-      disabled: s.network !== networkName,
-      selected: s.network === networkName,
+      disabled: !s.networks.includes(networkName),
+      selected: s.networks.includes(networkName),
     };
   }).sort((a, b) => {
     if (!a.disabled && !b.disabled) {
@@ -205,7 +206,7 @@ export function useStrategiesHandler(
   const handleNetworkUpdate = (network: NetworkName) => {
     const weights = redistributeWeights(
       strategies.map((s) => s.defaultWeight),
-      strategies.map((s) => s.network === network)
+      strategies.map((s) => s.networks.includes(network))
     );
     const amounts = distributeWeights(weights, +totalAmount, 2);
     const newStrategies = strategies
@@ -215,7 +216,7 @@ export function useStrategiesHandler(
           amount: amounts[i].toFixed(2),
           weight: weights[i],
           selected: weights[i] !== 0,
-          disabled: s.network !== network,
+          disabled: !s.networks.includes(network),
         };
       })
       .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0))

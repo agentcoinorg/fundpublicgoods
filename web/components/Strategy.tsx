@@ -7,6 +7,7 @@ import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
+import { Share } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import { NetworkName, SUPPORTED_NETWORKS } from "@/utils/ethereum";
 import useSession from "@/hooks/useSession";
@@ -67,6 +68,16 @@ export default function Strategy(props: {
       if (currentBalance) return null;
     });
   }, [selectedToken]);
+  const tweetHandles = props.fetchedStrategies
+    .filter((x) => x.project.twitter)
+    .map((x) => `@${x.project.twitter}`)
+    .join("\n");
+  const tweetText =
+    `Join me in supporting these awesome PGPs I found on fundpublicgoods.ai!\n\n` +
+    `${tweetHandles}\n\nLink: https://fundpublicgoods.ai/${props.runId}`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    tweetText
+  )}`;
 
   async function connect() {
     await connectWallet();
@@ -101,12 +112,15 @@ export default function Strategy(props: {
 
     const donations = strategies
       .filter((x) => x.selected)
-      .map((strategy) => ({
-        amount: strategy.amount as string,
-        description: strategy.project.description as string,
-        title: strategy.project.title as string,
-        recipient: strategy.recipient,
-      }));
+      .map((strategy) => {
+        const networkIndex = strategy.networks.indexOf(selectedNetwork);
+        return {
+          amount: strategy.amount as string,
+          description: strategy.project.description as string,
+          title: strategy.project.title as string,
+          recipient: strategy.recipients[networkIndex],
+        };
+      });
 
     await executeDonation({
       donations,
@@ -132,136 +146,144 @@ export default function Strategy(props: {
   }
 
   return (
-    <div className="flex justify-center py-10 px-6 flex-grow flex-column">
-      <div className="flex flex-col gap-4 mx-auto max-w-wrapper w-full space-y-4">
-        <TextField
-          label="Results for"
-          value={currentPrompt}
-          onChange={(e) => setCurrentPrompt(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !!currentPrompt) {
-              regenerateStrat(currentPrompt);
-            }
-          }}
-          rightAdornment={
-            <ChatInputButton
-              running={isRegenerating}
-              message={currentPrompt}
-              handleSend={async () => {
-                if (currentPrompt) {
-                  await regenerateStrat(currentPrompt);
-                }
-              }}
-            />
-          }
-        />
-        <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
-          <p>
-            I&apos;ve evaluated the impact of Ethereum infrastructure projects
-            on the Gitcoin project registry and Optimism Retroactive Public
-            Funding, and have listed the top 10 most impactful projects below.
-            I&apos;ve also allotted a weighting for each to appropriately fund
-            each project.
-          </p>
-        </div>
-        <div className="space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4">
-          <div className="space-y-2">
-            <div>
-              <Dropdown
-                items={props.networks.filter((n) => n !== selectedNetwork)}
-                field={{ value: selectedNetwork }}
-                onChange={(newValue) => {
-                  if (props.networks.length === 1) {
-                    return;
+    <>
+      <div className="flex justify-center py-10 px-6 flex-grow flex-column">
+        <div className="flex flex-col gap-4 mx-auto max-w-wrapper w-full space-y-4">
+          <TextField
+            label="Results for"
+            value={currentPrompt}
+            onChange={(e) => setCurrentPrompt(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !!currentPrompt) {
+                regenerateStrat(currentPrompt);
+              }
+            }}
+            rightAdornment={
+              <ChatInputButton
+                running={isRegenerating}
+                message={currentPrompt}
+                handleSend={async () => {
+                  if (currentPrompt) {
+                    await regenerateStrat(currentPrompt);
                   }
-                  handleNetworkUpdate(newValue as NetworkName);
-                  setSelectedNetwork(newValue as NetworkName);
                 }}
               />
-            </div>
+            }
+          />
+          <div className="p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed">
+            <p>
+              Take a moment to review the allocation strategy and make
+              adjustments before moving forward with your donation. Be sure to
+              select a network you have funds on.
+            </p>
           </div>
-          <StrategyTable {...strategiesHandler} />
-        </div>
-        {wallet ? (
-          <div className="flex flex-wrap justify-between items-center w-full px-1">
-            <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
-              <div className="text-lg font-semibold">{`Funding ${selectedStrategiesLength} ${pluralize(
-                ["project", "projects"],
-                selectedStrategiesLength
-              )}`}</div>
-              <div className="text-xs text-subdued">
-                {"Please provide an amount you'd like to fund"}
+          <div className="space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4">
+            <div className="space-y-2">
+              <div className="flex-row">
+                <Dropdown
+                  items={props.networks.filter((n) => n !== selectedNetwork)}
+                  field={{ value: selectedNetwork }}
+                  onChange={(newValue) => {
+                    if (props.networks.length === 1) {
+                      return;
+                    }
+                    handleNetworkUpdate(newValue as NetworkName);
+                    setSelectedNetwork(newValue as NetworkName);
+                  }}
+                />
               </div>
             </div>
-            <div>
-              <TextField
-                error={
-                  balance && +balance < +amount
-                    ? `Insufficient ${selectedToken.name} balance`
-                    : ""
-                }
-                rightAdornment={
-                  <Dropdown
-                    items={tokens
-                      .filter((x) => x.name !== selectedToken.name)
-                      .map((x) => x.name)}
-                    field={{ value: selectedToken.name }}
-                    onChange={async (newToken) => await updateToken(newToken)}
-                  />
-                }
-                value={amount}
-                onBlur={updateWeights}
-                onKeyDown={(event: React.KeyboardEvent) => {
-                  if (event.key === "Enter" && amount !== "0") {
-                    updateWeights();
-                  }
-                }}
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  // Allow only numbers with optional single leading zero, and only one decimal point
-                  if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
-                    setAmount(newValue);
-                  } else {
-                    // Fix the value to remove the invalid characters, maintaining only one leading zero if present
-                    const fixedValue = newValue
-                      .replace(/[^0-9.]/g, "")
-                      .replace(/^0+(?=\d)/, "")
-                      .replace(/(\..*)\./g, "$1");
-                    setAmount(fixedValue);
-                  }
-                  if (balance) {
-                    setBalance(null);
-                  }
-                }}
-              />
-            </div>
-            <Button
-              disabled={selectedStrategiesLength === 0 || amount === "0"}
-              onClick={executeTransaction}
-            >
-              {isTransactionPending ? <LoadingCircle hideText /> : "Next →"}
-            </Button>
+            <StrategyTable {...strategiesHandler} />
           </div>
-        ) : (
-          <div className="flex flex-wrap justify-between items-center w-full px-1">
-            <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
-              <div className="text-lg font-semibold">
-                {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
+          {wallet ? (
+            <div className="flex flex-wrap justify-between items-center w-full px-1">
+              <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+                <div className="text-lg font-semibold">{`Funding ${selectedStrategiesLength} ${pluralize(
                   ["project", "projects"],
                   selectedStrategiesLength
-                )}`}
+                )}`}</div>
+                <div className="text-xs text-subdued">
+                  {"Please provide an amount you'd like to fund"}
+                </div>
               </div>
-              <div className="text-xs text-subdued">
-                {`Connect your wallet to fund ${pluralize(
-                  ["this project", "these projects"],
-                  selectedStrategiesLength
-                )}`}
+              <div>
+                <TextField
+                  error={
+                    balance && +balance < +amount
+                      ? `Insufficient ${selectedToken.name} balance`
+                      : ""
+                  }
+                  rightAdornment={
+                    <Dropdown
+                      items={tokens
+                        .filter((x) => x.name !== selectedToken.name)
+                        .map((x) => x.name)}
+                      field={{ value: selectedToken.name }}
+                      onChange={async (newToken) => await updateToken(newToken)}
+                    />
+                  }
+                  value={amount}
+                  onBlur={updateWeights}
+                  onKeyDown={(event: React.KeyboardEvent) => {
+                    if (event.key === "Enter" && amount !== "0") {
+                      updateWeights();
+                    }
+                  }}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    // Allow only numbers with optional single leading zero, and only one decimal point
+                    if (/^(0|[1-9]\d*)?(\.\d*)?$/.test(newValue)) {
+                      setAmount(newValue);
+                    } else {
+                      // Fix the value to remove the invalid characters, maintaining only one leading zero if present
+                      const fixedValue = newValue
+                        .replace(/[^0-9.]/g, "")
+                        .replace(/^0+(?=\d)/, "")
+                        .replace(/(\..*)\./g, "$1");
+                      setAmount(fixedValue);
+                    }
+                    if (balance) {
+                      setBalance(null);
+                    }
+                  }}
+                />
               </div>
+              <Button
+                disabled={selectedStrategiesLength === 0 || amount === "0"}
+                onClick={executeTransaction}
+              >
+                {isTransactionPending ? <LoadingCircle hideText /> : "Next →"}
+              </Button>
             </div>
-            <Button onClick={() => connect()}>{"Connect →"}</Button>
-          </div>
-        )}
+          ) : (
+            <div className="flex flex-wrap justify-between items-center w-full px-1">
+              <div className="flex flex-col w-full md:w-auto mb-2 md:mb-0">
+                <div className="text-lg font-semibold">
+                  {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
+                    ["project", "projects"],
+                    selectedStrategiesLength
+                  )}`}
+                </div>
+                <div className="text-xs text-subdued">
+                  {`Connect your wallet to fund ${pluralize(
+                    ["this project", "these projects"],
+                    selectedStrategiesLength
+                  )}`}
+                </div>
+              </div>
+              <Button onClick={() => connect()}>{"Connect →"}</Button>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      <Button
+        hierarchy="secondary"
+        onClick={() => window.open(tweetUrl, "__blank")}
+        className="!fixed !bottom-0 !right-0 !m-4"
+        type="submit"
+      >
+        <Share weight="bold" size={20} className="text-[currentColor]" />
+      </Button>
+    </>
   );
 }
