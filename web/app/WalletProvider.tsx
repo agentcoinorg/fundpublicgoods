@@ -14,7 +14,7 @@ const chains = [
     id: "0xa86a",
     token: "AVAX",
     label: "Avalanche",
-    rpcUrl: `https://avalanche-mainnet.infura.io/v3/1a8e6a8ab1df44ccb77d3e954082c5d4`,
+    rpcUrl: `https://avalanche-mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
   },
   {
     id: "0xa",
