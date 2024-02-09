@@ -139,11 +139,7 @@ export default function Strategy(props: {
         />
         <div className='p-8 bg-indigo-25 rounded-2xl border-2 border-indigo-200 border-dashed'>
           <p>
-            I&apos;ve evaluated the impact of Ethereum infrastructure projects
-            on the Gitcoin project registry and Optimism Retroactive Public
-            Funding, and have listed the top 10 most impactful projects below.
-            I&apos;ve also allotted a weighting for each to appropriately fund
-            each project.
+          Take a moment to review the allocation strategy and make adjustments before moving forward with your donation. Be sure to select a network you have funds on.
           </p>
         </div>
         <div className='space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4'>
