@@ -4,22 +4,24 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import { StrategyTable } from "./StrategyTable";
 import TextField from "./TextField";
-import { useConnectWallet } from "@web3-onboard/react";
+import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   NetworkName,
+  SUPPORTED_NETWORKS,
   TokenInformation,
   getTokensForNetwork,
 } from "@/utils/ethereum";
-import useWalletLogin from "@/hooks/useWalletLogin";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
 import {
   StrategiesWithProjects,
   useStrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
+import { useDonation } from "@/hooks/useDonation";
+import LoadingCircle from "./LoadingCircle";
 
 function Information(props: {
   title: string;
@@ -27,6 +29,7 @@ function Information(props: {
   onClick: () => void;
   action: string;
   disabled?: boolean;
+  loading?: boolean;
 }) {
   return (
     <div className="flex flex-wrap justify-between">
@@ -35,7 +38,7 @@ function Information(props: {
         <div className="text-xs text-subdued">{props.subtitle}</div>
       </div>
       <Button disabled={props.disabled} onClick={props.onClick}>
-        {props.action}
+        {props.loading ? <LoadingCircle hideText /> : props.action}
       </Button>
     </div>
   );
@@ -45,44 +48,61 @@ export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
   prompt: string;
   runId: string;
-  networks: NetworkName[]
+  networks: NetworkName[];
 }) {
-  const [selectedNetwork, setSelectedNetwork] =
-    useState<NetworkName>(props.networks[0]);
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
+    props.networks[0]
+  );
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [token, setToken] = useState<TokenInformation | undefined>(undefined);
 
+  const { execute: executeDonation, isTransactionPending } = useDonation();
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
     amount,
     selectedNetwork
   );
+  const [
+    { connectedChain },
+    setChain, // function to call to initiate user to switch chains in their wallet
+  ] = useSetChain();
   const [{ wallet }, connectWallet] = useConnectWallet();
-  const loginWithWallet = useWalletLogin();
   const { data: session } = useSession();
   const router = useRouter();
-  const pathname = usePathname();
   const tokens = getTokensForNetwork(selectedNetwork);
 
-  const {
-    strategies,
-    handleAmountUpdate,
-    handleNetworkUpdate,
-    prepareDonation,
-  } = strategiesHandler;
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } =
+    strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   async function connect() {
     await connectWallet();
-    await loginWithWallet();
   }
 
-  async function createFundingPlan() {
+  const executeTransaction = async () => {
+    const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
+
+    if (connectedChain && currentNetworkId !== +connectedChain.id) {
+      await setChain({ chainId: `0x${currentNetworkId.toString(16)}` })
+      return
+    }
     if (!token) return;
-    prepareDonation(token);
-    router.push(`${pathname}/transaction`);
-  }
+    const donations = strategies
+      .filter((x) => x.selected)
+      .map((strategy) => ({
+        amount: strategy.amount as string,
+        description: strategy.project.description as string,
+        title: strategy.project.title as string,
+        recipient: strategy.recipient,
+      }));
+
+    await executeDonation({
+      donations,
+      network: selectedNetwork,
+      token,
+    });
+  };
 
   async function regenerateStrat(prompt: string) {
     if (!session) {
@@ -196,9 +216,10 @@ export default function Strategy(props: {
               selectedStrategiesLength
             )}`}
             subtitle="Please provide an amount you'd like to fund"
-            action="Next →"
-            onClick={createFundingPlan}
+            action={"Next →"}
+            onClick={executeTransaction}
             disabled={selectedStrategiesLength === 0 || amount === "0"}
+            loading={isTransactionPending}
           />
         )}
       </div>

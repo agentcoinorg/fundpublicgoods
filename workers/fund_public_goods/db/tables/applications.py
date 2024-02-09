@@ -1,4 +1,4 @@
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 from fund_public_goods.db.entities import Applications
 
 

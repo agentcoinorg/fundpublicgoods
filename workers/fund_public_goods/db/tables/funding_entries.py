@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from uuid import UUID
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 
 
 @dataclass(kw_only=True)

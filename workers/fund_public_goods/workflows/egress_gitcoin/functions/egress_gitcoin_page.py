@@ -2,7 +2,14 @@ from typing import cast
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.workflows.egress_gitcoin.events import EgressGitcoinPageEvent
-from fund_public_goods.db.tables.gitcoin_egress import AppWithProject, get_application_range, upsert_application, stop_and_mark_job_as_failed, stop_job, update_job_progress, upsert_project
+from fund_public_goods.workflows.egress_gitcoin.upsert import upsert_application, upsert_project
+from fund_public_goods.db.tables.gitcoin_egress import (
+    AppWithProject,
+    get_application_range,
+    stop_and_mark_job_as_failed,
+    stop_job,
+    update_job_progress,
+)
 
 async def on_egress_gitcoin_page_failure(
     ctx: inngest.Context,

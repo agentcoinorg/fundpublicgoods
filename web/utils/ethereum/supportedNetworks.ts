@@ -6,10 +6,8 @@ export const SUPPORTED_NETWORKS = {
   Base: 8453,
   FantomOpera: 250,
   Sepolia: 11155111,
-  // TODO: Disperse contract is not deployed on these networks
-  // zkSync: 324,
-  // Avalanche: 43114,
-  // PGN: 424,
+  zkSync: 324,
+  Avalanche: 43114
 } as const;
 
 export type NetworkName = keyof typeof SUPPORTED_NETWORKS;
