@@ -21,6 +21,7 @@ import LoadingCircle from "./LoadingCircle";
 import { useToken } from "@/hooks/useToken";
 import ChatInputButton from "./ChatInputButton";
 import SuccessModal from "./SuccessModal";
+import { XLogo } from "./Icons";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -298,7 +299,7 @@ export default function Strategy(props: {
         className='!bg-white hover:!bg-indigo-50 !text-indigo-600 !fixed !bottom-0 !right-0 !m-4'
         type='submit'>
         <div>Share this strategy</div>
-        <Share weight='bold' size={16} className='text-[currentColor]' />
+        <XLogo size={16} className='text-[currentColor]' />
       </Button>
       <SuccessModal
         isOpen={showSuccessModal}

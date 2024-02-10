@@ -2,6 +2,7 @@ import { ArrowRight, Share } from "@phosphor-icons/react";
 import Button from "./Button";
 import Modal, { ModalProps } from "./ModalBase";
 import { SuccessAnimation } from "./SuccessAnimation";
+import { XLogo } from "./Icons";
 
 interface SuccessModalProps extends ModalProps {
   onShare: () => void;
@@ -70,17 +71,13 @@ const SuccessModal = ({
           Thank you! You&apos;re the reason we can have nice things.
         </div>
       </div>
-      <div className='flex items-center justify-between space-x-4 pt-4 border-t-2 border-indigo-100'>
+      <div className='flex items-center justify-center space-x-4 pt-4 border-t-2 border-indigo-100'>
         <Button
           onClick={onShare}
           className='!bg-white hover:!bg-indigo-50 !text-indigo-600'
           type='submit'>
           <div>Share this strategy</div>
-          <Share weight='bold' size={16} className='text-[currentColor]' />
-        </Button>
-        <Button onClick={() => (window.location.href = "/")}>
-          <div>Fund More Projects</div>
-          <ArrowRight weight='bold' />
+          <XLogo size={16} className='text-[currentColor]' />
         </Button>
       </div>
       <div className='opacity-0 transform-center absolute inset-0 sparkles-wrapper'>
