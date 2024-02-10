@@ -29,7 +29,7 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
 
   const defaultContentStyles = clsx(
     "bg-white [scrollbar-gutter:stable] rounded-b-2xl",
-    contentStyles?.padding ? contentStyles?.padding : "p-6 pr-[1.5rem]",
+    contentStyles?.padding ? contentStyles?.padding : "p-4 sm:p-6 pr-[1.5rem]",
     contentStyles?.["max-h"]
       ? contentStyles?.["max-h"]
       : "max-h-[calc(100vh-102px)] md:max-h-[calc(100vh-108px)]",
@@ -60,7 +60,7 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
                   onClick={(e) => {
                     e.stopPropagation();
                   }}>
-                  <div className='flex items-start justify-between px-6 pt-6 pb-3'>
+                  <div className='flex items-start justify-between px-4 sm:px-6 pt-4 sm:pt-6 pb-3 pr-8'>
                     <Dialog.Title className='text-base font-bold w-full'>
                       {title}
                     </Dialog.Title>

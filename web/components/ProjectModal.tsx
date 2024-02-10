@@ -96,7 +96,7 @@ const ProjectModal = ({
       isOpen={isOpen}
       title={<ProjectModalTitle title={title} strategy={strategy} />}
       onClose={onClose}
-      contentStyles={{ padding: "p-6 pt-0" }}>
+      contentStyles={{ padding: "p-4 sm:p-6 pt-0" }}>
       {strategy && (
         <div className='space-y-4'>
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
@@ -137,10 +137,10 @@ const ProjectModal = ({
                 <div
                   className='rounded-md p-1.5 border border-indigo-300 bg-white leading-none space-y-1.5 w-full'
                   key={i}>
-                  <div className='text-[8px] text-indigo-400 uppercase tracking-wider leading-none'>
+                  <div className='text-[10px] text-indigo-400 uppercase sm:tracking-wider leading-none'>
                     {item.category}
                   </div>
-                  <div className='text-xs'>
+                  <div className='text-sm'>
                     {((item.value as number) * 10).toFixed(2)}
                     <span className='text-[10px] text-indigo-400 leading-none'>
                       /10
@@ -151,7 +151,7 @@ const ProjectModal = ({
             </div>
             <div
               className={clsx(
-                "text-[10px] leading-normal",
+                "text-sm leading-normal",
                 !scoreExpanded && "line-clamp-2"
               )}>
               {strategy?.reasoning}
@@ -162,7 +162,7 @@ const ProjectModal = ({
             <div className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
               <h2 className='text-sm font-bold leading-none'>Report</h2>
             </div>
-            <div className={clsx("text-[10px] leading-normal")}>
+            <div className={clsx("text-sm leading-normal")}>
               <div className='prose prose-xs'>
                 <ReactMarkdown>{strategy?.report}</ReactMarkdown>
               </div>

@@ -115,28 +115,29 @@ const config: Config = {
         },
         xs: {
           css: {
-            fontSize: "10px",
+            fontSize: "14px",
             lineHeight: "150%",
             p: {
-              fontSize: "10px",
+              fontSize: "14px",
               lineHeight: "150%",
             },
             h1: {
               marginTop: "0.5rem",
               marginBottom: "0.5rem",
               fontSize: "1rem",
+              display: "none",
               lineHeight: "120%",
             },
             h2: {
               marginTop: "0.5rem",
               marginBottom: "0.5rem",
-              fontSize: "0.75rem",
+              fontSize: "1rem",
               lineHeight: "120%",
             },
             h3: {
               marginTop: "0.5rem",
               marginBottom: "0.5rem",
-              fontSize: "0.75rem",
+              fontSize: "0.8rem",
               lineHeight: "120%",
             },
             h4: {

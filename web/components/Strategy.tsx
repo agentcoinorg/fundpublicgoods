@@ -271,7 +271,7 @@ export default function Strategy(props: {
               ) : (
                 <>
                   <div className='flex flex-col w-full md:w-auto mb-2 md:mb-0'>
-                    <div className='text-lg font-semibold'>
+                    <div className='text-sm sm:text-lg font-semibold'>
                       {`${selectedStrategiesLength} ${props.prompt} ${pluralize(
                         ["project", "projects"],
                         selectedStrategiesLength
@@ -296,10 +296,10 @@ export default function Strategy(props: {
       </div>
       <Button
         onClick={() => window.open(tweetUrl, "__blank")}
-        className='!bg-white hover:!bg-indigo-50 !text-indigo-600 !fixed !bottom-0 !right-0 !m-4'
+        className='!bg-white hover:!bg-indigo-50 !text-indigo-600 !fixed !bottom-0 !right-0 !m-4 !p-3 sm:py-2 sm:px-6'
         type='submit'>
-        <div>Share this strategy</div>
-        <XLogo size={16} className='text-[currentColor]' />
+        <div className='max-sm:!hidden'>Share this strategy</div>
+        <XLogo size={16} className='text-[currentColor] max-sm:!ml-0' />
       </Button>
       <SuccessModal
         isOpen={showSuccessModal}
