@@ -21,7 +21,7 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
-      <div className='font-regular flex gap-x-[2px] text-[10px] text-indigo-800/70'>
+      <div className='font-regular flex gap-x-[2px] text-[12px] text-indigo-800/70'>
         <span>a web3 agent by</span>
         <a
           className='underline font-semibold'
