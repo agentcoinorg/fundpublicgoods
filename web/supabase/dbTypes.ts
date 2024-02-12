@@ -228,7 +228,6 @@ export interface Database {
           impact: number | null
           interest: number | null
           project_id: string
-          reasoning: string | null
           report: string | null
           run_id: string
           smart_ranking: number | null
@@ -241,7 +240,6 @@ export interface Database {
           impact?: number | null
           interest?: number | null
           project_id: string
-          reasoning?: string | null
           report?: string | null
           run_id: string
           smart_ranking?: number | null
@@ -254,7 +252,6 @@ export interface Database {
           impact?: number | null
           interest?: number | null
           project_id?: string
-          reasoning?: string | null
           report?: string | null
           run_id?: string
           smart_ranking?: number | null
