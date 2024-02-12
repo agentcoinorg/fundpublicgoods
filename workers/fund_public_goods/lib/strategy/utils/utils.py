@@ -1,36 +1,39 @@
 from typing import Optional
-from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.db.entities import Projects
+
+from fund_public_goods.lib.strategy.models.answer import Answer
 
 
-def stringify_projects(projects: list[Project], separator: str) -> str:
+def stringify_projects(projects: list[tuple[Projects, list[Answer]]], separator: str) -> str:
     project_strings = []
 
     for i in range(len(projects)):
-        project_str = get_project_text(project=projects[i], index=i)
+        project_str = get_project_text(projects[i], i)
         project_strings.append(project_str)
 
     return separator.join(project_strings)
 
 
-def get_project_text(project: Project, index: Optional[int] = None) -> str:
+def get_project_text(project_with_answers: tuple[Projects, list[Answer]], index: Optional[int] = None) -> str:
+    (project, answers) = project_with_answers
     id_to_use = index if index is not None else project.id
     result = f"ID: {id_to_use} - Description: {project.description}\n"
 
-    for answer in project.answers:
+    for answer in answers:
         result += f"  Question: {answer.question}\n"
         result += f"  Answer: {answer.answer}\n"
 
     return result
 
 
-def remove_duplicate_projects(projects: list[Project]) -> list[Project]:
+def remove_duplicate_projects(projects: list[tuple[Projects, list[Answer]]]) -> list[tuple[Projects, list[Answer]]]:
     seen = {}
     unique_projects = []
 
     for project in projects:
-        if project.id not in seen:
+        if project[0].id not in seen:
             unique_projects.append(project)
-            seen[project.id] = True
+            seen[project[0].id] = True
 
     return unique_projects
 

@@ -1,7 +1,10 @@
 import Disclaimer from "@/components/Disclaimer";
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
-import { StrategiesWithProjects, Application } from "@/hooks/useStrategiesHandler";
+import {
+  StrategiesWithProjects,
+  Application,
+} from "@/hooks/useStrategiesHandler";
 import TextField from "@/components/TextField";
 import { getNetworkNameFromChainId, NetworkName } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
@@ -54,10 +57,10 @@ export default async function StrategyPage({
   const strategyCreated = checkIfFinished(run.data.logs);
   if (!strategyCreated) {
     return (
-      <div className="w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-16">
-        <div className="w-full max-w-sm space-y-8">
-          <div className="flex flex-col gap-2">
-            <TextField label="Results for" value={run.data.prompt} readOnly />
+      <div className='w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-6'>
+        <div className='w-full max-w-screen-sm space-y-8'>
+          <div className='flex flex-col gap-2'>
+            <TextField label='Results for' value={run.data.prompt} readOnly />
           </div>
           <RealtimeLogs
             logs={run.data.logs}
@@ -72,8 +75,9 @@ export default async function StrategyPage({
   const data = run.data.strategy_entries as unknown as StrategiesWithProjects;
 
   const recipientInformation = data.map((s) => {
-    const applications = s.project.applications
-      .sort((a, b) => a.created_at - b.created_at);
+    const applications = s.project.applications.sort(
+      (a, b) => a.created_at - b.created_at
+    );
 
     const appsByNetwork: Partial<Record<NetworkName, Application>> = {};
     applications.forEach((app) => {
@@ -85,8 +89,8 @@ export default async function StrategyPage({
 
     return {
       networks: Object.keys(appsByNetwork) as NetworkName[],
-      recipients: Object.values(appsByNetwork).map((x) => x.recipient)
-    }
+      recipients: Object.values(appsByNetwork).map((x) => x.recipient),
+    };
   });
   const strategies = data
     .map((strategy, i) => {
@@ -98,10 +102,10 @@ export default async function StrategyPage({
       };
     })
     .sort((a, b) => (b.smart_ranking || 0) - (a.smart_ranking || 0));
-  
+
   const uniqueNetworks = Array.from(
     new Set(strategies.map((x) => x.networks).flat())
-  )
+  );
   return (
     <Strategy
       fetchedStrategies={strategies}

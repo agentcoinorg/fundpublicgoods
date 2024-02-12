@@ -118,7 +118,8 @@ class Projects(BaseModel):
     id: str
     updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
-    description: Optional[str] = None
+    description: str
+    short_description: Optional[str] = Field(..., alias="shortDescription")
     website: Optional[str] = None
     logo: Optional[str] = None
     twitter: Optional[str] = None
@@ -161,7 +162,6 @@ class StrategyEntries(BaseModel):
     run_id: UUID = Field(..., alias="runId")
     project_id: str = Field(..., alias="projectId")
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
-    reasoning: Optional[str] = None
     impact: Optional[float] = None
     interest: Optional[float] = None
     weight: Optional[float] = None

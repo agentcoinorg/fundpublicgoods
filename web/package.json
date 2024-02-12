@@ -22,6 +22,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@web3-onboard/injected-wallets": "^2.10.11",
     "@web3-onboard/react": "^2.8.13",
+    "@web3-onboard/walletconnect": "^2.5.3",
     "clsx": "^2.1.0",
     "ethers": "5.7.2",
     "jsonwebtoken": "^9.0.2",

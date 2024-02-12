@@ -166,6 +166,7 @@ export interface Database {
           description: string | null
           id: string
           logo: string | null
+          short_description: string | null
           title: string | null
           twitter: string | null
           updated_at: number
@@ -175,6 +176,7 @@ export interface Database {
           description?: string | null
           id: string
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at: number
@@ -184,6 +186,7 @@ export interface Database {
           description?: string | null
           id?: string
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at?: number
@@ -228,7 +231,6 @@ export interface Database {
           impact: number | null
           interest: number | null
           project_id: string
-          reasoning: string | null
           report: string | null
           run_id: string
           smart_ranking: number | null
@@ -241,7 +243,6 @@ export interface Database {
           impact?: number | null
           interest?: number | null
           project_id: string
-          reasoning?: string | null
           report?: string | null
           run_id: string
           smart_ranking?: number | null
@@ -254,7 +255,6 @@ export interface Database {
           impact?: number | null
           interest?: number | null
           project_id?: string
-          reasoning?: string | null
           report?: string | null
           run_id?: string
           smart_ranking?: number | null

@@ -43,7 +43,6 @@ async def runs(background_tasks: BackgroundTasks, params: Params, authorization:
         prompt=prompt
     ), db)
     initialize_logs(run_id)
-
     background_tasks.add_task(run, run_id, authorization)
 
     return Response(run_id=run_id)
