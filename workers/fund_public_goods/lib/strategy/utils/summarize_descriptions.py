@@ -1,4 +1,4 @@
-from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.db.entities import Projects
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
@@ -14,7 +14,7 @@ Description: {description}
 """
 
 
-def summarize_descriptions(projects: list[Project]) -> list[Project]:
+def summarize_descriptions(projects: list[Projects]) -> list[Projects]:
     summarize_prompt = ChatPromptTemplate.from_messages([
         ("system", summarize_prompt_template),
     ])
@@ -26,7 +26,7 @@ def summarize_descriptions(projects: list[Project]) -> list[Project]:
         "description": project.description
     } for project in projects])
     
-    projects_with_summaries = [Project(
+    projects_with_summaries = [Projects(
         **projects[i].model_dump(),
         shortDescription=summarized_descriptions[i]
     ) for i in range(len(summarized_descriptions))]

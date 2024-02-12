@@ -118,6 +118,7 @@ class Projects(BaseModel):
     id: str
     updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
+    description: str
     short_description: Optional[str] = Field(..., alias="shortDescription")
     impact: Optional[float] = None
     funding_needed: Optional[float] = Field(..., alias="fundingNeeded")

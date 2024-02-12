@@ -1,6 +1,5 @@
 from typing import Any, Dict
 from fund_public_goods.lib.strategy.models.answer import Answer
-from fund_public_goods.lib.strategy.models.project import Project
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
 from fund_public_goods.db.app_db import create_admin
@@ -31,8 +30,28 @@ def upsert(
         "description": row.description,
         "website": row.website,
         "twitter": row.twitter,
+        "short_description": row.short_description,
+        "impact": row.impact,
+        "funding_needed": row.funding_needed,
         "logo": row.logo
     }).execute()
+    
+def upsert_multiple(
+    rows: list[Projects]
+):
+    db = create_admin()
+    db.table("projects").upsert([{
+        "id": row.id,
+        "updated_at": row.updated_at,
+        "title": row.title,
+        "description": row.description,
+        "website": row.website,
+        "twitter": row.twitter,
+        "short_description": row.short_description,
+        "impact": row.impact,
+        "funding_needed": row.funding_needed,
+        "logo": row.logo
+    } for row in rows]).execute()
 
 def get(
     project_id: str
@@ -50,7 +69,7 @@ def get(
 
     return Projects(
         id=data["id"],
-        updated_at=data["updated_at"],
+        updatedAt=data["updated_at"],
         title=data["title"],
         description=data["description"],
         website=data["website"],
@@ -71,10 +90,10 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
         .execute()
     )
 
-def fetch_projects_data() -> list[Project]:
+def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
     response = get_projects()
     
-    projects: list[Project] = []
+    projects_with_answers: list[tuple[Projects, list[Answer]]] = []
 
     for item in response.data:
         answers: list[Answer] = []
@@ -89,19 +108,19 @@ def fetch_projects_data() -> list[Project]:
         # Remove all None values
         project_data = {k: v for k, v in item.items() if v is not None}
 
-        project = Project(
+        project = Projects(
             id=project_data.get("id", ""),
             title=project_data.get("title", ""),
             description=project_data.get("description", ""),
+            updatedAt=project_data.get("updated_at", None),
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
-            answers=answers,
             shortDescription=project_data.get("short_description", None),
             fundingNeeded=project_data.get("funding_needed", None),
             impact=project_data.get("impact", None),
         )
         
-        projects.append(project)
+        projects_with_answers.append((project, answers))
 
-    return projects
+    return projects_with_answers
