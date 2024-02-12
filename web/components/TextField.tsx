@@ -77,10 +77,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className={clsx("space-y-px", { "w-full": type !== "checkbox" })}
-      >
+        className={clsx("space-y-px", { "w-full": type !== "checkbox" })}>
         {label && (
-          <label className="text-xs text-subdued font-medium leading-none">
+          <label className='text-xs text-subdued font-medium leading-none'>
             {label}
           </label>
         )}
@@ -93,8 +92,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               { indeterminate: checkStatus === "indeterminate" },
               className
             )}
-            onClick={handleCheck}
-          >
+            onClick={handleCheck}>
             <div
               className={clsx("checkmark", {
                 hidden: checkStatus !== "checked",
@@ -107,20 +105,19 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             />
           </div>
         ) : (
-          <div className="relative w-full group">
+          <div className='relative w-full group'>
             {leftAdornment && (
               <div
                 className={clsx(
                   "absolute left-4 top-1/2 -translate-y-1/2 transform",
                   leftAdornmentClassnames
-                )}
-              >
+                )}>
                 {leftAdornment}
               </div>
             )}
             <input
               className={clsx(
-                "w-full rounded-xl border-2 border-indigo-200 group-hover:border-indigo-500 focus:bg-indigo-50 bg-indigo-100 px-4 py-3 text-sm text-indigo-800 outline-none transition-all duration-500 ease-in-out placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20",
+                "w-full rounded-xl border-2 border-indigo-200 group-hover:border-indigo-500 focus:bg-indigo-50 bg-indigo-white px-4 py-3 text-sm text-indigo-800 outline-none transition-all duration-500 ease-in-out placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20",
                 props.disabled
                   ? "cursor-default opacity-50"
                   : "cursor-text group-hover:border-indigo-600 group-hover:bg-indigo-50",
@@ -136,16 +133,15 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {rightAdornment && (
               <div
                 className={clsx(
-                  "absolute right-4 top-1/2 -translate-y-1/2 transform",
+                  "absolute right-2 top-1/2 -translate-y-1/2 transform",
                   rightAdornmentClassnames
-                )}
-              >
+                )}>
                 {rightAdornment}
               </div>
             )}
           </div>
         )}
-        {error && <div className="text-xs text-red-500">{error}</div>}
+        {error && <div className='text-xs text-red-500'>{error}</div>}
       </div>
     );
   }

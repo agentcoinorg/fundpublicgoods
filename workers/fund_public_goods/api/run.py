@@ -46,7 +46,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         logs = cast(list[Logs], logs_res)
 
         for log in logs:
-            if log.status != StepStatus.NOT_STARTED:
+            if log.step_name != StepName.FETCH_PROJECTS and log.status != StepStatus.NOT_STARTED:
                 raise HTTPException(status_code=400, detail="RunId has already been run.")
 
         log_ids: dict[StepName, str] = {
@@ -54,12 +54,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         }
 
         prompt = get_prompt(run_id)
-
-        tables.logs.update(
-            status=StepStatus.IN_PROGRESS,
-            log_id=log_ids[StepName.FETCH_PROJECTS],
-            value=None,
-        )
 
         json_projects = fetch_matching_projects(prompt)
 
