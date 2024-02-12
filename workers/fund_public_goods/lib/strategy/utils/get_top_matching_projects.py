@@ -29,7 +29,7 @@ User's prompt: {prompt}
 
 Projects: {projects}
 
-Return the Project's full ID (example: 137:0x...:2) and only the IDs, separated by commas.
+Return the Project's ID and only the IDs, separated by commas.
 """
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
