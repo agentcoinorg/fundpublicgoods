@@ -10,7 +10,6 @@ def insert(
     db.table("strategy_entries").insert({
         "run_id": str(row.run_id),
         "project_id": row.project_id,
-        "reasoning": row.reasoning,
         "impact": row.impact,
         "interest": row.interest,
         "weight": row.weight,
@@ -23,7 +22,6 @@ def insert_multiple(run_id: str, strategies: list[WeightedProject]) -> None:
         [
             {
                 "run_id": run_id,
-                "reasoning": entry.scores.reasoning,
                 "weight": entry.weight,
                 "impact": entry.scores.impact,
                 "interest": entry.scores.prompt_match,

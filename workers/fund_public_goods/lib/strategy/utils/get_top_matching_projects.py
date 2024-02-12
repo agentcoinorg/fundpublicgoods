@@ -3,9 +3,8 @@ from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.utils import stringify_projects
+from fund_public_goods.lib.strategy.utils.utils import get_project_text, stringify_projects
 from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
-from fund_public_goods.lib.strategy.utils.utils import get_project_text, remove_duplicate_projects
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
@@ -23,9 +22,14 @@ return them exactly as written.
 
 Ranked from best matching to worst matching.
 
+Consider that each project's information is self reported, it may include buzzwords to seem
+relevant, but in reality it isn't.
+
 User's prompt: {prompt}
 
 Projects: {projects}
+
+Return the Project's ID and only the IDs, separated by commas.
 """
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
@@ -63,15 +67,35 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
 
     return reranked_projects
 
+def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
+    unique_ids = set()
+    result_ids: list[str] = []
+    query_order = list(data.keys())
+    max_length = max(len(ids) for ids in data.values())
+    
+    for i in range(max_length):
+        for query in query_order:
+            if len(result_ids) >= n:
+                break
+            ids = data[query]
+            if i < len(ids) and ids[i] not in unique_ids:
+                unique_ids.add(ids[i])
+                result_ids.append(ids[i])
+                
+        if len(result_ids) >= n:
+            break
+    
+    return result_ids
 
 def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
     projects_by_id = {project.id: project for project in projects}
-    queries = generate_queries(prompt=prompt, n=5)
+    queries = [prompt] + generate_queries(prompt=prompt, n=3)
+    
     texts: list[str] = []
     metadatas: list[dict] = []
       
     for project in projects:
-        project_text = get_project_text(project=project)
+        project_text = f"ID: {project.id} - Description: {project.description}\n"
         texts.append(project_text)
         metadatas.append({ "id": project["id"] })
     
@@ -84,16 +108,18 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         collection_name="projects"
     )
     
-    top_matches: list[Project] = []
+    query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = collection.similarity_search(query, k=5)
+        matches = collection.similarity_search(query, k=100)
+        query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
         
-        for match in matches:
-            matched_project = projects_by_id[match.metadata["id"]]
-            top_matches.append(matched_project)
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
     
-    unique_projects = remove_duplicate_projects(top_matches)
-    reranked_projects = rerank_top_projects(prompt=prompt, projects=unique_projects)
+    matched_projects = [projects_by_id[id] for id in unique_ids]
+    
+    print([p.title for p in matched_projects])
+            
+    reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     
     return reranked_projects

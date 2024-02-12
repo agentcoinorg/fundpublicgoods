@@ -9,7 +9,7 @@ import {
   splitTransferFunds,
 } from "@/utils/ethereum";
 import { useState } from "react";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 
 export interface FundingEntry {
   network: NetworkName;

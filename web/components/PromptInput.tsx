@@ -14,8 +14,7 @@ const PromptInput = ({
   setPrompt,
   isWaiting,
   sendPrompt,
-  prompt,
-  ...props
+  prompt
 }: PromptInputProps) => {
   return (
     <TextField

@@ -4,19 +4,24 @@ interface LoadingCircleProps {
   strokeWidth?: number;
   className?: string;
   hideText?: boolean;
+  color?: "white";
 }
 
 const LoadingCircle = ({
   strokeWidth = 12,
   className,
   hideText,
+  color,
 }: LoadingCircleProps) => {
   return (
     <div role='status'>
       <svg
         aria-hidden='true'
         className={clsx(
-          "flex h-4 w-4 animate-spin stroke-indigo-500 text-indigo-500/30",
+          "flex h-4 w-4 animate-spin",
+          color === "white"
+            ? "stroke-white text-white/30"
+            : "stroke-indigo-500 text-indigo-500/30",
           className
         )}
         width='100'
