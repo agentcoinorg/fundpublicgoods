@@ -95,6 +95,7 @@ export default function Strategy(props: {
       await setChain({ chainId: `0x${currentNetworkId.toString(16)}` });
       return;
     }
+
     if (!selectedToken || !wallet) return;
 
     const balance = await getBalance(wallet, selectedToken);

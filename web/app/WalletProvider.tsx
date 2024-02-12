@@ -2,6 +2,7 @@
 
 import { Web3OnboardProvider, init } from "@web3-onboard/react";
 import injectedModule from "@web3-onboard/injected-wallets";
+import walletConnectModule from '@web3-onboard/walletconnect'
 
 const chains = [
   {
@@ -59,20 +60,30 @@ const chains = [
     rpcUrl: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID}`,
   },
 ];
-const wallets = [injectedModule()];
+
+const wcInitOptions = {
+  projectId: "27ffc5ef94e56f73c8a90145e09b407c",
+  requiredChains: [1],
+  optionalChains: [137, 42161, 8453, 10, 250, 11155111, 324, 43114],
+  dappUrl: "https://fundpublicgoods.ai"
+};
+const walletConnect = walletConnectModule(wcInitOptions)
+const wallets = [injectedModule(), walletConnect];
+
 const web3Onboard = init({
   wallets,
   chains,
   appMetadata: {
     name: "Fund Public Goods",
     icon: "<svg>App Icon</svg>",
-    description: "cool description",
+    description: "Fund public goods",
   },
   accountCenter: {
     desktop: { enabled: false },
     mobile: { enabled: false },
   },
 });
+
 
 export default function WalletProvider({
   children,
