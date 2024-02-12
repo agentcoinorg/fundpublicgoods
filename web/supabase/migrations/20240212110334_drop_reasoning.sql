@@ -1,0 +1,1 @@
+alter table "public"."strategy_entries" drop column "reasoning";
