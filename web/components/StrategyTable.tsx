@@ -115,7 +115,7 @@ export function StrategyTable(props: StrategiesHandler) {
                     <div className="space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]">
                       <div className="line-clamp-1">{entry.project.title}</div>
                       <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
-                        {entry.project.description}
+                        {entry.project.short_description}
                       </div>
                     </div>
                   </div>
