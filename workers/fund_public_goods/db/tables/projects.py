@@ -65,12 +65,12 @@ def get(
 
     return Projects(
         id=data["id"],
-        updatedAt=data["updated_at"],
+        updated_at=data["updated_at"],
         title=data["title"],
         description=data["description"],
         website=data["website"],
         twitter=data["twitter"],
-        shortDescription=data["short_description"],
+        short_description=data["short_description"],
         logo=data["logo"]
     )
 
@@ -106,11 +106,11 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             id=project_data.get("id", ""),
             title=project_data.get("title", ""),
             description=project_data.get("description", ""),
-            updatedAt=project_data.get("updated_at", None),
+            updated_at=project_data.get("updated_at", None),
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
-            shortDescription=project_data.get("short_description", None)
+            short_description=project_data.get("short_description", None)
         )
         
         projects_with_answers.append((project, answers))
