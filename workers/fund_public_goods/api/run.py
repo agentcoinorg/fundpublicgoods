@@ -109,10 +109,13 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         )
         
         projects = [project for (project, _) in projects_with_answers]
+        projects_without_short_desc = [p for p in projects if not p.short_description]
+        projects_with_short_desc = [p for p in projects if p.short_description]
+
+        if len(projects_without_short_desc) > 0:
+            projects_with_short_desc += summarize_descriptions(projects_without_short_desc)
         
-        projects_with_summarized_descriptions = summarize_descriptions(projects)
-        
-        upsert_multiple(projects_with_summarized_descriptions)
+        upsert_multiple(projects_with_short_desc)
 
         insert_multiple(run_id, weighted_projects)
         
