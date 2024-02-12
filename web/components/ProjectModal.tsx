@@ -79,17 +79,6 @@ const ProjectModal = ({
   onClose,
   strategy,
 }: ProjectModalProps) => {
-  const MAX_LENGTH = 500;
-
-  const [scoreExpanded, setScoreExpanded] = useState<boolean>(false);
-
-  let shortScore = !!((strategy?.reasoning?.length ?? 0) < MAX_LENGTH);
-  let shortReport = !!((strategy?.report?.length ?? 0) < MAX_LENGTH);
-
-  useEffect(() => {
-    shortScore = !!((strategy?.reasoning?.length ?? 0) < MAX_LENGTH);
-    setScoreExpanded(shortScore);
-  }, [strategy?.reasoning]);
 
   return (
     <Modal
@@ -101,9 +90,6 @@ const ProjectModal = ({
         <div className='space-y-4'>
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
             <div
-              onClick={
-                !shortScore ? () => setScoreExpanded(!scoreExpanded) : undefined
-              }
               className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
               <div className='flex items-center space-x-2'>
                 <h2 className='text-sm font-bold leading-none'>Score</h2>
@@ -111,16 +97,6 @@ const ProjectModal = ({
                   <Score rank={strategy.smart_ranking || 0.0} small />
                 </div>
               </div>
-              {!shortScore && (
-                <CaretRight
-                  size={16}
-                  weight='bold'
-                  className={clsx(
-                    "transform transition-transform duration-300 group-hover:text-indigo-500 cursor-pointer",
-                    scoreExpanded && "-rotate-90"
-                  )}
-                />
-              )}
             </div>
             <div className='grid gap-2 grid-cols-3 items-center'>
               {[
@@ -148,13 +124,6 @@ const ProjectModal = ({
                   </div>
                 </div>
               ))}
-            </div>
-            <div
-              className={clsx(
-                "text-sm leading-normal",
-                !scoreExpanded && "line-clamp-2"
-              )}>
-              {strategy?.reasoning}
             </div>
           </div>
 
