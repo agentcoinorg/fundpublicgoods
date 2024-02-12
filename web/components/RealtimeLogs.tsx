@@ -14,6 +14,7 @@ import {
   STEPS_ORDER,
   STEP_TIME_ESTS,
 } from "@/utils/logs";
+import TimeRemaining from "./TimeRemaining";
 
 const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
@@ -84,7 +85,7 @@ export default function RealtimeLogs(props: {
 
   return (
     <div className='space-y-2'>
-      <div className='text-subdued text-[10px]'>Estimated time: 1 minute</div>
+      <TimeRemaining stepTimes={stepTimes} curStep={currentStep} />
       <ProgressBar
         stepTimes={stepTimes}
         curStep={currentStep}
