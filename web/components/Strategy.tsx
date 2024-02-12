@@ -7,7 +7,7 @@ import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { pluralize } from "@/app/lib/utils/pluralize";
-import { ArrowRight, Share } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import { NetworkName, SUPPORTED_NETWORKS } from "@/utils/ethereum";
 import useSession from "@/hooks/useSession";
@@ -145,12 +145,6 @@ export default function Strategy(props: {
     setIsRegenerating(false);
   }
 
-  function updateWeights() {
-    if (amount !== "0") {
-      handleAmountUpdate(amount);
-    }
-  }
-
   return (
     <>
       <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
@@ -227,12 +221,6 @@ export default function Strategy(props: {
                           />
                         }
                         value={amount !== "0" ? amount : undefined}
-                        onBlur={updateWeights}
-                        onKeyDown={(event: React.KeyboardEvent) => {
-                          if (event.key === "Enter" && amount !== "0") {
-                            updateWeights();
-                          }
-                        }}
                         onChange={(e) => {
                           const newValue = e.target.value;
                           // Allow only numbers with optional single leading zero, and only one decimal point
@@ -246,6 +234,9 @@ export default function Strategy(props: {
                               .replace(/(\..*)\./g, "$1");
                             setAmount(fixedValue);
                           }
+                          if (newValue !== "0") {
+                            handleAmountUpdate(newValue);
+                          }
                           if (balance) {
                             setBalance(null);
                           }
@@ -254,7 +245,7 @@ export default function Strategy(props: {
                     </div>
                     <Button
                       disabled={
-                        selectedStrategiesLength === 0 || amount === "0"
+                        selectedStrategiesLength === 0 || amount === "0" || amount === ""
                       }
                       onClick={executeTransaction}>
                       {isTransactionPending ? (
