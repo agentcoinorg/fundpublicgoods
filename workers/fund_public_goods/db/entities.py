@@ -120,8 +120,6 @@ class Projects(BaseModel):
     title: Optional[str] = None
     description: str
     short_description: Optional[str] = Field(..., alias="shortDescription")
-    impact: Optional[float] = None
-    funding_needed: Optional[float] = Field(..., alias="fundingNeeded")
     website: Optional[str] = None
     logo: Optional[str] = None
     twitter: Optional[str] = None

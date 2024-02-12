@@ -31,8 +31,6 @@ def upsert(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
-        "impact": row.impact,
-        "funding_needed": row.funding_needed,
         "logo": row.logo
     }).execute()
     
@@ -48,8 +46,6 @@ def upsert_multiple(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
-        "impact": row.impact,
-        "funding_needed": row.funding_needed,
         "logo": row.logo
     } for row in rows]).execute()
 
@@ -58,7 +54,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "short_description", "funding_needed", "impact", "website", "twitter", "logo")
+        .select("id", "updated_at", "title", "description", "short_description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -75,8 +71,6 @@ def get(
         website=data["website"],
         twitter=data["twitter"],
         shortDescription=data["short_description"],
-        fundingNeeded=data["funding_needed"],
-        impact=data["impact"],
         logo=data["logo"]
     )
 
@@ -85,7 +79,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, short_description, funding_needed, impact, twitter, logo, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, short_description, twitter, logo, applications(id, recipient, round, answers)"
         )
         .execute()
     )
@@ -116,9 +110,7 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
-            shortDescription=project_data.get("short_description", None),
-            fundingNeeded=project_data.get("funding_needed", None),
-            impact=project_data.get("impact", None),
+            shortDescription=project_data.get("short_description", None)
         )
         
         projects_with_answers.append((project, answers))
