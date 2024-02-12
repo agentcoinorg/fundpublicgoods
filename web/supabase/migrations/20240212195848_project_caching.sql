@@ -1,1 +1,1 @@
-alter table "public"."projects" add column "description_short" text;
+alter table "public"."projects" add column "short_description" text;
