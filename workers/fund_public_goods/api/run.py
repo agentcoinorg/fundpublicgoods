@@ -93,7 +93,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             value=None,
         )
 
-        project_scores = score_projects(projects_with_reports)
+        project_scores = score_projects(projects_with_reports, prompt)
         
         weighted_projects = calculate_weights(projects_with_reports, project_scores)
         

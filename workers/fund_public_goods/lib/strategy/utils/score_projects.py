@@ -37,12 +37,14 @@ You will return a single JSON object:
 
 Do not include any other contents in your response. Always use snake case. All fields are required
 
+User prompt: {prompt}
+
 Project report:
 
 {report}
 """
 
-def score_projects(projects_with_report: list[tuple[Project, str]]) -> list[ProjectScores]:
+def score_projects(projects_with_report: list[tuple[Project, str]], prompt: str) -> list[ProjectScores]:
     reports = [f"Project ID: {project.id}\n\n{report}" for (project, report) in projects_with_report]
     
     score_projects_prompt = ChatPromptTemplate.from_messages([
@@ -54,7 +56,8 @@ def score_projects(projects_with_report: list[tuple[Project, str]]) -> list[Proj
     scoring_chain = score_projects_prompt | llm | JsonOutputParser()
     
     raw_scored_projects = scoring_chain.batch([{
-        "report": report
+        "report": report,
+        "prompt": prompt
     } for report in reports ])
     
     scored_projects: list[ProjectScores] = []
