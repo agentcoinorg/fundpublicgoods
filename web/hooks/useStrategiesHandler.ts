@@ -49,8 +49,8 @@ export function useStrategiesHandler(
     return {
       ...s,
       weight: weights[i],
-      disabled: !s.networks.includes(networkName),
-      selected: s.networks.includes(networkName),
+      disabled: !s.networks.includes(networkName) || s.defaultWeight === 0,
+      selected: s.networks.includes(networkName) || s.defaultWeight !== 0,
     };
   }).sort((a, b) => {
     if (!a.disabled && !b.disabled) {

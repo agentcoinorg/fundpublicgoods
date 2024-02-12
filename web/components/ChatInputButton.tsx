@@ -1,4 +1,4 @@
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowClockwise, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 import Button from "@/components/Button";
 import LoadingCircle from "@/components/LoadingCircle";
@@ -6,12 +6,14 @@ import LoadingCircle from "@/components/LoadingCircle";
 interface ChatInputButtonProps {
   running: boolean;
   message: string;
+  regenerate?: boolean;
   handleSend: () => void;
 }
 
 const ChatInputButton = ({
   running,
   message,
+  regenerate,
   handleSend,
 }: ChatInputButtonProps) => {
   return (
@@ -23,7 +25,19 @@ const ChatInputButton = ({
           disabled={message.length === 0}
           className='!p-1 !border-2'
           type='submit'>
-          <ArrowRight weight='bold' size={20} className='text-[currentColor]' />
+          {regenerate ? (
+            <ArrowClockwise
+              weight='bold'
+              size={20}
+              className='text-[currentColor]'
+            />
+          ) : (
+            <ArrowRight
+              weight='bold'
+              size={20}
+              className='text-[currentColor]'
+            />
+          )}
         </Button>
       ) : (
         <LoadingCircle />

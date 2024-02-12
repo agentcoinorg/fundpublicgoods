@@ -47,7 +47,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         logs = cast(list[Logs], logs_res)
 
         for log in logs:
-            if log.status != StepStatus.NOT_STARTED:
+            if log.step_name != StepName.FETCH_PROJECTS and log.status != StepStatus.NOT_STARTED:
                 raise HTTPException(status_code=400, detail="RunId has already been run.")
 
         log_ids: dict[StepName, str] = {
