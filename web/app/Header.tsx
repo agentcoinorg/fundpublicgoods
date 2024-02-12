@@ -13,7 +13,7 @@ function Header() {
   const [showDropdownMenu, setShowDropdownMenu] = useState<boolean>(false);
 
   const handleClick = () => {
-    setShowDropdownMenu(true);
+    setShowDropdownMenu(!showDropdownMenu);
   };
 
   return (
@@ -46,31 +46,16 @@ function Header() {
             </div>
             <CaretDown weight='bold' />
           </div>
-          <div className='absolute top-[calc(100%+8px)] right-0 z-10'>
+          {showDropdownMenu && <div className='absolute top-[calc(100%+8px)] right-0 z-10'>
             <div className='bg-indigo-50 rounded-2xl border-2 border-indigo-300 space-y-2 p-3 shadow-xl shadow-primary-shadow/20'>
-              <div className='flex items-center justify-between w-full space-x-2'>
-                <div className='whitespace-nowrap text-[10px]'>
-                  Connected to:
-                </div>
-                <Dropdown
-                  items={["Polygon", "Ethereum"]}
-                  field={{ value: "Polygon" }}
-                  onChange={(newValue) => {
-                    // if (props.networks.length === 1) {
-                    //   return;
-                    // }
-                    // handleNetworkUpdate(newValue as NetworkName);
-                    // setSelectedNetwork(newValue as NetworkName);
-                  }}
-                />
-              </div>
-              <div className='w-full h-px bg-indigo-100'></div>
               <div className='p-2 flex items-center space-x-2 hover:bg-white cursor-pointer w-full rounded-xl'>
                 <Link size={16} weight='bold' className='min-w-[16px]' />
-                <div className='whitespace-nowrap'>Disconnect Wallet</div>
+                <div className='whitespace-nowrap'>
+                  Disconnect Wallet
+                </div>
               </div>
             </div>
-          </div>
+          </div>}
         </div>
       )}
     </div>
