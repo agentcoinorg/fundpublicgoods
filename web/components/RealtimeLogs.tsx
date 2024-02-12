@@ -84,7 +84,7 @@ export default function RealtimeLogs(props: {
 
   return (
     <div className='space-y-2'>
-      <div className='text-subdued text-[10px]'>{`~${"1:23"} remaining`}</div>
+      <div className='text-subdued text-[10px]'>Estimated time: 1 minute</div>
       <ProgressBar
         stepTimes={stepTimes}
         curStep={currentStep}
