@@ -1,12 +1,13 @@
 from fund_public_goods.db import tables, app_db
-from fund_public_goods.db.entities import StepStatus, StepName, Logs
+from fund_public_goods.db.entities import Projects, StepStatus, StepName, Logs
+from fund_public_goods.db.tables.projects import upsert_multiple
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.lib.strategy.utils.evaluate_projects import evaluate_projects
 from fund_public_goods.lib.strategy.utils.score_projects import score_projects
 from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
-from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.lib.strategy.utils.summarize_descriptions import summarize_descriptions
 from supabase.lib.client_options import ClientOptions
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel
@@ -55,14 +56,18 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
 
         prompt = get_prompt(run_id)
 
-        json_projects = fetch_matching_projects(prompt)
+        tables.logs.update(
+            status=StepStatus.IN_PROGRESS,
+            log_id=log_ids[StepName.FETCH_PROJECTS],
+            value=None,
+        )
 
-        projects = [Project(**json_project) for json_project in json_projects]
+        projects_with_answers = fetch_matching_projects(prompt)
 
         tables.logs.update(
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.FETCH_PROJECTS],
-            value=f"Found {len(projects)} projects related to '{prompt}'",
+            value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
         )
         
         tables.logs.update(
@@ -71,9 +76,9 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             value=None,
         )
 
-        reports = evaluate_projects(prompt, projects)
+        reports = evaluate_projects(prompt, projects_with_answers)
 
-        projects_with_reports: list[tuple[Project, str]] = [(projects[i], reports[i]) for i in range(len(reports))]
+        projects_with_reports: list[tuple[Projects, str]] = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
         
         tables.logs.update(
             status=StepStatus.COMPLETED,
@@ -102,6 +107,15 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],
             value=None
         )
+        
+        projects = [project for (project, _) in projects_with_answers]
+        projects_without_short_desc = [p for p in projects if not p.short_description]
+        projects_with_short_desc = [p for p in projects if p.short_description]
+
+        if len(projects_without_short_desc) > 0:
+            projects_with_short_desc += summarize_descriptions(projects_without_short_desc)
+        
+        upsert_multiple(projects_with_short_desc)
 
         insert_multiple(run_id, weighted_projects)
         

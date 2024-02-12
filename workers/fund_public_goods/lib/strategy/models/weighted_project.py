@@ -1,9 +1,9 @@
+from fund_public_goods.db.entities import Projects
 from pydantic import BaseModel, ConfigDict, Field
-from fund_public_goods.lib.strategy.models.project import Project
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
 
 class WeightedProject(BaseModel):
-    project: Project
+    project: Projects
     report: str
     scores: ProjectScores
     weight: float
