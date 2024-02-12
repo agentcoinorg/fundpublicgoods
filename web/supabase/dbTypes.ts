@@ -166,6 +166,7 @@ export interface Database {
           description: string | null
           id: string
           logo: string | null
+          short_description: string | null
           title: string | null
           twitter: string | null
           updated_at: number
@@ -175,6 +176,7 @@ export interface Database {
           description?: string | null
           id: string
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at: number
@@ -184,6 +186,7 @@ export interface Database {
           description?: string | null
           id?: string
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at?: number
