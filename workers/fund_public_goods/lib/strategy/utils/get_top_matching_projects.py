@@ -1,13 +1,12 @@
 from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 
 from chromadb import EphemeralClient
 from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.utils import get_project_text, stringify_projects
-from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
+from fund_public_goods.lib.strategy.utils.utils import stringify_projects
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
@@ -100,12 +99,7 @@ def deduplicate_projects_by_website(projects: list[Project]) -> list[Project]:
 
 
 def create_embeddings_collection(projects: list[Project]):
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=200,
-        chunk_overlap=50,
-        length_function=len,
-        is_separator_regex=False,
-    )
+    text_splitter = SentenceTransformersTokenTextSplitter()
     
     texts: list[str] = []
     metadatas: list[dict] = []
@@ -139,10 +133,10 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = all_projects_collection.similarity_search(query, k=250)
+        matches = all_projects_collection.similarity_search(query, k=200)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
         
-    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 35)
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
     
     matched_projects = [projects_by_id[id] for id in unique_ids]
             
