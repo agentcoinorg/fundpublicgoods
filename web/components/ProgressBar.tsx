@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
-import { calculateProgressAndTime } from "@/app/lib/utils/timeUtils";
 import { useProgressTime } from "@/hooks/useProgressTime";
 
 interface ProgressBarProps {

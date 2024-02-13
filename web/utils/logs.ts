@@ -41,8 +41,8 @@ export const STEPS_ORDER: Record<StepName, number> = {
 }
 
 export const STEP_TIME_ESTS: Record<StepName, number> = {
-  FETCH_PROJECTS: 60,
-  EVALUATE_PROJECTS: 25,
-  ANALYZE_FUNDING: 20,
-  SYNTHESIZE_RESULTS: 15
+  FETCH_PROJECTS: 40,
+  EVALUATE_PROJECTS: 5,
+  ANALYZE_FUNDING: 10,
+  SYNTHESIZE_RESULTS: 5
 }

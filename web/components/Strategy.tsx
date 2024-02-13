@@ -6,7 +6,6 @@ import { StrategyTable } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
-import { pluralize } from "@/app/lib/utils/pluralize";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import { NetworkName, SUPPORTED_NETWORKS } from "@/utils/ethereum";
@@ -23,6 +22,7 @@ import ChatInputButton from "./ChatInputButton";
 import SuccessModal from "./SuccessModal";
 import { XLogo } from "./Icons";
 import Image from "next/image";
+import { pluralize } from "@/utils/pluralize";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -196,7 +196,7 @@ export default function Strategy(props: {
                   />
                 </div>
               </div>
-              <StrategyTable {...strategiesHandler} />
+              <StrategyTable {...strategiesHandler} selectedNetwork={selectedNetwork} />
               <div className='flex justify-between items-center w-full space-x-4 pt-4 border-t-2 border-indigo-100'>
                 {wallet ? (
                   <>

@@ -12,8 +12,9 @@ import {
   StrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
 import { SparkleIcon } from "./Icons";
+import { NetworkName } from "@/utils/ethereum";
 
-export function StrategyTable(props: StrategiesHandler) {
+export function StrategyTable(props: StrategiesHandler & { selectedNetwork : NetworkName}) {
   const [{ wallet }] = useConnectWallet();
   const {
     strategies,
@@ -21,6 +22,7 @@ export function StrategyTable(props: StrategiesHandler) {
     handleWeightUpdate,
     handleSelectProject,
     handleSelectAll,
+    selectedNetwork
   } = props;
 
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
@@ -108,7 +110,7 @@ export function StrategyTable(props: StrategiesHandler) {
                         className="absolute top-0 left-0 z-1 w-4 h-4 rounded-full shadow-sm shadow-primary-shadow/20"
                         width={48}
                         height={48}
-                        src={`/chains/${entry.networks[0]}.png`}
+                        src={`/chains/${entry.networks.includes(selectedNetwork) ? selectedNetwork : entry.networks[0]}.png`}
                         alt="network"
                       />
                       {entry.project.logo ? (
@@ -118,10 +120,15 @@ export function StrategyTable(props: StrategiesHandler) {
                           height={48}
                           alt='logo'
                           src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                          onError={() => (
+                            <div className="rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300">
+                              <SparkleIcon size={40} className="opacity-80" />
+                            </div>
+                          )}
                         />
                       ) : (
-                        <div className='w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
-                          <SparkleIcon size={20} className='opacity-80' />
+                        <div className='rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
+                          <SparkleIcon size={40} className='opacity-80' />
                         </div>
                       )}
                     </div>
