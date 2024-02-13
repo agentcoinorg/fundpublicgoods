@@ -1,3 +1,4 @@
+import { STEP_TIME_ESTS } from "@/utils/logs";
 import { useState, useEffect } from "react";
 
 export function useProgressTime(stepTimes: number[], currentStep: number) {
@@ -14,6 +15,11 @@ export function useProgressTime(stepTimes: number[], currentStep: number) {
     const calculate = () => {
       const now = Date.now();
       const elapsedTimeSinceStart = (now - startTime) / 1000; // Convert ms to seconds
+
+      if (elapsedTimeSinceStart > Object.values(STEP_TIME_ESTS)[currentStep]) {
+        return
+      }
+
       const elapsedTimeInSteps = stepTimes
         .slice(0, currentStep)
         .reduce((a, b) => a + b, 0);

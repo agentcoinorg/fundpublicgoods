@@ -7,16 +7,9 @@ import PromptInput from "./PromptInput";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
 import clsx from "clsx";
+import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
 
-const PROMPT_SUGESTIONS = [
-  "Decentalized Finance",
-  "Zero Knowledge Technology",
-  "DAO Tooling",
-  "Multichain ecosystem",
-  "Ethereum infrastructure",
-];
-
-export default function Prompt() {
+export default function Prompt({ promptsIndex }: { promptsIndex: number }) {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
   const { data: session } = useSession();
@@ -39,12 +32,12 @@ export default function Prompt() {
 
   return (
     <>
-      <div className="mx-auto max-w-screen-md">
+      <div className="mx-auto max-w-screen-lg">
         <div className="w-full space-y-8 px-6 flex flex-col items-center">
           <div className="space-y-4 flex flex-col items-center w-full">
             <h1
               className={clsx(
-                "text-4xl font-bold text-shadow-lg text-center text-shadow-primary-shadow leading-[1.35] bg-clip-text cursor-default group/prompt inline-block",
+                "text-5xl font-bold text-shadow-lg text-center text-shadow-primary-shadow leading-[1.35] bg-clip-text cursor-default group/prompt inline-block",
                 "hover:bg-gradient-to-r hover:from-indigo-300 hover:via-blue-600 hover:to-indigo-300 hover:inline-block hover:text-transparent hover:animate-gradientText"
               )}
             >
@@ -54,7 +47,7 @@ export default function Prompt() {
                 className="ml-2 inline-block drop-shadow-sm"
               />
             </h1>
-            <div className="w-full relative">
+            <div className="w-10/12 relative">
               <PromptInput
                 setPrompt={setPrompt}
                 isWaiting={isWaiting}
@@ -64,12 +57,12 @@ export default function Prompt() {
               />
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-10/12">
             <div className="flex justify-center">
-              What are you interested in funding?
+              Some ideas:
             </div>
-            <div className="flex flex-wrap max-w-lg justify-center gap-3 text-sm">
-              {PROMPT_SUGESTIONS.map((suggestion, index) => (
+            <div className="flex flex-wrap justify-center gap-3 text-sm">
+              {EXAMPLE_PROMPTS.slice(promptsIndex, promptsIndex + 5).map((suggestion, index) => suggestion && (
                 <div key={index}>
                   <button
                     className="text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300"

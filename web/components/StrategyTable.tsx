@@ -22,6 +22,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     handleWeightUpdate,
     handleSelectProject,
     handleSelectAll,
+    network
   } = props;
 
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
@@ -109,7 +110,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                         className="absolute top-0 left-0 z-1 w-4 h-4 rounded-full shadow-sm shadow-primary-shadow/20"
                         width={48}
                         height={48}
-                        src={`/chains/${entry.networks[0]}.png`}
+                        src={`/chains/${entry.networks.includes(network) ? network : entry.networks[0]}.png`}
                         alt="network"
                       />
                       {entry.project.logo ? (
@@ -119,10 +120,15 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                           height={48}
                           alt='logo'
                           src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                          onError={() => (
+                            <div className="rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300">
+                              <SparkleIcon size={40} className="opacity-80" />
+                            </div>
+                          )}
                         />
                       ) : (
-                        <div className='w-8 h-8 rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
-                          <SparkleIcon size={20} className='opacity-80' />
+                        <div className='rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
+                          <SparkleIcon size={40} className='opacity-80' />
                         </div>
                       )}
                     </div>
