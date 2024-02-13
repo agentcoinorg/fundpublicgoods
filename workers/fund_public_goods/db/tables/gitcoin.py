@@ -16,7 +16,7 @@ def upsert_project(project: GitcoinProjects):
 def save_application(app: GitcoinApplications):
     db = create_admin("indexing")
 
-    db.table("gitcoin_applications").insert({
+    db.table("gitcoin_applications").upsert({
         "id": app.id,
         "network": app.network,
         "created_at": app.created_at,
