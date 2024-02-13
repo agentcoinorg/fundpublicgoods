@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "deploy:dev": "npx serverless deploy --config ./serverless.dev.yml --stage dev",
-    "deploy:prod": "npx serverless deploy --config ./serverless.prod.yml --stage prod",
+    "deploy:dev": "npx serverless deploy --config ./serverless.dev.yml --stage dev --verbose --force",
+    "deploy:prod": "npx serverless deploy --config ./serverless.prod.yml --stage prod --verbose",
     "package": "npx serverless package"
   },
   "devDependencies": {
