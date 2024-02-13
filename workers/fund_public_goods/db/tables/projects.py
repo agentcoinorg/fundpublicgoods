@@ -54,7 +54,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "short_description", "website", "twitter", "logo")
+        .select("id", "updated_at", "title", "keywords", "description", "short_description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -69,6 +69,7 @@ def get(
         title=data["title"],
         description=data["description"],
         website=data["website"],
+        keywords=data['keywords'],
         twitter=data["twitter"],
         short_description=data["short_description"],
         logo=data["logo"]
@@ -79,7 +80,7 @@ def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, short_description, twitter, logo, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, keywords, short_description, twitter, logo, applications(id, recipient, round, answers)"
         )
         .execute()
     )
@@ -110,6 +111,7 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
+            keywords=project_data.get("keywords", []),
             short_description=project_data.get("short_description", None)
         )
         

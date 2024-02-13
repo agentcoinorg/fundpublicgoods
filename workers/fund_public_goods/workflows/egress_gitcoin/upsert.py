@@ -19,7 +19,8 @@ def upsert_project(project: GitcoinProjects, keywords: list[str], updated_at: in
         website=sanitize_url(project.data["website"]),
         twitter=project.data.get("projectTwitter", ""),
         logo=project.data.get("logoImg", ""),
-        short_description=None
+        short_description=None,
+        keywords=keywords
     )
 
     tables.projects.upsert(entity)
