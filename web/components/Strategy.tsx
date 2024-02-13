@@ -196,7 +196,7 @@ export default function Strategy(props: {
                   />
                 </div>
               </div>
-              <StrategyTable {...strategiesHandler} selectedNetwork={selectedNetwork} />
+              <StrategyTable {...strategiesHandler} network={selectedNetwork} />
               <div className='flex justify-between items-center w-full space-x-4 pt-4 border-t-2 border-indigo-100'>
                 {wallet ? (
                   <>

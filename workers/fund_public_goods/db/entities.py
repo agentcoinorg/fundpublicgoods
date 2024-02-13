@@ -118,7 +118,8 @@ class Projects(BaseModel):
     id: str
     updated_at: int = Field(..., alias="updatedAt")
     title: Optional[str] = None
-    description: Optional[str] = None
+    description: str
+    short_description: Optional[str] = Field(..., alias="shortDescription")
     website: Optional[str] = None
     logo: Optional[str] = None
     twitter: Optional[str] = None

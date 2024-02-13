@@ -11,10 +11,10 @@ import {
   StrategyInformation,
   StrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
-import { SparkleIcon } from "./Icons";
 import { NetworkName } from "@/utils/ethereum";
+import { SparkleIcon } from "./Icons";
 
-export function StrategyTable(props: StrategiesHandler & { selectedNetwork : NetworkName}) {
+export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
   const {
     strategies,
@@ -22,7 +22,7 @@ export function StrategyTable(props: StrategiesHandler & { selectedNetwork : Net
     handleWeightUpdate,
     handleSelectProject,
     handleSelectAll,
-    selectedNetwork
+    network
   } = props;
 
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
@@ -110,7 +110,7 @@ export function StrategyTable(props: StrategiesHandler & { selectedNetwork : Net
                         className="absolute top-0 left-0 z-1 w-4 h-4 rounded-full shadow-sm shadow-primary-shadow/20"
                         width={48}
                         height={48}
-                        src={`/chains/${entry.networks.includes(selectedNetwork) ? selectedNetwork : entry.networks[0]}.png`}
+                        src={`/chains/${entry.networks.includes(network) ? network : entry.networks[0]}.png`}
                         alt="network"
                       />
                       {entry.project.logo ? (
@@ -132,10 +132,10 @@ export function StrategyTable(props: StrategiesHandler & { selectedNetwork : Net
                         </div>
                       )}
                     </div>
-                    <div className='space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]'>
-                      <div className='line-clamp-1'>{entry.project.title}</div>
-                      <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
-                        {entry.project.description}
+                    <div className="space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]">
+                      <div className="line-clamp-1">{entry.project.title}</div>
+                      <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+                        {entry.project.short_description}
                       </div>
                     </div>
                   </div>
@@ -182,6 +182,7 @@ export function StrategyTable(props: StrategiesHandler & { selectedNetwork : Net
       </div>
       <ProjectModal
         strategy={showStrategyDetails.strategy}
+        network={props.network}
         isOpen={showStrategyDetails.show}
         title={
           <div className='line-clamp-1'>
