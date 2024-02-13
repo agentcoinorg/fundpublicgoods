@@ -13,25 +13,26 @@ from langchain.vectorstores.chroma import Chroma
 
 
 reranking_prompt_template = """
-You are a professional public goods projects evaluator.
+You are tasked as a specialist in evaluating public goods projects.
+Your role involves analyzing a collection of project summaries provided to you.
+These summaries are separated by '{separator}'.
+Your main objective is to rearrange these summaries in a sequence that accurately reflects their relevance to a given user's prompt.
 
-You will receive a list of project information abstracts divided by '{separator}'
-and you will reorder them based on how much they relate to the user's prompt.
+Your deliverable is a list of PROJECT_IDs in descending order of their relevance to the user's prompt,
+formatted as a comma-separated list without any quotation marks.
+It is crucial to return these PROJECT_IDs exactly as they appear, with no modifications.
 
-You will return a comma-seaparted list of PROJECT_IDs, without quotes.
-PROJECT_IDs are as specified, **do not** modify in any way,
-return them exactly as written.
-
-Ranked from best matching to worst matching.
-
-Consider that each project's information is self reported, it may include buzzwords to seem
-relevant, but in reality it isn't.
+In your assessment, it is essential to discern the genuine alignment of each project with the user's specific requirements.
+Be mindful that the project descriptions may include buzzwords or jargon intended to exaggerate their relevance.
+Your judgment should penetrate beyond superficial claims to identify projects that truly resonate with the user's prompt.
+For instance, in response to a prompt for 'ethereum developer tooling,'
+prioritize projects that contribute directly to ethereum SDKs over those merely organizing ethereum-related events.
 
 User's prompt: {prompt}
 
 Projects: {projects}
 
-Return the Project's ID and only the IDs, separated by commas.
+Your response should consist solely of the Project IDs, arranged from the most to the least relevant, based on your expert evaluation.
 """
 
 def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:

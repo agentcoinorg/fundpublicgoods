@@ -6,19 +6,20 @@ def stringify_projects(projects: list[Project], separator: str) -> str:
     project_strings = []
 
     for i in range(len(projects)):
-        project_str = get_project_text(project=projects[i], index=i)
+        project_str = get_project_text(project=projects[i], index=i, answers=False)
         project_strings.append(project_str)
 
     return separator.join(project_strings)
 
 
-def get_project_text(project: Project, index: Optional[int] = None) -> str:
+def get_project_text(project: Project, index: Optional[int] = None, answers = True) -> str:
     id_to_use = index if index is not None else project.id
     result = f"ID: {id_to_use} - Description: {project.description}\n"
 
-    for answer in project.answers:
-        result += f"  Question: {answer.question}\n"
-        result += f"  Answer: {answer.answer}\n"
+    if answers:
+        for answer in project.answers:
+            result += f"  Question: {answer.question}\n"
+            result += f"  Answer: {answer.answer}\n"
 
     return result
 
