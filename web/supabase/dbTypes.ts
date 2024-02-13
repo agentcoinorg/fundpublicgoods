@@ -170,7 +170,7 @@ export interface Database {
           title: string | null
           twitter: string | null
           updated_at: number
-          website: string | null
+          website: string
         }
         Insert: {
           description?: string | null
@@ -180,7 +180,7 @@ export interface Database {
           title?: string | null
           twitter?: string | null
           updated_at: number
-          website?: string | null
+          website: string
         }
         Update: {
           description?: string | null
@@ -190,7 +190,7 @@ export interface Database {
           title?: string | null
           twitter?: string | null
           updated_at?: number
-          website?: string | null
+          website?: string
         }
         Relationships: []
       }
