@@ -114,11 +114,17 @@ def get_top_matching_projects(prompt: str, projects_with_answers: list[tuple[Pro
     for query in queries:
         matches = collection.similarity_search(query, k=100)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
-        
+    
     unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
     
-    matched_projects = [projects_by_id[id] for id in unique_ids]
-            
+    matched_projects = []
+
+    # TODO: this is a patch for an error seen in prod, should look at why
+    #       some of these IDs don't exist...
+    for id in unique_ids:
+        if projects_by_id.get(id):
+            matched_projects.append(projects_by_id[id])
+    
     reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     
     return reranked_projects
