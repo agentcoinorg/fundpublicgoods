@@ -5,20 +5,6 @@ from fund_public_goods.db.entities import Projects
 from fund_public_goods.db.app_db import create_admin
 
 
-def insert(
-    row: Projects
-):
-    db = create_admin()
-    db.table("projects").insert({
-        "id": row.id,
-        "updated_at": row.updated_at,
-        "title": row.title,
-        "description": row.description,
-        "website": row.website,
-        "twitter": row.twitter,
-        "logo": row.logo
-    }).execute()
-
 def upsert(
     row: Projects
 ):
@@ -31,6 +17,7 @@ def upsert(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
+        "keywords": row.keywords,
         "logo": row.logo
     }).execute()
     
@@ -46,6 +33,7 @@ def upsert_multiple(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
+        "keywords": row.keywords,
         "logo": row.logo
     } for row in rows]).execute()
 
