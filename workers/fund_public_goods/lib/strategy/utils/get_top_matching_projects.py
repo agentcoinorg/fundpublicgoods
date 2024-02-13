@@ -50,7 +50,10 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     top_ids_res = reranking_chain.invoke({
         "prompt": prompt,
         "separator": separator,
-        "projects": stringify_projects(projects=projects, separator=separator)
+        "projects": separator.join([
+            f"ID: {i} - Description: {projects[i].description}\n"
+            for i in range(len(projects))
+        ])
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)

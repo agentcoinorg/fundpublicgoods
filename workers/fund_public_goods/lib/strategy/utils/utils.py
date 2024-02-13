@@ -1,25 +1,12 @@
-from typing import Optional
 from fund_public_goods.lib.strategy.models.project import Project
 
 
-def stringify_projects(projects: list[Project], separator: str) -> str:
-    project_strings = []
+def get_project_text(project: Project) -> str:
+    result = f"ID: {project.id} - Description: {project.description}\n"
 
-    for i in range(len(projects)):
-        project_str = get_project_text(project=projects[i], index=i, answers=False)
-        project_strings.append(project_str)
-
-    return separator.join(project_strings)
-
-
-def get_project_text(project: Project, index: Optional[int] = None, answers = True) -> str:
-    id_to_use = index if index is not None else project.id
-    result = f"ID: {id_to_use} - Description: {project.description}\n"
-
-    if answers:
-        for answer in project.answers:
-            result += f"  Question: {answer.question}\n"
-            result += f"  Answer: {answer.answer}\n"
+    for answer in project.answers:
+        result += f"  Question: {answer.question}\n"
+        result += f"  Answer: {answer.answer}\n"
 
     return result
 
