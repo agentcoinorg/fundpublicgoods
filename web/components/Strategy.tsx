@@ -23,6 +23,7 @@ import SuccessModal from "./SuccessModal";
 import { XLogo } from "./Icons";
 import Image from "next/image";
 import { pluralize } from "@/utils/pluralize";
+import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -31,7 +32,7 @@ export default function Strategy(props: {
   networks: NetworkName[];
 }) {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
-    props.networks[0]
+    findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
   );
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
