@@ -1,1 +1,0 @@
-import fund_public_goods.db.indexes.projects
