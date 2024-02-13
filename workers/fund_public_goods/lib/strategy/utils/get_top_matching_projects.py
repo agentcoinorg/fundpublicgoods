@@ -6,7 +6,6 @@ from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.utils import stringify_projects
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
@@ -128,11 +127,11 @@ def create_embeddings_collection(projects: list[Project]):
 
 
 def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    deduplicated = deduplicate_projects_by_website(projects)
-    projects_by_id = {project.id: project for project in deduplicated}
+    deduplicated_projects = deduplicate_projects_by_website(projects)
+    projects_by_id = {project.id: project for project in deduplicated_projects}
 
     queries = [prompt]
-    all_projects_collection = create_embeddings_collection(deduplicated)
+    all_projects_collection = create_embeddings_collection(deduplicated_projects)
     
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
