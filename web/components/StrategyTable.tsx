@@ -11,9 +11,10 @@ import {
   StrategyInformation,
   StrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
+import { NetworkName } from "@/utils/ethereum";
 import { SparkleIcon } from "./Icons";
 
-export function StrategyTable(props: StrategiesHandler) {
+export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
   const {
     strategies,
@@ -125,10 +126,10 @@ export function StrategyTable(props: StrategiesHandler) {
                         </div>
                       )}
                     </div>
-                    <div className='space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]'>
-                      <div className='line-clamp-1'>{entry.project.title}</div>
-                      <div className='text-[10px] text-subdued line-clamp-2 leading-tight'>
-                        {entry.project.description}
+                    <div className="space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]">
+                      <div className="line-clamp-1">{entry.project.title}</div>
+                      <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+                        {entry.project.short_description}
                       </div>
                     </div>
                   </div>
@@ -175,6 +176,7 @@ export function StrategyTable(props: StrategiesHandler) {
       </div>
       <ProjectModal
         strategy={showStrategyDetails.strategy}
+        network={props.network}
         isOpen={showStrategyDetails.show}
         title={
           <div className='line-clamp-1'>

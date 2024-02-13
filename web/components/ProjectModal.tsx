@@ -1,24 +1,45 @@
-import { CaretRight, GlobeSimple } from "@phosphor-icons/react/dist/ssr";
+import { GlobeSimple } from "@phosphor-icons/react/dist/ssr";
 import Modal, { ModalProps } from "./ModalBase";
 import Score from "./Score";
 import ReactMarkdown from "react-markdown";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import clsx from "clsx";
 import { SparkleIcon, XLogo } from "./Icons";
 import Image from "next/image";
+import { CurrencyEth } from "@phosphor-icons/react";
 import { StrategyInformation } from "@/hooks/useStrategiesHandler";
+import { NetworkName } from "@/utils/ethereum";
+import { getExplorerUrl } from "@/utils/ethereum/getExplorerUrl";
 
 export type ProjectModalProps = ModalProps & {
   strategy?: StrategyInformation;
+  network: NetworkName;
 };
 
 const ProjectModalTitle = ({
   title,
   strategy,
+  network
 }: {
   title: string | ReactNode;
   strategy?: StrategyInformation;
+  network: NetworkName;
 }) => {
+  function ensureHttpsUrl(url: string) {
+    if (!url) return url;
+
+    if (!/^https?:\/\//i.test(url)) {
+      url = "https://" + url;
+    }
+
+    return url;
+  }
+
+  const networkIdx = strategy?.networks.indexOf(network);
+  const address = networkIdx !== undefined && networkIdx > -1 ?
+    strategy?.recipients[networkIdx] :
+    undefined;
+
   return (
     <div className='flex space-x-2 items-center'>
       {strategy?.project.logo ? (
@@ -42,18 +63,26 @@ const ProjectModalTitle = ({
           <div className='space-x-2 flex'>
             {strategy.project.website && (
               <a
-                href={strategy.project.website || "#"}
+                href={ensureHttpsUrl(strategy.project.website) || "#"}
                 target='_blank'
-                rel='noredirect'>
+                rel='noopener noreferrer'>
                 <GlobeSimple size={16} />
               </a>
             )}
             {strategy.project.twitter && (
               <a
-                href={strategy.project.twitter || "#"}
+                href={`https://twitter.com/${strategy.project.twitter}` || "#"}
                 target='_blank'
-                rel='noredirect'>
+                rel='noopener noreferrer'>
                 <XLogo size={16} className='text-[currentColor]' />
+              </a>
+            )}
+            {address && (
+              <a
+                href={getExplorerUrl(network, address)}
+                target='_blank'
+                rel='noopener noreferrer'>
+                <CurrencyEth size={16} className='text-[currentColor]' />
               </a>
             )}
             {/* 
@@ -62,7 +91,7 @@ const ProjectModalTitle = ({
               <a
                 href="#"
                 target='_blank'
-                rel='noredirect'>
+                rel='noopener noreferrer'>
                 <GithubLogo size={16} />
               </a>
             */}
@@ -77,13 +106,14 @@ const ProjectModal = ({
   isOpen,
   title,
   onClose,
+  network,
   strategy,
 }: ProjectModalProps) => {
 
   return (
     <Modal
       isOpen={isOpen}
-      title={<ProjectModalTitle title={title} strategy={strategy} />}
+      title={<ProjectModalTitle title={title} strategy={strategy} network={network} />}
       onClose={onClose}
       contentStyles={{ padding: "p-4 sm:p-6 pt-0" }}>
       {strategy && (

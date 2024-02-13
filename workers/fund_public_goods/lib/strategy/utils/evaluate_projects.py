@@ -1,8 +1,9 @@
+from fund_public_goods.db.entities import Projects
+from fund_public_goods.lib.strategy.models.answer import Answer
 from fund_public_goods.lib.strategy.utils.utils import get_project_text
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.models.project import Project
 
 
 evaluation_prompt_template = """
@@ -39,7 +40,7 @@ Your output should be in markdown format with the following structure:
 ..
 """
 
-def evaluate_projects(prompt: str, projects: list[Project]) -> list[str]:
+def evaluate_projects(prompt: str, projects: list[tuple[Projects, list[Answer]]]) -> list[str]:
     evaluation_prompt = ChatPromptTemplate.from_messages([
         ("system", evaluation_prompt_template),
     ])

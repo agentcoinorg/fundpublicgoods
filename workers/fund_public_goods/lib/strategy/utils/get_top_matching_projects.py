@@ -1,8 +1,7 @@
-from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
 from langchain.text_splitter import SentenceTransformersTokenTextSplitter
 
 from chromadb import EphemeralClient
-from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.db.entities import Projects
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -34,7 +33,7 @@ Projects: {projects}
 Your response should consist solely of the Project IDs, arranged from the most to the least relevant, based on your expert evaluation.
 """
 
-def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
+def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
@@ -56,7 +55,7 @@ def rerank_top_projects(prompt: str, projects: list[Project]) -> list[Project]:
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
-    reranked_projects: list[Project] = []
+    reranked_projects: list[Projects] = []
 
     for i in range(len(top_ids)):
         id = top_ids[i]
@@ -92,16 +91,8 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
     
     return result_ids
 
-def deduplicate_projects_by_website(projects: list[Project]) -> list[Project]:
-    unique_websites: dict[str, Project] = {}
-    for project in projects:
-        sanitized_website = sanitize_url(project.website)
-        if sanitized_website not in unique_websites.keys():
-            unique_websites[sanitized_website] = project
-    return list(unique_websites.values())
 
-
-def create_embeddings_collection(projects: list[Project]):
+def create_embeddings_collection(projects: list[Projects]):
     text_splitter = SentenceTransformersTokenTextSplitter()
     
     texts: list[str] = []
@@ -112,7 +103,7 @@ def create_embeddings_collection(projects: list[Project]):
         
         for description_chunk in description_chunks:
             texts.append(description_chunk)
-            metadatas.append({ "id": project["id"], "title": project["title"] })
+            metadatas.append({ "id": project.id, "title": project.title })
     
     db_client = EphemeralClient()
     collection = Chroma.from_texts(
@@ -126,12 +117,11 @@ def create_embeddings_collection(projects: list[Project]):
     return collection
 
 
-def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    deduplicated_projects = deduplicate_projects_by_website(projects)
-    projects_by_id = {project.id: project for project in deduplicated_projects}
+def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
+    projects_by_id = {project.id: project for project in projects}
 
     queries = [prompt]
-    all_projects_collection = create_embeddings_collection(deduplicated_projects)
+    all_projects_collection = create_embeddings_collection(projects)
     
     query_to_matched_project_ids: dict[str, list[str]] = {}
     

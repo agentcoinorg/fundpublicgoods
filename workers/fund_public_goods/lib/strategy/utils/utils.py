@@ -1,24 +1,39 @@
-from fund_public_goods.lib.strategy.models.project import Project
+from fund_public_goods.db.entities import Projects
+
+from fund_public_goods.lib.strategy.models.answer import Answer
+from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
 
 
-def get_project_text(project: Project) -> str:
+def get_latest_project_per_website(projects: list[Projects]) -> list[Projects]:
+    latest_projects: dict[str, Projects] = {}
+
+    for project in projects:
+        project_website = sanitize_url(project.website)
+        if (project_website not in latest_projects or
+                project.updated_at > latest_projects[project_website].updated_at):
+            latest_projects[project_website] = project
+
+    return list(latest_projects.values())
+
+def get_project_text(project_with_answers: tuple[Projects, list[Answer]]) -> str:
+    (project, answers) = project_with_answers
     result = f"ID: {project.id} - Description: {project.description}\n"
 
-    for answer in project.answers:
+    for answer in answers:
         result += f"  Question: {answer.question}\n"
         result += f"  Answer: {answer.answer}\n"
 
     return result
 
 
-def remove_duplicate_projects(projects: list[Project]) -> list[Project]:
+def remove_duplicate_projects(projects: list[tuple[Projects, list[Answer]]]) -> list[tuple[Projects, list[Answer]]]:
     seen = {}
     unique_projects = []
 
     for project in projects:
-        if project.id not in seen:
+        if project[0].id not in seen:
             unique_projects.append(project)
-            seen[project.id] = True
+            seen[project[0].id] = True
 
     return unique_projects
 
