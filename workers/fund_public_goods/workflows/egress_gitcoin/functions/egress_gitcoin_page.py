@@ -1,4 +1,5 @@
 from typing import cast
+from fund_public_goods.lib.strategy.utils.generate_keywords import generate_keywords
 import inngest
 from pydantic import parse_obj_as
 from fund_public_goods.workflows.egress_gitcoin.events import EgressGitcoinPageEvent
@@ -42,8 +43,10 @@ async def egress_gitcoin_page(
     for i in range(len(apps_with_project)):
         project = apps_with_project[i].project
         app = apps_with_project[i].app
+        
+        project_keywords = generate_keywords(project.data["description"])
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, app.created_at))
+        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, project_keywords, app.created_at))
         
         await step.run("upsert_application_" + str(i), lambda: upsert_application(app))
 

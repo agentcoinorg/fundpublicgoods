@@ -1,0 +1,1 @@
+alter table "public"."projects" add column "keywords" text[] not null default '{}'::text[];

@@ -10,7 +10,7 @@ def sanitize_url(url: str) -> str:
 
     return sanitized_url
 
-def upsert_project(project: GitcoinProjects, updated_at: int):
+def upsert_project(project: GitcoinProjects, keywords: list[str], updated_at: int):
     entity = entities.Projects(
         id=project.id,
         updated_at=updated_at,
