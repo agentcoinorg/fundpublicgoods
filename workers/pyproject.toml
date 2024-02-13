@@ -21,8 +21,6 @@ pinecone-client = "^3.0.2"
 onnxruntime = "1.16.3"
 langchain-community = "^0.0.17"
 pysqlite3-binary =  { version = "^0.5.2.post3", markers = "sys_platform == 'linux'" }
-langchain-experimental = "^0.0.50"
-sentence-transformers = "^2.3.1"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"

@@ -1,5 +1,3 @@
-from langchain.text_splitter import SentenceTransformersTokenTextSplitter
-
 from chromadb import EphemeralClient
 from fund_public_goods.db.entities import Projects
 from langchain_openai import ChatOpenAI
@@ -92,17 +90,13 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
     return result_ids
 
 
-def create_embeddings_collection(projects: list[Projects]):
-    text_splitter = SentenceTransformersTokenTextSplitter()
-    
+def create_embeddings_collection(projects: list[Projects]):    
     texts: list[str] = []
     metadatas: list[dict] = []
       
     for project in projects:
-        description_chunks = text_splitter.split_text(project.description)
-        
-        for description_chunk in description_chunks:
-            texts.append(description_chunk)
+        for keyword in project.keywords:
+            texts.append(keyword)
             metadatas.append({ "id": project.id, "title": project.title })
     
     db_client = EphemeralClient()
