@@ -63,8 +63,7 @@ export default function Strategy(props: {
     selectedToken,
   } = useToken(selectedNetwork);
 
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } =
-    strategiesHandler;
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   useEffect(() => {
@@ -72,6 +71,7 @@ export default function Strategy(props: {
       if (currentBalance) return null;
     });
   }, [selectedToken]);
+
   const tweetHandles = props.fetchedStrategies
     .filter((x) => x.project.twitter)
     .map((x) => `@${x.project.twitter}`)

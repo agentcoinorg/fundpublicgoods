@@ -87,7 +87,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <div
             className={clsx(
               "checkbox",
-              props.disabled ? "cursor-not-allowed" : "cursor-pointer",
+              props.disabled ? "cursor-not-allowed opacity-20" : "cursor-pointer",
               { checked: !props.disabled && checkStatus === "checked" },
               { indeterminate: checkStatus === "indeterminate" },
               className
