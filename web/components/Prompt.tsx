@@ -57,7 +57,7 @@ export default function Prompt({ promptsIndex }: { promptsIndex: number }) {
               />
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 w-10/12">
             <div className="flex justify-center">
               Some ideas:
             </div>
