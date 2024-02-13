@@ -62,7 +62,7 @@ export default function Prompt({ promptsIndex }: { promptsIndex: number }) {
               Some ideas:
             </div>
             <div className="flex flex-wrap justify-center gap-3 text-sm">
-              {EXAMPLE_PROMPTS.slice(promptsIndex, promptsIndex + 5).map((suggestion, index) => (
+              {EXAMPLE_PROMPTS.slice(promptsIndex, promptsIndex + 5).map((suggestion, index) => suggestion && (
                 <div key={index}>
                   <button
                     className="text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300"
