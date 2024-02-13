@@ -1,3 +1,6 @@
+from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
 from chromadb import EphemeralClient
 from fund_public_goods.lib.strategy.models.project import Project
 from langchain_openai import ChatOpenAI
@@ -87,17 +90,32 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
     
     return result_ids
 
-def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
-    projects_by_id = {project.id: project for project in projects}
-    queries = [prompt] + generate_queries(prompt=prompt, n=3)
+def deduplicate_projects_by_website(projects: list[Project]) -> list[Project]:
+    unique_websites: dict[str, Project] = {}
+    for project in projects:
+        sanitized_website = sanitize_url(project.website)
+        if sanitized_website not in unique_websites.keys():
+            unique_websites[sanitized_website] = project
+    return list(unique_websites.values())
+
+
+def create_embeddings_collection(projects: list[Project]):
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=200,
+        chunk_overlap=50,
+        length_function=len,
+        is_separator_regex=False,
+    )
     
     texts: list[str] = []
     metadatas: list[dict] = []
       
     for project in projects:
-        project_text = f"ID: {project.id} - Description: {project.description}\n"
-        texts.append(project_text)
-        metadatas.append({ "id": project["id"] })
+        description_chunks = text_splitter.split_text(project.description)
+        
+        for description_chunk in description_chunks:
+            texts.append(description_chunk)
+            metadatas.append({ "id": project["id"], "title": project["title"] })
     
     db_client = EphemeralClient()
     collection = Chroma.from_texts(
@@ -108,17 +126,25 @@ def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Proj
         collection_name="projects"
     )
     
+    return collection
+
+
+def get_top_matching_projects(prompt: str, projects: list[Project]) -> list[Project]:
+    deduplicated = deduplicate_projects_by_website(projects)
+    projects_by_id = {project.id: project for project in deduplicated}
+
+    queries = [prompt]
+    all_projects_collection = create_embeddings_collection(deduplicated)
+    
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = collection.similarity_search(query, k=100)
+        matches = all_projects_collection.similarity_search(query, k=250)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
         
-    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 35)
     
     matched_projects = [projects_by_id[id] for id in unique_ids]
-    
-    print([p.title for p in matched_projects])
             
     reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     
