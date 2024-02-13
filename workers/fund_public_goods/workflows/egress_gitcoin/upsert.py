@@ -1,7 +1,7 @@
 import json
 import re
 from fund_public_goods.db.entities import GitcoinProjects, GitcoinApplications
-from fund_public_goods.db import tables, entities, indexes
+from fund_public_goods.db import tables, entities
 
 def sanitize_url(url: str) -> str:
     sanitized_url = re.sub(r'^https?:\/\/', '', url, flags=re.IGNORECASE)
@@ -23,12 +23,6 @@ def upsert_project(project: GitcoinProjects, updated_at: int):
     )
 
     tables.projects.upsert(entity)
-
-    if entity.description:
-        indexes.projects.upsert(
-            id=entity.id,
-            description=entity.description,
-        )
 
 def upsert_application(app: GitcoinApplications):
     tables.applications.upsert(entities.Applications(
