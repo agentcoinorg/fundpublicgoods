@@ -83,7 +83,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         tables.logs.update(
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.EVALUATE_PROJECTS],
-            value=f"Evaluated {len(projects_with_reports)} projects",
+            value=f"Generated impact & funding needs reports for {len(projects_with_reports)} projects",
         )
         
         tables.logs.update(
@@ -99,9 +99,9 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         tables.logs.update(
             status=StepStatus.COMPLETED,
             log_id=log_ids[StepName.ANALYZE_FUNDING],
-            value="Determined the relative funding that the best matching projects need",
+            value=f"Computed smart rankings for {len(weighted_projects)} projects",
         )
-        
+
         tables.logs.update(
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],

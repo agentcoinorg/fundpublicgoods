@@ -13,6 +13,7 @@ import {
 } from "@/hooks/useStrategiesHandler";
 import { NetworkName } from "@/utils/ethereum";
 import { SparkleIcon } from "./Icons";
+import { CaretRight } from "@phosphor-icons/react";
 
 export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
@@ -65,12 +66,8 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
             <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
               Weighting
             </div>
-            {!!wallet && <div className='col-span-4'>Amount</div>}
-            <div
-              className={clsx(
-                "text-right",
-                wallet ? "col-span-4" : "col-span-6"
-              )}>
+            {!!wallet && <div className='flex w-full col-span-2 justify-end'>Amount</div>}
+            <div className="text-right col-span-4">
               Score
             </div>
           </div>
@@ -80,10 +77,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
             <div
               key={index}
               className={clsx(
-                "bg-indigo-50 border-2 border-indigo-300 hover:bg-white transition-colors duration-200 w-full rounded-2xl shadow-sm hover:shadow-lg shadow-primary-shadow/20 p-4 col-span-12 space-y-3",
-                entry.disabled
-                  ? "opacity-20 cursor-not-allowed"
-                  : "cursor-pointer"
+                "bg-indigo-50 border-2 border-indigo-300 hover:bg-white transition-colors duration-200 w-full rounded-2xl shadow-sm hover:shadow-lg shadow-primary-shadow/20 p-4 col-span-12 space-y-3 cursor-pointer"
               )}
               onClick={() => openProjectDetails(entry)}>
               <div className='grid gap-4 grid-cols-12'>
@@ -158,22 +152,24 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                       }}
                       onBlur={(e) => handleWeightUpdate(e.target.value, index)}
                       className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
+                      disabled={entry.disabled}
                       rightAdornment={"%"}
                       value={formattedWeights[index]}
                     />
                   </div>
                   {!!wallet && (
-                    <div className='col-span-4'>{`$${
+                    <div className='col-span-2'>{`$${
                       entry.amount || "0.00"
                     }`}</div>
                   )}
                   <div
                     className={clsx(
                       "flex w-full justify-end",
-                      wallet ? "col-span-4" : "col-span-6"
+                       "col-span-4"
                     )}>
                     <Score rank={entry.smart_ranking ?? 0} />
                   </div>
+                  <CaretRight className="sm:invisible md:visible" />
                 </div>
               </div>
             </div>

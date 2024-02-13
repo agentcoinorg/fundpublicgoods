@@ -21,15 +21,15 @@ export type StepName = Tables<"logs">["step_name"];
 
 export const UNSTARTED_TEXTS: Record<StepName, string> = {
   FETCH_PROJECTS: "Search for relevant projects",
-  EVALUATE_PROJECTS: "Evaluate proof of impact",
-  ANALYZE_FUNDING: "Analyze funding needs",
+  EVALUATE_PROJECTS: "Evaluate evidence of impact & funding needs..",
+  ANALYZE_FUNDING: "Assign numerical scores",
   SYNTHESIZE_RESULTS: "Synthesize results",
 }
 
 export const LOADING_TEXTS: Record<StepName, string> = {
   FETCH_PROJECTS: "Searching for relevant projects...",
-  EVALUATE_PROJECTS: "Evaluating proof of impact...",
-  ANALYZE_FUNDING: "Analyzing funding needs...",
+  EVALUATE_PROJECTS: "Evaluating evidence of impact & funding needs...",
+  ANALYZE_FUNDING: "Assigning numerical scores...",
   SYNTHESIZE_RESULTS: "Synthesizing results...",
 }
 

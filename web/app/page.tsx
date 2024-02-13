@@ -2,6 +2,8 @@ import React from "react";
 import Prompt from "@/components/Prompt";
 import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
 
+export const dynamic = 'force-dynamic'
+
 function generateUniqueIndexes(arrayLength: number, count: number): number[] {
   if (arrayLength < count) {
       throw new Error('Array does not have enough elements to generate unique indexes.');
