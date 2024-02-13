@@ -66,7 +66,7 @@ export default function RealtimeLogs(props: {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [supabase, props.run.id]);
+  }, [supabase, props.run.id, router]);
 
   const totalSteps = sortedLogsWithSteps.length;
   const stepTimes = sortedLogsWithSteps.map((x) => STEP_TIME_ESTS[x.step_name]);
