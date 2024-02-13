@@ -9,7 +9,7 @@ import { startRun } from "@/app/actions";
 import clsx from "clsx";
 import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
 
-export default function Prompt({ promptsIndex }: { promptsIndex: number }) {
+export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
   const { data: session } = useSession();
@@ -62,20 +62,23 @@ export default function Prompt({ promptsIndex }: { promptsIndex: number }) {
               Some ideas:
             </div>
             <div className="flex flex-wrap justify-center gap-3 text-sm">
-              {EXAMPLE_PROMPTS.slice(promptsIndex, promptsIndex + 5).map((suggestion, index) => suggestion && (
-                <div key={index}>
-                  <button
-                    className="text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300"
-                    disabled={!session}
-                    onClick={async () => {
-                      setPrompt(suggestion);
-                      await sendPrompt(suggestion);
-                    }}
-                  >
-                    {suggestion}
-                  </button>
-                </div>
-              ))}
+              {promptIdxs.map((index) => {
+                const prompt = EXAMPLE_PROMPTS[index];
+                return (
+                  <div key={index}>
+                    <button
+                      className="text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300"
+                      disabled={!session}
+                      onClick={async () => {
+                        setPrompt(prompt);
+                        await sendPrompt(prompt);
+                      }}
+                    >
+                      {prompt}
+                    </button>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>

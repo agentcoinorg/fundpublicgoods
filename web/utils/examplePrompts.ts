@@ -1,4 +1,4 @@
-export const EXAMPLE_PROMPTS = [
+export const EXAMPLE_PROMPTS: string[] = [
   "Urban Development through DeFi",
   "AI and Web3 for Social Good",
   "Global Accessibility via Web3 Education",
@@ -27,7 +27,7 @@ export const EXAMPLE_PROMPTS = [
   "Sustainable Cryptocurrency Mining",
   "Blockchain Games",
   "Crypto Philanthropy",
-  "Agricultural Advancements through Blockchain",,
+  "Agricultural Advancements through Blockchain",
   "Decentralized Exchanges",
   "Blockchain and Renewable Energy",
   "Financial Inclusion through DeFi Innovations",
