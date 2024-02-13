@@ -1,23 +1,23 @@
-from typing import Optional
 from fund_public_goods.db.entities import Projects
 
 from fund_public_goods.lib.strategy.models.answer import Answer
+from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
 
 
-def stringify_projects(projects: list[tuple[Projects, list[Answer]]], separator: str) -> str:
-    project_strings = []
+def get_latest_project_per_website(projects: list[Projects]) -> list[Projects]:
+    latest_projects: dict[str, Projects] = {}
 
-    for i in range(len(projects)):
-        project_str = get_project_text(projects[i], i)
-        project_strings.append(project_str)
+    for project in projects:
+        project_website = sanitize_url(project.website)
+        if (project_website not in latest_projects or
+                project.updated_at > latest_projects[project_website].updated_at):
+            latest_projects[project_website] = project
 
-    return separator.join(project_strings)
+    return list(latest_projects.values())
 
-
-def get_project_text(project_with_answers: tuple[Projects, list[Answer]], index: Optional[int] = None) -> str:
+def get_project_text(project_with_answers: tuple[Projects, list[Answer]]) -> str:
     (project, answers) = project_with_answers
-    id_to_use = index if index is not None else project.id
-    result = f"ID: {id_to_use} - Description: {project.description}\n"
+    result = f"ID: {project.id} - Description: {project.description}\n"
 
     for answer in answers:
         result += f"  Question: {answer.question}\n"

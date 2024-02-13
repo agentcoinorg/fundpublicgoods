@@ -120,7 +120,7 @@ class Projects(BaseModel):
     title: Optional[str] = None
     description: str
     short_description: Optional[str] = Field(..., alias="shortDescription")
-    website: Optional[str] = None
+    website: str
     logo: Optional[str] = None
     twitter: Optional[str] = None
 

@@ -1,39 +1,39 @@
+from langchain.text_splitter import SentenceTransformersTokenTextSplitter
+
 from chromadb import EphemeralClient
 from fund_public_goods.db.entities import Projects
-from fund_public_goods.lib.strategy.models.answer import Answer
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.utils import get_project_text, stringify_projects
-from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 
 
 reranking_prompt_template = """
-You are a professional public goods projects evaluator.
+You are tasked as a specialist in evaluating public goods projects.
+Your role involves analyzing a collection of project summaries provided to you.
+These summaries are separated by '{separator}'.
+Your main objective is to rearrange these summaries in a sequence that accurately reflects their relevance to a given user's prompt.
 
-You will receive a list of project information abstracts divided by '{separator}'
-and you will reorder them based on how much they relate to the user's prompt.
+Your deliverable is a list of PROJECT_IDs in descending order of their relevance to the user's prompt,
+formatted as a comma-separated list without any quotation marks.
+It is crucial to return these PROJECT_IDs exactly as they appear, with no modifications.
 
-You will return a comma-seaparted list of PROJECT_IDs, without quotes.
-PROJECT_IDs are as specified, **do not** modify in any way,
-return them exactly as written.
-
-Ranked from best matching to worst matching.
-
-Consider that each project's information is self reported, it may include buzzwords to seem
-relevant, but in reality it isn't.
+In your assessment, it is essential to discern the genuine alignment of each project with the user's specific requirements.
+Be mindful that the project descriptions may include buzzwords or jargon intended to exaggerate their relevance.
+Your judgment should penetrate beyond superficial claims to identify projects that truly resonate with the user's prompt.
+For instance, in response to a prompt for 'ethereum developer tooling,'
+prioritize projects that contribute directly to ethereum SDKs over those merely organizing ethereum-related events.
 
 User's prompt: {prompt}
 
 Projects: {projects}
 
-Return the Project's ID and only the IDs, separated by commas.
+Your response should consist solely of the Project IDs, arranged from the most to the least relevant, based on your expert evaluation.
 """
 
-def rerank_top_projects(prompt: str, projects: list[tuple[Projects, list[Answer]]]) -> list[tuple[Projects, list[Answer]]]:
+def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
@@ -48,11 +48,14 @@ def rerank_top_projects(prompt: str, projects: list[tuple[Projects, list[Answer]
     top_ids_res = reranking_chain.invoke({
         "prompt": prompt,
         "separator": separator,
-        "projects": stringify_projects(projects=projects, separator=separator)
+        "projects": separator.join([
+            f"ID: {i} - Description: {projects[i].description}\n"
+            for i in range(len(projects))
+        ])
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
-    reranked_projects: list[tuple[Projects, list[Answer]]] = []
+    reranked_projects: list[Projects] = []
 
     for i in range(len(top_ids)):
         id = top_ids[i]
@@ -88,17 +91,19 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
     
     return result_ids
 
-def get_top_matching_projects(prompt: str, projects_with_answers: list[tuple[Projects, list[Answer]]]) -> list[tuple[Projects, list[Answer]]]:
-    projects_by_id = {project_with_answers[0].id: project_with_answers for project_with_answers in projects_with_answers}
-    queries = [prompt] + generate_queries(prompt=prompt, n=3)
+
+def create_embeddings_collection(projects: list[Projects]):
+    text_splitter = SentenceTransformersTokenTextSplitter()
     
     texts: list[str] = []
     metadatas: list[dict] = []
       
-    for (project, _) in projects_with_answers:
-        project_text = f"ID: {project.id} - Description: {project.description}\n"
-        texts.append(project_text)
-        metadatas.append({ "id": project.id })
+    for project in projects:
+        description_chunks = text_splitter.split_text(project.description)
+        
+        for description_chunk in description_chunks:
+            texts.append(description_chunk)
+            metadatas.append({ "id": project.id, "title": project.title })
     
     db_client = EphemeralClient()
     collection = Chroma.from_texts(
@@ -109,10 +114,19 @@ def get_top_matching_projects(prompt: str, projects_with_answers: list[tuple[Pro
         collection_name="projects"
     )
     
+    return collection
+
+
+def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
+    projects_by_id = {project.id: project for project in projects}
+
+    queries = [prompt]
+    all_projects_collection = create_embeddings_collection(projects)
+    
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = collection.similarity_search(query, k=100)
+        matches = all_projects_collection.similarity_search(query, k=200)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
     
     unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
