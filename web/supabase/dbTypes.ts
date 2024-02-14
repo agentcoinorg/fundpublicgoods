@@ -163,8 +163,10 @@ export interface Database {
       }
       projects: {
         Row: {
+          categories: string[]
           description: string | null
           id: string
+          keywords: string[]
           logo: string | null
           short_description: string | null
           title: string | null
@@ -173,8 +175,10 @@ export interface Database {
           website: string
         }
         Insert: {
+          categories?: string[]
           description?: string | null
           id: string
+          keywords?: string[]
           logo?: string | null
           short_description?: string | null
           title?: string | null
@@ -183,8 +187,10 @@ export interface Database {
           website: string
         }
         Update: {
+          categories?: string[]
           description?: string | null
           id?: string
+          keywords?: string[]
           logo?: string | null
           short_description?: string | null
           title?: string | null

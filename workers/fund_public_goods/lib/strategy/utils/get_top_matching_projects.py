@@ -1,7 +1,9 @@
 from langchain.text_splitter import CharacterTextSplitter
 
 from chromadb import EphemeralClient
+from langchain.text_splitter import CharacterTextSplitter
 from fund_public_goods.db.entities import Projects
+from fund_public_goods.lib.strategy.utils.categorize_prompt import categorize_prompt
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -12,9 +14,9 @@ from langchain.vectorstores.chroma import Chroma
 
 reranking_prompt_template = """
 You are tasked as a specialist in evaluating public goods projects.
-Your role involves analyzing a collection of project summaries provided to you.
-These summaries are separated by '{separator}'.
-Your main objective is to rearrange these summaries in a sequence that accurately reflects their relevance to a given user's prompt.
+Your role involves analyzing a collection of project descriptions provided to you.
+These descriptions are separated by '{separator}'.
+Your main objective is to rearrange these projects in a sequence that accurately reflects their relevance to a given user's prompt.
 
 Your deliverable is a list of PROJECT_IDs in descending order of their relevance to the user's prompt,
 formatted as a comma-separated list without any quotation marks.
@@ -29,8 +31,6 @@ prioritize projects that contribute directly to ethereum SDKs over those merely 
 User's prompt: {prompt}
 
 Projects: {projects}
-
-Your response should consist solely of the Project IDs, arranged from the most to the least relevant, based on your expert evaluation.
 """
 
 def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
@@ -121,20 +121,21 @@ def create_embeddings_collection(projects: list[Projects]):
     
     return collection
 
+def filter_projects_by_categories(projects: list[Projects], categories: list[str]) -> list[Projects]:
+    filtered_projects = [project for project in projects if any(category in project.categories for category in categories)]
+    return filtered_projects
+
 
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     projects_by_id = {project.id: project for project in projects}
-
-    queries = [prompt]
-    all_projects_collection = create_embeddings_collection(projects)
     
-    query_to_matched_project_ids: dict[str, list[str]] = {}
+    prompt_categories = categorize_prompt(prompt, 2)
+    projects_with_categories = filter_projects_by_categories(projects, prompt_categories)
     
-    for query in queries:
-        matches = all_projects_collection.similarity_search(query, k=200)
-        query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
-    
-    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
+    all_projects_collection = create_embeddings_collection(projects_with_categories)
+    matches = all_projects_collection.similarity_search(prompt, k=300)
+    matched_project_ids = [match.metadata["id"] for match in matches]
+    unique_ids = get_top_n_unique_ids({prompt: matched_project_ids}, 30)
     
     matched_projects = []
 

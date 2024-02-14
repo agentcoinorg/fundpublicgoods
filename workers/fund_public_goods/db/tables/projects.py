@@ -5,20 +5,6 @@ from fund_public_goods.db.entities import Projects
 from fund_public_goods.db.app_db import create_admin
 
 
-def insert(
-    row: Projects
-):
-    db = create_admin()
-    db.table("projects").insert({
-        "id": row.id,
-        "updated_at": row.updated_at,
-        "title": row.title,
-        "description": row.description,
-        "website": row.website,
-        "twitter": row.twitter,
-        "logo": row.logo
-    }).execute()
-
 def upsert(
     row: Projects
 ):
@@ -31,6 +17,8 @@ def upsert(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
+        "keywords": row.keywords,
+        "categories": row.categories,
         "logo": row.logo
     }).execute()
     
@@ -46,6 +34,8 @@ def upsert_multiple(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
+        "keywords": row.keywords,
+        "categories": row.categories,
         "logo": row.logo
     } for row in rows]).execute()
 
@@ -54,7 +44,7 @@ def get(
 ) -> Projects | None:
     db = create_admin()
     result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "short_description", "website", "twitter", "logo")
+        .select("id", "updated_at", "title", "keywords", "categories", "description", "short_description", "website", "twitter", "logo")
         .eq("id", project_id)
         .execute())
 
@@ -69,27 +59,46 @@ def get(
         title=data["title"],
         description=data["description"],
         website=data["website"],
+        keywords=data['keywords'],
+        categories=data['categories'],
         twitter=data["twitter"],
         short_description=data["short_description"],
         logo=data["logo"]
     )
 
-def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
+def get_projects(range_from: int, range_to: int) -> PostgrestAPIResponse[Dict[str, Any]]:
     db = create_admin()
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, short_description, twitter, logo, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, applications(id, recipient, round, answers)"
         )
+        .range(range_from, range_to)
         .execute()
     )
+    
+def get_all_projects() -> list[dict[str, Any]]:
+    all_results: list[dict[str, Any]] = []
+    current_from = 0
+    page_size = 999
+    while True:
+        current_to = current_from + page_size
+        results = get_projects(current_from, current_to).data
+        all_results.extend(results)
+        
+        if len(results) < page_size:
+            break
+
+        current_from += page_size
+    
+    return all_results
 
 def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
-    response = get_projects()
+    data = get_all_projects()
     
     projects_with_answers: list[tuple[Projects, list[Answer]]] = []
 
-    for item in response.data:
+    for item in data:
         answers: list[Answer] = []
 
         for application in item.get("applications", []):
@@ -110,6 +119,8 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
+            keywords=project_data.get("keywords", []),
+            categories=project_data.get("categories", []),
             short_description=project_data.get("short_description", None)
         )
         

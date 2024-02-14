@@ -1,0 +1,1 @@
+alter table "public"."projects" add column "categories" text[] not null default '{}'::text[];
