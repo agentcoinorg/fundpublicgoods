@@ -129,22 +129,39 @@ def get_projects_without_categories() -> list[Projects]:
         
     return projects
 
-def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
+def get_projects(range_from: int, range_to: int) -> PostgrestAPIResponse[Dict[str, Any]]:
     db = create_admin()
     return (
         db.table("projects")
         .select(
             "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, applications(id, recipient, round, answers)"
         )
+        .range(range_from, range_to)
         .execute()
     )
+    
+def get_all_projects() -> list[dict[str, Any]]:
+    all_results: list[dict[str, Any]] = []
+    current_from = 0
+    page_size = 999
+    while True:
+        current_to = current_from + page_size
+        results = get_projects(current_from, current_to).data
+        all_results.extend(results)
+        
+        if len(results) < page_size:
+            break
+
+        current_from += page_size
+    
+    return all_results
 
 def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
-    response = get_projects()
+    data = get_all_projects()
     
     projects_with_answers: list[tuple[Projects, list[Answer]]] = []
 
-    for item in response.data:
+    for item in data:
         answers: list[Answer] = []
 
         for application in item.get("applications", []):
