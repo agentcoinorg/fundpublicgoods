@@ -10,7 +10,7 @@ def sanitize_url(url: str) -> str:
 
     return sanitized_url
 
-def upsert_project(project: GitcoinProjects, updated_at: int):
+def upsert_project(project: GitcoinProjects, keywords: list[str], categories: list[str], updated_at: int):
     entity = entities.Projects(
         id=project.id,
         updated_at=updated_at,
@@ -19,7 +19,9 @@ def upsert_project(project: GitcoinProjects, updated_at: int):
         website=sanitize_url(project.data["website"]),
         twitter=project.data.get("projectTwitter", ""),
         logo=project.data.get("logoImg", ""),
-        short_description=None
+        short_description=None,
+        keywords=keywords,
+        categories=categories
     )
 
     tables.projects.upsert(entity)
