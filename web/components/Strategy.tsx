@@ -7,8 +7,8 @@ import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { useRouter } from "next/navigation";
-import { NetworkName, SUPPORTED_NETWORKS } from "@/utils/ethereum";
+import { useRouter, useSearchParams } from "next/navigation";
+import { NetworkName, SUPPORTED_NETWORKS, getNetworkNameFromChainId } from "@/utils/ethereum";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
 import {
@@ -24,6 +24,7 @@ import { XLogo } from "./Icons";
 import Image from "next/image";
 import { pluralize } from "@/utils/pluralize";
 import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
+import { useTweetShare } from "@/hooks/useTweetShare";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -31,14 +32,23 @@ export default function Strategy(props: {
   runId: string;
   networks: NetworkName[];
 }) {
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
-    findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
-  );
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
   const [balance, setBalance] = useState<string | null>();
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const searchParams = useSearchParams()
+  const overwrites = {
+    weights: searchParams.get("weights") ? searchParams.get("weights")?.split(",") : null,
+    projects: searchParams.get("projects") ? searchParams.get("projects")?.split(",") : null
+  }
+  
+  let networkName = findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
+  if (searchParams.get("network")) {
+    networkName = getNetworkNameFromChainId(Number(searchParams.get("network")))
+  }
+
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(networkName);
   const {
     execute: executeDonation,
     isTransactionPending,
@@ -49,7 +59,8 @@ export default function Strategy(props: {
   const strategiesHandler = useStrategiesHandler(
     props.fetchedStrategies,
     amount,
-    selectedNetwork
+    selectedNetwork,
+    overwrites
   );
   const [
     { connectedChain },
@@ -63,26 +74,16 @@ export default function Strategy(props: {
     updateToken: updateToken,
     selectedToken,
   } = useToken(selectedNetwork);
-
+  
   const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
-
+  const tweetUrl = useTweetShare(props.runId, strategies, selectedNetwork, props.prompt)
+  
   useEffect(() => {
     setBalance((currentBalance) => {
       if (currentBalance) return null;
     });
   }, [selectedToken]);
-
-  const tweetHandles = props.fetchedStrategies
-    .filter((x) => x.project.twitter)
-    .map((x) => `@${x.project.twitter}`)
-    .join("\n");
-  const tweetText =
-    `Join me in supporting these awesome PGPs I found on fundpublicgoods.ai!\n\n` +
-    `${tweetHandles}\n\nLink: https://fundpublicgoods.ai/${props.runId}`;
-  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    tweetText
-  )}`;
 
   async function connect() {
     await connectWallet();

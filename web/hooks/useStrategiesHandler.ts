@@ -5,6 +5,7 @@ import {
   redistributeWeights,
 } from "@/utils/distributeWeights";
 import { NetworkName } from "@/utils/ethereum";
+import { useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export interface StrategiesHandler {
@@ -34,34 +35,59 @@ export type StrategyInformation = StrategyEntry & {
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
-
 export function useStrategiesHandler(
   initStrategies: StrategiesWithProjects,
   totalAmount: string,
-  networkName: NetworkName
+  networkName: NetworkName,
+  overwrites: {
+    weights?: string[] | null;
+    projects?: string[] | null;
+  }
 ): StrategiesHandler {
-  const preparedStrategies = initStrategies.map((s, i) => {
-    const weights = redistributeWeights(
-      initStrategies.map((s) => s.defaultWeight as number),
-      initStrategies.map((s) => s.networks.includes(networkName))
-    );
+  console.log(overwrites);
+  let preparedStrategies = initStrategies
+    .map((s, i) => {
+      const weights = redistributeWeights(
+        initStrategies.map((s) => s.defaultWeight as number),
+        initStrategies.map((s) => s.networks.includes(networkName))
+      );
 
-    return {
-      ...s,
-      weight: weights[i],
-      disabled: !s.networks.includes(networkName) || s.defaultWeight === 0,
-      selected: s.networks.includes(networkName) && s.defaultWeight !== 0,
-    };
-  }).sort((a, b) => {
-    if (!a.disabled && !b.disabled) {
-      return (b.smart_ranking || 0) - (a.smart_ranking || 0);
+      return {
+        ...s,
+        weight: weights[i],
+        disabled: !s.networks.includes(networkName) || s.defaultWeight === 0,
+        selected: s.networks.includes(networkName) && s.defaultWeight !== 0,
+      };
+    })
+    .sort((a, b) => {
+      if (!a.disabled && !b.disabled) {
+        return (b.smart_ranking || 0) - (a.smart_ranking || 0);
+      }
+      if (a.disabled && b.disabled) {
+        return (b.smart_ranking || 0) - (a.smart_ranking || 0);
+      }
+      return a.disabled ? 1 : -1;
+    });
+
+  preparedStrategies = preparedStrategies.map((s, i) => {
+    if (
+      overwrites.weights &&
+      overwrites.projects &&
+      overwrites.projects.length === overwrites.weights.length
+    ) {
+      const projectIndex = overwrites.projects?.findIndex((p) => +p === i);
+      const weight =
+        projectIndex !== -1 ? +overwrites.weights[projectIndex] : 0;
+      return {
+        ...s,
+        weight,
+        disabled: !s.networks.includes(networkName) || s.defaultWeight === 0,
+        selected: projectIndex !== -1,
+      };
+    } else {
+      return s
     }
-    if (a.disabled && b.disabled) {
-      return (b.smart_ranking || 0) - (a.smart_ranking || 0);
-    }
-    return a.disabled ? 1 : -1;
   });
-
   const [strategies, modifyStrategies] = useState(preparedStrategies);
 
   const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
@@ -232,8 +258,7 @@ export function useStrategiesHandler(
     setOverwrittenWeights(Array(initStrategies.length).fill(0));
     setFormattedWeights(newStrategies.map((s) => (s.weight * 100).toFixed(2)));
     modifyStrategies(newStrategies);
-  }
-
+  };
 
   return {
     strategies,
