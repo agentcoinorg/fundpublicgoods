@@ -20,7 +20,7 @@ const Dropdown = ({ items, field, onChange }: DropdownProps) => {
           <CaretDown weight='bold' />
         </Listbox.Button>
         {items.length > 0 && (
-          <Listbox.Options className='absolute z-10 mt-1 w-full bg-white shadow-lg shadow-primary-shadow/20 max-h-60 rounded-lg p-2 ring-1 ring-white ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
+          <Listbox.Options className='absolute z-10 mt-1 bg-white shadow-lg shadow-primary-shadow/20 max-h-60 rounded-lg pt-1 ring-1 ring-white ring-opacity-5 focus:outline-none sm:text-sm'>
             {items.map((item) => (
               <Listbox.Option
                 key={item}

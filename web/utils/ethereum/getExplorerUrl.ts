@@ -4,7 +4,7 @@ export function getExplorerUrl(network: NetworkName, address: string): string {
   switch (network) {
     case "Mainnet": return `https://etherscan.io/address/${address}`;
     case "Polygon": return `https://polygonscan.com/address/${address}`;
-    case "ArbitrumOne": return `https://etherscan.io/address/${address}`;
+    case "ArbitrumOne": return `https://arbiscan.io/address/${address}`;
     case "Optimism": return `https://optimistic.etherscan.io/address/${address}`;
     case "Base": return `https://basescan.org/address/${address}`;
     case "FantomOpera": return `https://ftmscan.com/address/${address}`;

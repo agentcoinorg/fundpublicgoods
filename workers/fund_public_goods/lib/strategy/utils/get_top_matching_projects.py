@@ -1,3 +1,5 @@
+from langchain.text_splitter import CharacterTextSplitter
+
 from chromadb import EphemeralClient
 from langchain.text_splitter import CharacterTextSplitter
 from fund_public_goods.db.entities import Projects
@@ -90,7 +92,7 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
     return result_ids
 
 
-def create_embeddings_collection(projects: list[Projects]):    
+def create_embeddings_collection(projects: list[Projects]):
     text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
         chunk_size=200,
         chunk_overlap=10,
@@ -138,10 +140,17 @@ def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Pro
     for query in queries:
         matches = all_projects_collection.similarity_search(query, k=300)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
-        
+    
     unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
     
-    matched_projects = [projects_by_id[id] for id in unique_ids]
+    matched_projects = []
+
+    # TODO: this is a patch for an error seen in prod, should look at why
+    #       some of these IDs don't exist...
+    for id in unique_ids:
+        if projects_by_id.get(id):
+            matched_projects.append(projects_by_id[id])
+    
     reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     
     return reranked_projects

@@ -6,7 +6,6 @@ import { StrategyTable } from "./StrategyTable";
 import TextField from "./TextField";
 import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
-import { pluralize } from "@/app/lib/utils/pluralize";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/navigation";
 import { NetworkName, SUPPORTED_NETWORKS } from "@/utils/ethereum";
@@ -23,6 +22,8 @@ import ChatInputButton from "./ChatInputButton";
 import SuccessModal from "./SuccessModal";
 import { XLogo } from "./Icons";
 import Image from "next/image";
+import { pluralize } from "@/utils/pluralize";
+import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -31,7 +32,7 @@ export default function Strategy(props: {
   networks: NetworkName[];
 }) {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(
-    props.networks[0]
+    findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
   );
   const [currentPrompt, setCurrentPrompt] = useState<string>(props.prompt);
   const [amount, setAmount] = useState<string>("0");
@@ -63,8 +64,7 @@ export default function Strategy(props: {
     selectedToken,
   } = useToken(selectedNetwork);
 
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } =
-    strategiesHandler;
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
 
   useEffect(() => {
@@ -72,6 +72,7 @@ export default function Strategy(props: {
       if (currentBalance) return null;
     });
   }, [selectedToken]);
+
   const tweetHandles = props.fetchedStrategies
     .filter((x) => x.project.twitter)
     .map((x) => `@${x.project.twitter}`)
