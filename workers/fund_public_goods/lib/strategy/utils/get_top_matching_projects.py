@@ -1,5 +1,7 @@
 from chromadb import EphemeralClient
 from fund_public_goods.db.entities import Projects
+from fund_public_goods.lib.strategy.utils.categorize_prompt import categorize_prompt
+from fund_public_goods.lib.strategy.utils.generate_queries import generate_queries
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -110,22 +112,38 @@ def create_embeddings_collection(projects: list[Projects]):
     
     return collection
 
+def filter_projects_by_categories(projects: list[Projects], categories: list[str]) -> list[Projects]:
+    filtered_projects = [project for project in projects if any(category in project.categories for category in categories)]
+    return filtered_projects
+
 
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     projects_by_id = {project.id: project for project in projects}
+    prompt_categories = categorize_prompt(prompt, 2)
+    
+    print(prompt_categories)
+    
+    projects_with_categories = filter_projects_by_categories(projects, prompt_categories)
+    
+    print([p.title for p in projects_with_categories])
 
+    raise
     queries = [prompt]
-    all_projects_collection = create_embeddings_collection(projects)
+    all_projects_collection = create_embeddings_collection(projects_with_categories)
     
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = all_projects_collection.similarity_search(query, k=200)
+        matches = all_projects_collection.similarity_search(query, k=75)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
         
-    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 250)
     
     matched_projects = [projects_by_id[id] for id in unique_ids]
+    
+    print([p.title for p in matched_projects])
+    
+    raise
             
     reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     

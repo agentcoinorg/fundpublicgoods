@@ -20,7 +20,7 @@ Project:
 """
 
 
-def generate_keywords(project_description: str) -> list[str]:
+def generate_keywords(project_descriptions: list[str]) -> list[list[str]]:
     keywords_prompt = ChatPromptTemplate.from_messages([
         ("system", keywords_prompt_template),
     ])
@@ -28,11 +28,16 @@ def generate_keywords(project_description: str) -> list[str]:
 
     keywords_chain = keywords_prompt | llm | StrOutputParser()
 
-    keywords = keywords_chain.invoke({
+    keyword_strings = keywords_chain.batch([{
         "project_description": project_description
-    })
+    } for project_description in project_descriptions])
     
-    if keywords == "NONE":
-        return []
+    keywords: list[list[str]] = []
     
-    return [keyword.strip() for keyword in keywords.split(",")]
+    for keyword_string in keyword_strings:
+        if keyword_string == "NONE":
+            keywords.append([])
+        else:
+            keywords.append([keyword.strip() for keyword in keyword_string.split(",")])
+            
+    return keywords

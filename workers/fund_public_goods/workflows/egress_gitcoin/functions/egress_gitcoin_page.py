@@ -44,7 +44,7 @@ async def egress_gitcoin_page(
         project = apps_with_project[i].project
         app = apps_with_project[i].app
         
-        project_keywords = await step.run("generate_keywords_" + str(i), lambda: generate_keywords(project.data["description"]))
+        [project_keywords] = await step.run("generate_keywords_" + str(i), lambda: generate_keywords([project.data["description"]]))
 
         await step.run("upsert_project_" + str(i), lambda: upsert_project(project, project_keywords, app.created_at))
         

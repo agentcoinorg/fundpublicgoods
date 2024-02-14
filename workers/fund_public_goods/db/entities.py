@@ -124,6 +124,7 @@ class Projects(BaseModel):
     logo: Optional[str] = None
     twitter: Optional[str] = None
     keywords: list[str] = []
+    categories: list[str] = []
 
     model_config = ConfigDict(
         populate_by_name=True
