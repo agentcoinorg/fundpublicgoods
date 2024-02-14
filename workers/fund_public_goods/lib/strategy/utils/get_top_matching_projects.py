@@ -142,7 +142,6 @@ def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Pro
     unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
     
     matched_projects = [projects_by_id[id] for id in unique_ids]
-            
     reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
     
     return reranked_projects
