@@ -100,13 +100,6 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                   </div>
                   <div className='space-x-2 flex'>
                     <div className='flex flex-col justify-center w-12 relative'>
-                      <Image
-                        className="absolute top-0 left-0 z-1 w-4 h-4 rounded-full shadow-sm shadow-primary-shadow/20"
-                        width={48}
-                        height={48}
-                        src={`/chains/${entry.networks.includes(network) ? network : entry.networks[0]}.png`}
-                        alt="network"
-                      />
                       {entry.project.logo ? (
                         <Image
                           className='rounded-full border-2 border-indigo-300 object-fit'

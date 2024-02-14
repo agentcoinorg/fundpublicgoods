@@ -182,19 +182,21 @@ export default function Strategy(props: {
           <div className='space-y-2'>
             <div className='space-y-6 bg-indigo-50 rounded-3xl border-2 border-indigo-200 p-2 md:p-4'>
               <div className='space-y-2'>
-                <div className='flex space-x-2 items-center'>
+                <div className='flex flex-wrap gap-2 items-center'>
                   <div className='text-xs text-subdued'>Filter by: </div>
-                  <Dropdown
-                    items={props.networks.filter((n) => n !== selectedNetwork)}
-                    field={{ value: selectedNetwork }}
-                    onChange={(newValue) => {
-                      if (props.networks.length === 1) {
-                        return;
-                      }
-                      handleNetworkUpdate(newValue as NetworkName);
-                      setSelectedNetwork(newValue as NetworkName);
-                    }}
-                  />
+                  <div>
+                    <Dropdown
+                      items={props.networks.filter((n) => n !== selectedNetwork).map(n => ({ value: n, image: `/chains/${n}.png` }))}
+                      field={{ value: selectedNetwork, image: `/chains/${selectedNetwork}.png` }}
+                      onChange={(newValue) => {
+                        if (props.networks.length === 1) {
+                          return;
+                        }
+                        handleNetworkUpdate(newValue as NetworkName);
+                        setSelectedNetwork(newValue as NetworkName);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
               <StrategyTable {...strategiesHandler} network={selectedNetwork} />
@@ -214,7 +216,7 @@ export default function Strategy(props: {
                           <Dropdown
                             items={tokens
                               .filter((x) => x.name !== selectedToken.name)
-                              .map((x) => x.name)}
+                              .map((x) => ({ value : x.name }))}
                             field={{ value: selectedToken.name }}
                             onChange={async (newToken) =>
                               await updateToken(newToken)
