@@ -2,21 +2,18 @@ import React from "react";
 import { useProgressTime } from "@/hooks/useProgressTime";
 
 interface TimeRemainingProps {
-  stepTimes: number[];
-  curStep: number;
+  time: number;
 }
 
 const TimeRemaining: React.FC<TimeRemainingProps> = ({
-  stepTimes,
-  curStep,
+  time
 }) => {
-  const { time } = useProgressTime(stepTimes, curStep);
-  const formattedTime = formatTime(time, curStep);
+  const formattedTime = formatTime(time);
 
   return <div className='text-subdued text-[10px]'>{formattedTime}</div>;
 };
 
-function formatTime(seconds: number, curStep: number) {
+function formatTime(seconds: number) {
   const roundedSeconds = Math.round(seconds);
   const minutes = Math.floor(roundedSeconds / 60);
   const secs = roundedSeconds % 60;

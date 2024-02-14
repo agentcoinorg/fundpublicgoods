@@ -13,8 +13,10 @@ import {
   LOADING_TEXTS,
   STEPS_ORDER,
   STEP_TIME_ESTS,
+  COMPLETED_TEXTS,
 } from "@/utils/logs";
 import TimeRemaining from "./TimeRemaining";
+import { useProgressTime } from "@/hooks/useProgressTime";
 
 const getLogMessage = (log: Tables<"logs">) => {
   switch (log.status) {
@@ -23,7 +25,7 @@ const getLogMessage = (log: Tables<"logs">) => {
     case "IN_PROGRESS":
       return LOADING_TEXTS[log.step_name];
     case "COMPLETED":
-      return log.value ?? `Completed: ${UNSTARTED_TEXTS[log.step_name]}`;
+      return COMPLETED_TEXTS[log.step_name];
     case "ERRORED":
       return `Error while ${LOADING_TEXTS[log.step_name].toLowerCase()}`;
   }
@@ -37,14 +39,18 @@ export default function RealtimeLogs(props: {
   };
 }) {
   const { data: session } = useSession();
+  const sortedLogsWithSteps = props.logs.sort((a, b) => {
+    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
+  });
+  const progressInformation = useProgressTime(
+    Object.values(STEP_TIME_ESTS),
+    sortedLogsWithSteps
+  );
+
   const supabase = createSupabaseBrowserClient(
     session?.supabaseAccessToken ?? ""
   );
   const router = useRouter();
-
-  const sortedLogsWithSteps = props.logs.sort((a, b) => {
-    return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
-  });
 
   useEffect(() => {
     const channel = supabase
@@ -68,27 +74,11 @@ export default function RealtimeLogs(props: {
     };
   }, [supabase, props.run.id, router]);
 
-  const totalSteps = sortedLogsWithSteps.length;
-  const stepTimes = sortedLogsWithSteps.map((x) => STEP_TIME_ESTS[x.step_name]);
-  let currentStep = sortedLogsWithSteps.findIndex(
-    (x) => x.status === "IN_PROGRESS"
-  );
-
-  if (currentStep < 0) {
-    const lastStep = sortedLogsWithSteps[totalSteps - 1];
-    if (!!lastStep) {
-      currentStep = lastStep.status === "COMPLETED" ? totalSteps + 1 : 0;
-    } else {
-      currentStep = 0;
-    }
-  }
-
   return (
     <div className='space-y-2'>
-      <TimeRemaining stepTimes={stepTimes} curStep={currentStep} />
+      <TimeRemaining time={progressInformation.time} />
       <ProgressBar
-        stepTimes={stepTimes}
-        curStep={currentStep}
+        progress={progressInformation.progress}
         className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
       />
       {sortedLogsWithSteps

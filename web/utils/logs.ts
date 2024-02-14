@@ -33,6 +33,13 @@ export const LOADING_TEXTS: Record<StepName, string> = {
   SYNTHESIZE_RESULTS: "Synthesizing results...",
 }
 
+export const COMPLETED_TEXTS: Record<StepName, string> = {
+  FETCH_PROJECTS: "Found projects related",
+  EVALUATE_PROJECTS: "Generated impact & funding needs report for projects",
+  ANALYZE_FUNDING: "Computed smart rankings for projects",
+  SYNTHESIZE_RESULTS: "Results generated",
+}
+
 export const STEPS_ORDER: Record<StepName, number> = {
   FETCH_PROJECTS: 1,
   EVALUATE_PROJECTS: 2,
@@ -41,8 +48,8 @@ export const STEPS_ORDER: Record<StepName, number> = {
 }
 
 export const STEP_TIME_ESTS: Record<StepName, number> = {
-  FETCH_PROJECTS: 40,
-  EVALUATE_PROJECTS: 5,
-  ANALYZE_FUNDING: 10,
-  SYNTHESIZE_RESULTS: 5
+  FETCH_PROJECTS: 15,
+  EVALUATE_PROJECTS: 15,
+  ANALYZE_FUNDING: 15,
+  SYNTHESIZE_RESULTS: 15
 }
