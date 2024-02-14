@@ -240,7 +240,6 @@ export interface Database {
           report: string | null
           run_id: string
           smart_ranking: number | null
-          weight: number | null
         }
         Insert: {
           created_at?: string
@@ -252,7 +251,6 @@ export interface Database {
           report?: string | null
           run_id: string
           smart_ranking?: number | null
-          weight?: number | null
         }
         Update: {
           created_at?: string
@@ -264,7 +262,6 @@ export interface Database {
           report?: string | null
           run_id?: string
           smart_ranking?: number | null
-          weight?: number | null
         }
         Relationships: [
           {

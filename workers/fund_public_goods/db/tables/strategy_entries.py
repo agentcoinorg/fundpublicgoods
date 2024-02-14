@@ -12,7 +12,6 @@ def insert(
         "project_id": row.project_id,
         "impact": row.impact,
         "interest": row.interest,
-        "weight": row.weight,
         "smart_ranking": row.smart_ranking,
     }).execute()
 
@@ -22,7 +21,6 @@ def insert_multiple(run_id: str, strategies: list[WeightedProject]) -> None:
         [
             {
                 "run_id": run_id,
-                "weight": entry.weight,
                 "impact": entry.scores.impact,
                 "interest": entry.scores.prompt_match,
                 "funding_needed": entry.scores.funding_needed,

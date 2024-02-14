@@ -92,11 +92,14 @@ export default async function StrategyPage({
       recipients: Object.values(appsByNetwork).map((x) => x.recipient),
     };
   });
+
+  const totalScore = data.reduce((acc, x) => acc + (x.smart_ranking || 0), 0)
+
   const strategies = data
     .map((strategy, i) => {
       return {
         ...strategy,
-        defaultWeight: strategy.weight as number,
+        defaultWeight: strategy.smart_ranking || 0 / totalScore,
         networks: recipientInformation[i].networks,
         recipients: recipientInformation[i].recipients,
       };
