@@ -65,69 +65,6 @@ def get(
         short_description=data["short_description"],
         logo=data["logo"]
     )
-    
-def get_projects_without_keywords() -> list[Projects]:
-    db = create_admin()
-    response = (
-        db.table("projects")
-        .select(
-            "id, updated_at, title, description, website, categories, keywords, short_description, twitter, logo, applications(id, recipient, round, answers)"
-        )
-        .eq('keywords', '{}')
-        .execute()
-    )
-    
-    projects: list[Projects] = []
-    
-    for item in response.data:
-        project_data = {k: v for k, v in item.items() if v is not None}
-        project = Projects(
-            id=project_data.get("id", ""),
-            title=project_data.get("title", ""),
-            description=project_data.get("description", ""),
-            updatedAt=project_data.get("updated_at", None),
-            website=project_data.get("website", ""),
-            twitter=project_data.get("twitter", ""),
-            logo=project_data.get("logo", ""),
-            keywords=project_data.get("keywords", []),
-            shortDescription=project_data.get("short_description", None)
-        )
-        
-        projects.append(project)
-        
-    return projects
-
-def get_projects_without_categories() -> list[Projects]:
-    db = create_admin()
-    response = (
-        db.table("projects")
-        .select(
-            "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, applications(id, recipient, round, answers)"
-        )
-        .eq('categories', '{}')
-        .execute()
-    )
-    
-    projects: list[Projects] = []
-    
-    for item in response.data:
-        project_data = {k: v for k, v in item.items() if v is not None}
-        project = Projects(
-            id=project_data.get("id", ""),
-            title=project_data.get("title", ""),
-            description=project_data.get("description", ""),
-            updatedAt=project_data.get("updated_at", None),
-            website=project_data.get("website", ""),
-            twitter=project_data.get("twitter", ""),
-            logo=project_data.get("logo", ""),
-            keywords=project_data.get("keywords", []),
-            categories=project_data.get("categories", []),
-            shortDescription=project_data.get("short_description", None)
-        )
-        
-        projects.append(project)
-        
-    return projects
 
 def get_projects(range_from: int, range_to: int) -> PostgrestAPIResponse[Dict[str, Any]]:
     db = create_admin()
