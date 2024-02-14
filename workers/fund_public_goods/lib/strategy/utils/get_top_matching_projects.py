@@ -133,7 +133,7 @@ def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Pro
     projects_with_categories = filter_projects_by_categories(projects, prompt_categories)
     
     all_projects_collection = create_embeddings_collection(projects_with_categories)
-    matches = all_projects_collection.similarity_search(prompt, k=300)
+    matches = all_projects_collection.similarity_search(prompt, k=5000)
     matched_project_ids = [match.metadata["id"] for match in matches]
     unique_ids = get_top_n_unique_ids({prompt: matched_project_ids}, 30)
     
