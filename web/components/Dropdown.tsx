@@ -15,7 +15,7 @@ const Dropdown = ({ items, field, onChange }: DropdownProps) => {
   };
   return (
     <Listbox {...listboxProps}>
-      <div className="relative">
+      <div className="relative w-full">
         <Listbox.Button className="text-sm leading-none flex space-x-1 bg-white border-2 border-indigo-100 hover:text-indigo-600 px-3 py-1.5 hover:bg-indigo-100 transition-colors duration-500 ease-in-out rounded-lg">
           <div className="flex flex-wrap gap-2 items-center">
             {field.image && (

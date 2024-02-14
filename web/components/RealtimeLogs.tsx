@@ -25,7 +25,7 @@ const getLogMessage = (log: Tables<"logs">) => {
     case "IN_PROGRESS":
       return LOADING_TEXTS[log.step_name];
     case "COMPLETED":
-      return COMPLETED_TEXTS[log.step_name];
+      return log.value || COMPLETED_TEXTS[log.step_name]
     case "ERRORED":
       return `Error while ${LOADING_TEXTS[log.step_name].toLowerCase()}`;
   }
@@ -44,7 +44,8 @@ export default function RealtimeLogs(props: {
   });
   const progressInformation = useProgressTime(
     Object.values(STEP_TIME_ESTS),
-    sortedLogsWithSteps
+    sortedLogsWithSteps,
+    props.run.prompt
   );
 
   const supabase = createSupabaseBrowserClient(

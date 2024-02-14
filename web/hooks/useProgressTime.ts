@@ -1,9 +1,11 @@
 import { Tables } from "@/supabase/dbTypes";
+import { COMPLETED_TEXTS } from "@/utils/logs";
 import { useState, useEffect } from "react";
 
 export function useProgressTime(
   stepTimes: number[],
-  logs: Array<Tables<"logs">>
+  logs: Array<Tables<"logs">>,
+  prompt: string,
 ) {
   const [startTime] = useState(Date.now());
   const [progressInformation, setProgressInformation] = useState({
@@ -42,6 +44,11 @@ export function useProgressTime(
         setProgressInformation(({ logs }) => {
           const newLogs = [...logs];
           newLogs[currentStep].status = "COMPLETED";
+          newLogs[currentStep].value = COMPLETED_TEXTS[newLogs[currentStep].step_name]
+          if (currentStep === 0) {
+            newLogs[currentStep].value += " related to " + prompt
+          }
+
           if (stepTimes.length > currentStep + 1) {
             newLogs[currentStep + 1].status = "IN_PROGRESS";
           }
