@@ -1,4 +1,4 @@
-from langchain.text_splitter import SentenceTransformersTokenTextSplitter
+from langchain.text_splitter import CharacterTextSplitter
 
 from chromadb import EphemeralClient
 from fund_public_goods.db.entities import Projects
@@ -93,11 +93,16 @@ def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
 
 
 def create_embeddings_collection(projects: list[Projects]):
-    text_splitter = SentenceTransformersTokenTextSplitter()
+    text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
+        chunk_size=200,
+        chunk_overlap=10,
+        separator=" ",
+        keep_separator=True
+    )
     
     texts: list[str] = []
     metadatas: list[dict] = []
-      
+    
     for project in projects:
         description_chunks = text_splitter.split_text(project.description)
         
