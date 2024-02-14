@@ -145,7 +145,10 @@ export default function Strategy(props: {
     router.push(`/s/${response.runId}`);
     setIsRegenerating(false);
   }
-
+  const totalWeightInSelectedStrategies = strategies.reduce((acc, x) => acc + x.defaultWeight, 0)
+  const totalWeightInFetchedStrategies = props.fetchedStrategies.reduce((acc, x) => acc + x.defaultWeight, 0)
+  console.log({totalWeightInFetchedStrategies})
+  console.log({totalWeightInSelectedStrategies})
   return (
     <>
       <div className='flex justify-center py-10 px-6 flex-grow flex-column'>
