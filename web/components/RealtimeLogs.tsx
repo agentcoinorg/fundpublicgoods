@@ -63,8 +63,13 @@ export default function RealtimeLogs(props: {
           schema: "public",
           filter: `run_id=eq.${props.run.id}`,
         },
-        () => {
-          router.refresh();
+        (payload) => {
+          if (
+            payload.new.step_name === "SYNTHESIZE_RESULTS" &&
+            payload.new.status === "COMPLETED"
+          ) {
+            router.refresh();
+          }
         }
       )
       .subscribe();
@@ -75,7 +80,7 @@ export default function RealtimeLogs(props: {
   }, [supabase, props.run.id, router]);
 
   return (
-    <div className='space-y-2'>
+    <div className="space-y-2">
       <TimeRemaining time={progressInformation.time} />
       <ProgressBar
         progress={progressInformation.progress}
@@ -84,24 +89,26 @@ export default function RealtimeLogs(props: {
       {sortedLogsWithSteps
         .filter((log) => log.status !== "NOT_STARTED")
         .map((log) => (
-          <div className='flex items-center space-x-2' key={log.id}>
+          <div className="flex items-center space-x-2" key={log.id}>
             {log.status === "IN_PROGRESS" ? (
               <LoadingCircle
                 hideText={true}
-                className='!stroke-indigo-500 text-indigo-200'
+                className="!stroke-indigo-500 text-indigo-200"
               />
             ) : log.status === "COMPLETED" ? (
               <div
-                className='text-sm px-0.5 h-4 flex items-center'
-                role='img'
-                aria-label='check mark symbol'>
+                className="text-sm px-0.5 h-4 flex items-center"
+                role="img"
+                aria-label="check mark symbol"
+              >
                 ✅
               </div>
             ) : (
               <div
-                className='text-sm px-0.5 h-4 flex items-center'
-                role='img'
-                aria-label='no entry'>
+                className="text-sm px-0.5 h-4 flex items-center"
+                role="img"
+                aria-label="no entry"
+              >
                 ⛔️
               </div>
             )}
@@ -113,7 +120,8 @@ export default function RealtimeLogs(props: {
                   : log.status === "COMPLETED"
                   ? "text-green-600"
                   : "text-red-500"
-              )}>
+              )}
+            >
               {getLogMessage(log)}
             </p>
           </div>

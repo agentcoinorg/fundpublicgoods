@@ -185,8 +185,8 @@ export default function Strategy(props: {
                 <div className='flex space-x-2 items-center'>
                   <div className='text-xs text-subdued'>Filter by: </div>
                   <Dropdown
-                    items={props.networks.filter((n) => n !== selectedNetwork)}
-                    field={{ value: selectedNetwork }}
+                    items={props.networks.filter((n) => n !== selectedNetwork).map(n => ({ value: n, image: `/chains/${n}.png` }))}
+                    field={{ value: selectedNetwork, image: `/chains/${selectedNetwork}.png` }}
                     onChange={(newValue) => {
                       if (props.networks.length === 1) {
                         return;
@@ -214,7 +214,7 @@ export default function Strategy(props: {
                           <Dropdown
                             items={tokens
                               .filter((x) => x.name !== selectedToken.name)
-                              .map((x) => x.name)}
+                              .map((x) => ({ value : x.name }))}
                             field={{ value: selectedToken.name }}
                             onChange={async (newToken) =>
                               await updateToken(newToken)
