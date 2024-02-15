@@ -5,7 +5,6 @@ import {
   redistributeWeights,
 } from "@/utils/distributeWeights";
 import { NetworkName } from "@/utils/ethereum";
-import { useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export interface StrategiesHandler {
@@ -32,6 +31,7 @@ export type StrategyInformation = StrategyEntry & {
   networks: NetworkName[];
   disabled?: boolean;
   recipients: string[];
+  weight?: number
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
@@ -44,7 +44,6 @@ export function useStrategiesHandler(
     projects?: string[] | null;
   }
 ): StrategiesHandler {
-  console.log(overwrites);
   let preparedStrategies = initStrategies
     .map((s, i) => {
       const weights = redistributeWeights(
