@@ -6,7 +6,6 @@ class WeightedProject(BaseModel):
     project: Projects
     report: str
     scores: ProjectScores
-    weight: float
     smart_ranking: float = Field(..., alias="smartRanking")
 
     def __getitem__(self, item):

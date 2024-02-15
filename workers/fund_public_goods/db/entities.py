@@ -166,7 +166,6 @@ class StrategyEntries(BaseModel):
     created_at: Optional[datetime.datetime] = Field(default=None, alias="createdAt")
     impact: Optional[float] = None
     interest: Optional[float] = None
-    weight: Optional[float] = None
     funding_needed: Optional[float] = Field(default=None, alias="fundingNeeded")
     report: Optional[str] = None
     smart_ranking: Optional[float] = Field(default=None, alias="smartRanking")

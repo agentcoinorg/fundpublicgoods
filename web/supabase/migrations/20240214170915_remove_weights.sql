@@ -1,0 +1,1 @@
+ALTER TABLE "public"."strategy_entries" DROP COLUMN "weight";
