@@ -16,7 +16,7 @@ function formatTime(seconds: number) {
   const roundedSeconds = Math.round(seconds);
   const minutes = Math.floor(roundedSeconds / 60);
   const secs = roundedSeconds % 60;
-  const timeRemaining = seconds ? `${minutes}:${secs.toString().padStart(2, "0")}` : "1:10" 
+  const timeRemaining = seconds ? `${minutes}:${secs.toString().padStart(2, "0")}` : "1:40" 
   return `Estimated time: ~${timeRemaining}`
 }
 

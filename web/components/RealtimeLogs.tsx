@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Tables } from "@/supabase/dbTypes";
 import { createSupabaseBrowserClient } from "@/utils/supabase-browser";
 import LoadingCircle from "@/components/LoadingCircle";
@@ -23,11 +23,11 @@ const getLogMessage = (log: Tables<"logs">) => {
     case "NOT_STARTED":
       return UNSTARTED_TEXTS[log.step_name];
     case "IN_PROGRESS":
-      return LOADING_TEXTS[log.step_name];
+      return LOADING_TEXTS[log.step_name] + "...";
     case "COMPLETED":
-      return log.value || COMPLETED_TEXTS[log.step_name]
+      return log.value || COMPLETED_TEXTS[log.step_name];
     case "ERRORED":
-      return `Error while ${LOADING_TEXTS[log.step_name].toLowerCase()}`;
+      return `Something went wrong, please try again. If error persists contact dev team`;
   }
 };
 
@@ -38,6 +38,7 @@ export default function RealtimeLogs(props: {
     prompt: string;
   };
 }) {
+  const [hasErrored, setHasErrored] = useState(!!props.logs.find(l => l.status === "ERRORED"));
   const { data: session } = useSession();
   const sortedLogsWithSteps = props.logs.sort((a, b) => {
     return STEPS_ORDER[a.step_name] - STEPS_ORDER[b.step_name];
@@ -65,6 +66,12 @@ export default function RealtimeLogs(props: {
           filter: `run_id=eq.${props.run.id}`,
         },
         (payload) => {
+          if (payload.new.status === "ERRORED") {
+            router.refresh()
+            setHasErrored(true)
+            return;
+          }
+
           if (
             payload.new.step_name === "SYNTHESIZE_RESULTS" &&
             payload.new.status === "COMPLETED"
@@ -82,11 +89,15 @@ export default function RealtimeLogs(props: {
 
   return (
     <div className="space-y-2">
-      <TimeRemaining time={progressInformation.time} />
-      <ProgressBar
-        progress={progressInformation.progress}
-        className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
-      />
+      {!hasErrored && (
+        <>
+          <TimeRemaining time={progressInformation.time} />
+          <ProgressBar
+            progress={progressInformation.progress}
+            className={"!stroke-indigo-500 text-indigo-200 rounded-lg"}
+          />
+        </>
+      )}
       {sortedLogsWithSteps
         .filter((log) => log.status !== "NOT_STARTED")
         .map((log) => (

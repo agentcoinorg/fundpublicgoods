@@ -18,14 +18,14 @@ const Disclaimer = () => {
           <div className='font-bold text-sm'>
             This AI agent is experimental:
           </div>
-          <div className='text-[10px]'>
-            The agent is doing its best to evaluate project relevance, impact,
-            and funding needs based on publicly available data from Gitcoin, but
-            we cannot guarantee that it will be completely accurate. The agent
-            will also provide the recipient addresses of each project based on
-            data in their Gitcoin applications, but we cannot guarantee that
-            each project is still in control of its address, so please do not
-            send large amounts.
+          <div className="text-[10px]">
+            - The agent is doing its best to find and evaluate projects based on
+            publicly available data, but we cannot guarantee its accuracy.
+          </div>
+          <div className="text-[10px]">
+            - The agent uses project addresses provided in past Gitcoin
+            applications, but we cannot guarantee that each project is still in
+            control of its address.
           </div>
         </div>
       </div>
