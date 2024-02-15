@@ -76,9 +76,9 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.FETCH_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return
+            return Response(status="Internal error")
 
-        projects_with_reports = []
+        projects_with_reports: list[tuple[Projects, str]] = []
         try:
             tables.logs.update(
                 status=StepStatus.IN_PROGRESS,
@@ -86,21 +86,19 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 value=None,
             )
             reports = evaluate_projects(prompt, projects_with_answers)
-            projects_with_reports: list[tuple[Projects, str]] = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
+            projects_with_reports = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
             tables.logs.update(
                 status=StepStatus.COMPLETED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
                 value=f"Generated impact & funding needs reports for {len(projects_with_reports)} projects",
             )
         except Exception as error:
-            print("this is an error ma g")
-            print(error)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return
+            return Response(status="Internal error")
 
         weighted_projects = []
         try:
@@ -117,13 +115,13 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=f"Computed smart rankings for {len(weighted_projects)} projects",
             )
-        except:
+        except Exception as error:
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return
+            return Response(status="Internal error")
 
         tables.logs.update(
             status=StepStatus.IN_PROGRESS,
