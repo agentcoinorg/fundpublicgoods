@@ -87,7 +87,9 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
           <div
             className={clsx(
               "checkbox",
-              props.disabled ? "cursor-not-allowed opacity-20" : "cursor-pointer",
+              props.disabled
+                ? "cursor-not-allowed opacity-20"
+                : "cursor-pointer",
               { checked: !props.disabled && checkStatus === "checked" },
               { indeterminate: checkStatus === "indeterminate" },
               className
@@ -133,7 +135,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {rightAdornment && (
               <div
                 className={clsx(
-                  "absolute right-2 top-1/2 -translate-y-1/2 transform",
+                  "absolute right-4 top-1/2 -translate-y-1/2 transform",
                   rightAdornmentClassnames
                 )}>
                 {rightAdornment}
