@@ -8,14 +8,15 @@ import {
 import TextField from "@/components/TextField";
 import { getNetworkNameFromChainId, NetworkName } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
-import { createSupabaseServerClientWithSession } from "@/utils/supabase-server";
+import { createSupabaseServerClient, createSupabaseServerClientWithSession } from "@/utils/supabase-server";
+import { cookies } from "next/headers";
 
 export default async function StrategyPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const supabase = await createSupabaseServerClientWithSession();
+  const supabase = await createSupabaseServerClient(cookies());
 
   const run = await supabase
     .from("runs")
