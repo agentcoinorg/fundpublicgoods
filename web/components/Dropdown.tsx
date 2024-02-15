@@ -38,7 +38,7 @@ const Dropdown = ({ items, field, onChange }: DropdownProps) => {
                 value={item.value}
                 className={`cursor-pointer select-none relative p-1.5 rounded-md hover:bg-indigo-50 hover:text-indigo-600`}
               >
-                <div className="flex flex-wrap gap-2 pr-1 py-2 items-center">
+                <div className="flex gap-2 pr-1 py-2 items-center">
                   {item.image && (
                     <Image
                       width={18}
