@@ -78,7 +78,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             )
             return
 
-        reports = []
+        projects_with_reports = []
         try:
             tables.logs.update(
                 status=StepStatus.IN_PROGRESS,
@@ -86,6 +86,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 value=None,
             )
             reports = evaluate_projects(prompt, projects_with_answers)
+            projects_with_reports: list[tuple[Projects, str]] = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
             tables.logs.update(
                 status=StepStatus.COMPLETED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
@@ -101,7 +102,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             )
             return
 
-        projects_with_reports: list[tuple[Projects, str]] = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
         weighted_projects = []
         try:
             tables.logs.update(
