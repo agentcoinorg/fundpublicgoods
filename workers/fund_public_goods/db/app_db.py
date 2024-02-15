@@ -11,16 +11,22 @@ load_dotenv()
 URL_ENV = "NEXT_PUBLIC_SUPABASE_URL"
 ANON_KEY_ENV = "NEXT_PUBLIC_SUPABASE_ANON_KEY"
 SERV_KEY_ENV = "SUPABASE_SERVICE_ROLE_KEY"
+PINECONE_INDEX_NAME_ENV = "PINECONE_INDEX_NAME"
+PINECONE_API_KEY_ENV = "PINECONE_API_KEY"
 
 class Env(BaseModel):
     url: str
     anon_key: str
     serv_key: str
+    pinecone_index_name: str
+    pinecone_api_key: str
 
 def load_env() -> Env:
     url: str | None = os.environ.get(URL_ENV)
     anon_key: str | None = os.environ.get(ANON_KEY_ENV)
     serv_key: str | None = os.environ.get(SERV_KEY_ENV)
+    pinecone_index_name: str | None = os.environ.get(PINECONE_INDEX_NAME_ENV)
+    pinecone_api_key: str | None = os.environ.get(PINECONE_API_KEY_ENV)
 
     if url is None:
         raise Exception(f"{URL_ENV} is not set")
@@ -28,11 +34,17 @@ def load_env() -> Env:
         raise Exception(f"{ANON_KEY_ENV} is not set")
     if serv_key is None:
         raise Exception(f"{SERV_KEY_ENV} is not set")
+    if pinecone_index_name is None:
+        raise Exception(f"{PINECONE_INDEX_NAME_ENV} is not set")
+    if pinecone_api_key is None:
+        raise Exception(f"{PINECONE_API_KEY_ENV} is not set")
 
     return Env(
         url=url,
         anon_key=anon_key,
-        serv_key=serv_key
+        serv_key=serv_key,
+        pinecone_index_name=pinecone_index_name,
+        pinecone_api_key=pinecone_api_key
     )
 
 def create(options: ClientOptions = ClientOptions()) -> Client:
