@@ -62,52 +62,74 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             value=None,
         )
 
-        projects_with_answers = fetch_matching_projects(prompt)
+        projects_with_answers = []
+        try:
+            projects_with_answers = fetch_matching_projects(prompt)
+            tables.logs.update(
+                status=StepStatus.COMPLETED,
+                log_id=log_ids[StepName.FETCH_PROJECTS],
+                value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
+            )
+        except Exception as error:
+            tables.logs.update(
+                status=StepStatus.ERRORED,
+                log_id=log_ids[StepName.FETCH_PROJECTS],
+                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+            )
+            return
 
-        tables.logs.update(
-            status=StepStatus.COMPLETED,
-            log_id=log_ids[StepName.FETCH_PROJECTS],
-            value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
-        )
-        
-        tables.logs.update(
-            status=StepStatus.IN_PROGRESS,
-            log_id=log_ids[StepName.EVALUATE_PROJECTS],
-            value=None,
-        )
-
-        reports = evaluate_projects(prompt, projects_with_answers)
+        reports = []
+        try:
+            tables.logs.update(
+                status=StepStatus.IN_PROGRESS,
+                log_id=log_ids[StepName.EVALUATE_PROJECTS],
+                value=None,
+            )
+            reports = evaluate_projects(prompt, projects_with_answers)
+            tables.logs.update(
+                status=StepStatus.COMPLETED,
+                log_id=log_ids[StepName.EVALUATE_PROJECTS],
+                value=f"Generated impact & funding needs reports for {len(projects_with_reports)} projects",
+            )
+        except Exception as error:
+            print("this is an error ma g")
+            print(error)
+            tables.logs.update(
+                status=StepStatus.ERRORED,
+                log_id=log_ids[StepName.EVALUATE_PROJECTS],
+                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+            )
+            return
 
         projects_with_reports: list[tuple[Projects, str]] = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
-        
-        tables.logs.update(
-            status=StepStatus.COMPLETED,
-            log_id=log_ids[StepName.EVALUATE_PROJECTS],
-            value=f"Generated impact & funding needs reports for {len(projects_with_reports)} projects",
-        )
-        
-        tables.logs.update(
-            status=StepStatus.IN_PROGRESS,
-            log_id=log_ids[StepName.ANALYZE_FUNDING],
-            value=None,
-        )
+        weighted_projects = []
+        try:
+            tables.logs.update(
+                status=StepStatus.IN_PROGRESS,
+                log_id=log_ids[StepName.ANALYZE_FUNDING],
+                value=None,
+            )
+            project_scores = score_projects(projects_with_reports, prompt)
+            weighted_projects = calculate_weights(projects_with_reports, project_scores)
 
-        project_scores = score_projects(projects_with_reports, prompt)
-        
-        weighted_projects = calculate_weights(projects_with_reports, project_scores)
-        
-        tables.logs.update(
-            status=StepStatus.COMPLETED,
-            log_id=log_ids[StepName.ANALYZE_FUNDING],
-            value=f"Computed smart rankings for {len(weighted_projects)} projects",
-        )
+            tables.logs.update(
+                status=StepStatus.COMPLETED,
+                log_id=log_ids[StepName.ANALYZE_FUNDING],
+                value=f"Computed smart rankings for {len(weighted_projects)} projects",
+            )
+        except:
+            tables.logs.update(
+                status=StepStatus.ERRORED,
+                log_id=log_ids[StepName.ANALYZE_FUNDING],
+                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+            )
+            return
 
         tables.logs.update(
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],
             value=None
         )
-        
         projects = [project for (project, _) in projects_with_answers]
         projects_without_short_desc = [p for p in projects if not p.short_description]
         projects_with_short_desc = [p for p in projects if p.short_description]
