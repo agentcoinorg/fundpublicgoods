@@ -2,9 +2,11 @@
 
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import useSession from "@/hooks/useSession";
 
 export default function Main({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const { status } = useSession();
 
   return (
     <main
@@ -15,7 +17,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
           : "bg-gradient-to-b from-indigo-100 via-indigo-25 via-40% to-white"
       )}>
       <div className='flex flex-col w-full flex-grow overflow-y-auto'>
-        {children}
+        {status === "loading" ? <></>: children}
       </div>
     </main>
   );

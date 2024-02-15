@@ -13,7 +13,6 @@ const anonSignIn = async () => {
   }
 
   await signIn('anon-login', {
-    redirect: false,
     id: currentXAnonId
   })
 }
