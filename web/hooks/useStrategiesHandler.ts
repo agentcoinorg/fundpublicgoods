@@ -69,27 +69,28 @@ export function useStrategiesHandler(
       return a.disabled ? 1 : -1;
     });
 
-  preparedStrategies = preparedStrategies.map((s, i) => {
-    if (
-      overwrites.weights &&
-      overwrites.projects &&
-      overwrites.projects.length === overwrites.weights.length
-    ) {
-      const projectIndex = overwrites.projects?.findIndex((p) => +p === i);
-      const weight =
-        projectIndex !== -1 ? +overwrites.weights[projectIndex] : 0;
+  const totalOfNewWeights = overwrites.weights?.reduce((acc, x) => acc + +x, 0);
+  if (
+    totalOfNewWeights === 1 &&
+    overwrites.weights &&
+    overwrites.projects &&
+    overwrites.projects.length === overwrites.weights.length
+  ) {
+    preparedStrategies = preparedStrategies.map((s, i) => {
+      const overwrittenProjectsIndex = overwrites.projects as string[];
+      const overwrittenWeight = overwrites.weights as string[];
+      const projectIndex = overwrittenProjectsIndex.findIndex((p) => +p === i);
+      const weight = projectIndex !== -1 ? +overwrittenWeight[projectIndex] : 0;
       return {
         ...s,
         weight,
         disabled: !s.networks.includes(networkName) || s.defaultWeight === 0,
         selected: projectIndex !== -1,
       };
-    } else {
-      return s
-    }
-  });
-  const [strategies, modifyStrategies] = useState(preparedStrategies);
+    });
+  }
 
+  const [strategies, modifyStrategies] = useState(preparedStrategies);
   const [overwrittenWeights, setOverwrittenWeights] = useState<number[]>(
     Array(strategies.length).fill(0)
   );

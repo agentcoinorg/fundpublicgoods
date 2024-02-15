@@ -28,7 +28,7 @@ Join me in supporting ${prompt} by donating to these projects on fundpublicgoods
 
 ${tweetHandles}
 
-Link: https://fundpublicgoods.ai/${runId}?network=${SUPPORTED_NETWORKS[network]}&weights=${weights}&projects=${projects}
+Link: https://dev.fundpublicgoods.ai/s/${runId}?network=${SUPPORTED_NETWORKS[network]}&weights=${weights}&projects=${projects}
 `;
 
   const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(

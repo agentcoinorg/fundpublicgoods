@@ -45,7 +45,11 @@ export default function Strategy(props: {
   
   let networkName = findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
   if (searchParams.get("network")) {
-    networkName = getNetworkNameFromChainId(Number(searchParams.get("network")))
+    try {
+      networkName = getNetworkNameFromChainId(Number(searchParams.get("network")))
+    } catch (e) {
+      // don't do anything, since the user might pass an unsupported network id through URL
+    }
   }
 
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(networkName);

@@ -16,6 +16,7 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
 
   const router = useRouter();
 
+  console.log(session)
   const sendPrompt = async (prompt: string) => {
     setIsWaiting(true);
     try {
