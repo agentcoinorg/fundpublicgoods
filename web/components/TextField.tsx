@@ -9,7 +9,6 @@ import {
   ReactNode,
   forwardRef,
   useEffect,
-  MouseEventHandler,
 } from "react";
 
 export interface TextFieldProps
@@ -85,6 +84,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         )}
         {type === "checkbox" ? (
           <div
+            ref={ref}
             className={clsx(
               "checkbox",
               props.disabled
