@@ -40,7 +40,7 @@ const ChatInputButton = ({
           )}
         </Button>
       ) : (
-        <LoadingCircle />
+        <LoadingCircle className='!w-8 !h-8 ' />
       )}
     </>
   );

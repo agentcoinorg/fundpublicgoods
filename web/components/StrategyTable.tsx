@@ -3,7 +3,7 @@
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import { useState } from "react";
+import { ForwardedRef, forwardRef, useState } from "react";
 import Image from "next/image";
 import ProjectModal from "./ProjectModal";
 import clsx from "clsx";
@@ -14,6 +14,7 @@ import {
 import { NetworkName } from "@/utils/ethereum";
 import { SparkleIcon } from "./Icons";
 import { CaretRight } from "@phosphor-icons/react";
+import { Tooltip } from "./Tooltip";
 
 export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
@@ -23,7 +24,6 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     handleWeightUpdate,
     handleSelectProject,
     handleSelectAll,
-    network
   } = props;
 
   const [showStrategyDetails, setShowStrategyDetails] = useState<{
@@ -46,6 +46,101 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
       strategy,
     });
   }
+
+  const WeightInput = ({
+    selected,
+    index,
+    disabled,
+  }: {
+    selected: boolean;
+    index: number;
+    disabled?: boolean;
+  }) => {
+    /* eslint-disable react/display-name */
+    const Input = forwardRef(
+      (
+        props: {
+          selected: boolean;
+          index: number;
+          disabled?: boolean;
+        },
+        ref: ForwardedRef<HTMLInputElement>
+      ) => (
+        <TextField
+          ref={ref}
+          readOnly={!selected}
+          onChange={(e) => {
+            const currentWeights = [...formattedWeights];
+            currentWeights[index] = e.target.value;
+            setFormattedWeights(currentWeights);
+          }}
+          onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === "Enter") {
+              handleWeightUpdate(event.currentTarget.value, index);
+            }
+          }}
+          onBlur={(e) => handleWeightUpdate(e.target.value, index)}
+          className={
+            "!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"
+          }
+          disabled={disabled}
+          rightAdornment={"%"}
+          value={formattedWeights[index]}
+          {...props}
+        />
+      )
+    );
+    return disabled ? (
+      <Tooltip content="No address found on current network">
+        <Input selected={selected} index={index} disabled={disabled} />
+      </Tooltip>
+    ) : (
+      <Input selected={selected} index={index} disabled={disabled} />
+    );
+  };
+
+  /* eslint-disable react/display-name */
+  const SelectCheckbox = ({
+    selected,
+    index,
+    disabled,
+  }: {
+    selected: boolean;
+    index: number;
+    disabled?: boolean;
+  }) => {
+    const Checkbox = forwardRef(
+      (
+        props: {
+          selected: boolean;
+          index: number;
+          disabled?: boolean;
+        },
+        ref: ForwardedRef<HTMLDivElement>
+      ) => (
+        <div ref={ref} {...props}>
+          <TextField
+            type="checkbox"
+            checked={selected}
+            disabled={disabled}
+            onChange={(e) => {
+              if (!disabled) {
+                handleSelectProject(e.target.checked, index);
+              }
+            }}
+          />
+        </div>
+      )
+    );
+    return disabled ? (
+      <Tooltip content="No address found on current network">
+        <Checkbox selected={selected} index={index} disabled={disabled} />
+      </Tooltip>
+    ) : (
+      <Checkbox selected={selected} index={index} disabled={disabled} />
+    );
+  };
+
 
   return (
     <>
@@ -87,16 +182,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                       "check",
                       !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
                     )}>
-                    <TextField
-                      type='checkbox'
-                      checked={entry.selected}
-                      disabled={entry.disabled}
-                      onChange={(e) => {
-                        if (!entry.disabled) {
-                          handleSelectProject(e.target.checked, index);
-                        }
-                      }}
-                    />
+                      <SelectCheckbox disabled={entry.disabled} selected={entry.selected} index={index}/>
                   </div>
                   <div className='space-x-2 flex'>
                     <div className='flex flex-col justify-center w-12 relative'>
@@ -129,26 +215,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                 </div>
                 <div className='col-span-12 md:col-span-6 grid grid-cols-12 gap-4 items-center pt-3 md:pt-0 border-t-2 border-indigo-300 md:border-t-0'>
                   <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
-                    <TextField
-                      readOnly={!entry.selected}
-                      onChange={(e) => {
-                        const currentWeights = [...formattedWeights];
-                        currentWeights[index] = e.target.value;
-                        setFormattedWeights(currentWeights);
-                      }}
-                      onKeyDown={(
-                        event: React.KeyboardEvent<HTMLInputElement>
-                      ) => {
-                        if (event.key === "Enter") {
-                          handleWeightUpdate(event.currentTarget.value, index);
-                        }
-                      }}
-                      onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                      className='!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white'
-                      disabled={entry.disabled}
-                      rightAdornment={"%"}
-                      value={formattedWeights[index]}
-                    />
+                    <WeightInput selected={entry.selected} index={index} disabled={entry.disabled} />
                   </div>
                   {!!wallet && (
                     <div className='col-span-2'>{`$${

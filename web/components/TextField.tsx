@@ -9,7 +9,6 @@ import {
   ReactNode,
   forwardRef,
   useEffect,
-  MouseEventHandler,
 } from "react";
 
 export interface TextFieldProps
@@ -85,9 +84,12 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
         )}
         {type === "checkbox" ? (
           <div
+            ref={ref}
             className={clsx(
               "checkbox",
-              props.disabled ? "cursor-not-allowed opacity-20" : "cursor-pointer",
+              props.disabled
+                ? "cursor-not-allowed opacity-20"
+                : "cursor-pointer",
               { checked: !props.disabled && checkStatus === "checked" },
               { indeterminate: checkStatus === "indeterminate" },
               className
@@ -119,7 +121,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               className={clsx(
                 "w-full rounded-xl border-2 border-indigo-200 group-hover:border-indigo-500 focus:bg-indigo-50 bg-indigo-white px-4 py-3 text-sm text-indigo-800 outline-none transition-all duration-500 ease-in-out placeholder:text-indigo-800/50 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20",
                 props.disabled
-                  ? "cursor-default opacity-50"
+                  ? "cursor-not-allowed opacity-50"
                   : "cursor-text group-hover:border-indigo-600 group-hover:bg-indigo-50",
                 { "border-red-500": error },
                 { "!pl-10": leftAdornment },
@@ -133,7 +135,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
             {rightAdornment && (
               <div
                 className={clsx(
-                  "absolute right-2 top-1/2 -translate-y-1/2 transform",
+                  "absolute right-4 top-1/2 -translate-y-1/2 transform",
+                  props.disabled ? "cursor-not-allowed" : "cursor-default",
                   rightAdornmentClassnames
                 )}>
                 {rightAdornment}
