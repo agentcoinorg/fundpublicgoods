@@ -14,6 +14,7 @@ export const Tooltip = ({
         props.className
       )}
       showArrow={true}
+      closeDelay={0}
       {...props}
     >
       {props.children}

@@ -56,6 +56,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     index: number;
     disabled?: boolean;
   }) => {
+    /* eslint-disable react/display-name */
     const Input = forwardRef(
       (
         props: {
@@ -98,6 +99,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     );
   };
 
+  /* eslint-disable react/display-name */
   const SelectCheckbox = ({
     selected,
     index,
