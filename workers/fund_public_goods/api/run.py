@@ -4,7 +4,7 @@ from fund_public_goods.db.tables.projects import upsert_multiple
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
-from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_smart_rankings
+from fund_public_goods.lib.strategy.utils.calculate_smart_rankings import calculate_smart_rankings
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
 from fund_public_goods.lib.strategy.utils.generate_impact_funding_reports import generate_impact_funding_reports
 from fund_public_goods.lib.strategy.utils.generate_relevancy_reports import generate_relevancy_reports
