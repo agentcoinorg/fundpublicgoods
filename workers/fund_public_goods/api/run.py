@@ -1,12 +1,15 @@
 from fund_public_goods.db import tables, app_db
-from fund_public_goods.db.entities import Projects, StepStatus, StepName, Logs
+from fund_public_goods.db.entities import StepStatus, StepName, Logs
 from fund_public_goods.db.tables.projects import upsert_multiple
 from fund_public_goods.db.tables.runs import get_prompt
 from fund_public_goods.db.tables.strategy_entries import insert_multiple
-from fund_public_goods.lib.strategy.utils.evaluate_projects import evaluate_projects
-from fund_public_goods.lib.strategy.utils.score_projects import score_projects
-from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_weights
+from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
+from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_smart_rankings
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
+from fund_public_goods.lib.strategy.utils.generate_impact_funding_reports import generate_impact_funding_reports
+from fund_public_goods.lib.strategy.utils.generate_relevancy_reports import generate_relevancy_reports
+from fund_public_goods.lib.strategy.utils.score_projects_impact_funding import score_projects_impact_funding
+from fund_public_goods.lib.strategy.utils.score_projects_relevancy import score_projects_relevancy
 from fund_public_goods.lib.strategy.utils.summarize_descriptions import summarize_descriptions
 from supabase.lib.client_options import ClientOptions
 from fastapi import APIRouter, Header, HTTPException
@@ -62,7 +65,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             value=None,
         )
 
-        projects_with_answers = []
         try:
             projects_with_answers = fetch_matching_projects(prompt)
             tables.logs.update(
@@ -78,19 +80,33 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             )
             return Response(status="Internal error")
 
-        projects_with_reports: list[tuple[Projects, str]] = []
         try:
             tables.logs.update(
                 status=StepStatus.IN_PROGRESS,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
                 value=None,
             )
-            reports = evaluate_projects(prompt, projects_with_answers)
-            projects_with_reports = [(projects_with_answers[i][0], reports[i]) for i in range(len(reports))]
+            
+            relevancy_reports = generate_relevancy_reports(prompt, projects_with_answers)
+            projects_with_relevancy_reports = [(projects_with_answers[i][0], relevancy_reports[i]) for i in range(len(relevancy_reports))]
+            relevancy_scores = score_projects_relevancy(projects_with_relevancy_reports, prompt)
+            
+            impact_funding_reports = generate_impact_funding_reports(projects_with_answers)
+            projects_with_impact_funding_reports = [(projects_with_answers[i][0], impact_funding_reports[i]) for i in range(len(impact_funding_reports))]
+            impact_funding_scores = score_projects_impact_funding(projects_with_impact_funding_reports)
+            
+            project_scores = [ProjectScores(
+                    projectId=relevancy_scores[i].project_id,
+                    promptMatch=relevancy_scores[i].prompt_match,
+                    impact=impact_funding_scores[i].impact,
+                    fundingNeeded=impact_funding_scores[i].funding_needed
+                ) for i in range(len(relevancy_scores)
+            )]
+            
             tables.logs.update(
                 status=StepStatus.COMPLETED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
-                value=f"Generated impact & funding needs reports for {len(projects_with_reports)} projects",
+                value=f"Generated impact & funding needs reports for {len(projects_with_impact_funding_reports)} projects",
             )
         except Exception as error:
             tables.logs.update(
@@ -100,20 +116,19 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             )
             return Response(status="Internal error")
 
-        weighted_projects = []
         try:
             tables.logs.update(
                 status=StepStatus.IN_PROGRESS,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=None,
             )
-            project_scores = score_projects(projects_with_reports, prompt)
-            weighted_projects = calculate_weights(projects_with_reports, project_scores)
+            projects_with_scores = [(projects_with_answers[i][0], project_scores[i]) for i in range(len(project_scores))]
+            smart_ranked_projects = calculate_smart_rankings(projects_with_scores)
 
             tables.logs.update(
                 status=StepStatus.COMPLETED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
-                value=f"Computed smart rankings for {len(weighted_projects)} projects",
+                value=f"Computed smart rankings for {len(smart_ranked_projects)} projects",
             )
         except Exception as error:
             tables.logs.update(
@@ -122,22 +137,26 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
             return Response(status="Internal error")
+
 
         tables.logs.update(
             status=StepStatus.IN_PROGRESS,
             log_id=log_ids[StepName.SYNTHESIZE_RESULTS],
             value=None
         )
-        projects = [project for (project, _) in projects_with_answers]
-        projects_without_short_desc = [p for p in projects if not p.short_description]
-        projects_with_short_desc = [p for p in projects if p.short_description]
+
+        projects_without_short_desc = [p for (p, _) in projects_with_answers if not p.short_description]
+        projects_with_short_desc = [p for (p, _) in projects_with_answers if p.short_description]
 
         if len(projects_without_short_desc) > 0:
             projects_with_short_desc += summarize_descriptions(projects_without_short_desc)
         
         upsert_multiple(projects_with_short_desc)
+        
+        full_reports = [f"{relevancy_reports[i]}\n\n{impact_funding_reports[i]}" for i in range(len(relevancy_reports))]
+        ranked_projects_with_reports = [(smart_ranked_projects[i], full_reports[i]) for i in range(len(smart_ranked_projects))]
 
-        insert_multiple(run_id, weighted_projects)
+        insert_multiple(run_id, ranked_projects_with_reports)
         
         tables.logs.update(
             status=StepStatus.COMPLETED,
