@@ -16,6 +16,72 @@ import { SparkleIcon } from "./Icons";
 import { CaretRight } from "@phosphor-icons/react";
 import { Tooltip } from "./Tooltip";
 
+interface WeightInputProps {
+  selected: boolean;
+  index: number;
+  disabled?: boolean;
+  formattedWeights: string[];
+  setFormattedWeights: (weights: string[]) => void;
+  handleWeightUpdate: (value: string, index: number) => void;
+}
+
+/* eslint-disable react/display-name */
+const InputWithTooltip = forwardRef(
+  (
+    {
+      selected,
+      index,
+      disabled,
+      formattedWeights,
+      setFormattedWeights,
+      handleWeightUpdate,
+      ...props
+    }: WeightInputProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ) => (
+    <div ref={ref} {...props}>
+      <WeightInput
+        selected={selected}
+        index={index}
+        disabled={disabled}
+        formattedWeights={formattedWeights}
+        setFormattedWeights={setFormattedWeights}
+        handleWeightUpdate={handleWeightUpdate}
+      />
+    </div>
+  )
+);
+
+function WeightInput({
+  selected,
+  index,
+  disabled,
+  formattedWeights,
+  setFormattedWeights,
+  handleWeightUpdate,
+}: WeightInputProps) {
+  return (
+    <TextField
+      readOnly={!selected}
+      onChange={(e) => {
+        const currentWeights = [...formattedWeights];
+        setFormattedWeights(currentWeights);
+        currentWeights[index] = e.target.value;
+      }}
+      onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+          handleWeightUpdate(event.currentTarget.value, index);
+        }
+      }}
+      onBlur={(e) => handleWeightUpdate(e.target.value, index)}
+      className={"!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"}
+      disabled={disabled}
+      rightAdornment={"%"}
+      value={formattedWeights[index]}
+    />
+  );
+}
+
 export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
   const {
@@ -46,58 +112,6 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
       strategy,
     });
   }
-
-  const WeightInput = ({
-    selected,
-    index,
-    disabled,
-  }: {
-    selected: boolean;
-    index: number;
-    disabled?: boolean;
-  }) => {
-    /* eslint-disable react/display-name */
-    const Input = forwardRef(
-      (
-        props: {
-          selected: boolean;
-          index: number;
-          disabled?: boolean;
-        },
-        ref: ForwardedRef<HTMLInputElement>
-      ) => (
-        <TextField
-          ref={ref}
-          readOnly={!selected}
-          onChange={(e) => {
-            const currentWeights = [...formattedWeights];
-            currentWeights[index] = e.target.value;
-            setFormattedWeights(currentWeights);
-          }}
-          onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-            if (event.key === "Enter") {
-              handleWeightUpdate(event.currentTarget.value, index);
-            }
-          }}
-          onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-          className={
-            "!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"
-          }
-          disabled={disabled}
-          rightAdornment={"%"}
-          value={formattedWeights[index]}
-          {...props}
-        />
-      )
-    );
-    return disabled ? (
-      <Tooltip content="No address found on current network">
-        <Input selected={selected} index={index} disabled={disabled} />
-      </Tooltip>
-    ) : (
-      <Input selected={selected} index={index} disabled={disabled} />
-    );
-  };
 
   /* eslint-disable react/display-name */
   const SelectCheckbox = ({
@@ -215,7 +229,27 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                 </div>
                 <div className='col-span-12 md:col-span-6 grid grid-cols-12 gap-4 items-center pt-3 md:pt-0 border-t-2 border-indigo-300 md:border-t-0'>
                   <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
-                    <WeightInput selected={entry.selected} index={index} disabled={entry.disabled} />
+                  {entry.disabled ? (
+                      <Tooltip content="No address found on current network">
+                        <InputWithTooltip
+                          setFormattedWeights={setFormattedWeights}
+                          formattedWeights={formattedWeights}
+                          handleWeightUpdate={handleWeightUpdate}
+                          selected={entry.selected}
+                          index={index}
+                          disabled={entry.disabled}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <WeightInput
+                        setFormattedWeights={setFormattedWeights}
+                        formattedWeights={formattedWeights}
+                        handleWeightUpdate={handleWeightUpdate}
+                        selected={entry.selected}
+                        index={index}
+                        disabled={entry.disabled}
+                      />
+                    )}
                   </div>
                   {!!wallet && (
                     <div className='col-span-2'>{`$${
