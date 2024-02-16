@@ -46,7 +46,7 @@ export function useProgressTime(
           newLogs[currentStep].status = "COMPLETED";
           newLogs[currentStep].value = COMPLETED_TEXTS[newLogs[currentStep].step_name]
           if (currentStep === 0) {
-            newLogs[currentStep].value += " related to " + prompt
+            newLogs[currentStep].value += " to " + prompt
           }
 
           if (stepTimes.length > currentStep + 1) {
