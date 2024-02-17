@@ -23,15 +23,12 @@ class Params(BaseModel):
 class Response(BaseModel):
     status: str
 
-@router.post("/api/runs/run")
-async def run(params: Params, authorization: Optional[str] = Header(None)) -> Response:
+def create(run_id: str, authorization: Optional[str] = Header(None)):
     with get_openai_callback() as cb:
         if authorization:
             supabase_auth_token = authorization.split(" ")[1]
         else:
             raise HTTPException(status_code=401, detail="Authorization header missing")
-
-        run_id = params.run_id if params.run_id else ""
 
         if run_id == "":
             raise HTTPException(status_code=400, detail="RunID cannot be empty.")
@@ -76,7 +73,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.FETCH_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return Response(status="Internal error")
+            return
 
         projects_with_reports: list[tuple[Projects, str]] = []
         try:
@@ -98,7 +95,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return Response(status="Internal error")
+            return
 
         weighted_projects = []
         try:
@@ -121,7 +118,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            return Response(status="Internal error")
+            return
 
         tables.logs.update(
             status=StepStatus.IN_PROGRESS,
@@ -147,6 +144,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         
     print(cb)
 
-    return Response(
-        status="done"
-    )
+    # return Response(
+    #     status="done"
+    # )
