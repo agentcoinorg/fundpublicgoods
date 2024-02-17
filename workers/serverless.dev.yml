@@ -14,6 +14,7 @@ provider:
   memorySize: 2048
   timeout: 300
   environment:
+    RUNTIME: cloud
     DEPLOYMENT_STAGE: dev
     WORKERS_URL: ${env:DEV_WORKERS_URL}
     INNGEST_PROD: true
@@ -48,3 +49,7 @@ functions:
           path: /{path+}
           method: any
           cors: true
+  sqs:
+    handler: fund_public_goods.events.sqs_handler
+    events:
+      - sqs: arn:aws:sqs:us-east-1:815880329304:fpg

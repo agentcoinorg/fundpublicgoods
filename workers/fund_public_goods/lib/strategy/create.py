@@ -9,13 +9,11 @@ from fund_public_goods.lib.strategy.utils.calculate_weights import calculate_wei
 from fund_public_goods.lib.strategy.utils.fetch_matching_projects import fetch_matching_projects
 from fund_public_goods.lib.strategy.utils.summarize_descriptions import summarize_descriptions
 from supabase.lib.client_options import ClientOptions
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import Header, HTTPException
 from pydantic import BaseModel
 from typing import Optional, cast
 from langchain_community.callbacks import get_openai_callback
 
-
-router = APIRouter()
 
 class Params(BaseModel):
     run_id: str

@@ -7,6 +7,7 @@ authors = []
 [tool.poetry.dependencies]
 python = "~3.10.6"
 fastapi = "0.108.0"
+fastapi-events = "0.10.1"
 inngest = "0.2.3"
 pydantic = "2.5.3"
 python-dotenv = "^1.0.0"

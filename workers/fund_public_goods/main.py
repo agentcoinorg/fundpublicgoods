@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 import inngest.fast_api
 from mangum import Mangum
+from fund_public_goods.events import add_event_middleware
 from fund_public_goods.inngest_client import inngest_client
 from fund_public_goods.workflows.index_gitcoin.functions import functions as index_gitcoin_functions
 from fund_public_goods.workflows.egress_gitcoin.functions import functions as egress_gitcoin_functions
@@ -33,5 +34,7 @@ inngest.fast_api.serve(app, inngest_client, [
 app.include_router(runs.router)
 app.include_router(funding_entries.router)
 app.include_router(get_version_router)
+
+add_event_middleware(app)
 
 handler = Mangum(app=app)
