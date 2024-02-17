@@ -22,6 +22,11 @@ Your deliverable is a list of PROJECT_IDs in descending order of their relevance
 formatted as a comma-separated list without any quotation marks.
 It is crucial to return these PROJECT_IDs exactly as they appear, with no modifications.
 
+You will return the list as a string with the following format:
+'''
+34,23,5,1,44,53,13
+'''
+
 In your assessment, it is essential to discern the genuine alignment of each project with the user's specific requirements.
 Be mindful that the project descriptions may include buzzwords or jargon intended to exaggerate their relevance.
 Your judgment should penetrate beyond superficial claims to identify projects that truly resonate with the user's prompt.
@@ -34,7 +39,6 @@ Projects: {projects}
 """
 
 def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
-    
     reranking_prompt = ChatPromptTemplate.from_messages([
         ("system", reranking_prompt_template),
     ])
