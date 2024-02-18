@@ -44,6 +44,7 @@ custom:
 functions:
   main:
     handler: fund_public_goods.main.handler
+    provisionedConcurrency: 3
     package:
       patterns:
         - '!**'
