@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Union
 from aws_lambda_typing.events import SQSEvent
 from fastapi_events.typing import Event as LocalEvent
-from fastapi_events.handlers.local import local_handler
+from fastapi_events.handlers.local import local_handler, BaseEventHandler
 from fastapi_events.handlers.aws import SQSForwardHandler
 from fastapi_events.middleware import EventHandlerASGIMiddleware
 from fund_public_goods.lib.strategy.create import create
@@ -10,7 +10,7 @@ import os
 import json
 from fastapi import FastAPI
 
-@dataclass(kw_only=True)
+@dataclass
 class EventData:
     name: str
     payload: dict[str, Any]
@@ -26,7 +26,7 @@ def handler(event: EventData):
 @local_handler.register(event_name="*")
 def local_handle(local_event: LocalEvent):
     event_name, payload = local_event
-    event = EventData(name=event_name, payload=payload)
+    event = EventData(name=str(event_name), payload=payload)
     handler(event)
 
 def sqs_handler(sqs_event: SQSEvent):
@@ -36,15 +36,15 @@ def sqs_handler(sqs_event: SQSEvent):
         message_body: str = record['body']
         message: dict[str, Any] = json.loads(message_body)
         events.append(EventData(
-            message["name"],
-            message["payload"]
+            name=message["name"],
+            payload=message["payload"]
         ))
 
     for event in events:
         handler(event)
 
 def add_event_middleware(app: FastAPI):
-    event_handlers = []
+    event_handlers: list[BaseEventHandler] = []
     env = os.getenv("RUNTIME")
 
     if env == "cloud":
