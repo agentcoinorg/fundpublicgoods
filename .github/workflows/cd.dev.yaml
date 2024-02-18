@@ -54,7 +54,6 @@ jobs:
           DEPLOYMENT_STAGE: dev
           AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
-          DEV_WORKERS_URL: https://api.dev.fundpublicgoods.ai
           DEV_INNGEST_SIGNING_KEY: ${{ secrets.DEV_INNGEST_SIGNING_KEY }}
           DEV_INNGEST_EVENT_KEY: ${{ secrets.DEV_INNGEST_EVENT_KEY }}
           DEV_NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_URL }}
