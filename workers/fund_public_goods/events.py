@@ -1,6 +1,20 @@
+try:
+  import unzip_requirements # type: ignore
+except ImportError:
+  pass
+
+import sys
+
+# Check if the platform is Linux
+if sys.platform == "linux":
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from dataclasses import dataclass
-from typing import Any, Union
+from typing import Any
 from aws_lambda_typing.events import SQSEvent
+from aws_lambda_typing.context import Context
 from fastapi_events.typing import Event as LocalEvent
 from fastapi_events.handlers.local import local_handler, BaseEventHandler
 from fastapi_events.handlers.aws import SQSForwardHandler
@@ -29,15 +43,15 @@ def local_handle(local_event: LocalEvent):
     event = EventData(name=str(event_name), payload=payload)
     handler(event)
 
-def sqs_handler(sqs_event: SQSEvent):
+def sqs_handler(sqs_event: SQSEvent, _: Context):
     events: list[EventData] = []
 
     for record in sqs_event['Records']:
-        message_body: str = record['body']
+        message_body = record['body']
         message: dict[str, Any] = json.loads(message_body)
         events.append(EventData(
-            name=message["name"],
-            payload=message["payload"]
+            name=message[0],
+            payload=message[1]
         ))
 
     for event in events:
