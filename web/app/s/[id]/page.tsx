@@ -5,11 +5,11 @@ import {
   StrategiesWithProjects,
   Application,
 } from "@/hooks/useStrategiesHandler";
-import TextField from "@/components/TextField";
 import { getNetworkNameFromChainId, NetworkName } from "@/utils/ethereum";
 import { checkIfFinished } from "@/utils/logs";
-import { createSupabaseServerClient, createSupabaseServerClientWithSession } from "@/utils/supabase-server";
+import { createSupabaseServerClient } from "@/utils/supabase-server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function StrategyPage({
   params,
@@ -52,7 +52,7 @@ export default async function StrategyPage({
 
   if (run.error || !run.data) {
     console.error(run.error);
-    throw Error(`Runs with id ${params.id} not found.`);
+    redirect(`/?not-found=${params.id}`)
   }
 
   const strategyCreated = checkIfFinished(run.data.logs);
