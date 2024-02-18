@@ -12,7 +12,7 @@ if sys.platform == "linux":
     sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Union
 from aws_lambda_typing.events import SQSEvent
 from aws_lambda_typing.context import Context
 from fastapi_events.typing import Event as LocalEvent
@@ -48,7 +48,7 @@ def sqs_handler(sqs_event: SQSEvent, _: Context):
 
     for record in sqs_event['Records']:
         message_body = record['body']
-        message: dict[str, Any] = json.loads(message_body)
+        message = json.loads(message_body)
         events.append(EventData(
             name=message[0],
             payload=message[1]
