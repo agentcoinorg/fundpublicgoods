@@ -25,7 +25,7 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
         if run_id == "":
             raise HTTPException(status_code=400, detail="RunID cannot be empty.")
 
-        db = app_db.create(options=ClientOptions())
+        db = app_db.create(options=ClientOptions(postgrest_client_timeout=15))
         db.postgrest.auth(supabase_auth_token)
 
         logs_res = tables.logs.get(run_id, db)

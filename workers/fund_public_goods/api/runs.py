@@ -26,7 +26,7 @@ async def runs(params: Params, authorization: Optional[str] = Header(None)) -> R
     prompt = params.prompt if params.prompt else ""
     if prompt == "":
         raise HTTPException(status_code=400, detail="Prompt cannot be empty.")
-    db = app_db.create(options=ClientOptions())
+    db = app_db.create(options=ClientOptions(postgrest_client_timeout=15))
     db.postgrest.auth(supabase_auth_token)
 
     run_id = tables.runs.insert(entities.Runs(
