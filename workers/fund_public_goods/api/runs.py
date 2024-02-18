@@ -6,10 +6,7 @@ from fastapi import APIRouter, HTTPException, Header
 from fastapi_events.dispatcher import dispatch
 from pydantic import BaseModel
 from typing import Optional
-import os
 
-
-api_url = os.getenv("WORKERS_URL")
 router = APIRouter()
 
 class Params(BaseModel):

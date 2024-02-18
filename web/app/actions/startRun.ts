@@ -1,5 +1,3 @@
-"use server";
-
 interface StartRunResponse {
   runId: string;
 }
@@ -8,8 +6,7 @@ export const startRun = async (
   prompt: string,
   supabaseAccessToken: string
 ): Promise<StartRunResponse> => {
-  const response = await fetch(`${process.env.WORKERS_URL}/api/runs`, {
-    cache: "no-cache",
+  const response = await fetch(`${process.env.NEXT_PUBLIC_WORKERS_URL}/api/runs`, {
     method: "POST",
     body: JSON.stringify({ prompt }),
     headers: {

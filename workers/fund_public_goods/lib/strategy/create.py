@@ -15,12 +15,6 @@ from typing import Optional, cast
 from langchain_community.callbacks import get_openai_callback
 
 
-class Params(BaseModel):
-    run_id: str
-
-class Response(BaseModel):
-    status: str
-
 def create(run_id: str, authorization: Optional[str] = Header(None)):
     with get_openai_callback() as cb:
         if authorization:
@@ -142,6 +136,3 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
         
     print(cb)
 
-    # return Response(
-    #     status="done"
-    # )
