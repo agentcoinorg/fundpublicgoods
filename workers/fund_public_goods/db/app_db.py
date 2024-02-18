@@ -35,7 +35,7 @@ def load_env() -> Env:
         serv_key=serv_key
     )
 
-def create(options: ClientOptions = ClientOptions(postgrest_client_timeout=None)) -> Client:
+def create(options: ClientOptions = ClientOptions(postgrest_client_timeout=15)) -> Client:
     env = load_env()
     return create_client(env.url, env.anon_key, options)
 
@@ -43,7 +43,7 @@ def create_admin(schema: Optional[str] = None) -> Client:
     env = load_env()
 
     if schema:
-        options = ClientOptions(schema=schema, postgrest_client_timeout=None)
+        options = ClientOptions(schema=schema, postgrest_client_timeout=15)
         return create_client(env.url, env.serv_key, options)
     else:
         return create_client(env.url, env.serv_key)
