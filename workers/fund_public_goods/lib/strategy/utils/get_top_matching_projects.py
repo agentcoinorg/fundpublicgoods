@@ -48,19 +48,20 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
     reranking_chain = reranking_prompt | llm | StrOutputParser()
     
     separator = "\n-----\n"
-    
-    top_ids_res = reranking_chain.invoke({
-        "prompt": prompt,
-        "separator": separator,
-        "projects": separator.join([
+    projects_info = separator.join([
             f"ID: {i} - Description: {projects[i].description}\n"
             for i in range(len(projects))
         ])
+    print(projects_info)
+    top_ids_res = reranking_chain.invoke({
+        "prompt": prompt,
+        "separator": separator,
+        "projects": projects_info
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
     reranked_projects: list[Projects] = []
-
+    print(top_ids_res)
     for i in range(len(top_ids)):
         id = top_ids[i]
         if id is None:
@@ -132,11 +133,7 @@ def filter_projects_by_categories(projects: list[Projects], categories: list[str
 
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     projects_by_id = {project.id: project for project in projects}
-    
-    prompt_categories = categorize_prompt(prompt, 2)
-    projects_with_categories = filter_projects_by_categories(projects, prompt_categories)
-    
-    all_projects_collection = create_embeddings_collection(projects_with_categories)
+    all_projects_collection = create_embeddings_collection(projects)
     matches = all_projects_collection.similarity_search(prompt, k=300)
     matched_project_ids = [match.metadata["id"] for match in matches]
     unique_ids = get_top_n_unique_ids({prompt: matched_project_ids}, 30)
