@@ -48,20 +48,19 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
     reranking_chain = reranking_prompt | llm | StrOutputParser()
     
     separator = "\n-----\n"
-    projects_info = separator.join([
-            f"ID: {i} - Description: {projects[i].description}\n"
-            for i in range(len(projects))
-        ])
-    print(projects_info)
+
     top_ids_res = reranking_chain.invoke({
         "prompt": prompt,
         "separator": separator,
-        "projects": projects_info
+        "projects": separator.join([
+            f"ID: {i} - Description: {projects[i].description}\n"
+            for i in range(len(projects))
+        ])
     })
     top_ids_split = top_ids_res.split(',')
     top_ids = strings_to_numbers(top_ids_split)
     reranked_projects: list[Projects] = []
-    print(top_ids_res)
+
     for i in range(len(top_ids)):
         id = top_ids[i]
         if id is None:
