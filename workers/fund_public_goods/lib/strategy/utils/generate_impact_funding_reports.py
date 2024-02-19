@@ -40,8 +40,8 @@ def generate_impact_funding_reports(projects: list[tuple[Projects, list[Answer]]
 
     reports_chain = reports_prompt | llm | StrOutputParser()
     
-    reports_reports = reports_chain.batch([{
+    reports = reports_chain.batch([{
         "project": get_project_text(project)
     } for project in projects])
         
-    return reports_reports
+    return reports

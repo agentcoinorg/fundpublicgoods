@@ -39,39 +39,13 @@ def upsert_multiple(
         "logo": row.logo
     } for row in rows]).execute()
 
-def get(
-    project_id: str
-) -> Projects | None:
-    db = create_admin()
-    result = (db.table("projects")
-        .select("id", "updated_at", "title", "keywords", "categories", "description", "short_description", "website", "twitter", "logo")
-        .eq("id", project_id)
-        .execute())
-
-    if not result.data:
-        return None
-
-    data = result.data[0]
-
-    return Projects(
-        id=data["id"],
-        updated_at=data["updated_at"],
-        title=data["title"],
-        description=data["description"],
-        website=data["website"],
-        keywords=data['keywords'],
-        categories=data['categories'],
-        twitter=data["twitter"],
-        short_description=data["short_description"],
-        logo=data["logo"]
-    )
 
 def get_projects(range_from: int, range_to: int) -> PostgrestAPIResponse[Dict[str, Any]]:
     db = create_admin()
     return (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, applications(id, recipient, round, answers)"
+            "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, funding_needed, impact, impact_funding_report, applications(id, recipient, round, answers)"
         )
         .range(range_from, range_to)
         .execute()
@@ -121,7 +95,10 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             logo=project_data.get("logo", ""),
             keywords=project_data.get("keywords", []),
             categories=project_data.get("categories", []),
-            short_description=project_data.get("short_description", None)
+            short_description=project_data.get("short_description", None),
+            fundingNeeded=project_data.get("funding_needed", None),
+            impact=project_data.get("impact", None),
+            impactReport=project_data.get("impact_report", None),
         )
         
         projects_with_answers.append((project, answers))

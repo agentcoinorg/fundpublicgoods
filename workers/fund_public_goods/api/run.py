@@ -87,21 +87,24 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 value=None,
             )
             
-            relevancy_reports = generate_relevancy_reports(prompt, projects_with_answers)
-            projects_with_relevancy_reports = [(projects_with_answers[i][0], relevancy_reports[i]) for i in range(len(relevancy_reports))]
-            relevancy_scores = score_projects_relevancy(projects_with_relevancy_reports, prompt)
+            # Only generate impact & funding reports and scores for those that need it
             
-            impact_funding_reports = generate_impact_funding_reports(projects_with_answers)
-            projects_with_impact_funding_reports = [(projects_with_answers[i][0], impact_funding_reports[i]) for i in range(len(impact_funding_reports))]
-            impact_funding_scores = score_projects_impact_funding(projects_with_impact_funding_reports)
+            projects_without_funding_impact_reports = [(p, answers) for (p, answers) in projects_with_answers if not p.impact_funding_report]
+            projects_with_impact_funding_reports = [(p, answers) for (p, answers) in projects_with_answers if p.impact_funding_report]
             
-            project_scores = [ProjectScores(
-                    projectId=relevancy_scores[i].project_id,
-                    promptMatch=relevancy_scores[i].prompt_match,
-                    impact=impact_funding_scores[i].impact,
-                    fundingNeeded=impact_funding_scores[i].funding_needed
-                ) for i in range(len(relevancy_scores)
-            )]
+            if len(projects_without_funding_impact_reports) > 0:
+                impact_funding_reports = generate_impact_funding_reports(projects_without_funding_impact_reports)
+                projects_with_new_reports_and_answers = [projects_without_funding_impact_reports[i] for i in range(len(impact_funding_reports))]
+
+                impact_funding_scores = score_projects_impact_funding([p for (p, _) in projects_with_new_reports_and_answers])
+                
+                for i in range(len(impact_funding_scores)):
+                    projects_with_new_reports_and_answers[i][0].impact = impact_funding_scores[i].impact
+                    projects_with_new_reports_and_answers[i][0].funding_needed = impact_funding_scores[i].funding_needed
+                
+                upsert_multiple([p for (p, _) in projects_with_new_reports_and_answers])
+                
+                projects_with_impact_funding_reports += projects_with_new_reports_and_answers
             
             tables.logs.update(
                 status=StepStatus.COMPLETED,
@@ -122,7 +125,21 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=None,
             )
-            projects_with_scores = [(projects_with_answers[i][0], project_scores[i]) for i in range(len(project_scores))]
+            
+            relevancy_reports = generate_relevancy_reports(prompt, projects_with_impact_funding_reports)
+            projects_with_relevancy_reports = [(projects_with_impact_funding_reports[i][0], relevancy_reports[i]) for i in range(len(relevancy_reports))]
+            
+            relevancy_scores = score_projects_relevancy(projects_with_relevancy_reports, prompt)
+            
+            project_scores = [ProjectScores(
+                    projectId=relevancy_scores[i].project_id,
+                    promptMatch=relevancy_scores[i].prompt_match,
+                    impact=impact_funding_scores[i].impact,
+                    fundingNeeded=impact_funding_scores[i].funding_needed
+                ) for i in range(len(relevancy_scores)
+            )]
+            
+            projects_with_scores = [(projects_with_relevancy_reports[i][0], project_scores[i]) for i in range(len(project_scores))]
             smart_ranked_projects = calculate_smart_rankings(projects_with_scores)
 
             tables.logs.update(
@@ -145,8 +162,8 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             value=None
         )
 
-        projects_without_short_desc = [p for (p, _) in projects_with_answers if not p.short_description]
-        projects_with_short_desc = [p for (p, _) in projects_with_answers if p.short_description]
+        projects_without_short_desc = [p for (p, _) in projects_with_scores if not p.short_description]
+        projects_with_short_desc = [p for (p, _) in projects_with_scores if p.short_description]
 
         if len(projects_without_short_desc) > 0:
             projects_with_short_desc += summarize_descriptions(projects_without_short_desc)

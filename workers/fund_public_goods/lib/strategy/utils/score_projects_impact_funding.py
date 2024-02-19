@@ -35,8 +35,8 @@ Project report:
 {report}
 """
 
-def score_projects_impact_funding(projects_with_report: list[tuple[Projects, str]]) -> list[ProjectImpactFundingScores]:
-    reports = [f"Project ID: {project.id}\n\n{report}" for (project, report) in projects_with_report]
+def score_projects_impact_funding(projects_with_report: list[Projects]) -> list[ProjectImpactFundingScores]:
+    reports = [f"Project ID: {project.id}\n\n{project.impact_funding_report}" for project in projects_with_report]
     
     score_projects_prompt = ChatPromptTemplate.from_messages([
         ("system", score_projects_prompt_template),
