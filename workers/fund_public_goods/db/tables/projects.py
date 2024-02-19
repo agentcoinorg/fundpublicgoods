@@ -19,7 +19,10 @@ def upsert(
         "short_description": row.short_description,
         "keywords": row.keywords,
         "categories": row.categories,
-        "logo": row.logo
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
     }).execute()
     
 def upsert_multiple(
@@ -36,7 +39,10 @@ def upsert_multiple(
         "short_description": row.short_description,
         "keywords": row.keywords,
         "categories": row.categories,
-        "logo": row.logo
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
     } for row in rows]).execute()
 
 
@@ -87,6 +93,8 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
 
         project = Projects(
             id=project_data.get("id", ""),
+            updatedAt=project_data.get("updated_at", ""),
+            shortDescription=project_data.get("short_description", ""),
             title=project_data.get("title", ""),
             description=project_data.get("description", ""),
             updated_at=project_data.get("updated_at", None),
@@ -98,7 +106,7 @@ def fetch_projects_data() -> list[tuple[Projects, list[Answer]]]:
             short_description=project_data.get("short_description", None),
             fundingNeeded=project_data.get("funding_needed", None),
             impact=project_data.get("impact", None),
-            impactReport=project_data.get("impact_report", None),
+            impactFundingReport=project_data.get("impact_funding_report", None),
         )
         
         projects_with_answers.append((project, answers))
