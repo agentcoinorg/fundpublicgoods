@@ -85,7 +85,7 @@ async def index_gitcoin_page(
         project_data = await step.run("fetch_json_from_ipfs_" + str(i), lambda: fetch_json_from_ipfs(project_pointer))
         project = GitcoinProjects(
             id = app_data["application"]["project"]["id"],
-            protocol = app_data["application"]["project"]["metaPtr"]["protocol"], 
+            protocol = app_data["application"]["project"]["metaPtr"].get("protocol", 1),
             pointer = project_pointer,
             data = json.dumps(project_data),
         )

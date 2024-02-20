@@ -132,8 +132,8 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
             project_scores = [ProjectScores(
                     project_id=relevancy_scores[i].project_id,
                     prompt_match=relevancy_scores[i].prompt_match,
-                    impact=impact_funding_scores[i].impact,
-                    funding_needed=impact_funding_scores[i].funding_needed
+                    impact=projects_with_impact_funding_reports[i][0].impact,
+                    funding_needed=projects_with_impact_funding_reports[i][0].funding_needed
                 ) for i in range(len(relevancy_scores)
             )]
             
@@ -146,7 +146,7 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Computed smart rankings for {len(smart_ranked_projects)} projects",
             )
         except Exception as error:
-            f"An error occurred: {type(error).__name__} - {str(error)} "
+            details = f"An error occurred: {type(error).__name__} - {str(error)} "
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
