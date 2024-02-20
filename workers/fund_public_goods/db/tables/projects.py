@@ -110,7 +110,7 @@ def get_unique_categories() -> list[str]:
     categories = []
 
     for row in response.data:
-        categories.append(row["category"])
+        categories.append(row["category"]) # type: ignore
 
     return categories
 
