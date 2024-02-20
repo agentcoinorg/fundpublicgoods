@@ -9535,10 +9535,10 @@ sucrase@^3.29.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.131.5:
-  version "1.131.5"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.131.5.tgz#4a2c98335b37f45263c53e0ecbaac90ed15cb802"
-  integrity sha512-YJ9qoNac+dq521btw6kgqnJEwf6zRsegvooHM1QuxbOzVuL40eqrrNykTue3iCu3/qkVutcq3XPmdPO3TbXaiw==
+supabase@1.145.2:
+  version "1.145.2"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.145.2.tgz#fd49b741ab7cbff3b9c2d972c41cd39246d43827"
+  integrity sha512-dspThvJSl7+LzVLhNbeHwTT8AP/s3/L08VTsW7PNZymBCsNeO2+14iS9NOVr5k1dej4H2GsmzhxUXKBXH5E3ig==
   dependencies:
     bin-links "^4.0.3"
     https-proxy-agent "^7.0.2"
