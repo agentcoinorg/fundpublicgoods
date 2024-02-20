@@ -43,6 +43,8 @@ app.include_router(get_version_router)
 add_event_middleware(app)
 origins = [
     "https://dev.fundpublicgoods.ai",
+    "https://www.fundpublicgoods.ai",
+    "https://fundpublicgoods.ai",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
