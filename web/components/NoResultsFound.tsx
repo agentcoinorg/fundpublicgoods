@@ -1,30 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Button from "./Button";
-import { StrategyTable } from "./StrategyTable";
+import { useState } from "react";
 import TextField from "./TextField";
-import { useConnectWallet, useSetChain } from "@web3-onboard/react";
-import Dropdown from "./Dropdown";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { useRouter, useSearchParams } from "next/navigation";
-import { NetworkName, SUPPORTED_NETWORKS, getNetworkNameFromChainId } from "@/utils/ethereum";
+import { useRouter } from "next/navigation";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
-import {
-  StrategiesWithProjects,
-  useStrategiesHandler,
-} from "@/hooks/useStrategiesHandler";
-import { useDonation } from "@/hooks/useDonation";
-import LoadingCircle from "./LoadingCircle";
-import { useToken } from "@/hooks/useToken";
 import ChatInputButton from "./ChatInputButton";
-import SuccessModal from "./SuccessModal";
-import { XLogo } from "./Icons";
-import Image from "next/image";
-import { pluralize } from "@/utils/pluralize";
-import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
-import { useTweetShare } from "@/hooks/useTweetShare";
 
 export default function NoResultsFound(props: {
   prompt: string;
