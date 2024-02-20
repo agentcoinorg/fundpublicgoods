@@ -125,6 +125,9 @@ class Projects(BaseModel):
     twitter: Optional[str] = None
     keywords: list[str] = []
     categories: list[str] = []
+    impact_funding_report: Optional[str] = Field(..., alias="impactFundingReport")
+    impact: Optional[float] = None
+    funding_needed: Optional[float] = Field(..., alias="fundingNeeded")
 
     model_config = ConfigDict(
         populate_by_name=True
