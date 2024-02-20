@@ -98,7 +98,7 @@ def get_projects_by_ids(ids: list[str]) -> list[tuple[Projects, list[Answer]]]:
         .execute()
     )
     
-    return sanitize_projects_information(results)
+    return sanitize_projects_information(results.data)
 
 
 def get_all_projects_lightweight() -> list[Projects]:

@@ -133,11 +133,18 @@ def create_embeddings_collection(projects: list[Projects]):
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     projects_by_id = {project.id: project for project in projects}
     all_projects_collection = create_embeddings_collection(projects)
-    matches = all_projects_collection.similarity_search(prompt, k=300)
-    matched_project_ids = [match.metadata["id"] for match in matches]
-    unique_ids = get_top_n_unique_ids({prompt: matched_project_ids}, 30)
     
-    matched_projects = []
+    queries = [prompt]
+    
+    query_to_matched_project_ids: dict[str, list[str]] = {}
+    
+    for query in queries:
+        matches = all_projects_collection.similarity_search(query, k=200)
+        query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
+    
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
+    
+    matched_projects: list[Projects] = []
 
     # TODO: this is a patch for an error seen in prod, should look at why
     #       some of these IDs don't exist...
