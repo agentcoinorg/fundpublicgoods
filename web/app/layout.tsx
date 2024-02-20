@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 };
 
 function Footer() {
-  const year = new Date().getFullYear();
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
       <div className='font-regular flex gap-x-[2px] text-[12px] text-indigo-800/70'>
@@ -32,7 +31,6 @@ function Footer() {
           rel='noopener noreferrer'>
           polywrap
         </a>
-        <span>© {year}</span>
       </div>
     </footer>
   );
