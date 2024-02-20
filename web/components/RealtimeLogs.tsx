@@ -72,14 +72,10 @@ export default function RealtimeLogs(props: {
         },
         (payload) => {
           if (payload.new.status === "ERRORED") {
-            router.refresh();
             setHasErrored(true);
-            return;
           }
 
-          if (payload.new.status === "COMPLETED") {
-            router.refresh();
-          }
+          router.refresh();
         }
       )
       .subscribe();

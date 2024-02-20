@@ -5,42 +5,49 @@ export function useProgressTime(
   stepTimes: number[],
   logs: Array<Tables<"logs">>
 ) {
-  const [startTime] = useState(Date.now());
+  const [startTime, setStartTime] = useState(Date.now());
+  const [, setHasReachedTime] = useState(false)
   const [progressInformation, setProgressInformation] = useState({
-    logs,
     time: 0,
     progress: 0,
   });
 
-  // Capture the start time when the hook is first called or when stepTimes or currentStep changes
-  useEffect(() => {
-    const totalTime = stepTimes.reduce((a, b) => a + b, 0);
+  const totalTime = stepTimes.reduce((a, b) => a + b, 0);
+  let currentStep = logs.findIndex(
+    (x) => x.status === "IN_PROGRESS"
+  );
 
+  useEffect(() => {
+    setStartTime(Date.now())
+    setHasReachedTime((reached) => {
+      if (reached) {
+        return false
+      }
+      return reached
+    })
+  }, [currentStep])
+
+  useEffect(() => {
     const intervalId = setInterval(function () {
       const now = Date.now();
-      let currentStep = progressInformation.logs.findIndex(
-        (x) => x.status === "IN_PROGRESS"
-      );
+      const elapsedTimeSinceStart = (now - startTime) / 1000; // Convert ms to seconds
 
-      if (currentStep === -1) {
-        return;
+      if (elapsedTimeSinceStart > stepTimes[currentStep]) {
+        setHasReachedTime(true)
+        return
       }
 
       const elapsedTimeInSteps = stepTimes
-        .slice(0, currentStep + 1)
+        .slice(0, currentStep)
         .reduce((a, b) => a + b, 0);
 
-      const secondsFromStart = (now - startTime) / 1000; // Convert ms to seconds
-      if (secondsFromStart > elapsedTimeInSteps) {
-        return;
-      }
+      const totalElapsedTime = elapsedTimeSinceStart + elapsedTimeInSteps;
 
-      const timeRemaining = Math.max(totalTime - secondsFromStart, 0);
-      const progress = (secondsFromStart / totalTime) * 100;
+      const timeRemaining = Math.max(totalTime - totalElapsedTime, 0); // Prevent negative time
+      const progress = (totalElapsedTime / totalTime) * 100;
 
-      if (timeRemaining <= 1) {
-        clearInterval(intervalId);
-        return;
+      if (timeRemaining < 1) {
+        return
       }
 
       setProgressInformation((i) => ({
@@ -49,10 +56,9 @@ export function useProgressTime(
         progress: progress,
       }));
 
-      console.log(currentStep);
     }, 1000);
     return () => clearInterval(intervalId);
-  }, [stepTimes, progressInformation]);
+  }, [stepTimes, currentStep]);
 
   return progressInformation;
 }
