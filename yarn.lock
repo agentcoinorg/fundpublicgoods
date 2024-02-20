@@ -8944,6 +8944,13 @@ react-textarea-autosize@^8.5.2:
     use-composed-ref "^1.3.0"
     use-latest "^1.2.1"
 
+react-toastify@^10.0.4:
+  version "10.0.4"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-10.0.4.tgz#6ecdbbf923a07fc45850e69b0566efc7bf733283"
+  integrity sha512-etR3RgueY8pe88SA67wLm8rJmL1h+CLqUGHuAoNsseW35oTGJEri6eBTyaXnFKNQ80v/eO10hBYLgz036XRGgA==
+  dependencies:
+    clsx "^2.1.0"
+
 react@18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -9528,10 +9535,10 @@ sucrase@^3.29.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@1.131.5:
-  version "1.131.5"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.131.5.tgz#4a2c98335b37f45263c53e0ecbaac90ed15cb802"
-  integrity sha512-YJ9qoNac+dq521btw6kgqnJEwf6zRsegvooHM1QuxbOzVuL40eqrrNykTue3iCu3/qkVutcq3XPmdPO3TbXaiw==
+supabase@1.145.2:
+  version "1.145.2"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.145.2.tgz#fd49b741ab7cbff3b9c2d972c41cd39246d43827"
+  integrity sha512-dspThvJSl7+LzVLhNbeHwTT8AP/s3/L08VTsW7PNZymBCsNeO2+14iS9NOVr5k1dej4H2GsmzhxUXKBXH5E3ig==
   dependencies:
     bin-links "^4.0.3"
     https-proxy-agent "^7.0.2"

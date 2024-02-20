@@ -9,17 +9,17 @@ Your goal is to categorize a user's prompt. These are the existing categories:
 
 {categories}
 
-A user's prompt can match to more than one category. Be strict with assigning categories.
-Return a max of {n} categories, you can reutrn less if the project really only matches less than {n} categories.
-
 Respond strictly with a comma-separated list of categories, without quotes. Do not change the wording
 or casing of the categories, return them exactly as they are written in the list above.
+
+You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
+based on these categories.
 
 Prompt: {prompt}
 """
 
 
-def categorize_prompt(prompt: str, n: int) -> list[str]:
+def categorize_prompt(prompt: str, categories: list[str]) -> list[str]:
     categorize_prompt = ChatPromptTemplate.from_messages([
         ("system", categorize_prompt_template),
     ])
@@ -29,8 +29,7 @@ def categorize_prompt(prompt: str, n: int) -> list[str]:
 
     categories = [c.strip() for c in categorize_chain.invoke({
         "prompt": prompt,
-        'n': n,
-        "categories": "\n".join(f"- {category}" for category in PROJECT_CATEGORIES)
+        "categories": "\n".join(f"- {category}" for category in categories)
     }).split(',')]
             
     return categories

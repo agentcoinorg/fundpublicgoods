@@ -1,18 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SparkleIcon } from "./Icons";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PromptInput from "./PromptInput";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
 import clsx from "clsx";
 import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
+import { toast } from "react-toastify";
+
 
 export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
   const { data: session } = useSession();
+  const searchParams = useSearchParams()
 
   const router = useRouter();
 
@@ -29,6 +32,16 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
       throw e;
     }
   };
+
+  useEffect(() => {
+    const notFoundId = searchParams.get("not-found")
+    if (notFoundId) {
+      toast.error(`Run with id ${notFoundId} does not exist`, {
+        autoClose: 5000,
+      })
+      router.replace("/")
+    }
+  }, [searchParams, router])
 
   return (
     <>

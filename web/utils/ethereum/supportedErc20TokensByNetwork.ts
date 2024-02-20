@@ -126,5 +126,17 @@ export const supportedErc20TokensByNetwork: SupportedTokensInformation = {
       decimals: 6,
       name: "USDT"
     }
+  },
+  Base: {
+    USDC: {
+      address: "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913",
+      decimals: 6,
+      name: "USDC",
+    },
+    DAI: {
+      address: "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
+      decimals: 18,
+      name: "DAI",
+    }
   }
 };

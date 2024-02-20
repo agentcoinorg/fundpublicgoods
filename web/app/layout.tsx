@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import WalletProvider from "./WalletProvider";
 import Main from "./main";
 import AuthProvider from "@/components/Providers";
 import Header from "./Header";
+import { ToastContainer } from "react-toastify";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -47,6 +49,7 @@ export default function RootLayout({
         <WalletProvider>
           <AuthProvider>
             <Main>
+              <ToastContainer />
               <Header />
               {children}
               <Footer />

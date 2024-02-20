@@ -14,8 +14,8 @@ provider:
   memorySize: 2048
   timeout: 300
   environment:
+    RUNTIME: cloud
     DEPLOYMENT_STAGE: dev
-    WORKERS_URL: ${env:DEV_WORKERS_URL}
     INNGEST_PROD: true
     INNGEST_ENV: fundpublicgoods-dev
     INNGEST_SIGNING_KEY: ${env:DEV_INNGEST_SIGNING_KEY}
@@ -25,6 +25,11 @@ provider:
     SUPABASE_SERVICE_ROLE_KEY: ${env:DEV_SUPABASE_SERVICE_ROLE_KEY}
     OPENAI_API_KEY: ${env:DEV_OPENAI_API_KEY}
     PINECONE_API_KEY: ${env:DEV_PINECONE_API_KEY}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sqs:SendMessage"
+      Resource: "arn:aws:sqs:us-east-1:815880329304:fpg"
 
 custom:
   pythonRequirements:
@@ -39,6 +44,7 @@ custom:
 functions:
   main:
     handler: fund_public_goods.main.handler
+    provisionedConcurrency: 3
     package:
       patterns:
         - '!**'
@@ -48,3 +54,7 @@ functions:
           path: /{path+}
           method: any
           cors: true
+  sqs:
+    handler: fund_public_goods.events.sqs_handler
+    events:
+      - sqs: arn:aws:sqs:us-east-1:815880329304:fpg

@@ -12,34 +12,23 @@ from fund_public_goods.lib.strategy.utils.score_projects_impact_funding import s
 from fund_public_goods.lib.strategy.utils.score_projects_relevancy import score_projects_relevancy
 from fund_public_goods.lib.strategy.utils.summarize_descriptions import summarize_descriptions
 from supabase.lib.client_options import ClientOptions
-from fastapi import APIRouter, Header, HTTPException
+from fastapi import Header, HTTPException
 from pydantic import BaseModel
 from typing import Optional, cast
 from langchain_community.callbacks import get_openai_callback
 
 
-router = APIRouter()
-
-class Params(BaseModel):
-    run_id: str
-
-class Response(BaseModel):
-    status: str
-
-@router.post("/api/runs/run")
-async def run(params: Params, authorization: Optional[str] = Header(None)) -> Response:
+def create(run_id: str, authorization: Optional[str] = Header(None)):
     with get_openai_callback() as cb:
         if authorization:
             supabase_auth_token = authorization.split(" ")[1]
         else:
             raise HTTPException(status_code=401, detail="Authorization header missing")
 
-        run_id = params.run_id if params.run_id else ""
-
         if run_id == "":
             raise HTTPException(status_code=400, detail="RunID cannot be empty.")
 
-        db = app_db.create(options=ClientOptions())
+        db = app_db.create(options=ClientOptions(postgrest_client_timeout=15))
         db.postgrest.auth(supabase_auth_token)
 
         logs_res = tables.logs.get(run_id, db)
@@ -160,7 +149,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
-            print(cb)
             print(error)
             return Response(status="Internal error")
 
@@ -191,6 +179,3 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         
     print(cb)
 
-    return Response(
-        status="done"
-    )
