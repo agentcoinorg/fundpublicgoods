@@ -13,7 +13,7 @@ Respond strictly with a comma-separated list of categories, without quotes. Do n
 or casing of the categories, return them exactly as they are written in the list above.
 
 You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
-based on these categories.
+based on these categories. ALWAYS return at least 2 categories, even if no direct relation.
 
 Prompt: {prompt}
 """
@@ -27,9 +27,15 @@ def categorize_prompt(prompt: str, categories: list[str]) -> list[str]:
 
     categorize_chain = categorize_prompt | llm | StrOutputParser()
 
-    categories = [c.strip() for c in categorize_chain.invoke({
+    categories_res = categorize_chain.invoke({
         "prompt": prompt,
         "categories": "\n".join(f"- {category}" for category in categories)
-    }).split(',')]
-            
+    })
+    categories = [c.strip() for c in categories_res.split(',')]
+
+    if len(categories) == 0:
+        raise Exception(
+            f"The LLM has responded with no categories. Llm response ({categories_res}). Response split ({categories})"
+        )
+
     return categories

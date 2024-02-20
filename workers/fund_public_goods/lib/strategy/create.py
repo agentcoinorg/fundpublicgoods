@@ -17,6 +17,8 @@ from pydantic import BaseModel
 from typing import Optional, cast
 from langchain_community.callbacks import get_openai_callback
 
+def error_details(error, run_id) -> str:
+    return f"An error occurred: {type(error).__name__} - {str(error)}\n\nrun_id: {run_id}"
 
 def create(run_id: str, authorization: Optional[str] = Header(None)):
     with get_openai_callback() as cb:
@@ -34,13 +36,13 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
         logs_res = tables.logs.get(run_id, db)
 
         if logs_res == None:
-            raise HTTPException(status_code=400, detail="RunID does not exist.")
+            raise HTTPException(status_code=400, detail=f"RunID does not exist. {run_id}")
 
         logs = cast(list[Logs], logs_res)
 
         for log in logs:
             if log.step_name != StepName.FETCH_PROJECTS and log.status != StepStatus.NOT_STARTED:
-                raise HTTPException(status_code=400, detail="RunId has already been run.")
+                raise HTTPException(status_code=400, detail=f"RunId has already been run. {run_id}")
 
         log_ids: dict[StepName, str] = {
             log.step_name: str(log.id) for log in logs
@@ -62,11 +64,11 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
             )
         except Exception as error:
-            details = f"An error occurred: {type(error).__name__} - {str(error)} "
+            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.FETCH_PROJECTS],
-                value=details
+                value=error_details(error, run_id)
             )
             print(error)
             raise HTTPException(status_code=400, detail=details)
@@ -107,7 +109,7 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Generated impact & funding needs reports for {len(projects_with_impact_funding_reports)} projects",
             )
         except Exception as error:
-            details = f"An error occurred: {type(error).__name__} - {str(error)} "
+            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
@@ -146,7 +148,7 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Computed smart rankings for {len(smart_ranked_projects)} projects",
             )
         except Exception as error:
-            details = f"An error occurred: {type(error).__name__} - {str(error)} "
+            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],

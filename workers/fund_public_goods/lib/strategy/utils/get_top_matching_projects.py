@@ -18,11 +18,11 @@ Your role involves analyzing a collection of project descriptions provided to yo
 These descriptions are separated by '{separator}'.
 Your main objective is to rearrange these projects in a sequence that accurately reflects their relevance to a given user's prompt.
 
-Your deliverable is a list of PROJECT_IDs in descending order of their relevance to the user's prompt,
+Your deliverable is a list of IDs in descending order of their relevance to the user's prompt,
 formatted as a comma-separated list without any quotation marks.
-It is crucial to return these PROJECT_IDs exactly as they appear, with no modifications.
+It is crucial to return these IDs exactly as they appear, with no modifications.
 
-You will return the list as a string with the following format:
+You will return the list of IDs as a string with the following format:
 '''
 34,23,5,1,44,53,13
 '''
