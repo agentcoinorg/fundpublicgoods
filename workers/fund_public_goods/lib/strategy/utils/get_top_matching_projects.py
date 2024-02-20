@@ -24,17 +24,17 @@ Your deliverable is a list of IDs in descending order of their relevance to the 
 formatted as a comma-separated list without any quotation marks.
 It is crucial to return these IDs exactly as they appear, with no modifications.
 
-You will return a JSON object object with the following format:
+You will return a JSON object with the following format:
 '''
 {{
-    "categories": number[]
+    "project_ids": number[]
 }}
 '''
 
 Example response:
 '''
 {{
-    "categories": [32, 25, 4, 8]
+    "project_ids": [32, 25, 4, 8]
 }}
 '''
 
@@ -67,7 +67,7 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
     
     raw_response = str(response.choices[0].message.content)
     json_response = json.loads(raw_response)
-    top_ids = json_response['categories']
+    top_ids = json_response['project_ids']
     reranked_projects: list[Projects] = []
 
     for i in range(len(top_ids)):
