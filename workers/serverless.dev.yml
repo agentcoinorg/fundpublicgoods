@@ -56,5 +56,6 @@ functions:
           cors: true
   sqs:
     handler: fund_public_goods.events.sqs_handler
+    maximumRetryAttempts: 0
     events:
       - sqs: arn:aws:sqs:us-east-1:815880329304:fpg
