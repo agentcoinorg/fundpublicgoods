@@ -52,6 +52,12 @@ const InputWithTooltip = forwardRef(
   )
 );
 
+declare global {
+  interface Window {
+    getSelection: () => Selection | null;
+  }
+}
+
 function WeightInput({
   selected,
   index,
@@ -106,7 +112,10 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     .filter((s) => !s.disabled)
     .some((s) => s.selected);
 
-  function openProjectDetails(strategy: StrategyInformation) {
+  function openProjectDetails(strategy: StrategyInformation){
+    // Do not open the project details if the user is trying to select the project
+    if (window.getSelection()?.type === "Range") return;
+
     setShowStrategyDetails({
       show: true,
       strategy,
@@ -155,7 +164,6 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
     );
   };
 
-
   return (
     <>
       <div className='space-y-2'>
@@ -188,7 +196,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
               className={clsx(
                 "bg-indigo-50 border-2 border-indigo-300 hover:bg-white transition-colors duration-200 w-full rounded-2xl shadow-sm hover:shadow-lg shadow-primary-shadow/20 p-4 col-span-12 space-y-3 cursor-pointer"
               )}
-              onClick={() => openProjectDetails(entry)}>
+              onClick={(e) => openProjectDetails(entry)}>
               <div className='grid gap-4 grid-cols-12'>
                 <div className='flex space-x-4 items-center w-full col-span-12 md:col-span-6'>
                   <div
