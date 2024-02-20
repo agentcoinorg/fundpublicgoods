@@ -1,12 +1,9 @@
-name: CD Dev
+name: CD Prod
 
-"""
-NOTE: temporarily disabled, need to make new dev environment
 on:
   push: 
     branches:
-      - release/dev
-"""
+      - release/prod
 
 jobs:
   Deploy-API:
@@ -50,6 +47,7 @@ jobs:
         run: (yarn install --nonInteractive --frozen-lockfile --prefer-offline || yarn install --nonInteractive --frozen-lockfile --prefer-offline)
         working-directory: ./workers
 
+      # TODO: rename to all "dev" here to prod and update aws accordingly
       - name: Deploy
         run: yarn deploy:dev
         working-directory: ./workers
@@ -59,9 +57,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
           DEV_INNGEST_SIGNING_KEY: ${{ secrets.DEV_INNGEST_SIGNING_KEY }}
           DEV_INNGEST_EVENT_KEY: ${{ secrets.DEV_INNGEST_EVENT_KEY }}
-          DEV_NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_URL }}
-          DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          DEV_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
+          DEV_NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.PROD_NEXT_PUBLIC_SUPABASE_URL }}
+          DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PROD_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          DEV_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PROD_SUPABASE_SERVICE_ROLE_KEY }}
           DEV_OPENAI_API_KEY: ${{ secrets.DEV_OPENAI_API_KEY}}
           DEV_PINECONE_API_KEY: ${{ secrets.DEV_PINECONE_API_KEY }}
 
@@ -101,13 +99,15 @@ jobs:
       - run: supabase link --project-ref $PROJECT_ID --password $DB_PASSWORD --debug
         working-directory: ./web
         env:
-          DB_PASSWORD: ${{ secrets.DEV_SUPABASE_DB_PASSWORD }}
-          PROJECT_ID: ${{ secrets.DEV_SUPABASE_PROJECT_ID }}
+          DB_PASSWORD: ${{ secrets.PROD_SUPABASE_DB_PASSWORD }}
+          PROJECT_ID: ${{ secrets.PROD_SUPABASE_PROJECT_ID }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.DEV_SUPABASE_ACCESS_TOKEN }}
 
       - run: supabase db push --password $DB_PASSWORD
         working-directory: ./web
         env:
-          DB_PASSWORD: ${{ secrets.DEV_SUPABASE_DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.PROD_SUPABASE_DB_PASSWORD }}
           SUPABASE_ACCESS_TOKEN: ${{ secrets.DEV_SUPABASE_ACCESS_TOKEN }}
+
+      # TODO: update to api.fundpublicgoods.ai once updated in AWS
       - run: curl -X PUT https://api.dev.fundpublicgoods.ai/api/inngest
