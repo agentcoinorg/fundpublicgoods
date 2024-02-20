@@ -118,6 +118,11 @@ const ProjectModal = ({
       contentStyles={{ padding: "p-4 sm:p-6 pt-0" }}>
       {strategy && (
         <div className='space-y-4'>
+            <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
+              <div className={clsx("text-sm leading-normal")}>
+                {strategy.project.short_description}
+              </div>
+            </div>
           <div className='bg-indigo-50 p-3 rounded-xl space-y-3'>
             <div
               className='flex items-center justify-between pb-2 border-b border-indigo-600 group'>
