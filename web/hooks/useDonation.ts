@@ -38,6 +38,8 @@ export function useDonation() {
     setIsTransactionPending(true);
 
     const { network: selectedNetwork, token: selectedToken, donations } = plan;
+    const filteredDonations = donations.filter((d) => Number(d.amount) > 0);
+
     const token = getTokensForNetwork(selectedNetwork).find(
       (t) => t.name == selectedToken.name
     );
@@ -45,11 +47,11 @@ export function useDonation() {
     if (!token) {
       throw new Error(`Token with name: ${selectedToken} is not valid`);
     }
-    const amounts = donations.map((d) => Number(d.amount));
+    const amounts = filteredDonations.map((d) => Number(d.amount));
     console.log(plan, amounts, signer, token);
     try {
       await splitTransferFunds(
-        donations.map((d) => d.recipient),
+        filteredDonations.map((d) => d.recipient),
         amounts,
         signer,
         selectedNetwork,
@@ -97,17 +99,23 @@ export function useDonation() {
     amount: string,
     network: NetworkName
   ) => {
-    const ethersProvider = new ethers.providers.Web3Provider(
-      wallet.provider,
-      "any"
-    );
-    const signer = ethersProvider.getSigner();
-    const tokenContract = new ethers.Contract(token.address, ERC20_ABI, signer);
-
-    const contractAddress = DISPERSE_CONTRACT_ADDRESSES[network];
-    const amountInDecimals = ethers.utils.parseUnits(amount.toString(), token.decimals);
-    const approveTx = await tokenContract.approve(contractAddress, amountInDecimals);
-    await approveTx.wait(1);
+    setIsTransactionPending(true);
+   
+    try {
+      const ethersProvider = new ethers.providers.Web3Provider(
+        wallet.provider,
+        "any"
+      );
+      const signer = ethersProvider.getSigner();
+      const tokenContract = new ethers.Contract(token.address, ERC20_ABI, signer);
+  
+      const contractAddress = DISPERSE_CONTRACT_ADDRESSES[network];
+      const amountInDecimals = ethers.utils.parseUnits(amount.toString(), token.decimals);
+      const approveTx = await tokenContract.approve(contractAddress, amountInDecimals);
+      await approveTx.wait(1);
+    } finally {
+      setIsTransactionPending(false);
+    }
   };
 
   return {
