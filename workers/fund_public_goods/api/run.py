@@ -78,6 +78,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.FETCH_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
+            print(error)
             return Response(status="Internal error")
 
         try:
@@ -95,6 +96,9 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             if len(projects_without_funding_impact_reports) > 0:
                 impact_funding_reports = generate_impact_funding_reports(projects_without_funding_impact_reports)
                 projects_with_new_reports_and_answers = [projects_without_funding_impact_reports[i] for i in range(len(impact_funding_reports))]
+                
+                for i in range(len(projects_with_new_reports_and_answers)):
+                    projects_with_new_reports_and_answers[i][0].impact_funding_report = impact_funding_reports[i]
 
                 impact_funding_scores = score_projects_impact_funding([p for (p, _) in projects_with_new_reports_and_answers])
                 
@@ -102,6 +106,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                     projects_with_new_reports_and_answers[i][0].impact = impact_funding_scores[i].impact
                     projects_with_new_reports_and_answers[i][0].funding_needed = impact_funding_scores[i].funding_needed
                 
+                print([p.title for (p, _) in projects_with_new_reports_and_answers])
                 upsert_multiple([p for (p, _) in projects_with_new_reports_and_answers])
                 
                 projects_with_impact_funding_reports += projects_with_new_reports_and_answers
@@ -117,6 +122,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
+            print(error)
             return Response(status="Internal error")
 
         try:
@@ -128,6 +134,7 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
             
             relevancy_reports = generate_relevancy_reports(prompt, projects_with_impact_funding_reports)
             projects_with_relevancy_reports = [(projects_with_impact_funding_reports[i][0], relevancy_reports[i]) for i in range(len(relevancy_reports))]
+            full_reports = [f"{relevancy_reports[i]}\n\n{projects_with_relevancy_reports[i][0].impact_funding_report}" for i in range(len(relevancy_reports))]
             
             relevancy_scores = score_projects_relevancy(projects_with_relevancy_reports, prompt)
             
@@ -153,6 +160,8 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
                 value=f"An error occurred: {type(error).__name__} - {str(error)} ",
             )
+            print(cb)
+            print(error)
             return Response(status="Internal error")
 
 
@@ -170,7 +179,6 @@ async def run(params: Params, authorization: Optional[str] = Header(None)) -> Re
         
         upsert_multiple(projects_with_short_desc)
         
-        full_reports = [f"{relevancy_reports[i]}\n\n{impact_funding_reports[i]}" for i in range(len(relevancy_reports))]
         ranked_projects_with_reports = [(smart_ranked_projects[i], full_reports[i]) for i in range(len(smart_ranked_projects))]
 
         insert_multiple(run_id, ranked_projects_with_reports)
