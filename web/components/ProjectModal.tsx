@@ -139,10 +139,10 @@ const ProjectModal = ({
                   category: "Relevance",
                   value: strategy.interest,
                 },
-                { category: "Impact", value: strategy.impact },
+                { category: "Impact", value: strategy.project.impact },
                 {
                   category: "Funding Needs",
-                  value: strategy.funding_needed,
+                  value: strategy.project.funding_needed,
                 },
               ].map((item, i) => (
                 <div

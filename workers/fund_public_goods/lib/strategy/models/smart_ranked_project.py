@@ -2,9 +2,8 @@ from fund_public_goods.db.entities import Projects
 from pydantic import BaseModel, ConfigDict, Field
 from fund_public_goods.lib.strategy.models.project_scores import ProjectScores
 
-class WeightedProject(BaseModel):
+class SmartRankedProject(BaseModel):
     project: Projects
-    report: str
     scores: ProjectScores
     smart_ranking: float = Field(..., alias="smartRanking")
 

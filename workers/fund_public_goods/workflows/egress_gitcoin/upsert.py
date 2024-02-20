@@ -21,7 +21,9 @@ def upsert_project(project: GitcoinProjects, keywords: list[str], categories: li
         logo=project.data.get("logoImg", ""),
         short_description=None,
         keywords=keywords,
-        categories=categories
+        categories=categories,
+        impact_funding_report=None,
+        funding_needed=None
     )
 
     tables.projects.upsert(entity)

@@ -19,7 +19,10 @@ def upsert(
         "short_description": row.short_description,
         "keywords": row.keywords,
         "categories": row.categories,
-        "logo": row.logo
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
     }).execute()
     
 def upsert_multiple(
@@ -36,35 +39,12 @@ def upsert_multiple(
         "short_description": row.short_description,
         "keywords": row.keywords,
         "categories": row.categories,
-        "logo": row.logo
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
     } for row in rows]).execute()
 
-def get(
-    project_id: str
-) -> Projects | None:
-    db = create_admin()
-    result = (db.table("projects")
-        .select("id", "updated_at", "title", "keywords", "categories", "description", "short_description", "website", "twitter", "logo")
-        .eq("id", project_id)
-        .execute())
-
-    if not result.data:
-        return None
-
-    data = result.data[0]
-
-    return Projects(
-        id=data["id"],
-        updated_at=data["updated_at"],
-        title=data["title"],
-        description=data["description"],
-        website=data["website"],
-        keywords=data['keywords'],
-        categories=data['categories'],
-        twitter=data["twitter"],
-        short_description=data["short_description"],
-        logo=data["logo"]
-    )
 
 def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[Projects, list[Answer]]]:
     projects_with_answers: list[tuple[Projects, list[Answer]]] = []
@@ -83,15 +63,18 @@ def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[
 
         project = Projects(
             id=project_data.get("id", ""),
+            updated_at=project_data.get("updated_at", ""),
             title=project_data.get("title", ""),
             description=project_data.get("description", ""),
-            updated_at=project_data.get("updated_at", None),
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
             keywords=project_data.get("keywords", []),
             categories=project_data.get("categories", []),
-            short_description=project_data.get("short_description", None)
+            short_description=project_data.get("short_description", None),
+            funding_needed=project_data.get("funding_needed", None),
+            impact=project_data.get("impact", None),
+            impact_funding_report=project_data.get("impact_funding_report", None),
         )
         
         projects_with_answers.append((project, answers))
@@ -124,7 +107,7 @@ def get_projects_from_description(categories: list[str]):
     request = (
         db.table("projects")
         .select(
-            "id, updated_at, title, description, website, keywords, categories, short_description, twitter, logo, applications(id, recipient, round, answers)"
+            "* applications(id, recipient, round, answers)"
         )
         .ov("categories", categories)
         .execute()

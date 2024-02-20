@@ -165,7 +165,10 @@ export interface Database {
         Row: {
           categories: string[]
           description: string | null
+          funding_needed: number | null
           id: string
+          impact: number | null
+          impact_funding_report: string | null
           keywords: string[]
           logo: string | null
           short_description: string | null
@@ -177,7 +180,10 @@ export interface Database {
         Insert: {
           categories?: string[]
           description?: string | null
+          funding_needed?: number | null
           id: string
+          impact?: number | null
+          impact_funding_report?: string | null
           keywords?: string[]
           logo?: string | null
           short_description?: string | null
@@ -189,7 +195,10 @@ export interface Database {
         Update: {
           categories?: string[]
           description?: string | null
+          funding_needed?: number | null
           id?: string
+          impact?: number | null
+          impact_funding_report?: string | null
           keywords?: string[]
           logo?: string | null
           short_description?: string | null
@@ -232,9 +241,7 @@ export interface Database {
       strategy_entries: {
         Row: {
           created_at: string
-          funding_needed: number | null
           id: string
-          impact: number | null
           interest: number | null
           project_id: string
           report: string | null
@@ -243,9 +250,7 @@ export interface Database {
         }
         Insert: {
           created_at?: string
-          funding_needed?: number | null
           id?: string
-          impact?: number | null
           interest?: number | null
           project_id: string
           report?: string | null
@@ -254,9 +259,7 @@ export interface Database {
         }
         Update: {
           created_at?: string
-          funding_needed?: number | null
           id?: string
-          impact?: number | null
           interest?: number | null
           project_id?: string
           report?: string | null
