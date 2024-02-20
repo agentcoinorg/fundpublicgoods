@@ -6,7 +6,7 @@ on:
       - release/dev
 
 jobs:
-  Deploy-Dev:
+  Deploy-API:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -61,6 +61,44 @@ jobs:
           DEV_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
           DEV_OPENAI_API_KEY: ${{ secrets.DEV_OPENAI_API_KEY}}
           DEV_PINECONE_API_KEY: ${{ secrets.DEV_PINECONE_API_KEY }}
+
+  Deploy-DB:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: (yarn install --nonInteractive --frozen-lockfile --prefer-offline || yarn install --nonInteractive --frozen-lockfile --prefer-offline)
 
       - uses: supabase/setup-cli@v1
         with:

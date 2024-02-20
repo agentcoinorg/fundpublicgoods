@@ -120,7 +120,7 @@ export default function RealtimeLogs(props: {
           }
         />
       </div>
-      <div className="space-y-2">
+      <div className="mx-auto max-w-screen-sm space-y-2">
         {!hasErrored && (
           <>
             <TimeRemaining time={progressInformation.time} />
