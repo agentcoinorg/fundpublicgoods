@@ -36,13 +36,14 @@ jobs:
     - name: Install dependencies
       run: yarn
 
+    # TODO: change "PROD_" back to "DEV_" once that exists again
     - name: Build
       run: yarn build
       env:
         CICD: true
-        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_URL }}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.DEV_SUPABASE_SERVICE_ROLE_KEY }}
+        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.PROD_NEXT_PUBLIC_SUPABASE_URL }}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PROD_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PROD_SUPABASE_SERVICE_ROLE_KEY }}
         NEXT_PUBLIC_INFURA_PROJECT_ID: ${{ secrets.DEV_NEXT_PUBLIC_INFURA_PROJECT_ID}}
         NEXT_PUBLIC_WORKERS_URL: ${{ secrets.DEV_WORKERS_URL }}
 
