@@ -42,6 +42,7 @@ const Button = ({
   return (
     <Popover className='relative'>
       <Popover.Button
+        disabled={disabled}
         className={clsx(
           "text-shadow-md relative inline-flex items-center justify-center space-x-2 rounded-full border-2 transition-all duration-500",
           hierarchyClasses[hierarchy],
