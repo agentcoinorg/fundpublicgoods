@@ -15,6 +15,11 @@ or casing of the categories, return them exactly as they are written in the list
 You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
 based on these categories. ALWAYS return at least 2 categories, even if no direct relation.
 
+You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
+based on these categories.
+
+Some prompts will not be able to be categorized. If that's the case, simply respond with "NONE" (without quotes).
+
 Prompt: {prompt}
 """
 
@@ -31,11 +36,19 @@ def categorize_prompt(prompt: str, categories: list[str]) -> list[str]:
         "prompt": prompt,
         "categories": "\n".join(f"- {category}" for category in categories)
     })
-    categories = [c.strip() for c in categories_res.split(',')]
+    category_strings = [c.strip() for c in categories_res.split(',')]
+    result: list[str] = []
 
-    if len(categories) == 0:
+    for category_string in category_strings:
+        if category_string == "NONE":
+            result.append(categories[0])
+            result.append(categories[1])
+        else:
+            result.append(category_string)
+
+    if len(result) == 0:
         raise Exception(
-            f"The LLM has responded with no categories. Llm response ({categories_res}). Response split ({categories})"
+            f"The LLM has responded with no categories. Llm response ({categories_res}). Response split ({category_strings})"
         )
 
-    return categories
+    return result
