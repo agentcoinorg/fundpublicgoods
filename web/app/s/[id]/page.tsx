@@ -1,6 +1,7 @@
 import Disclaimer from "@/components/Disclaimer";
 import RealtimeLogs from "@/components/RealtimeLogs";
 import Strategy from "@/components/Strategy";
+import NoResultsFound from "@/components/NoResultsFound";
 import {
   StrategiesWithProjects,
   Application,
@@ -107,12 +108,21 @@ export default async function StrategyPage({
   const uniqueNetworks = Array.from(
     new Set(strategies.map((x) => x.networks).flat())
   );
-  return (
-    <Strategy
-      fetchedStrategies={strategies}
-      prompt={run.data.prompt}
-      runId={run.data.id}
-      networks={uniqueNetworks}
-    />
-  );
+
+  if (strategies.length > 0) {
+    return (
+      <Strategy
+        fetchedStrategies={strategies}
+        prompt={run.data.prompt}
+        runId={run.data.id}
+        networks={uniqueNetworks}
+      />
+    );
+  } else {
+    return (
+      <NoResultsFound
+        prompt={run.data.prompt}
+      />
+    );
+  }
 }

@@ -253,7 +253,7 @@ export default function Strategy(props: {
                     </div>
                     <Button
                       disabled={
-                        selectedStrategiesLength === 0 || amount === "0" || amount === ""
+                        selectedStrategiesLength === 0 || amount === "0" || amount === "" || isTransactionPending
                       }
                       onClick={executeTransaction}>
                       {isTransactionPending ? (

@@ -51,8 +51,7 @@ export default function RealtimeLogs(props: {
   });
   const progressInformation = useProgressTime(
     Object.values(STEP_TIME_ESTS),
-    sortedLogsWithSteps,
-    props.run.prompt
+    sortedLogsWithSteps
   );
 
   const supabase = createSupabaseBrowserClient(
@@ -73,17 +72,10 @@ export default function RealtimeLogs(props: {
         },
         (payload) => {
           if (payload.new.status === "ERRORED") {
-            router.refresh();
             setHasErrored(true);
-            return;
           }
 
-          if (
-            payload.new.step_name === "SYNTHESIZE_RESULTS" &&
-            payload.new.status === "COMPLETED"
-          ) {
-            router.refresh();
-          }
+          router.refresh();
         }
       )
       .subscribe();
