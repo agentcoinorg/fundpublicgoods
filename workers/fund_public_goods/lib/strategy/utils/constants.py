@@ -12,7 +12,7 @@ PROJECT_CATEGORIES = [
     "Privacy and Security in Blockchain",
     "Gaming and Gamification",
     "Accessibility and Inclusivity",
-    "Art, Music, and Cultural Preservation",
+    "Art Music and Cultural Preservation",
     "Legal and Regulatory Compliance",
     "Infrastructure and Tooling for Blockchain",
     "Research and Development in Blockchain",

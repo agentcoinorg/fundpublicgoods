@@ -15,6 +15,7 @@ or casing of the categories, return them exactly as they are written in the list
 A user's prompt can match to more than one category. Be strict with assigning categories.
 Return a max of {n} categories, you can reutrn less if the project really only matches less than {n} categories.
 
+You may only return categories from the aforementioned list. Do not make categories up.
 Some prompts will not be able to be categorized. If that's the case, simply respond with "NONE" (without quotes).
 
 Prompt: {prompt}
