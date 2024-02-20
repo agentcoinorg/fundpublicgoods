@@ -1,3 +1,4 @@
+import json
 from langchain.text_splitter import CharacterTextSplitter
 
 from chromadb import EphemeralClient
@@ -10,6 +11,7 @@ from langchain_core.output_parsers import StrOutputParser
 from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
+import openai
 
 
 reranking_prompt_template = """
@@ -22,9 +24,18 @@ Your deliverable is a list of IDs in descending order of their relevance to the 
 formatted as a comma-separated list without any quotation marks.
 It is crucial to return these IDs exactly as they appear, with no modifications.
 
-You will return the list of IDs as a string with the following format:
+You will return a JSON object object with the following format:
 '''
-34,23,5,1,44,53,13
+{{
+    "categories": number[]
+}}
+'''
+
+Example response:
+'''
+{{
+    "categories": [32, 25, 4, 8]
+}}
 '''
 
 In your assessment, it is essential to discern the genuine alignment of each project with the user's specific requirements.
@@ -39,37 +50,35 @@ Projects: {projects}
 """
 
 def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
-    reranking_prompt = ChatPromptTemplate.from_messages([
-        ("system", reranking_prompt_template),
-    ])
-    
-    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
-
-    reranking_chain = reranking_prompt | llm | StrOutputParser()
-    
     separator = "\n-----\n"
-
-    top_ids_res = reranking_chain.invoke({
-        "prompt": prompt,
-        "separator": separator,
-        "projects": separator.join([
-            f"ID: {i} - Description: {projects[i].description}\n"
-            for i in range(len(projects))
-        ])
-    })
-    top_ids_split = top_ids_res.split(',')
-    top_ids = strings_to_numbers(top_ids_split)
+    formatted_projects = separator.join([
+        f"ID: {i} - Description: {projects[i].description}\n"
+        for i in range(len(projects))
+    ])
+    formatted_prompt = reranking_prompt_template.format(prompt=prompt, separator=separator, projects=formatted_projects)
+    
+    response = openai.chat.completions.create(
+        model="gpt-4-1106-preview",
+        response_format={"type": "json_object"},
+        messages=[
+            {"role": "user", "content": formatted_prompt}
+        ]
+    )
+    
+    raw_response = str(response.choices[0].message.content)
+    json_response = json.loads(raw_response)
+    top_ids = json_response['categories']
     reranked_projects: list[Projects] = []
 
     for i in range(len(top_ids)):
         id = top_ids[i]
         if id is None:
             raise Exception(
-                f"The LLM has responded with a non-number at index {i}. Llm response ({top_ids_res}). Response split ({top_ids_split})"
+                f"The LLM has responded with a non-number at index {i}. Llm response ({json_response}). RAW response ({raw_response})"
             )
         if id > len(projects) or id < 0:
             raise Exception(
-                f"ID {id} not found in projects array (len {len(projects)}). Llm response ({top_ids_res}). Response split ({top_ids_split})"
+                f"ID {id} not found in projects array (len {len(projects)}). Llm response ({json_response}). RAW response ({raw_response})"
             )
         reranked_projects.append(projects[id])
 
