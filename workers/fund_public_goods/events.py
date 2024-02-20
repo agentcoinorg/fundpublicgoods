@@ -55,7 +55,10 @@ def sqs_handler(sqs_event: SQSEvent, _: Context):
         ))
 
     for event in events:
-        handler(event)
+        try:
+            handler(event)
+        except Exception as error:
+            print(error)
 
 def add_event_middleware(app: FastAPI):
     event_handlers: list[BaseEventHandler] = []
