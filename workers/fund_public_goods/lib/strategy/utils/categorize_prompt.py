@@ -12,11 +12,8 @@ Your goal is to categorize a user's prompt. These are the existing categories:
 Respond strictly with a comma-separated list of categories, without quotes. Do not change the wording
 or casing of the categories, return them exactly as they are written in the list above.
 
-You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
-based on these categories. ALWAYS return at least 2 categories, even if no direct relation.
-
-You must make sure that the categorization of the prompt is extensive enough so projects can be retrieved
-based on these categories.
+A user's prompt can match to more than one category. Be strict with assigning categories.
+Return a max of {n} categories, you can reutrn less if the project really only matches less than {n} categories.
 
 Some prompts will not be able to be categorized. If that's the case, simply respond with "NONE" (without quotes).
 
@@ -34,7 +31,8 @@ def categorize_prompt(prompt: str, categories: list[str]) -> list[str]:
 
     categories_res = categorize_chain.invoke({
         "prompt": prompt,
-        "categories": "\n".join(f"- {category}" for category in categories)
+        "categories": "\n".join(f"- {category}" for category in categories),
+        "n": 3
     })
     category_strings = [c.strip() for c in categories_res.split(',')]
     result: list[str] = []
@@ -43,6 +41,7 @@ def categorize_prompt(prompt: str, categories: list[str]) -> list[str]:
         if category_string == "NONE":
             result.append(categories[0])
             result.append(categories[1])
+            result.append(categories[2])
         else:
             result.append(category_string)
 
