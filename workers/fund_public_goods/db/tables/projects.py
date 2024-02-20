@@ -17,8 +17,6 @@ def upsert(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
-        "keywords": row.keywords,
-        "categories": row.categories,
         "logo": row.logo,
         "funding_needed": row.funding_needed,
         "impact_funding_report": row.impact_funding_report,
@@ -37,8 +35,6 @@ def upsert_multiple(
         "website": row.website,
         "twitter": row.twitter,
         "short_description": row.short_description,
-        "keywords": row.keywords,
-        "categories": row.categories,
         "logo": row.logo,
         "funding_needed": row.funding_needed,
         "impact_funding_report": row.impact_funding_report,
@@ -69,8 +65,6 @@ def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[
             website=project_data.get("website", ""),
             twitter=project_data.get("twitter", ""),
             logo=project_data.get("logo", ""),
-            keywords=project_data.get("keywords", []),
-            categories=project_data.get("categories", []),
             short_description=project_data.get("short_description", None),
             funding_needed=project_data.get("funding_needed", None),
             impact=project_data.get("impact", None),
@@ -82,62 +76,66 @@ def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[
     return projects_with_answers
 
 
-def get_unique_categories() -> list[str]:
-    db = create_admin()
-    response: PostgrestAPIResponse[list[dict[str, str]]] = (
-        db.table("unique_categories_views").select("*").execute()
-    )
-    if not response.data:
-        return []
-
-    categories = []
-
-    for row in response.data:
-        categories.append(row["category"]) # type: ignore
-
-    return categories
-
-def get_projects(range_from: int, range_to: int) -> PostgrestAPIResponse[dict[str, Any]]:
+def get_projects_lightweight(range_from: int, range_to: int) -> PostgrestAPIResponse[dict[str, Any]]:
     db = create_admin()
     return (
         db.table("projects")
         .select(
-            "*, applications(id, recipient, round, answers)"
+            "id, title, website, updated_at, description"
         )
         .range(range_from, range_to)
         .execute()
     )
+    
+def get_projects_by_ids(ids: list[str]) -> list[tuple[Projects, list[Answer]]]:
+    db = create_admin()
+    results = (
+        db.table("projects")
+        .select(
+            "*, applications(id, recipient, round, answers)"
+        )
+        .in_('id', ids)
+        .execute()
+    )
+    
+    return sanitize_projects_information(results)
 
-def get_all_projects():
+
+def get_all_projects_lightweight() -> list[Projects]:
     all_results: list[dict[str, Any]] = []
     current_from = 0
     page_size = 999
     while True:
         current_to = current_from + page_size
-        results = get_projects(current_from, current_to).data
+        results = get_projects_lightweight(current_from, current_to).data
         all_results.extend(results)
         
         if len(results) < page_size:
             break
 
         current_from += page_size
-    
-    return sanitize_projects_information(all_results)
+        
+    projects: list[Projects] = []
+        
+    for item in all_results:
+        # Remove all None values
+        project_data = {k: v for k, v in item.items() if v is not None}
 
-def fetch_projects_by_category(categories: list[str]) -> list[tuple[Projects, list[Answer]]]:
-    results = get_projects_from_description(categories).data
-    sanitized_projects = sanitize_projects_information(results) 
-    return sanitized_projects
-
-def get_projects_from_description(categories: list[str]):
-    db = create_admin()
-    request = (
-        db.table("projects")
-        .select(
-            "* applications(id, recipient, round, answers)"
+        project = Projects(
+            id=project_data.get("id", ""),
+            updated_at=project_data.get("updated_at", ""),
+            title=project_data.get("title", ""),
+            description=project_data.get("description", ""),
+            website=project_data.get("website", ""),
+            twitter=project_data.get("twitter", ""),
+            logo=project_data.get("logo", ""),
+            short_description=project_data.get("short_description", None),
+            funding_needed=project_data.get("funding_needed", None),
+            impact=project_data.get("impact", None),
+            impact_funding_report=project_data.get("impact_funding_report", None),
         )
-        .ov("categories", categories)
-        .execute()
-    )
+        
+        projects.append(project)
 
-    return request
+    return projects
+

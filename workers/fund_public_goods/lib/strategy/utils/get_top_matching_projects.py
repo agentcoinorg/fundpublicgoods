@@ -4,11 +4,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from chromadb import EphemeralClient
 from langchain.text_splitter import CharacterTextSplitter
 from fund_public_goods.db.entities import Projects
-from fund_public_goods.lib.strategy.utils.categorize_prompt import categorize_prompt
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import openai
@@ -133,10 +128,6 @@ def create_embeddings_collection(projects: list[Projects]):
     )
     
     return collection
-
-def filter_projects_by_categories(projects: list[Projects], categories: list[str]) -> list[Projects]:
-    filtered_projects = [project for project in projects if any(category in project.categories for category in categories)]
-    return filtered_projects
 
 
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
