@@ -6,7 +6,6 @@ export function useProgressTime(
   logs: Array<Tables<"logs">>
 ) {
   const [startTime, setStartTime] = useState(Date.now());
-  const [, setHasReachedTime] = useState(false)
   const [progressInformation, setProgressInformation] = useState({
     time: 0,
     progress: 0,
@@ -19,12 +18,6 @@ export function useProgressTime(
 
   useEffect(() => {
     setStartTime(Date.now())
-    setHasReachedTime((reached) => {
-      if (reached) {
-        return false
-      }
-      return reached
-    })
   }, [currentStep])
 
   useEffect(() => {
@@ -33,7 +26,6 @@ export function useProgressTime(
       const elapsedTimeSinceStart = (now - startTime) / 1000; // Convert ms to seconds
 
       if (elapsedTimeSinceStart > stepTimes[currentStep]) {
-        setHasReachedTime(true)
         return
       }
 
