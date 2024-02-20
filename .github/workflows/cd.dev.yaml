@@ -98,7 +98,8 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: (yarn install --nonInteractive --frozen-lockfile --prefer-offline || yarn install --nonInteractive --frozen-lockfile --prefer-offline)
+        run: cp ../yarn.lock ./ && (yarn install --nonInteractive --frozen-lockfile --prefer-offline || yarn install --nonInteractive --frozen-lockfile --prefer-offline)
+        working-directory: ./web
 
       - uses: supabase/setup-cli@v1
         with:
@@ -108,6 +109,7 @@ jobs:
         env:
           DB_PASSWORD: ${{ secrets.DEV_SUPABASE_DB_PASSWORD }}
           PROJECT_ID: ${{ secrets.DEV_SUPABASE_PROJECT_ID }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.DEV_SUPABASE_ACCESS_TOKEN }}
 
       - run: supabase db push
         working-directory: ./web
