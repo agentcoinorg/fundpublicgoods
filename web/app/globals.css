@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  @apply font-medium text-indigo-900;
+  @apply font-medium text-indigo-800;
 }
 
 p {
@@ -19,7 +19,7 @@ a {
 }
 
 th {
-  @apply px-4 pt-4 pb-2 text-indigo-900/50 font-semibold text-xs leading-none uppercase;
+  @apply px-4 pt-4 pb-2 text-indigo-800/50 font-semibold text-xs leading-none uppercase;
 }
 
 td {
@@ -27,7 +27,7 @@ td {
 }
 
 .checkbox {
-  @apply rounded border-2 border-indigo-500 w-5 h-5 transition-colors duration-300 cursor-pointer hover:border-indigo-400;
+  @apply rounded border-2 border-indigo-500 w-5 h-5 transition-colors duration-300 hover:border-indigo-400;
 }
 
 .checkbox.checked {
@@ -53,5 +53,111 @@ td {
 }
 
 .text-subdued {
-  @apply text-indigo-900/60;
+  @apply text-indigo-800/60;
+}
+
+.success-circle {
+  stroke-dasharray: 780;
+  animation: circle 1.25s ease-in-out forwards;
+  transform-origin: center;
+}
+
+.success-check {
+  stroke-dasharray: 130;
+  animation: check 0.5s 0.5s ease-in-out forwards;
+  transform-origin: center;
+  opacity: 0;
+}
+
+.success-circle-blowout {
+  transform-origin: center;
+  opacity: 0;
+  animation: blowout 0.25s 1s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes circle {
+  0% {
+    stroke-dashoffset: 780;
+  }
+  80% {
+    stroke-dashoffset: 0;
+    transform: scale(1);
+  }
+  90% {
+    stroke-dashoffset: 0;
+    transform: scale(1.25);
+    fill: white;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    transform: scale(1);
+    @apply fill-indigo-50;
+  }
+}
+
+@keyframes blowout {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
+
+@keyframes check {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 130;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transform: scale(1);
+  }
+}
+
+.sparkle {
+  animation: sparkle var(--sparkle-duration, 1s) infinite ease-in-out;
+}
+
+.sparkles-wrapper {
+  animation: sparklesWrapper 0.75s 1s forwards ease-out;
+  transform: scale(0.1);
+  pointer-events: none;
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(var(--sparkle-translate, -2%))
+      scale(var(--sparkle-scale, 1.2));
+  }
+}
+
+@keyframes sparklesWrapper {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

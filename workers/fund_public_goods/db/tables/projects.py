@@ -1,24 +1,9 @@
-from typing import Any, Dict
+from typing import Any
 from fund_public_goods.lib.strategy.models.answer import Answer
-from fund_public_goods.lib.strategy.models.project import Project
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
-from fund_public_goods.db.client import create_admin
+from fund_public_goods.db.app_db import create_admin
 
-
-def insert(
-    row: Projects
-):
-    db = create_admin()
-    db.table("projects").insert({
-        "id": row.id,
-        "updated_at": row.updated_at,
-        "title": row.title,
-        "description": row.description,
-        "website": row.website,
-        "twitter": row.twitter,
-        "logo": row.logo
-    }).execute()
 
 def upsert(
     row: Projects
@@ -31,49 +16,39 @@ def upsert(
         "description": row.description,
         "website": row.website,
         "twitter": row.twitter,
-        "logo": row.logo
+        "short_description": row.short_description,
+        "keywords": row.keywords,
+        "categories": row.categories,
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
     }).execute()
-
-def get(
-    project_id: str
-) -> Projects | None:
-    db = create_admin()
-    result = (db.table("projects")
-        .select("id", "updated_at", "title", "description", "website", "twitter", "logo")
-        .eq("id", project_id)
-        .execute())
-
-    if not result.data:
-        return None
-
-    data = result.data[0]
-
-    return Projects(
-        id=data["id"],
-        updated_at=data["updated_at"],
-        title=data["title"],
-        description=data["description"],
-        website=data["website"],
-        twitter=data["twitter"],
-        logo=data["logo"]
-    )
-
-def get_projects() -> PostgrestAPIResponse[Dict[str, Any]]:
-    db = create_admin()
-    return (
-        db.table("projects")
-        .select(
-            "id, updated_at, title, description, website, twitter, logo, applications(id, recipient, round, answers)"
-        )
-        .execute()
-    )
-
-def fetch_projects_data() -> list[Project]:
-    response = get_projects()
     
-    projects: list[Project] = []
+def upsert_multiple(
+    rows: list[Projects]
+):
+    db = create_admin()
+    db.table("projects").upsert([{
+        "id": row.id,
+        "updated_at": row.updated_at,
+        "title": row.title,
+        "description": row.description,
+        "website": row.website,
+        "twitter": row.twitter,
+        "short_description": row.short_description,
+        "keywords": row.keywords,
+        "categories": row.categories,
+        "logo": row.logo,
+        "funding_needed": row.funding_needed,
+        "impact_funding_report": row.impact_funding_report,
+        "impact": row.impact
+    } for row in rows]).execute()
 
-    for item in response.data:
+
+def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[Projects, list[Answer]]]:
+    projects_with_answers: list[tuple[Projects, list[Answer]]] = []
+    for item in projects:
         answers: list[Answer] = []
 
         for application in item.get("applications", []):
@@ -83,16 +58,59 @@ def fetch_projects_data() -> list[Project]:
                     answer=answer.get("answer", None)
                 ))
         
-        project = Project(
-            id=item.get("id", ""),
-            title=item.get("title", ""),
-            description=item.get("description", ""),
-            website=item.get("website", ""),
-            twitter=item.get("twitter", ""),
-            logo=item.get("logo", ""),
-            answers=answers,
+        # Remove all None values
+        project_data = {k: v for k, v in item.items() if v is not None}
+
+        project = Projects(
+            id=project_data.get("id", ""),
+            updated_at=project_data.get("updated_at", ""),
+            title=project_data.get("title", ""),
+            description=project_data.get("description", ""),
+            website=project_data.get("website", ""),
+            twitter=project_data.get("twitter", ""),
+            logo=project_data.get("logo", ""),
+            keywords=project_data.get("keywords", []),
+            categories=project_data.get("categories", []),
+            short_description=project_data.get("short_description", None),
+            funding_needed=project_data.get("funding_needed", None),
+            impact=project_data.get("impact", None),
+            impact_funding_report=project_data.get("impact_funding_report", None),
         )
         
-        projects.append(project)
+        projects_with_answers.append((project, answers))
 
-    return projects
+    return projects_with_answers
+
+
+def get_unique_categories() -> list[str]:
+    db = create_admin()
+    response: PostgrestAPIResponse[list[dict[str, str]]] = (
+        db.table("unique_categories_views").select("*").execute()
+    )
+    if not response.data:
+        return []
+
+    categories = []
+
+    for row in response.data:
+        categories.append(row["category"]) # type: ignore
+
+    return categories
+
+def fetch_projects_by_category(categories: list[str]) -> list[tuple[Projects, list[Answer]]]:
+    results = get_projects_from_description(categories).data
+    sanitized_projects = sanitize_projects_information(results) 
+    return sanitized_projects
+
+def get_projects_from_description(categories: list[str]):
+    db = create_admin()
+    request = (
+        db.table("projects")
+        .select(
+            "* applications(id, recipient, round, answers)"
+        )
+        .ov("categories", categories)
+        .execute()
+    )
+
+    return request

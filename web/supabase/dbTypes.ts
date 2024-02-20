@@ -163,31 +163,49 @@ export interface Database {
       }
       projects: {
         Row: {
+          categories: string[]
           description: string | null
+          funding_needed: number | null
           id: string
+          impact: number | null
+          impact_funding_report: string | null
+          keywords: string[]
           logo: string | null
+          short_description: string | null
           title: string | null
           twitter: string | null
           updated_at: number
-          website: string | null
+          website: string
         }
         Insert: {
+          categories?: string[]
           description?: string | null
+          funding_needed?: number | null
           id: string
+          impact?: number | null
+          impact_funding_report?: string | null
+          keywords?: string[]
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at: number
-          website?: string | null
+          website: string
         }
         Update: {
+          categories?: string[]
           description?: string | null
+          funding_needed?: number | null
           id?: string
+          impact?: number | null
+          impact_funding_report?: string | null
+          keywords?: string[]
           logo?: string | null
+          short_description?: string | null
           title?: string | null
           twitter?: string | null
           updated_at?: number
-          website?: string | null
+          website?: string
         }
         Relationships: []
       }
@@ -224,32 +242,29 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          impact: number | null
           interest: number | null
           project_id: string
-          reasoning: string | null
+          report: string | null
           run_id: string
-          weight: number | null
+          smart_ranking: number | null
         }
         Insert: {
           created_at?: string
           id?: string
-          impact?: number | null
           interest?: number | null
           project_id: string
-          reasoning?: string | null
+          report?: string | null
           run_id: string
-          weight?: number | null
+          smart_ranking?: number | null
         }
         Update: {
           created_at?: string
           id?: string
-          impact?: number | null
           interest?: number | null
           project_id?: string
-          reasoning?: string | null
+          report?: string | null
           run_id?: string
-          weight?: number | null
+          smart_ranking?: number | null
         }
         Relationships: [
           {

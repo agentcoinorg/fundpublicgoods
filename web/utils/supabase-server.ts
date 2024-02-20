@@ -6,16 +6,16 @@ import { authOptions } from "./authOptions";
 
 export const createSupabaseServerClient = (
   cookieStore: ReturnType<typeof cookies>,
-  supabaseAccessToken: string
+  supabaseAccessToken?: string
 ) => {
   const client = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       global: {
-        headers: {
+        headers: supabaseAccessToken ? {
           Authorization: `Bearer ${supabaseAccessToken}`,
-        },
+        }: {},
       },
       cookies: {
         get(name: string) {
@@ -43,10 +43,13 @@ export const createSupabaseServerClient = (
     }
   );
 
-  // https://stackoverflow.com/questions/76649583
-  client.realtime.setAuth(supabaseAccessToken)
-  client.functions.setAuth(supabaseAccessToken);
-  (client as any).rest.headers.Authorization = `Bearer ${supabaseAccessToken}`
+  if (supabaseAccessToken) {
+    // https://stackoverflow.com/questions/76649583
+    client.realtime.setAuth(supabaseAccessToken)
+    client.functions.setAuth(supabaseAccessToken);
+    (client as any).rest.headers.Authorization = `Bearer ${supabaseAccessToken}`
+  }
+
   return client
 };
 

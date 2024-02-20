@@ -7,7 +7,5 @@ export function getTokensForNetwork(network: NetworkName): TokenInformation[] {
 
   if (!tokensForNetwork) return [];
 
-  const tokens: TokenInformation[] = Object.values(tokensForNetwork) as TokenInformation[];
-
-  return tokens.filter(token => token);
+  return Object.values(tokensForNetwork);
 }

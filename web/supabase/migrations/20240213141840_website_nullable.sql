@@ -1,0 +1,1 @@
+alter table "public"."projects" alter column "website" set not null;

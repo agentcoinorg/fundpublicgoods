@@ -72,6 +72,7 @@ async def index_gitcoin_page(
         project_id = app_data["application"]["project"]["id"]
         application = GitcoinApplications(
             id = app.id,
+            network=data.network_id,
             created_at = app.created_at,
             protocol = app.protocol,
             pointer = app.pointer,
@@ -84,14 +85,14 @@ async def index_gitcoin_page(
         project_data = await step.run("fetch_json_from_ipfs_" + str(i), lambda: fetch_json_from_ipfs(project_pointer))
         project = GitcoinProjects(
             id = app_data["application"]["project"]["id"],
-            protocol = app_data["application"]["project"]["metaPtr"]["protocol"], 
+            protocol = app_data["application"]["project"]["metaPtr"].get("protocol", 1),
             pointer = project_pointer,
             data = json.dumps(project_data),
         )
 
-        await step.run("upsert_project_" + str(i), lambda: upsert_project(project, application.created_at))
+        await step.run("upsert_project_" + str(i), lambda: upsert_project(project))
         
-        await step.run("save_application_" + str(i), lambda: save_application(application, data.network_id))
+        await step.run("save_application_" + str(i), lambda: save_application(application))
 
     total_skip_rounds = 0
     total_skip_projects = 0

@@ -1,245 +1,286 @@
 "use client";
 
-import { Tables } from "@/supabase/dbTypes";
 import TextField from "./TextField";
 import Score from "./Score";
 import { useConnectWallet } from "@web3-onboard/react";
-import {
-  applyUserWeight,
-  redistributeWeights,
-} from "@/utils/distributeWeights";
-import { ChangeEvent, useState } from "react";
+import { ForwardedRef, forwardRef, useState } from "react";
 import Image from "next/image";
+import ProjectModal from "./ProjectModal";
+import clsx from "clsx";
+import {
+  StrategyInformation,
+  StrategiesHandler,
+} from "@/hooks/useStrategiesHandler";
+import { NetworkName } from "@/utils/ethereum";
+import { SparkleIcon } from "./Icons";
+import { CaretRight } from "@phosphor-icons/react";
+import { Tooltip } from "./Tooltip";
 
-export type StrategyEntry = Tables<"strategy_entries">;
-export type Project = Tables<"projects">;
-export type StrategyWithProjects = (StrategyEntry & {
-  project: Project;
+interface WeightInputProps {
   selected: boolean;
-  amount?: string;
-  defaultWeight: number;
-})[];
-
-export interface StrategyTableProps {
-  strategy: StrategyWithProjects;
-  modifyStrategy: (projects: StrategyWithProjects) => void;
-  totalAmount: string;
+  index: number;
+  disabled?: boolean;
+  formattedWeights: string[];
+  setFormattedWeights: (weights: string[]) => void;
+  handleWeightUpdate: (value: string, index: number) => void;
 }
 
-export function StrategyTable(props: StrategyTableProps) {
+/* eslint-disable react/display-name */
+const InputWithTooltip = forwardRef(
+  (
+    {
+      selected,
+      index,
+      disabled,
+      formattedWeights,
+      setFormattedWeights,
+      handleWeightUpdate,
+      ...props
+    }: WeightInputProps,
+    ref: ForwardedRef<HTMLDivElement>
+  ) => (
+    <div ref={ref} {...props}>
+      <WeightInput
+        selected={selected}
+        index={index}
+        disabled={disabled}
+        formattedWeights={formattedWeights}
+        setFormattedWeights={setFormattedWeights}
+        handleWeightUpdate={handleWeightUpdate}
+      />
+    </div>
+  )
+);
+
+function WeightInput({
+  selected,
+  index,
+  disabled,
+  formattedWeights,
+  setFormattedWeights,
+  handleWeightUpdate,
+}: WeightInputProps) {
+  return (
+    <TextField
+      readOnly={!selected}
+      onChange={(e) => {
+        const currentWeights = [...formattedWeights];
+        setFormattedWeights(currentWeights);
+        currentWeights[index] = e.target.value;
+      }}
+      onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+          handleWeightUpdate(event.currentTarget.value, index);
+        }
+      }}
+      onBlur={(e) => handleWeightUpdate(e.target.value, index)}
+      className={"!pl-3 !pr-6 !py-1 !border-indigo-100 !shadow-none bg-white"}
+      disabled={disabled}
+      rightAdornment={"%"}
+      value={formattedWeights[index]}
+    />
+  );
+}
+
+export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
   const [{ wallet }] = useConnectWallet();
-  const [formattedWeights, setFormattedWeights] = useState(
-    props.strategy.map(({ weight, defaultWeight, selected }) =>
-      (
-        (!selected ? 0 : weight && weight > 0 ? weight : defaultWeight) * 100
-      ).toFixed(2)
-    )
-  );
-  const [overwrittenWeights, setOverwrittenWeights] = useState(
-    props.strategy.map((_) => 0)
-  );
+  const {
+    strategies,
+    formatted: { weights: formattedWeights, update: setFormattedWeights },
+    handleWeightUpdate,
+    handleSelectProject,
+    handleSelectAll,
+  } = props;
 
-  const defaultWeights = props.strategy.map((s) => s.defaultWeight);
-  const allChecked = props.strategy.every((s) => s.selected);
-  const someChecked = props.strategy.some((s) => s.selected);
+  const [showStrategyDetails, setShowStrategyDetails] = useState<{
+    show: boolean;
+    strategy?: StrategyInformation;
+  }>({
+    show: false,
+  });
 
-  const undoModificationOfWeight = (currentWeight: number, index: number) => {
-    setFormattedWeights((weights) => {
-      const currentWeights = [...weights];
-      const weight = currentWeight * 100;
-      currentWeights[index] = weight.toFixed(2);
-      return currentWeights;
+  const allChecked = strategies
+    .filter((s) => !s.disabled)
+    .every((s) => s.selected);
+  const someChecked = strategies
+    .filter((s) => !s.disabled)
+    .some((s) => s.selected);
+
+  function openProjectDetails(strategy: StrategyInformation) {
+    setShowStrategyDetails({
+      show: true,
+      strategy,
     });
+  }
+
+  /* eslint-disable react/display-name */
+  const SelectCheckbox = ({
+    selected,
+    index,
+    disabled,
+  }: {
+    selected: boolean;
+    index: number;
+    disabled?: boolean;
+  }) => {
+    const Checkbox = forwardRef(
+      (
+        props: {
+          selected: boolean;
+          index: number;
+          disabled?: boolean;
+        },
+        ref: ForwardedRef<HTMLDivElement>
+      ) => (
+        <div ref={ref} {...props}>
+          <TextField
+            type="checkbox"
+            checked={selected}
+            disabled={disabled}
+            onChange={(e) => {
+              if (!disabled) {
+                handleSelectProject(e.target.checked, index);
+              }
+            }}
+          />
+        </div>
+      )
+    );
+    return disabled ? (
+      <Tooltip content="No address found on current network">
+        <Checkbox selected={selected} index={index} disabled={disabled} />
+      </Tooltip>
+    ) : (
+      <Checkbox selected={selected} index={index} disabled={disabled} />
+    );
   };
 
-  function handleSelectAll(e: ChangeEvent<HTMLInputElement>) {
-    setOverwrittenWeights(props.strategy.map((_) => 0));
-    const selected = e.target.checked;
-    const newWeights = props.strategy.map(({ defaultWeight }) => {
-     return selected ? (defaultWeight * 100).toFixed(2) : "0.00"
-    });
-    setFormattedWeights(newWeights);
-    props.modifyStrategy(
-      props.strategy.map((s) => {
-        let amount;
-        if (selected && props.totalAmount) {
-          amount = (+props.totalAmount * s.defaultWeight).toFixed(2);
-        }
-        return {
-          ...s,
-          selected,
-          weight: selected ? s.defaultWeight : 0.0,
-          amount,
-        };
-      })
-    );
-  }
-
-  function handleSelectProject(
-    e: ChangeEvent<HTMLInputElement>,
-    index: number
-  ) {
-    const isSelected = e.target.checked;
-    const selectedWeights = props.strategy.map((s, i) =>
-      i === index ? isSelected : s.selected
-    );
-    const newWeights = redistributeWeights(defaultWeights, selectedWeights);
-
-    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
-    const newStrategy = props.strategy.map((s, i) => {
-      const amount = +props.totalAmount * newWeights[i];
-      const strategySelected = (index == i && isSelected) || s.selected;
-      return {
-        ...s,
-        weight: newWeights[i],
-        amount:
-          props.totalAmount && strategySelected ? amount.toFixed(2) : undefined,
-        selected: newWeights[i] > 0,
-      };
-    });
-    newStrategy[index].selected = e.target.checked;
-    props.modifyStrategy(newStrategy);
-    setOverwrittenWeights(props.strategy.map((_) => 0));
-  }
-
-  function handleWeightUpdate(value: string, index: number) {
-    const numberValue = parseFloat(value);
-    const currentWeight = props.strategy[index].weight as number;
-    if ((numberValue / 100).toFixed(2) === currentWeight.toFixed(2)) {
-      return;
-    }
-
-    if (isNaN(numberValue) || numberValue > 100 || numberValue < 0) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const newOverwrittenWeights = overwrittenWeights.map((w, i) => {
-      if (i === index) return numberValue;
-      return w;
-    });
-
-    if (newOverwrittenWeights.reduce((acc, x) => acc + x) > 100) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const modifiedWeights = props.strategy.map((s, i) => {
-      if (!s.selected || i === index) return true;
-
-      return !!newOverwrittenWeights[i];
-    });
-
-    if (modifiedWeights.every((w) => w)) {
-      undoModificationOfWeight(currentWeight, index);
-      return;
-    }
-
-    const weights = props.strategy.map((w) => {
-      return w.selected ? w.defaultWeight * 100 : 0;
-    });
-
-    const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
-      percentage: numberValue,
-      index,
-    });
-    setOverwrittenWeights(newOverwrittenWeights);
-    setFormattedWeights(newPercentages.map((weight) => weight.toFixed(2)));
-    const newStrategy = props.strategy.map((s, i) => {
-      const weight = newPercentages[i] / 100;
-      const amount = +props.totalAmount * weight;
-      return {
-        ...s,
-        amount: props.totalAmount ? amount.toFixed(2) : undefined,
-        weight,
-        selected: !(weight === 0),
-      };
-    });
-    props.modifyStrategy(newStrategy);
-  }
 
   return (
-    <table className="table-fixed text-sm bg-white overflow-hidden rounded-xl ring-2 ring-indigo-100 w-full">
-      <thead>
-        <tr>
-          <th className="pr-0 w-10">
-            <TextField
-              type="checkbox"
-              indeterminate={!allChecked && someChecked}
-              checked={allChecked}
-              onChange={handleSelectAll}
-            />
-          </th>
-          <th className="text-left w-full">PROJECT</th>
-          <th className="text-left w-32">WEIGHTING</th>
-          {!!wallet && <th className="text-left w-20">AMOUNT</th>}
-          <th className="text-left whitespace-nowrap w-32">SMART RANKING</th>
-        </tr>
-      </thead>
-      <tbody className="w-full">
-        {props.strategy.map((entry, index) => (
-          <tr
-            key={index}
-            className="w-full border-indigo-100/80 border-t-2 bg-indigo-50/50 odd:bg-indigo-50"
-          >
-            <td className="pr-0 w-10">
+    <>
+      <div className='space-y-2'>
+        <div className='hidden md:grid grid-cols-12 gap-4 text-indigo-800/50 font-semibold text-xs leading-none uppercase px-4'>
+          <div className='col-span-6 flex items-center space-x-4'>
+            <div className='w-10'>
               <TextField
-                type="checkbox"
-                checked={entry.selected}
-                onChange={(e) => handleSelectProject(e, index)}
+                type='checkbox'
+                indeterminate={!allChecked && someChecked}
+                checked={allChecked}
+                onChange={(e) => handleSelectAll(e.target.checked)}
               />
-            </td>
-            <td className="flex gap-2 w-full">
-              <div className="flex flex-col justify-center w-8">
-                {entry.project.logo ? (
-                  <Image
-                    className="rounded-full"
-                    width={32}
-                    height={32}
-                    alt="logo"
-                    src={`https://ipfs.io/ipfs/${entry.project.logo}`}
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-white" />
-                )}
-              </div>
-              <div className="space-y-px flex-1 max-w-[calc(100%-40px)]">
-                <div className="line-clamp-1">{entry.project.title}</div>
-                <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
-                  {entry.project.description}
+            </div>
+            Project
+          </div>
+          <div className='col-span-6 grid grid-cols-12 items-center'>
+            <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
+              Weighting
+            </div>
+            {!!wallet && <div className='flex w-full col-span-2 justify-end'>Amount</div>}
+            <div className="text-right col-span-4">
+              Score
+            </div>
+          </div>
+        </div>
+        <div className='w-full grid grid-cols-12 gap-2'>
+          {strategies.map((entry, index) => (
+            <div
+              key={index}
+              className={clsx(
+                "bg-indigo-50 border-2 border-indigo-300 hover:bg-white transition-colors duration-200 w-full rounded-2xl shadow-sm hover:shadow-lg shadow-primary-shadow/20 p-4 col-span-12 space-y-3 cursor-pointer"
+              )}
+              onClick={() => openProjectDetails(entry)}>
+              <div className='grid gap-4 grid-cols-12'>
+                <div className='flex space-x-4 items-center w-full col-span-12 md:col-span-6'>
+                  <div
+                    className={clsx(
+                      "check",
+                      !entry.disabled ? "cursor-pointer" : "cursor-not-allowed"
+                    )}>
+                      <SelectCheckbox disabled={entry.disabled} selected={entry.selected} index={index}/>
+                  </div>
+                  <div className='space-x-2 flex'>
+                    <div className='flex flex-col justify-center w-12 relative'>
+                      {entry.project.logo ? (
+                        <Image
+                          className='rounded-full border-2 border-indigo-300 object-fit'
+                          width={48}
+                          height={48}
+                          alt='logo'
+                          src={`https://ipfs.io/ipfs/${entry.project.logo}`}
+                          onError={() => (
+                            <div className="rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300">
+                              <SparkleIcon size={40} className="opacity-80" />
+                            </div>
+                          )}
+                        />
+                      ) : (
+                        <div className='rounded-full flex items-center justify-center bg-indigo-100 border-2 border-indigo-300'>
+                          <SparkleIcon size={40} className='opacity-80' />
+                        </div>
+                      )}
+                    </div>
+                    <div className="space-y-px flex-1 max-w-[calc(100%-40px)] break-words [word-break:break-word]">
+                      <div className="line-clamp-1">{entry.project.title}</div>
+                      <div className="text-[10px] text-subdued line-clamp-2 leading-tight">
+                        {entry.project.short_description}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className='col-span-12 md:col-span-6 grid grid-cols-12 gap-4 items-center pt-3 md:pt-0 border-t-2 border-indigo-300 md:border-t-0'>
+                  <div className={clsx(wallet ? "col-span-4" : "col-span-6")}>
+                  {entry.disabled ? (
+                      <Tooltip content="No address found on current network">
+                        <InputWithTooltip
+                          setFormattedWeights={setFormattedWeights}
+                          formattedWeights={formattedWeights}
+                          handleWeightUpdate={handleWeightUpdate}
+                          selected={entry.selected}
+                          index={index}
+                          disabled={entry.disabled}
+                        />
+                      </Tooltip>
+                    ) : (
+                      <WeightInput
+                        setFormattedWeights={setFormattedWeights}
+                        formattedWeights={formattedWeights}
+                        handleWeightUpdate={handleWeightUpdate}
+                        selected={entry.selected}
+                        index={index}
+                        disabled={entry.disabled}
+                      />
+                    )}
+                  </div>
+                  {!!wallet && (
+                    <div className='col-span-2'>{`$${
+                      entry.amount || "0.00"
+                    }`}</div>
+                  )}
+                  <div
+                    className={clsx(
+                      "flex w-full justify-end",
+                       "col-span-4"
+                    )}>
+                    <Score rank={entry.smart_ranking ?? 0} />
+                  </div>
+                  <CaretRight className="sm:invisible md:visible" />
                 </div>
               </div>
-            </td>
-            <td className="w-32">
-              <TextField
-                readOnly={!entry.selected}
-                onChange={(e) => {
-                  const currentWeights = [...formattedWeights];
-                  currentWeights[index] = e.target.value;
-                  setFormattedWeights(currentWeights);
-                }}
-                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (event.key === "Enter") {
-                    handleWeightUpdate(event.currentTarget.value, index);
-                  }
-                }}
-                onBlur={(e) => handleWeightUpdate(e.target.value, index)}
-                className="!pl-3 !pr-8 !py-1 !border-indigo-100 !shadow-none bg-white"
-                rightAdornment={"%"}
-                value={formattedWeights[index]}
-              />
-            </td>
-            {!!wallet && (
-              <td className="w-20">{`$${entry.amount || "0.00"}`}</td>
-            )}
-            <td className="w-32">
-              <div className="w-full">
-                <Score rank={entry.impact ?? 0} />
-              </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+            </div>
+          ))}
+        </div>
+      </div>
+      <ProjectModal
+        strategy={showStrategyDetails.strategy}
+        network={props.network}
+        isOpen={showStrategyDetails.show}
+        title={
+          <div className='line-clamp-1'>
+            {showStrategyDetails.strategy?.project.title || "Project"}
+          </div>
+        }
+        onClose={() => setShowStrategyDetails({ show: false })}
+      />
+    </>
   );
 }

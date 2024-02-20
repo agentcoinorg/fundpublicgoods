@@ -1,16 +1,20 @@
-import { Info } from "@phosphor-icons/react/dist/ssr";
 import { ScoreIcon } from "./Icons";
+import clsx from "clsx";
 
-export default function Score({ rank }: { rank: number }) {
+export default function Score({
+  rank,
+  small,
+  onClick,
+}: {
+  rank: number;
+  small?: boolean;
+  onClick?: () => void;
+}) {
   return (
-    <div className='flex flex-wrap gap-2 items-center justify-between'>
-      <div className='flex space-x-2 items-center'>
-        <ScoreIcon rank={rank} />
-        <div>{(rank * 10).toFixed(1)}</div>
-      </div>
-      <div>
-        <Info size={20} className='text-indigo-300 hover:text-indigo-500' />
-      </div>
+    <div
+      className={clsx("flex items-center", small ? "space-x-1" : "space-x-2")}>
+      <ScoreIcon size={small ? 12 : 20} rank={rank} />
+      <div className={small ? "text-[10px]" : ""}>{(rank * 10).toFixed(1)}</div>
     </div>
   );
 }

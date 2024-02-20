@@ -51,7 +51,6 @@ ALTER TABLE "indexing"."gitcoin_indexing_jobs" enable row level security;
 insert into "indexing"."gitcoin_indexing_jobs" ("url", "network_id") values 
     ('https://api.thegraph.com/subgraphs/name/allo-protocol/grants-round-polygon', 137), 
     ('https://api.thegraph.com/subgraphs/name/vacekj/allo-mainnet', 1),
-    ('https://graph-gitcoin-mainnet.hirenodes.io/subgraphs/name/gitcoin/allo', 424),
     ('https://api.thegraph.com/subgraphs/name/gitcoinco/gitcoin-grants-arbitrum-one', 42161),
     ('https://api.thegraph.com/subgraphs/name/gitcoinco/grants-round-optimism-mainnet', 10),
     ('https://api.studio.thegraph.com/query/45391/grants-round-base/v0.0.1', 8453),

@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import WalletProvider from "./WalletProvider";
 import Main from "./main";
-import { Logo } from "@/components/Logo";
 import AuthProvider from "@/components/Providers";
+import Header from "./Header";
+import { ToastContainer } from "react-toastify";
 
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -17,25 +19,15 @@ export const metadata: Metadata = {
   description: "Fund Public Goods",
 };
 
-function Header() {
-  return (
-    <div className='flex w-full justify-between text-sm px-6 py-4 bg-indigo-300/80 border-b-2 border-indigo-400/20'>
-      <a href='/' className='flex'>
-        <Logo size={160} />
-      </a>
-    </div>
-  );
-}
-
 function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
-      <div className='font-regular flex gap-x-[2px] text-[10px] text-indigo-800/70'>
-        <span>built by</span>
+      <div className='font-regular flex gap-x-[2px] text-[12px] text-indigo-800/70'>
+        <span>a web3 agent by</span>
         <a
           className='underline font-semibold'
-          href='https://polywrap.io'
+          href='https://blog.polywrap.io'
           target='_blank'
           rel='noopener noreferrer'>
           polywrap
@@ -57,6 +49,7 @@ export default function RootLayout({
         <WalletProvider>
           <AuthProvider>
             <Main>
+              <ToastContainer />
               <Header />
               {children}
               <Footer />

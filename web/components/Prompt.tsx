@@ -1,27 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SparkleIcon } from "./Icons";
-import { useRouter } from "next/navigation";
-import LoadingCircle from "./LoadingCircle";
+import { useRouter, useSearchParams } from "next/navigation";
 import PromptInput from "./PromptInput";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
+import clsx from "clsx";
+import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
+import { toast } from "react-toastify";
 
-const PROMPT_SUGESTIONS = [
-  "Ethereum infrastructure",
-  "Zero Knowledge Technology",
-  "Environmental initiatives",
-  "DAO Tooling",
-  "Decentalized Finance",
-  "Open Source Software",
-  "Multichain ecosystem",
-];
 
-export default function Prompt() {
+export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   const [prompt, setPrompt] = useState<string>("");
   const [isWaiting, setIsWaiting] = useState(false);
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const searchParams = useSearchParams()
 
   const router = useRouter();
 
@@ -29,35 +23,44 @@ export default function Prompt() {
     setIsWaiting(true);
     try {
       if (!session) {
-        throw new Error("User needs to have a session")
+        throw new Error("User needs to have a session");
       }
-
       const response = await startRun(prompt, session.supabaseAccessToken);
-      router.push(`/r/${response.runId}/progress`)
-    } finally {
+      router.push(`/s/${response.runId}`);
+    } catch (e) {
       setIsWaiting(false);
+      throw e;
     }
   };
 
+  useEffect(() => {
+    const notFoundId = searchParams.get("not-found")
+    if (notFoundId) {
+      toast.error(`Run with id ${notFoundId} does not exist`, {
+        autoClose: 5000,
+      })
+      router.replace("/")
+    }
+  }, [searchParams, router])
+
   return (
     <>
-      <div className='mx-auto max-w-screen-md'>
-        {isWaiting ? (
-          <div className='w-full'>
-            <div className='flex flex-col justify-center items-center gap-2'>
-              <LoadingCircle className='w-[40px] h-[40px] ml-10' />
-              <div className='flex text-md pl-12 text-center'>Loading</div>
-            </div>
-          </div>
-        ) : (
-          <div className='w-full space-y-8'>
-            <div className='flex flex-wrap w-full justify-center items-center space-x-2 group/prompt'>
-              <h1 className='text-4xl font-bold text-shadow-lg text-shadow-primary-shadow'>
-                Fund public goods like magic
-              </h1>
-              <SparkleIcon size={40} className='drop-shadow-sm' />
-            </div>
-            <div className='mx-auto max-w-screen-sm relative'>
+      <div className="mx-auto max-w-screen-lg">
+        <div className="w-full space-y-8 px-6 flex flex-col items-center">
+          <div className="space-y-4 flex flex-col items-center w-full">
+            <h1
+              className={clsx(
+                "text-5xl font-bold text-shadow-lg text-center text-shadow-primary-shadow leading-[1.35] bg-clip-text cursor-default group/prompt inline-block",
+                "hover:bg-gradient-to-r hover:from-indigo-300 hover:via-blue-600 hover:to-indigo-300 hover:inline-block hover:text-transparent hover:animate-gradientText"
+              )}
+            >
+              Fund public goods like magic
+              <SparkleIcon
+                size={40}
+                className="ml-2 inline-block drop-shadow-sm"
+              />
+            </h1>
+            <div className="w-10/12 relative">
               <PromptInput
                 setPrompt={setPrompt}
                 isWaiting={isWaiting}
@@ -66,28 +69,32 @@ export default function Prompt() {
                 disabled={!session}
               />
             </div>
-            <div className='space-y-4'>
-              <div className='flex justify-center'>
-                What are you interested in funding?
-              </div>
-              <div className='flex flex-wrap justify-center gap-3 text-sm'>
-                {PROMPT_SUGESTIONS.map((suggestion, index) => (
+          </div>
+          <div className="space-y-4 w-10/12">
+            <div className="flex justify-center">
+              Some ideas:
+            </div>
+            <div className="flex flex-wrap justify-center gap-3 text-sm">
+              {promptIdxs.map((index) => {
+                const prompt = EXAMPLE_PROMPTS[index];
+                return (
                   <div key={index}>
                     <button
-                      className='text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300'
+                      className="text-xs shadow-sm hover:shadow-md shadow-primary-shadow/20 px-3 py-2 leading-none border-2 border-spacing-2 rounded-full hover:bg-indigo-200 hover:border-indigo-400 hover:text-indigo-800 bg-indigo-500 border-indigo-600 text-indigo-50 transition-colors ease-in-out duration-300"
                       disabled={!session}
                       onClick={async () => {
-                        setPrompt(suggestion);
-                        await sendPrompt(suggestion);
-                      }}>
-                      {suggestion}
+                        setPrompt(prompt);
+                        await sendPrompt(prompt);
+                      }}
+                    >
+                      {prompt}
                     </button>
                   </div>
-                ))}
-              </div>
+                )
+              })}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </>
   );

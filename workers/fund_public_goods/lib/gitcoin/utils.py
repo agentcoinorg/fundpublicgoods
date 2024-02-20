@@ -31,6 +31,8 @@ def fetch_rounds(url: str, skip: int, first: int) -> list[RoundInfo]:
     response = requests.post(url, json=data)
 
     if response.status_code == 200:
+        if not "data" in response.json():
+            raise Exception(f"Request failed with response: {response.json()}")
         rounds = response.json()['data']['rounds']
 
         return [RoundInfo(id=round['id']) for round in rounds]
