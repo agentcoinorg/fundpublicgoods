@@ -59,7 +59,7 @@ export default async function StrategyPage({
   if (!strategyCreated) {
     return (
       <div className='w-full flex flex-col items-center justify-between h-full pt-16 pb-8 px-6'>
-        <div className='w-full max-w-screen-lg space-y-8'>
+        <div className='w-full max-w-screen-md space-y-8 px-2'>
           <RealtimeLogs
             logs={run.data.logs}
             run={{ id: params.id, prompt: run.data.prompt }}
