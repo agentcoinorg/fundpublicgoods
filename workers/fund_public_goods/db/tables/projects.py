@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 from fund_public_goods.lib.strategy.models.answer import Answer
 from supabase import PostgrestAPIResponse
 from fund_public_goods.db.entities import Projects
@@ -105,9 +105,14 @@ def get_unique_categories() -> list[str]:
         db.table("unique_categories_views").select("*").execute()
     )
     if not response.data:
-        return None
+        return []
 
-    return [r["category"] for r in response.data]
+    categories = []
+
+    for row in response.data:
+        categories.append(row["category"])
+
+    return categories
 
 def fetch_projects_by_category(categories: list[str]) -> list[tuple[Projects, list[Answer]]]:
     results = get_projects_from_description(categories).data
