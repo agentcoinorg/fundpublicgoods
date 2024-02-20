@@ -30,8 +30,8 @@ def calculate_smart_rankings(projects_with_scores: list[tuple[Projects, ProjectS
         SmartRankedProject(
             project=smart_ranked_project["project"],
             scores=smart_ranked_project["scores"],
-            smartRanking=round(smart_ranked_project["smart_ranking"], 2)
+            smart_ranking=round(smart_ranked_project["smart_ranking"], 2)
         ) for smart_ranked_project in smart_ranked_projects
     ]
-        
+    
     return ranked_projects

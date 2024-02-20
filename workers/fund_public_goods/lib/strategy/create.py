@@ -62,13 +62,14 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
             )
         except Exception as error:
+            details = f"An error occurred: {type(error).__name__} - {str(error)} "
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.FETCH_PROJECTS],
-                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+                value=details
             )
             print(error)
-            return Response(status="Internal error")
+            raise HTTPException(status_code=400, detail=details)
 
         try:
             tables.logs.update(
@@ -106,13 +107,14 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Generated impact & funding needs reports for {len(projects_with_impact_funding_reports)} projects",
             )
         except Exception as error:
+            details = f"An error occurred: {type(error).__name__} - {str(error)} "
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
-                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+                value=details
             )
             print(error)
-            return Response(status="Internal error")
+            raise HTTPException(status_code=400, detail=details)
 
         try:
             tables.logs.update(
@@ -128,10 +130,10 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
             relevancy_scores = score_projects_relevancy(projects_with_relevancy_reports, prompt)
             
             project_scores = [ProjectScores(
-                    projectId=relevancy_scores[i].project_id,
-                    promptMatch=relevancy_scores[i].prompt_match,
+                    project_id=relevancy_scores[i].project_id,
+                    prompt_match=relevancy_scores[i].prompt_match,
                     impact=impact_funding_scores[i].impact,
-                    fundingNeeded=impact_funding_scores[i].funding_needed
+                    funding_needed=impact_funding_scores[i].funding_needed
                 ) for i in range(len(relevancy_scores)
             )]
             
@@ -144,13 +146,14 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Computed smart rankings for {len(smart_ranked_projects)} projects",
             )
         except Exception as error:
+            f"An error occurred: {type(error).__name__} - {str(error)} "
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
-                value=f"An error occurred: {type(error).__name__} - {str(error)} ",
+                value=details
             )
             print(error)
-            return Response(status="Internal error")
+            raise HTTPException(status_code=400, detail=details)
 
 
         tables.logs.update(

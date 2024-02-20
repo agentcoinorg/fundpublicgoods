@@ -63,8 +63,7 @@ def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[
 
         project = Projects(
             id=project_data.get("id", ""),
-            updatedAt=project_data.get("updated_at", ""),
-            shortDescription=project_data.get("short_description", ""),
+            updated_at=project_data.get("updated_at", ""),
             title=project_data.get("title", ""),
             description=project_data.get("description", ""),
             website=project_data.get("website", ""),
@@ -73,9 +72,9 @@ def sanitize_projects_information(projects: list[dict[str, Any]]) -> list[tuple[
             keywords=project_data.get("keywords", []),
             categories=project_data.get("categories", []),
             short_description=project_data.get("short_description", None),
-            fundingNeeded=project_data.get("funding_needed", None),
+            funding_needed=project_data.get("funding_needed", None),
             impact=project_data.get("impact", None),
-            impactFundingReport=project_data.get("impact_funding_report", None),
+            impact_funding_report=project_data.get("impact_funding_report", None),
         )
         
         projects_with_answers.append((project, answers))
