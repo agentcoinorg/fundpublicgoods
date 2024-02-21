@@ -123,8 +123,6 @@ class Projects(BaseModel):
     website: str
     logo: Optional[str] = None
     twitter: Optional[str] = None
-    keywords: list[str] = []
-    categories: list[str] = []
     impact_funding_report: Optional[str] = Field(..., alias="impactFundingReport")
     impact: Optional[float] = None
     funding_needed: Optional[float] = Field(..., alias="fundingNeeded")

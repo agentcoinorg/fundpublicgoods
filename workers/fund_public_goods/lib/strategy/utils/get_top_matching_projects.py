@@ -4,11 +4,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from chromadb import EphemeralClient
 from langchain.text_splitter import CharacterTextSplitter
 from fund_public_goods.db.entities import Projects
-from fund_public_goods.lib.strategy.utils.categorize_prompt import categorize_prompt
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from fund_public_goods.lib.strategy.utils.strings_to_numbers import strings_to_numbers
 from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import openai
@@ -134,19 +129,22 @@ def create_embeddings_collection(projects: list[Projects]):
     
     return collection
 
-def filter_projects_by_categories(projects: list[Projects], categories: list[str]) -> list[Projects]:
-    filtered_projects = [project for project in projects if any(category in project.categories for category in categories)]
-    return filtered_projects
-
 
 def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
     projects_by_id = {project.id: project for project in projects}
     all_projects_collection = create_embeddings_collection(projects)
-    matches = all_projects_collection.similarity_search(prompt, k=300)
-    matched_project_ids = [match.metadata["id"] for match in matches]
-    unique_ids = get_top_n_unique_ids({prompt: matched_project_ids}, 30)
     
-    matched_projects = []
+    queries = [prompt]
+    
+    query_to_matched_project_ids: dict[str, list[str]] = {}
+    
+    for query in queries:
+        matches = all_projects_collection.similarity_search(query, k=2000)
+        query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
+    
+    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
+    
+    matched_projects: list[Projects] = []
 
     # TODO: this is a patch for an error seen in prod, should look at why
     #       some of these IDs don't exist...
