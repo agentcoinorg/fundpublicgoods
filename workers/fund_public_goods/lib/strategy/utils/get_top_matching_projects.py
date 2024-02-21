@@ -4,6 +4,7 @@ from fund_public_goods.db.tables.projects import get_projects_by_ids
 from fund_public_goods.lib.strategy.models.answer import Answer
 
 from fund_public_goods.db.entities import Projects
+from fund_public_goods.lib.strategy.utils.generate_hyde import generate_hyde
 from langchain_openai import OpenAIEmbeddings
 from langchain_pinecone import Pinecone
 import openai
@@ -72,14 +73,36 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
 
     return reranked_projects
 
-def remove_duplicates_and_preserve_order(lst: list[str]) -> list[str]:
-    seen = set()
-    result = []
-    for item in lst:
-        if item not in seen:
-            seen.add(item)
-            result.append(item)
-    return result
+def get_top_n_unique_ids(data: dict[str, list[str]], n: int, priority_query: str, priority_factor: int = 2) -> list[str]:
+    unique_ids = set()
+    result_ids: list[str] = []
+    query_order = list(data.keys())
+    max_length = max(len(ids) for ids in data.values())
+    
+    for i in range(max_length):
+        for query in query_order:
+            if len(result_ids) >= n:
+                break
+            
+            ids = data[query]
+            current_index = i // priority_factor if query == priority_query else i
+            
+            if current_index < len(ids) and ids[current_index] not in unique_ids:
+                unique_ids.add(ids[current_index])
+                result_ids.append(ids[current_index])
+                
+                for _ in range(1, priority_factor if query == priority_query else 1):
+                    if len(result_ids) < n and current_index + 1 < len(ids) and ids[current_index + 1] not in unique_ids:
+                        unique_ids.add(ids[current_index + 1])
+                        result_ids.append(ids[current_index + 1])
+                        current_index += 1
+                    else:
+                        break
+        
+        if len(result_ids) >= n:
+            break
+    
+    return result_ids
 
 
 def get_top_matching_projects(prompt: str) -> list[Projects]:
@@ -90,14 +113,21 @@ def get_top_matching_projects(prompt: str) -> list[Projects]:
         pinecone_api_key=env.pinecone_key
     )
     
+    queries = [prompt, generate_hyde(prompt)]
+    
+    print(queries)
+    
     target_unique_ids = 35
     total_unique_ids: list[str] = []
     
     while (len(total_unique_ids) < target_unique_ids):
-        matches = vectorstore.similarity_search(query=prompt, k=300, filter={"id": { "$nin": total_unique_ids }})
-        query_to_matched_project_ids = [match.metadata["id"] for match in matches]
+        query_to_matched_project_ids: dict[str, list[str]] = {}
+    
+        for query in queries:
+            matches = vectorstore.similarity_search(query, k=300)
+            query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
         
-        total_unique_ids += remove_duplicates_and_preserve_order(query_to_matched_project_ids)
+        total_unique_ids += get_top_n_unique_ids(query_to_matched_project_ids, target_unique_ids, prompt, 3)
     
     matched_projects: list[tuple[Projects, list[Answer]]] = get_projects_by_ids(total_unique_ids[:target_unique_ids])
     
