@@ -23,6 +23,7 @@
     "workers:env": "if [ \"$CICD\" != \"true\" ]; then cp .env ./workers/.env; fi",
     "workers:test": "cd workers && poetry run pytest -v -s",
     "workers:types": "cd ops && poetry run generate-types",
+    "workers:create_embeddings": "cd workers && poetry run create-embeddings",
     "events:dev": "npx inngest-cli dev",
     "ops:install": "cd ops && poetry install",
     "ops:codegen": "cd ops && poetry run generate-types"
