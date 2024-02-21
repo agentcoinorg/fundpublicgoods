@@ -40,7 +40,8 @@ plugins = [
 ]
 
 [tool.poetry.scripts]
-build-check = "fund_public_goods.build_check:run"
+build-check = "fund_public_goods.scripts.build_check:run"
+create-embeddings = "fund_public_goods.scripts.create_embeddings:run"
 
 [build-system]
 requires = ["poetry-core"]

@@ -9,7 +9,7 @@ from langchain.schema import Document
 
 env = load_env()
 
-def create_embeddings():
+def run():
     projects = get_all_projects_lightweight()
     deduplicated_projects = get_latest_project_per_website(projects)
     
@@ -44,5 +44,3 @@ def create_embeddings():
         print("Pinecone index empty. Skipping deletion.")
     
     vectorstore.add_documents(documents)
-
-create_embeddings()
