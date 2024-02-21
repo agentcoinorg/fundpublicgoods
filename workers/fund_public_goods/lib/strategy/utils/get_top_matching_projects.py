@@ -91,13 +91,11 @@ def get_top_matching_projects(prompt: str) -> list[Projects]:
     )
     
     target_unique_ids = 35
-    total_unique_ids: list[str] = []
     
-    while (len(total_unique_ids) < target_unique_ids):
-        matches = vectorstore.similarity_search(query=prompt, k=300, filter={"id": { "$nin": total_unique_ids }})
-        query_to_matched_project_ids = [match.metadata["id"] for match in matches]
-        
-        total_unique_ids += remove_duplicates_and_preserve_order(query_to_matched_project_ids)
+    matches = vectorstore.similarity_search(query=prompt, k=1500)
+    query_to_matched_project_ids = [match.metadata["id"] for match in matches]
+    
+    total_unique_ids = remove_duplicates_and_preserve_order(query_to_matched_project_ids)
     
     matched_projects: list[tuple[Projects, list[Answer]]] = get_projects_by_ids(total_unique_ids[:target_unique_ids])
     
