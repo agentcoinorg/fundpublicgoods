@@ -40,8 +40,8 @@ def create_embeddings():
     
     try:
         vectorstore.delete(delete_all=True)
-    except Exception():
-        print("Pinecone index not found. Skipping deletion.")
+    except:
+        print("Pinecone index empty. Skipping deletion.")
     
     vectorstore.add_documents(documents)
 
