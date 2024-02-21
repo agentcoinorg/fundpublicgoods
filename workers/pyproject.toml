@@ -25,6 +25,7 @@ pysqlite3-binary =  { version = "^0.5.2.post3", markers = "sys_platform == 'linu
 tiktoken = "~0.5.2"
 aws-lambda-typing = "^2.18.0"
 boto3 = "^1.34.44"
+langchain-pinecone = "^0.0.2"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.8.0"
@@ -39,7 +40,8 @@ plugins = [
 ]
 
 [tool.poetry.scripts]
-build-check = "fund_public_goods.build_check:run"
+build-check = "fund_public_goods.scripts.build_check:run"
+create-embeddings = "fund_public_goods.scripts.create_embeddings:run"
 
 [build-system]
 requires = ["poetry-core"]
