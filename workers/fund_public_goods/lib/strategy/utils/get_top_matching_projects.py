@@ -26,13 +26,6 @@ You will return a JSON object with the following format:
 }}
 '''
 
-Example response:
-'''
-{{
-    "project_ids": [32, 25, 4, 8]
-}}
-'''
-
 In your assessment, it is essential to discern the genuine alignment of each project with the user's specific requirements.
 Be mindful that the project descriptions may include buzzwords or jargon intended to exaggerate their relevance.
 Your judgment should penetrate beyond superficial claims to identify projects that truly resonate with the user's prompt.
