@@ -139,7 +139,7 @@ def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Pro
     query_to_matched_project_ids: dict[str, list[str]] = {}
     
     for query in queries:
-        matches = all_projects_collection.similarity_search(query, k=200)
+        matches = all_projects_collection.similarity_search(query, k=1000)
         query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
     
     unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
