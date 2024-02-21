@@ -61,7 +61,8 @@ jobs:
           DEV_NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.PROD_NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           DEV_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PROD_SUPABASE_SERVICE_ROLE_KEY }}
           DEV_OPENAI_API_KEY: ${{ secrets.DEV_OPENAI_API_KEY}}
-          DEV_PINECONE_API_KEY: ${{ secrets.DEV_PINECONE_API_KEY }}
+          DEV_PINECONE_API_KEY: ${{ secrets.PROD_PINECONE_API_KEY }}
+          DEV_PINECONE_INDEX_NAME: ${{ secrets.PROD_PINECONE_INDEX_NAME }}
 
   Deploy-DB:
     runs-on: ubuntu-latest
