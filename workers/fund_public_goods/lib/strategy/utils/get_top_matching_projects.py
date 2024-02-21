@@ -1,11 +1,11 @@
 import json
-from langchain.text_splitter import CharacterTextSplitter
+from fund_public_goods.db.app_db import load_env
+from fund_public_goods.db.tables.projects import get_projects_by_ids
+from fund_public_goods.lib.strategy.models.answer import Answer
 
-from chromadb import EphemeralClient
-from langchain.text_splitter import CharacterTextSplitter
 from fund_public_goods.db.entities import Projects
 from langchain_openai import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
+from langchain_pinecone import Pinecone
 import openai
 
 
@@ -79,79 +79,35 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
 
     return reranked_projects
 
-def get_top_n_unique_ids(data: dict[str, list[str]], n: int) -> list[str]:
-    unique_ids = set()
-    result_ids: list[str] = []
-    query_order = list(data.keys())
-    max_length = max(len(ids) for ids in data.values())
-    
-    for i in range(max_length):
-        for query in query_order:
-            if len(result_ids) >= n:
-                break
-            ids = data[query]
-            if i < len(ids) and ids[i] not in unique_ids:
-                unique_ids.add(ids[i])
-                result_ids.append(ids[i])
-                
-        if len(result_ids) >= n:
-            break
-    
-    return result_ids
+def remove_duplicates_and_preserve_order(lst: list[str]) -> list[str]:
+    seen = set()
+    result = []
+    for item in lst:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
 
 
-def create_embeddings_collection(projects: list[Projects]):
-    text_splitter = CharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=200,
-        chunk_overlap=10,
-        separator=" ",
-        keep_separator=True
-    )
-    
-    texts: list[str] = []
-    metadatas: list[dict] = []
-    
-    for project in projects:
-        description_chunks = text_splitter.split_text(project.description)
-        
-        for description_chunk in description_chunks:
-            texts.append(description_chunk)
-            metadatas.append({ "id": project.id, "title": project.title })
-    
-    db_client = EphemeralClient()
-    collection = Chroma.from_texts(
-        texts=texts,
-        metadatas=metadatas,
+def get_top_matching_projects(prompt: str) -> list[Projects]:
+    env = load_env()
+    vectorstore = Pinecone(
+        index_name=env.pinecone_index,
         embedding=OpenAIEmbeddings(),
-        client=db_client,
-        collection_name="projects"
+        pinecone_api_key=env.pinecone_key
     )
     
-    return collection
-
-
-def get_top_matching_projects(prompt: str, projects: list[Projects]) -> list[Projects]:
-    projects_by_id = {project.id: project for project in projects}
-    all_projects_collection = create_embeddings_collection(projects)
+    target_unique_ids = 35
+    total_unique_ids: list[str] = []
     
-    queries = [prompt]
+    while (len(total_unique_ids) < target_unique_ids):
+        matches = vectorstore.similarity_search(query=prompt, k=300, filter={"id": { "$nin": total_unique_ids }})
+        query_to_matched_project_ids = [match.metadata["id"] for match in matches]
+        
+        total_unique_ids += remove_duplicates_and_preserve_order(query_to_matched_project_ids)
     
-    query_to_matched_project_ids: dict[str, list[str]] = {}
+    matched_projects: list[tuple[Projects, list[Answer]]] = get_projects_by_ids(total_unique_ids[:target_unique_ids])
     
-    for query in queries:
-        matches = all_projects_collection.similarity_search(query, k=2000)
-        query_to_matched_project_ids[query] = [match.metadata["id"] for match in matches]
-    
-    unique_ids = get_top_n_unique_ids(query_to_matched_project_ids, 30)
-    
-    matched_projects: list[Projects] = []
-
-    # TODO: this is a patch for an error seen in prod, should look at why
-    #       some of these IDs don't exist...
-    for id in unique_ids:
-        if projects_by_id.get(id):
-            matched_projects.append(projects_by_id[id])
-    
-    reranked_projects = rerank_top_projects(prompt=prompt, projects=matched_projects)
+    reranked_projects = rerank_top_projects(prompt=prompt, projects=[p for (p, _) in matched_projects])
     
     return reranked_projects
