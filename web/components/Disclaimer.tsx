@@ -16,16 +16,10 @@ const Disclaimer = () => {
         />
         <div className='p-6 bg-indigo-25 rounded-2xl border-2 border-indigo-200 space-y-1 shadow-md shadow-primary-shadow/20'>
           <div className='font-bold text-sm'>
-            This AI agent is experimental:
+            This AI agent is experimental.
           </div>
           <div className="text-[10px]">
-            - The agent is doing its best to find and evaluate projects based on
-            publicly available data, but we cannot guarantee its accuracy.
-          </div>
-          <div className="text-[10px]">
-            - The agent uses project addresses provided in past Gitcoin
-            applications, but we cannot guarantee that each project is still in
-            control of its address.
+            The agent is evaluating projects based on self-reported data through past Gitcion applications and therefor cannot guarantee their accuracy at this time. The agent also cannot guarantee that each project is still in control of its address, so please double check before sending large amounts.
           </div>
         </div>
       </div>
