@@ -25,6 +25,8 @@ import Image from "next/image";
 import { pluralize } from "@/utils/pluralize";
 import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
 import { useTweetShare } from "@/hooks/useTweetShare";
+import { BigNumber } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -97,7 +99,7 @@ export default function Strategy(props: {
     setIsFundingPending(true);
 
     try {
-      if (selectedStrategiesLength === 0 || amount === "0") return;
+      if (selectedStrategiesLength === 0 || !amount || amount === "0") return;
 
       const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
       if (connectedChain && currentNetworkId !== +connectedChain.id) {
@@ -110,7 +112,6 @@ export default function Strategy(props: {
         setIsFundingPending(false);
         return;
       };
-
 
       const balance = await getBalance(wallet, selectedToken);
 
@@ -126,32 +127,24 @@ export default function Strategy(props: {
         selectedNetwork
       );
 
-      const donations = strategies
-        .filter((x) => x.selected)
-        .map((strategy) => {
-          const networkIndex = strategy.networks.indexOf(selectedNetwork);
-          return {
-            amount: strategy.amount as string,
-            description: strategy.project.description as string,
-            title: strategy.project.title as string,
-            recipient: strategy.recipients[networkIndex],
-          };
-        });
-      
-      const amounts = donations
+      const selectedStrategies = strategies.filter((x) => x.selected);
+
+      const amounts = selectedStrategies
+        .filter((x) => x.amount)
         .map((x) => Number(x.amount))
         .filter((x) => x > 0);
-
-      const totalAmount = amounts.reduce((a, b) => a + b, 0);
-
-      if (+allowance < totalAmount) {
+      const recipientAddresses = selectedStrategies
+        .map((strategy) => strategy.recipients[strategy.networks.indexOf(selectedNetwork)]);
+      
+      const totalAmount = amounts.reduce((a, b) => a.add(parseUnits(b.toString(), selectedToken.decimals)), BigNumber.from(0));
+      if (allowance.lt(totalAmount)) {
         await approve(wallet, selectedToken, totalAmount, selectedNetwork);
       }
 
       await executeDonation(
         selectedNetwork,
         selectedToken,
-        donations.map((x) => x.recipient),
+        recipientAddresses,
         amounts
       );
 
