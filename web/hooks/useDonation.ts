@@ -48,8 +48,7 @@ export function useDonation() {
     const signer = ethersProvider.getSigner();
     const tokenContract = new ethers.Contract(token.address, ERC20_ABI, signer);
     const currentAddress = await signer.getAddress();
-    const balance = await tokenContract.balanceOf(currentAddress);
-    return ethers.utils.formatUnits(balance.toString(), token.decimals);
+    return await tokenContract.balanceOf(currentAddress);
   };
 
   const getAllowance = async (wallet: WalletState, token: TokenInformation, network: NetworkName): Promise<BigNumber> => {

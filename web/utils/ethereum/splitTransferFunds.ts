@@ -45,8 +45,8 @@ export async function splitTransferFunds(
   const values = amounts.map((amount) =>
     ethers.utils.parseUnits(amount.toString(), tokenDecimals)
   );
-  const totalValue = values.reduce(
-    (acc, value) => acc.add(value),
+  const totalValue = amounts.reduce(
+    (acc, value) => ethers.BigNumber.from(acc).add(value),
     ethers.constants.Zero
   );
 
@@ -59,7 +59,7 @@ export async function splitTransferFunds(
     const transferTx = await disperseContract.disperseTokenSimple(
       tokenAddress,
       validAddresses,
-      values
+      amounts.map(a => a.toString())
     );
     await transferTx.wait(1);
   }

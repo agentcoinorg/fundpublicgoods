@@ -4,7 +4,7 @@ import {
   distributeWeights,
   redistributeWeights,
 } from "@/utils/distributeWeights";
-import { NetworkName } from "@/utils/ethereum";
+import { NetworkName, TokenInformation } from "@/utils/ethereum";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export interface StrategiesHandler {
@@ -16,6 +16,7 @@ export interface StrategiesHandler {
   handleSelectProject: (isChecked: boolean, index: number) => void;
   handleAmountUpdate: (amount: string) => void;
   handleNetworkUpdate: (network: NetworkName) => void;
+  handleTokenUpdate: () => void;
 }
 
 export type StrategyEntry = Tables<"strategy_entries">;
@@ -39,6 +40,7 @@ export function useStrategiesHandler(
   initStrategies: StrategiesWithProjects,
   totalAmount: string,
   networkName: NetworkName,
+  currentToken: TokenInformation,
   overwrites: {
     weights?: string[] | null;
     projects?: string[] | null;
@@ -153,11 +155,16 @@ export function useStrategiesHandler(
       index,
     });
 
+    const amounts = distributeWeights(
+      newPercentages.map((w) => +w),
+      +totalAmount,
+      currentToken.decimals
+    ).map((w) => (w / 100).toFixed(2));
     const newStrategies = strategies.map((s, i) => {
       const weight = newPercentages[i] / 100;
       return {
         ...s,
-        amount: (+totalAmount * weight).toFixed(2),
+        amount: amounts[i],
         weight,
         selected: !(weight === 0),
       };
@@ -177,8 +184,8 @@ export function useStrategiesHandler(
     const amounts = distributeWeights(
       newWeights.map((w) => +w),
       +totalAmount,
-      2
-    ).map((w) => (w / 100).toFixed(2));
+      currentToken.decimals
+    ).map((w) => (w / 100).toFixed(0));
     const newStrategies = strategies.map((s, i) => {
       return {
         ...s,
@@ -201,13 +208,12 @@ export function useStrategiesHandler(
       selectedWeights
     );
 
-    const amounts = distributeWeights(newWeights, +totalAmount, 2);
-
+    const amounts = distributeWeights(newWeights, +totalAmount, currentToken.decimals);
     const newStrategy = strategies.map((s, i) => {
       return {
         ...s,
         weight: newWeights[i],
-        amount: amounts[i].toFixed(2),
+        amount: amounts[i].toFixed(0),
         selected: newWeights[i] > 0,
       };
     });
@@ -220,11 +226,11 @@ export function useStrategiesHandler(
   const handleAmountUpdate = (amount: string) => {
     const selectedStrategies = strategies.filter((x) => x.selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, 2);
+    const amounts = distributeWeights(weights, +amount, currentToken.decimals);
     let amountIndex = 0;
     const newStrategies = strategies.map((s) => ({
       ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+      amount: s.selected ? amounts[amountIndex++].toFixed(0) : undefined,
     }));
     modifyStrategies(newStrategies);
   };
@@ -234,12 +240,12 @@ export function useStrategiesHandler(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => s.networks.includes(network))
     );
-    const amounts = distributeWeights(weights, +totalAmount, 2);
+    const amounts = distributeWeights(weights, +totalAmount, currentToken.decimals);
     const newStrategies = strategies
       .map((s, i) => {
         return {
           ...s,
-          amount: amounts[i].toFixed(2),
+          amount: amounts[i].toFixed(0),
           weight: weights[i],
           selected: weights[i] !== 0,
           disabled: !s.networks.includes(network),
@@ -260,6 +266,15 @@ export function useStrategiesHandler(
     modifyStrategies(newStrategies);
   };
 
+  const handleTokenUpdate = () => {
+    const amounts = distributeWeights(strategies.map(s => s.weight), +totalAmount, currentToken.decimals);
+    const newStrategies = strategies.map((s, i) => ({
+      ...s,
+      amount: amounts[i].toFixed(0)
+    }))
+    modifyStrategies(newStrategies);
+  }
+
   return {
     strategies,
     formatted: {
@@ -272,5 +287,6 @@ export function useStrategiesHandler(
     handleSelectProject,
     handleAmountUpdate,
     handleNetworkUpdate,
+    handleTokenUpdate
   };
 }

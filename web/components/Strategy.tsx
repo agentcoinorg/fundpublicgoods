@@ -56,6 +56,11 @@ export default function Strategy(props: {
 
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(networkName);
   const {
+    tokens,
+    updateToken: updateToken,
+    selectedToken,
+  } = useToken(selectedNetwork);
+  const {
     execute: executeDonation,
     getBalance,
     getAllowance,
@@ -65,6 +70,7 @@ export default function Strategy(props: {
     props.fetchedStrategies,
     amount,
     selectedNetwork,
+    selectedToken,
     overwrites
   );
   const [
@@ -74,18 +80,14 @@ export default function Strategy(props: {
   const [{ wallet }, connectWallet] = useConnectWallet();
   const { data: session } = useSession();
   const router = useRouter();
-  const {
-    tokens,
-    updateToken: updateToken,
-    selectedToken,
-  } = useToken(selectedNetwork);
   
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
+  const { strategies, handleAmountUpdate, handleNetworkUpdate, handleTokenUpdate } = strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
   const tweetUrl = useTweetShare(props.runId, strategies, selectedNetwork, props.prompt)
   const [isFundingPending, setIsFundingPending] = useState(false);
   
   useEffect(() => {
+    handleTokenUpdate()
     setBalance((currentBalance) => {
       if (currentBalance) return null;
     });
@@ -113,10 +115,12 @@ export default function Strategy(props: {
         return;
       };
 
-      const balance = await getBalance(wallet, selectedToken);
 
-      if (+amount >= +balance) {
-        setBalance(balance);
+      const fetchedBalance = await getBalance(wallet, selectedToken);
+      const amountInDecimals = parseUnits(amount, selectedToken.decimals)
+      const selectedStrategies = strategies.filter((x) => x.selected);
+      if (fetchedBalance.lt(amountInDecimals)) {
+        setBalance(fetchedBalance.toString());
         setIsFundingPending(false);
         return;
       }
@@ -127,25 +131,27 @@ export default function Strategy(props: {
         selectedNetwork
       );
 
-      const selectedStrategies = strategies.filter((x) => x.selected);
-
       const amounts = selectedStrategies
-        .filter((x) => x.amount)
-        .map((x) => Number(x.amount))
-        .filter((x) => x > 0);
+        .filter((x) => !!x.amount)
+        .map((x) => x.amount as string)
+
       const recipientAddresses = selectedStrategies
         .map((strategy) => strategy.recipients[strategy.networks.indexOf(selectedNetwork)]);
-      
-      const totalAmount = amounts.reduce((a, b) => a.add(parseUnits(b.toString(), selectedToken.decimals)), BigNumber.from(0));
-      if (allowance.lt(totalAmount)) {
-        await approve(wallet, selectedToken, totalAmount, selectedNetwork);
-      }
 
+      const totalAmount = amounts.reduce((a, b) => a.add(b), BigNumber.from(0))
+      if (allowance.lt(totalAmount)) {
+        await approve(
+          wallet,
+          selectedToken,
+          totalAmount,
+          selectedNetwork
+        );
+      }
       await executeDonation(
         selectedNetwork,
         selectedToken,
         recipientAddresses,
-        amounts
+        amounts.map(a => Number(a))
       );
 
       setShowSuccessModal(true);
@@ -219,7 +225,7 @@ export default function Strategy(props: {
                   </div>
                 </div>
               </div>
-              <StrategyTable {...strategiesHandler} network={selectedNetwork} />
+              <StrategyTable {...strategiesHandler} network={selectedNetwork} token={selectedToken} />
               <div className='flex justify-between items-center w-full space-x-4 pt-4 border-t-2 border-indigo-100'>
                 {wallet ? (
                   <>
@@ -228,7 +234,7 @@ export default function Strategy(props: {
                         className='h-12'
                         placeholder='Enter the amount you want to fund'
                         error={
-                          balance && +balance < +amount
+                          !!balance
                             ? `Insufficient ${selectedToken.name} balance`
                             : ""
                         }
@@ -238,9 +244,7 @@ export default function Strategy(props: {
                               .filter((x) => x.name !== selectedToken.name)
                               .map((x) => ({ value : x.name }))}
                             field={{ value: selectedToken.name }}
-                            onChange={async (newToken) =>
-                              await updateToken(newToken)
-                            }
+                            onChange={updateToken}
                           />
                         }
                         value={amount !== "0" ? amount : undefined}

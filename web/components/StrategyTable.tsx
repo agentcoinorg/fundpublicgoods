@@ -11,10 +11,11 @@ import {
   StrategyInformation,
   StrategiesHandler,
 } from "@/hooks/useStrategiesHandler";
-import { NetworkName } from "@/utils/ethereum";
+import { NetworkName, TokenInformation } from "@/utils/ethereum";
 import { SparkleIcon } from "./Icons";
 import { CaretRight } from "@phosphor-icons/react";
 import { Tooltip } from "./Tooltip";
+import { formatUnits, parseUnits } from "ethers/lib/utils";
 
 interface WeightInputProps {
   selected: boolean;
@@ -88,7 +89,7 @@ function WeightInput({
   );
 }
 
-export function StrategyTable(props: StrategiesHandler & { network: NetworkName }) {
+export function StrategyTable(props: StrategiesHandler & { network: NetworkName, token: TokenInformation }) {
   const [{ wallet }] = useConnectWallet();
   const {
     strategies,
@@ -261,7 +262,7 @@ export function StrategyTable(props: StrategiesHandler & { network: NetworkName 
                   </div>
                   {!!wallet && (
                     <div className='col-span-2'>{`$${
-                      entry.amount || "0.00"
+                      entry.amount ? Number(entry.amount) / 10  ** props.token.decimals : "0"
                     }`}</div>
                   )}
                   <div

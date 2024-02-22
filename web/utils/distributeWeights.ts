@@ -1,38 +1,12 @@
+export const WEIGHT_DECIMALS = 10000
+
 export function distributeWeights(weights: number[], total: number, decimals: number): number[] {
-  // Calculate initial amounts
-  let amounts = weights.map(weight => weight * total);
-
-  // Round amounts to two decimals and calculate the sum of these amounts
-  let roundedAmounts = amounts.map(amount => parseFloat(amount.toFixed(decimals)));
-  let sumOfRoundedAmounts = roundedAmounts.reduce((a, b) => a + b, 0);
-
-  // Calculate the remainder
-  let remainder = total - sumOfRoundedAmounts;
-
-  // Distribute the remainder
-  // The idea here is to distribute the remainder starting from the largest fraction part
-  while (Math.abs(remainder) >= 0.01) {
-      let index = amounts.findIndex((amount, idx) => 
-          roundedAmounts[idx] < amount && 
-          (remainder > 0 || roundedAmounts[idx] > 0)
-      );
-
-      if (index === -1) {
-          break; // Break if no suitable item is found
-      }
-
-      if (remainder > 0) {
-          roundedAmounts[index] += 0.01;
-          remainder -= 0.01;
-      } else {
-          roundedAmounts[index] -= 0.01;
-          remainder += 0.01;
-      }
-
-      roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
-  }
-
-  return roundedAmounts;
+  // Weight always come as decimals, convert it to integer with four decimals
+  const intWeights = weights.map(w => Number((w * WEIGHT_DECIMALS).toPrecision(4)))
+  // Calculate the amount based on total
+  const amounts = intWeights.map(weight => weight * total);
+  // Convert back to number with two decimals
+  return amounts.map(amount => (amount / WEIGHT_DECIMALS) * 10 ** decimals);
 }
 
 export function redistributeWeights(
@@ -95,8 +69,6 @@ export function applyUserWeight(
     if (weights[index] === 0) return 0;
     if (overwrites[index] !== 0) return overwrites[index];
 
-    // If there is any weight set to zero it means that we can not take
-    // as base the default weights, so we work with the total and percentages only
     const amountToUpdate = total * percentage;
     return amountToUpdate / (total / 100);
   });
