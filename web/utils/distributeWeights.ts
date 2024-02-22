@@ -73,5 +73,5 @@ export function applyUserWeight(
     return amountToUpdate / (total / 100);
   });
 
-  return newOverwrites;
+  return newOverwrites.map((x) => Number(x.toPrecision(6)))
 }

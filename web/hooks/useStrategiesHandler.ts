@@ -32,7 +32,7 @@ export type StrategyInformation = StrategyEntry & {
   networks: NetworkName[];
   disabled?: boolean;
   recipients: string[];
-  weight?: number
+  weight?: number;
 };
 export type StrategiesWithProjects = StrategyInformation[];
 
@@ -159,7 +159,7 @@ export function useStrategiesHandler(
       newPercentages.map((w) => +w),
       +totalAmount,
       currentToken.decimals
-    ).map((w) => (w / 100).toFixed(2));
+    ).map((w) => (w / 100).toFixed(0));
     const newStrategies = strategies.map((s, i) => {
       const weight = newPercentages[i] / 100;
       return {
@@ -208,7 +208,11 @@ export function useStrategiesHandler(
       selectedWeights
     );
 
-    const amounts = distributeWeights(newWeights, +totalAmount, currentToken.decimals);
+    const amounts = distributeWeights(
+      newWeights,
+      +totalAmount,
+      currentToken.decimals
+    );
     const newStrategy = strategies.map((s, i) => {
       return {
         ...s,
@@ -240,7 +244,11 @@ export function useStrategiesHandler(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => s.networks.includes(network))
     );
-    const amounts = distributeWeights(weights, +totalAmount, currentToken.decimals);
+    const amounts = distributeWeights(
+      weights,
+      +totalAmount,
+      currentToken.decimals
+    );
     const newStrategies = strategies
       .map((s, i) => {
         return {
@@ -267,13 +275,17 @@ export function useStrategiesHandler(
   };
 
   const handleTokenUpdate = () => {
-    const amounts = distributeWeights(strategies.map(s => s.weight), +totalAmount, currentToken.decimals);
+    const amounts = distributeWeights(
+      strategies.map((s) => s.weight),
+      +totalAmount,
+      currentToken.decimals
+    );
     const newStrategies = strategies.map((s, i) => ({
       ...s,
-      amount: amounts[i].toFixed(0)
-    }))
+      amount: amounts[i].toFixed(0),
+    }));
     modifyStrategies(newStrategies);
-  }
+  };
 
   return {
     strategies,
@@ -287,6 +299,6 @@ export function useStrategiesHandler(
     handleSelectProject,
     handleAmountUpdate,
     handleNetworkUpdate,
-    handleTokenUpdate
+    handleTokenUpdate,
   };
 }
