@@ -42,7 +42,7 @@ describe("Distribute weights", () => {
     const newWeights = applyUserWeight(weights, [33.1, 0, 0, 0, 0, 0, 0, 0, 0], { percentage: 33.1, index: 0 });
     const total = newWeights.reduce((acc, x) => acc + x);
     expect(newWeights[0]).toBe(33.1);
-    expect(newWeights[1]).toBe(11.982089552238806);
+    expect(newWeights[1]).toBe(11.9821);
     expect(newWeights[2]).toBe(0);
     expect(total.toFixed(0)).toBe("100");
   })
