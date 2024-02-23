@@ -170,17 +170,12 @@ export function useStrategiesHandler(
   };
 
   const handleSelectAll = (isChecked: boolean) => {
-    console.log("xxxxxxxxx",  strategies.map((s) => s.defaultWeight),
-    strategies.map((s) => isChecked && !s.disabled))
-    const aW = redistributeAmounts(
+    const newWeights = redistributeAmounts(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => isChecked && !s.disabled)
-    );
-    console.log("aW", aW)
-    const newWeights = aW.map((weight) => {
+    ).map((weight) => {
       return isChecked ? (weight * 100).toFixed(2) : "0.00";
     });
-    console.log("newWeightsAAAAAAA", newWeights)
     const amounts = distributeAmounts(
       newWeights.map((w) => +(+w / 100).toFixed(4)),
       +totalAmount
@@ -202,20 +197,12 @@ export function useStrategiesHandler(
     const selectedWeights = strategies.map((s, i) =>
       i === index ? isChecked : s.selected
     );
-    console.log("AAAAAAAAAAAAAA", strategies.map((s) => s.defaultWeight), selectedWeights)
     const newWeights = redistributeAmounts(
       strategies.map((s) => s.defaultWeight),
       selectedWeights
     );
-    console.log("newWeights", newWeights)
-
-    function calcPercentages(rations: number[]): number[] {
-      const total = rations.reduce((acc, x) => acc + x, 0);
-      return rations.map(x => +(x / total).toFixed(2));
-    }
 
     const amounts = distributeAmounts(newWeights, +totalAmount, 2);
-    console.log("amounts", amounts)
 
     const newStrategy = strategies.map((s, i) => {
       return {
