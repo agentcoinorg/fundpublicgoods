@@ -1,4 +1,5 @@
-export function distributeWeights(weights: number[], total: number, decimals: number): number[] {
+// Weights should be less than 1
+export function distributeAmounts(weights: number[], total: number, decimals: number = 2): number[] {
   // Calculate initial amounts
   let amounts = weights.map(weight => weight * total);
 
@@ -6,13 +7,17 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
   let roundedAmounts = amounts.map(amount => parseFloat(amount.toFixed(decimals)));
   let sumOfRoundedAmounts = roundedAmounts.reduce((a, b) => a + b, 0);
 
+  console.log(roundedAmounts, sumOfRoundedAmounts, total, amounts, weights)
+
   // Calculate the remainder
   let remainder = total - sumOfRoundedAmounts;
 
+  const remainderIncrement = +(1 / Math.pow(10, decimals)).toFixed(decimals);
+
   // Distribute the remainder
   // The idea here is to distribute the remainder starting from the largest fraction part
-  while (Math.abs(remainder) >= 0.01) {
-      let index = amounts.findIndex((amount, idx) => 
+  while (Math.abs(remainder) >= remainderIncrement) {
+      let index = roundedAmounts.findIndex((amount, idx) => 
           roundedAmounts[idx] < amount && 
           (remainder > 0 || roundedAmounts[idx] > 0)
       );
@@ -22,11 +27,11 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
       }
 
       if (remainder > 0) {
-          roundedAmounts[index] += 0.01;
-          remainder -= 0.01;
+          roundedAmounts[index] += remainderIncrement;
+          remainder -= remainderIncrement;
       } else {
-          roundedAmounts[index] -= 0.01;
-          remainder += 0.01;
+          roundedAmounts[index] -= remainderIncrement;
+          remainder += remainderIncrement;
       }
 
       roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
@@ -35,7 +40,7 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
   return roundedAmounts;
 }
 
-export function redistributeWeights(
+export function redistributeAmounts(
   defaultWeights: number[],
   selectedWeights: boolean[]
 ): number[] {
@@ -44,62 +49,51 @@ export function redistributeWeights(
   }
 
   const denominator = defaultWeights.reduce((acc, x, index) => {
-    return selectedWeights[index] ? acc + x * 100 : acc;
+    return selectedWeights[index] ? acc + +(x * 100).toFixed(2) : acc;
   }, 0);
 
   return defaultWeights.map((weight, index) => {
-    return !selectedWeights[index] ? 0 : (weight * 100) / denominator;
+    return !selectedWeights[index] ? 0 : +(weight * 100 / denominator).toFixed(4);
   });
 }
 
 export function applyUserWeight(
-  weights: number[],
-  overwrites: number[],
-  edit: {
-    percentage: number;
-    index: number;
-  }
+  weights: number[], // Weights are ratios, e.g [87, 85, 83]
+  overwrites: number[], // Overwrites are percentages, e.g [39.89, 37.16, 0]
 ) {
-  // If percentage to edit is 100, automatically return other weights as zero
-  if (edit.percentage === 100) {
-    return weights.map((_, i) => {
-      if (i === edit.index) return 100;
-      return 0;
-    });
-  }
+  console.log(weights, overwrites);
+  // Get the indexes of the weights to edit
+  // These are the indexes of the overwrites that are 0
+  const indexesToEdit = overwrites.map((x, i) => {
+    if (x === 0) {
+      return i;
+    } else {
+      return undefined;
+    }
+  }).filter((x) => x !== undefined) as number[];
 
-  // 1- Get the total of the current distribution based on selected weights
-  const total = weights.reduce((acc, x) => acc + x);
+  // Get the weights to edit based on the indexes
+  const weightsToEdit = indexesToEdit.map((i) => weights[i]);
 
-  // 2- Get the diffence of the new weights
-  let totalOverwrite = overwrites.reduce((acc, x) => acc + x);
-  const deltaDifference = totalOverwrite - 100;
-
-  // 3- Calculate the sum of all weights (excluding the one being updated)
-  const sumOfAllWeights = weights.reduce((acc, x, index) => {
-    if (index === edit.index) return acc;
-    if (overwrites[index] !== 0) return acc;
-    
-    return acc + x;
-  }, 0);
+  // Get the total remaining amount that the user has not distributed
+  const totalRemainingUnrounded = 100 - +overwrites.reduce((acc, x) => acc + x, 0).toFixed(2);
+  const totalRemaining = +totalRemainingUnrounded.toFixed(2);
   
-  // 4- Get the percentage (differenceRoot) of how much should we decrease/increase
-  const differenceRoots = weights.map((weight) => {
-    const percentage = (weight / sumOfAllWeights) * Math.abs(deltaDifference);
-    return percentage / 100;
+  // Get the total of weight so that we can calculate the percentages based on the ratios
+  const currentTotal = weightsToEdit.reduce((acc, x) => acc + x, 0);
+  let percentagesToEdit = weightsToEdit.map((x) => +(x / currentTotal).toFixed(2));
+
+  // Distribute the remaining amount (from 100) to the weights to edit
+  const newPercentages = distributeAmounts(percentagesToEdit, totalRemaining);
+
+  // Merge the new percentages with the overwrites, e.g. [23.95] + [39.89, 37.16, 0] -> [39.89, 37.16, 23.95]
+  const newWeights = overwrites.map(x => {
+    if (x === 0) {
+      return newPercentages.shift() as number;
+    } else {
+      return x;
+    }
   });
 
-  // 5- Update each weight (excluding the one being updated) with the given percentage
-  const newOverwrites = differenceRoots.map((percentage, index) => {
-    if (index === edit.index) return edit.percentage;
-    if (weights[index] === 0) return 0;
-    if (overwrites[index] !== 0) return overwrites[index];
-
-    // If there is any weight set to zero it means that we can not take
-    // as base the default weights, so we work with the total and percentages only
-    const amountToUpdate = total * percentage;
-    return amountToUpdate / (total / 100);
-  });
-
-  return newOverwrites;
+  return newWeights;
 }
