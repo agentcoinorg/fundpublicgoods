@@ -81,7 +81,7 @@ def get_projects_lightweight(range_from: int, range_to: int) -> PostgrestAPIResp
     return (
         db.table("projects")
         .select(
-            "id, title, website, updated_at, description"
+            "id, title, website, updated_at, description, twitter"
         )
         .range(range_from, range_to)
         .execute()

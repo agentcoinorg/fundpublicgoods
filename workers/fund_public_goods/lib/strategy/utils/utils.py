@@ -14,13 +14,12 @@ def get_latest_project_per_website(projects: list[Projects]) -> list[Projects]:
             projects_with_website_as_key[project_website] = project
 
     projects_with_twitter_handle_as_key: dict[str, Projects] = {}
-
-    for (webstite, project) in projects_with_website_as_key.items():
+    for (website, project) in projects_with_website_as_key.items():
         if project.twitter:
-            if (project.twitter not in projects_with_twitter_handle_as_key or project.updated_at > projects_with_website_as_key[project_website].updated_at):
+            if (project.twitter not in projects_with_twitter_handle_as_key):
                 projects_with_twitter_handle_as_key[project.twitter] = project
         else:
-            projects_with_twitter_handle_as_key[webstite] = project
+            projects_with_twitter_handle_as_key[website] = project
 
     return list(projects_with_twitter_handle_as_key.values())
 
