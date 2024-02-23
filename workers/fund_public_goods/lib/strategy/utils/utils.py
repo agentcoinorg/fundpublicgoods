@@ -5,15 +5,23 @@ from fund_public_goods.workflows.egress_gitcoin.upsert import sanitize_url
 
 
 def get_latest_project_per_website(projects: list[Projects]) -> list[Projects]:
-    latest_projects: dict[str, Projects] = {}
+    projects_with_website_as_key: dict[str, Projects] = {}
 
     for project in projects:
         project_website = sanitize_url(project.website)
-        if (project_website not in latest_projects or
-                project.updated_at > latest_projects[project_website].updated_at):
-            latest_projects[project_website] = project
+        if (project_website not in projects_with_website_as_key or
+                project.updated_at > projects_with_website_as_key[project_website].updated_at):
+            projects_with_website_as_key[project_website] = project
 
-    return list(latest_projects.values())
+    projects_with_twitter_handle_as_key: dict[str, Projects] = {}
+    for (website, project) in projects_with_website_as_key.items():
+        if project.twitter:
+            if (project.twitter not in projects_with_twitter_handle_as_key):
+                projects_with_twitter_handle_as_key[project.twitter] = project
+        else:
+            projects_with_twitter_handle_as_key[website] = project
+
+    return list(projects_with_twitter_handle_as_key.values())
 
 def get_project_text(project_with_answers: tuple[Projects, list[Answer]]) -> str:
     (project, answers) = project_with_answers
