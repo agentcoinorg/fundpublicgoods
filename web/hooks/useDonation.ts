@@ -5,7 +5,6 @@ import {
   ERC20_ABI,
   NetworkName,
   TokenInformation,
-  getTokensForNetwork,
   splitTransferFunds,
 } from "@/utils/ethereum";
 import { BigNumber, ethers } from "ethers";

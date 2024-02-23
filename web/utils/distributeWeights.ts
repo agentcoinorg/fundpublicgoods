@@ -3,7 +3,7 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
   let amounts = weights.map(weight => weight * total);
 
   // Round amounts to two decimals and calculate the sum of these amounts
-  let roundedAmounts = amounts.map(amount => parseFloat(amount.toFixed(decimals)));
+  let roundedAmounts = amounts.map(amount => parseFloat(amount.toPrecision(decimals + 1)));
   let sumOfRoundedAmounts = roundedAmounts.reduce((a, b) => a + b, 0);
 
   // Calculate the remainder
@@ -29,7 +29,7 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
           remainder += 0.01;
       }
 
-      roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
+      roundedAmounts[index] = parseFloat(roundedAmounts[index].toPrecision(decimals));
   }
 
   return roundedAmounts;
@@ -47,9 +47,11 @@ export function redistributeWeights(
     return selectedWeights[index] ? acc + x * 100 : acc;
   }, 0);
 
-  return defaultWeights.map((weight, index) => {
+  const newWeights =  defaultWeights.map((weight, index) => {
     return !selectedWeights[index] ? 0 : (weight * 100) / denominator;
-  });
+  })
+
+  return newWeights.map(w => Number(w.toPrecision(4)))
 }
 
 export function applyUserWeight(

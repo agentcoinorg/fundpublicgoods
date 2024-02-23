@@ -153,11 +153,16 @@ export function useStrategiesHandler(
       index,
     });
 
+    const amounts = distributeWeights(
+      newPercentages.map((w) => +w / 100),
+      +totalAmount,
+      2
+    )
     const newStrategies = strategies.map((s, i) => {
       const weight = newPercentages[i] / 100;
       return {
         ...s,
-        amount: (+totalAmount * weight).toFixed(2),
+        amount: amounts[i].toString(),
         weight,
         selected: !(weight === 0),
       };
@@ -172,23 +177,23 @@ export function useStrategiesHandler(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => isChecked && !s.disabled)
     ).map((weight) => {
-      return isChecked ? (weight * 100).toFixed(2) : "0.00";
+      return isChecked ? weight.toString() : "0.00";
     });
     const amounts = distributeWeights(
       newWeights.map((w) => +w),
       +totalAmount,
       2
-    ).map((w) => (w / 100).toFixed(2));
+    )
     const newStrategies = strategies.map((s, i) => {
       return {
         ...s,
         selected: !s.disabled && isChecked,
         weight: !s.disabled && isChecked ? +newWeights[i] / 100 : 0.0,
-        amount: amounts[i],
+        amount: amounts[i].toString(),
       };
     });
     setOverwrittenWeights(Array(strategies.length).fill(0));
-    setFormattedWeights(newWeights);
+    setFormattedWeights(newWeights.map((w) => (w * 100).toFixed(2)));
     modifyStrategies(newStrategies);
   };
 
@@ -201,13 +206,13 @@ export function useStrategiesHandler(
       selectedWeights
     );
 
-    const amounts = distributeWeights(newWeights, +totalAmount, 2);
+    const amounts = distributeWeights(newWeights, +totalAmount, 4);
 
     const newStrategy = strategies.map((s, i) => {
       return {
         ...s,
         weight: newWeights[i],
-        amount: amounts[i].toFixed(2),
+        amount: amounts[i].toString(),
         selected: newWeights[i] > 0,
       };
     });
@@ -220,11 +225,11 @@ export function useStrategiesHandler(
   const handleAmountUpdate = (amount: string) => {
     const selectedStrategies = strategies.filter((x) => x.selected);
     const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, 2);
+    const amounts = distributeWeights(weights, +amount, 4);
     let amountIndex = 0;
     const newStrategies = strategies.map((s) => ({
       ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+      amount: s.selected ? amounts[amountIndex++].toString() : undefined,
     }));
     modifyStrategies(newStrategies);
   };
@@ -234,12 +239,12 @@ export function useStrategiesHandler(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => s.networks.includes(network))
     );
-    const amounts = distributeWeights(weights, +totalAmount, 2);
+    const amounts = distributeWeights(weights, +totalAmount, 4);
     const newStrategies = strategies
       .map((s, i) => {
         return {
           ...s,
-          amount: amounts[i].toFixed(2),
+          amount: amounts[i].toString(),
           weight: weights[i],
           selected: weights[i] !== 0,
           disabled: !s.networks.includes(network),
