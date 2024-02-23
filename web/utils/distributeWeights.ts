@@ -7,34 +7,44 @@ export function distributeAmounts(weights: number[], total: number, decimals: nu
   let roundedAmounts = amounts.map(amount => parseFloat(amount.toFixed(decimals)));
   let sumOfRoundedAmounts = roundedAmounts.reduce((a, b) => a + b, 0);
 
-  console.log(roundedAmounts, sumOfRoundedAmounts, total, amounts, weights)
-
   // Calculate the remainder
-  let remainder = total - sumOfRoundedAmounts;
+  let remainder = +(total - sumOfRoundedAmounts).toFixed(decimals);
 
   const remainderIncrement = +(1 / Math.pow(10, decimals)).toFixed(decimals);
 
   // Distribute the remainder
   // The idea here is to distribute the remainder starting from the largest fraction part
   while (Math.abs(remainder) >= remainderIncrement) {
-      let index = roundedAmounts.findIndex((amount, idx) => 
-          roundedAmounts[idx] < amount && 
-          (remainder > 0 || roundedAmounts[idx] > 0)
-      );
+    let index: number;
+    if (remainder > 0) {
+        // Find an index to increment
+        index = amounts.findIndex((amount, idx) => 
+            roundedAmounts[idx] < amount
+        );
+    } else {
+        // Find an index to decrement, ensuring we don't go below the amount that the weight would dictate
+        index = roundedAmounts.findIndex((roundedAmount, idx) => 
+            roundedAmount > weights[idx] * total && 
+            roundedAmount > 0
+        );
+    }
 
-      if (index === -1) {
-          break; // Break if no suitable item is found
-      }
+    if (index === -1) {
+        break; // Break if no suitable item is found
+    }
 
-      if (remainder > 0) {
-          roundedAmounts[index] += remainderIncrement;
-          remainder -= remainderIncrement;
-      } else {
-          roundedAmounts[index] -= remainderIncrement;
-          remainder += remainderIncrement;
-      }
+    // Adjust the roundedAmount and remainder accordingly
+    if (remainder > 0) {
+        roundedAmounts[index] += remainderIncrement;
+        remainder -= remainderIncrement;
+    } else {
+        roundedAmounts[index] -= remainderIncrement;
+        remainder += remainderIncrement;
+    }
 
-      roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
+    // Ensure values are correctly rounded to avoid floating point issues
+    remainder = +remainder.toFixed(decimals);
+    roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
   }
 
   return roundedAmounts;
@@ -61,7 +71,6 @@ export function applyUserWeight(
   weights: number[], // Weights are ratios, e.g [87, 85, 83]
   overwrites: number[], // Overwrites are percentages, e.g [39.89, 37.16, 0]
 ) {
-  console.log(weights, overwrites);
   // Get the indexes of the weights to edit
   // These are the indexes of the overwrites that are 0
   const indexesToEdit = overwrites.map((x, i) => {
