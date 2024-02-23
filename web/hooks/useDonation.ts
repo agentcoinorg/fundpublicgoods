@@ -8,37 +8,24 @@ import {
   getTokensForNetwork,
   splitTransferFunds,
 } from "@/utils/ethereum";
-import { useState } from "react";
 import { ethers } from "ethers";
-
-export interface FundingEntry {
-  network: NetworkName;
-  token: TokenInformation;
-  donations: {
-    description: string;
-    title: string;
-    amount: string;
-    recipient: string;
-  }[];
-}
 
 export function useDonation() {
   const [{ wallet }] = useConnectWallet();
-  const [isTransactionPending, setIsTransactionPending] = useState(false);
 
-  const execute = async (plan: FundingEntry) => {
-    if (!wallet || isTransactionPending) return;
+  const execute = async (
+    selectedNetwork: NetworkName, 
+    selectedToken: TokenInformation, 
+    recipientAddresses: string[], 
+    amounts: number[]
+  ) => {
+    if (!wallet) return;
     const ethersProvider = new ethers.providers.Web3Provider(
       wallet.provider,
       "any"
     );
 
     const signer = ethersProvider.getSigner();
-
-    setIsTransactionPending(true);
-
-    const { network: selectedNetwork, token: selectedToken, donations } = plan;
-    const filteredDonations = donations.filter((d) => Number(d.amount) > 0);
 
     const token = getTokensForNetwork(selectedNetwork).find(
       (t) => t.name == selectedToken.name
@@ -47,22 +34,16 @@ export function useDonation() {
     if (!token) {
       throw new Error(`Token with name: ${selectedToken} is not valid`);
     }
-    const amounts = filteredDonations.map((d) => Number(d.amount));
-    console.log(plan, amounts, signer, token);
-    try {
-      await splitTransferFunds(
-        filteredDonations.map((d) => d.recipient),
-        amounts,
-        signer,
-        selectedNetwork,
-        token.address,
-        token.decimals
-      );
-    } catch (e) {
-      throw e;
-    } finally {
-      setIsTransactionPending(false);
-    }
+    console.log(recipientAddresses, amounts, signer, token, selectedNetwork);
+
+    await splitTransferFunds(
+      recipientAddresses,
+      amounts,
+      signer,
+      selectedNetwork,
+      token.address,
+      token.decimals
+    );
   };
 
   const getBalance = async (wallet: WalletState, token: TokenInformation) => {
@@ -96,31 +77,24 @@ export function useDonation() {
   const approve = async (
     wallet: WalletState,
     token: TokenInformation,
-    amount: string,
+    amount: number,
     network: NetworkName
   ) => {
-    setIsTransactionPending(true);
-   
-    try {
-      const ethersProvider = new ethers.providers.Web3Provider(
-        wallet.provider,
-        "any"
-      );
-      const signer = ethersProvider.getSigner();
-      const tokenContract = new ethers.Contract(token.address, ERC20_ABI, signer);
-  
-      const contractAddress = DISPERSE_CONTRACT_ADDRESSES[network];
-      const amountInDecimals = ethers.utils.parseUnits(amount.toString(), token.decimals);
-      const approveTx = await tokenContract.approve(contractAddress, amountInDecimals);
-      await approveTx.wait(1);
-    } finally {
-      setIsTransactionPending(false);
-    }
+    const ethersProvider = new ethers.providers.Web3Provider(
+      wallet.provider,
+      "any"
+    );
+    const signer = ethersProvider.getSigner();
+    const tokenContract = new ethers.Contract(token.address, ERC20_ABI, signer);
+
+    const contractAddress = DISPERSE_CONTRACT_ADDRESSES[network];
+    const amountInDecimals = ethers.utils.parseUnits(amount.toString(), token.decimals);
+    const approveTx = await tokenContract.approve(contractAddress, amountInDecimals);
+    await approveTx.wait(1);
   };
 
   return {
     execute,
-    isTransactionPending,
     getBalance,
     approve,
     getAllowance

@@ -55,7 +55,6 @@ export default function Strategy(props: {
   const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(networkName);
   const {
     execute: executeDonation,
-    isTransactionPending,
     getBalance,
     getAllowance,
     approve,
@@ -82,6 +81,7 @@ export default function Strategy(props: {
   const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
   const tweetUrl = useTweetShare(props.runId, strategies, selectedNetwork, props.prompt)
+  const [isFundingPending, setIsFundingPending] = useState(false);
   
   useEffect(() => {
     setBalance((currentBalance) => {
@@ -94,51 +94,73 @@ export default function Strategy(props: {
   }
 
   const executeTransaction = async () => {
-    if (selectedStrategiesLength === 0 || amount === "0") return;
+    setIsFundingPending(true);
 
-    const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
-    if (connectedChain && currentNetworkId !== +connectedChain.id) {
-      await setChain({ chainId: `0x${currentNetworkId.toString(16)}` });
-      return;
+    try {
+      if (selectedStrategiesLength === 0 || amount === "0") return;
+
+      const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
+      if (connectedChain && currentNetworkId !== +connectedChain.id) {
+        await setChain({ chainId: `0x${currentNetworkId.toString(16)}` });
+        setIsFundingPending(false);
+        return;
+      }
+
+      if (!selectedToken || !wallet) {
+        setIsFundingPending(false);
+        return;
+      };
+
+
+      const balance = await getBalance(wallet, selectedToken);
+
+      if (+amount >= +balance) {
+        setBalance(balance);
+        setIsFundingPending(false);
+        return;
+      }
+
+      const allowance = await getAllowance(
+        wallet,
+        selectedToken,
+        selectedNetwork
+      );
+
+      const donations = strategies
+        .filter((x) => x.selected)
+        .map((strategy) => {
+          const networkIndex = strategy.networks.indexOf(selectedNetwork);
+          return {
+            amount: strategy.amount as string,
+            description: strategy.project.description as string,
+            title: strategy.project.title as string,
+            recipient: strategy.recipients[networkIndex],
+          };
+        });
+      
+      const amounts = donations
+        .map((x) => Number(x.amount))
+        .filter((x) => x > 0);
+
+      const totalAmount = amounts.reduce((a, b) => a + b, 0);
+
+      if (+allowance < totalAmount) {
+        await approve(wallet, selectedToken, totalAmount, selectedNetwork);
+      }
+
+      await executeDonation(
+        selectedNetwork,
+        selectedToken,
+        donations.map((x) => x.recipient),
+        amounts
+      );
+
+      setShowSuccessModal(true);
+    } catch (e: any) {
+      throw e;
+    } finally {
+      setIsFundingPending(false);
     }
-
-    if (!selectedToken || !wallet) return;
-
-    const balance = await getBalance(wallet, selectedToken);
-
-    if (+amount >= +balance) {
-      setBalance(balance);
-      return;
-    }
-
-    const allowance = await getAllowance(
-      wallet,
-      selectedToken,
-      selectedNetwork
-    );
-
-    if (+allowance < +amount) {
-      await approve(wallet, selectedToken, amount, selectedNetwork);
-    }
-
-    const donations = strategies
-      .filter((x) => x.selected)
-      .map((strategy) => {
-        const networkIndex = strategy.networks.indexOf(selectedNetwork);
-        return {
-          amount: strategy.amount as string,
-          description: strategy.project.description as string,
-          title: strategy.project.title as string,
-          recipient: strategy.recipients[networkIndex],
-        };
-      });
-
-    await executeDonation({
-      donations,
-      network: selectedNetwork,
-      token: selectedToken,
-    });
-    setShowSuccessModal(true);
   };
 
   async function regenerateStrat(prompt: string) {
@@ -253,10 +275,10 @@ export default function Strategy(props: {
                     </div>
                     <Button
                       disabled={
-                        selectedStrategiesLength === 0 || amount === "0" || amount === "" || isTransactionPending
+                        selectedStrategiesLength === 0 || amount === "0" || amount === "" || isFundingPending
                       }
                       onClick={executeTransaction}>
-                      {isTransactionPending ? (
+                      {isFundingPending ? (
                         <>
                           <div>Pending</div>
                           <LoadingCircle hideText color='white' />

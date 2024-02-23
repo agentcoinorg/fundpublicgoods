@@ -12,7 +12,7 @@ if sys.platform == "linux":
     sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from dataclasses import dataclass
-from typing import Any, Union
+from typing import Any
 from aws_lambda_typing.events import SQSEvent
 from aws_lambda_typing.context import Context
 from fastapi_events.typing import Event as LocalEvent
@@ -23,6 +23,7 @@ from fund_public_goods.lib.strategy.create import create
 import os
 import json
 from fastapi import FastAPI
+import logging
 
 @dataclass
 class EventData:
@@ -33,7 +34,12 @@ def handler(event: EventData):
     if event.name == "create-strategy":
         run_id = event.payload["run_id"]
         authorization = event.payload["authorization"]
-        create(run_id, authorization)
+
+        try:
+            create(run_id, authorization)
+        except Exception as error:
+            logging.exception(f"An error occurred while processing run_id: {run_id}")
+            raise error
     else:
         raise Exception("Unknown event name!")
 

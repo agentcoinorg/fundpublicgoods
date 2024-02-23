@@ -88,7 +88,7 @@ export const supportedErc20TokensByNetwork: SupportedTokensInformation = {
       name: "DAI",
     },
     USDT: {
-      address: "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+      address: "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C",
       decimals: 6,
       name: "USDT",
     },
