@@ -5,7 +5,6 @@ import {
   ERC20_ABI,
   NetworkName,
   TokenInformation,
-  getTokensForNetwork,
   splitTransferFunds,
 } from "@/utils/ethereum";
 import { BigNumber, ethers } from "ethers";
@@ -34,8 +33,7 @@ export function useDonation() {
       amounts,
       signer,
       network,
-      token.address,
-      token.decimals
+      token.address
     );
   };
 

@@ -31,7 +31,6 @@ export async function splitTransferFunds(
   signer: ethers.Signer,
   selectedNetwork: NetworkName,
   tokenAddress?: string,
-  tokenDecimals?: number,
 ) {
   const disperseContract = new ethers.Contract(
     DISPERSE_CONTRACT_ADDRESSES[selectedNetwork],
@@ -42,9 +41,6 @@ export async function splitTransferFunds(
   const validAddresses = addresses.filter((address) =>
     ethers.utils.getAddress(address)
   );
-  const values = amounts.map((amount) =>
-    ethers.utils.parseUnits(amount.toString(), tokenDecimals)
-  );
   const totalValue = amounts.reduce(
     (acc, value) => ethers.BigNumber.from(acc).add(value),
     ethers.constants.Zero
@@ -52,7 +48,7 @@ export async function splitTransferFunds(
 
   if (!tokenAddress || tokenAddress === ethers.constants.AddressZero) {
     // Ether transfer
-    await disperseContract.disperseEther(validAddresses, values, {
+    await disperseContract.disperseEther(validAddresses, amounts.map(a => a.toString()), {
       value: totalValue,
     });
   } else {
