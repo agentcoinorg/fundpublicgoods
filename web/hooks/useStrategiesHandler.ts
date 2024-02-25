@@ -150,11 +150,13 @@ export function useStrategiesHandler(
       return w.selected && !w.disabled ? w.defaultWeight * 100 : 0;
     });
 
-    const newPercentages = applyUserWeight(weights, newOverwrittenWeights);
+    const newPercentages = applyUserWeight(weights, newOverwrittenWeights, {
+      percentage: numberValue,
+      index,
+    });
     const newFractions = newPercentages.map(x => +(x / 100).toFixed(4)); // Convert percentages to fractions ([30.00, 70.00] -> [0.30, 0.70])
 
     const newAmounts = distributeAmounts(newFractions, +totalAmount);
-
     const newStrategies = strategies.map((s, i) => {
       const weight = +(newPercentages[i] / 100).toFixed(4);
       return {
@@ -219,13 +221,11 @@ export function useStrategiesHandler(
   };
 
   const handleAmountUpdate = (amount: string) => {
-    const selectedStrategies = strategies.filter((x) => x.selected);
-    const weights = selectedStrategies.map((s) => s.weight) as number[];
+    const weights = strategies.map((s) => s.weight) as number[];
     const amounts = distributeAmounts(weights, +amount);
-    let amountIndex = 0;
-    const newStrategies = strategies.map((s) => ({
+    const newStrategies = strategies.map((s, i) => ({
       ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+      amount: s.selected ? amounts[i].toFixed(2) : undefined,
     }));
     modifyStrategies(newStrategies);
   };
