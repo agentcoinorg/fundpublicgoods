@@ -1,4 +1,4 @@
-import { applyUserWeight, redistributeWeights } from "./distributeWeights";
+import { applyUserWeight, redistributeAmounts } from "./distributeWeights";
 
 describe("Distribute weights", () => {
   it("Modify index 3 with 50", () => {
@@ -58,11 +58,11 @@ describe("Distribute weights", () => {
   it("Redistribute pre-defined weights", () => {
     const weights = [10, 30, 10, 40, 10];
     const selectedWeights = [true, true, false, false, true];
-    const newWeights = redistributeWeights(weights, selectedWeights);
+    const newWeights = redistributeAmounts(weights, selectedWeights);
     expect([0.2, 0.6, 0, 0, 0.2].toString()).toBe(newWeights.toString());
   });
 
   it("Redistribute fails if weights and selected weights arrays does not have the same size", () => {
-    expect(() => redistributeWeights([1], [])).toThrow("Selected weights and default weights must have the same size");
+    expect(() => redistributeAmounts([1], [])).toThrow("Selected weights and default weights must have the same size");
   });
 });

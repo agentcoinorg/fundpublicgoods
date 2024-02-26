@@ -1,4 +1,5 @@
-export function distributeWeights(weights: number[], total: number, decimals: number): number[] {
+// Weights should be less than 1
+export function distributeAmounts(weights: number[], total: number, decimals: number = 2): number[] {
   // Calculate initial amounts
   let amounts = weights.map(weight => weight * total);
 
@@ -7,35 +8,49 @@ export function distributeWeights(weights: number[], total: number, decimals: nu
   let sumOfRoundedAmounts = roundedAmounts.reduce((a, b) => a + b, 0);
 
   // Calculate the remainder
-  let remainder = total - sumOfRoundedAmounts;
+  let remainder = +(total - sumOfRoundedAmounts).toFixed(decimals);
+
+  const remainderIncrement = +(1 / Math.pow(10, decimals)).toFixed(decimals);
 
   // Distribute the remainder
   // The idea here is to distribute the remainder starting from the largest fraction part
-  while (Math.abs(remainder) >= 0.01) {
-      let index = amounts.findIndex((amount, idx) => 
-          roundedAmounts[idx] < amount && 
-          (remainder > 0 || roundedAmounts[idx] > 0)
-      );
+  while (Math.abs(remainder) >= remainderIncrement) {
+    let index: number;
+    if (remainder > 0) {
+        // Find an index to increment
+        index = amounts.findIndex((amount, idx) => 
+            roundedAmounts[idx] < amount
+        );
+    } else {
+        // Find an index to decrement, ensuring we don't go below the amount that the weight would dictate
+        index = roundedAmounts.findIndex((roundedAmount, idx) => 
+            roundedAmount > weights[idx] * total && 
+            roundedAmount > 0
+        );
+    }
 
-      if (index === -1) {
-          break; // Break if no suitable item is found
-      }
+    if (index === -1) {
+        break; // Break if no suitable item is found
+    }
 
-      if (remainder > 0) {
-          roundedAmounts[index] += 0.01;
-          remainder -= 0.01;
-      } else {
-          roundedAmounts[index] -= 0.01;
-          remainder += 0.01;
-      }
+    // Adjust the roundedAmount and remainder accordingly
+    if (remainder > 0) {
+        roundedAmounts[index] += remainderIncrement;
+        remainder -= remainderIncrement;
+    } else {
+        roundedAmounts[index] -= remainderIncrement;
+        remainder += remainderIncrement;
+    }
 
-      roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
+    // Ensure values are correctly rounded to avoid floating point issues
+    remainder = +remainder.toFixed(decimals);
+    roundedAmounts[index] = parseFloat(roundedAmounts[index].toFixed(decimals));
   }
 
   return roundedAmounts;
 }
 
-export function redistributeWeights(
+export function redistributeAmounts(
   defaultWeights: number[],
   selectedWeights: boolean[]
 ): number[] {
@@ -44,11 +59,11 @@ export function redistributeWeights(
   }
 
   const denominator = defaultWeights.reduce((acc, x, index) => {
-    return selectedWeights[index] ? acc + x * 100 : acc;
+    return selectedWeights[index] ? acc + +(x * 100).toFixed(2) : acc;
   }, 0);
 
   return defaultWeights.map((weight, index) => {
-    return !selectedWeights[index] ? 0 : (weight * 100) / denominator;
+    return !selectedWeights[index] ? 0 : +(weight * 100 / denominator).toFixed(4);
   });
 }
 

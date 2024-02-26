@@ -8,7 +8,11 @@ import { useConnectWallet, useSetChain } from "@web3-onboard/react";
 import Dropdown from "./Dropdown";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { useRouter, useSearchParams } from "next/navigation";
-import { NetworkName, SUPPORTED_NETWORKS, getNetworkNameFromChainId } from "@/utils/ethereum";
+import {
+  NetworkName,
+  SUPPORTED_NETWORKS,
+  getNetworkNameFromChainId,
+} from "@/utils/ethereum";
 import useSession from "@/hooks/useSession";
 import { startRun } from "@/app/actions";
 import {
@@ -25,6 +29,9 @@ import Image from "next/image";
 import { pluralize } from "@/utils/pluralize";
 import { findMostRepeatedString } from "@/utils/findMostRepeatedString";
 import { useTweetShare } from "@/hooks/useTweetShare";
+import { BigNumber } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
+import clsx from "clsx";
 
 export default function Strategy(props: {
   fetchedStrategies: StrategiesWithProjects;
@@ -37,25 +44,33 @@ export default function Strategy(props: {
   const [balance, setBalance] = useState<string | null>();
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const overwrites = {
-    weights: searchParams.get("weights") ? searchParams.get("weights")?.split(",") : null,
-    projects: searchParams.get("projects") ? searchParams.get("projects")?.split(",") : null
-  }
-  
-  let networkName = findMostRepeatedString(props.fetchedStrategies.map(x => x.networks).flat()) as NetworkName
+    weights: searchParams.get("weights")
+      ? searchParams.get("weights")?.split(",")
+      : null,
+    projects: searchParams.get("projects")
+      ? searchParams.get("projects")?.split(",")
+      : null,
+  };
+
+  let networkName = findMostRepeatedString(
+    props.fetchedStrategies.map((x) => x.networks).flat()
+  ) as NetworkName;
   if (searchParams.get("network")) {
     try {
-      networkName = getNetworkNameFromChainId(Number(searchParams.get("network")))
+      networkName = getNetworkNameFromChainId(
+        Number(searchParams.get("network"))
+      );
     } catch (e) {
       // don't do anything, since the user might pass an unsupported network id through URL
     }
   }
 
-  const [selectedNetwork, setSelectedNetwork] = useState<NetworkName>(networkName);
+  const [selectedNetwork, setSelectedNetwork] =
+    useState<NetworkName>(networkName);
   const {
     execute: executeDonation,
-    isTransactionPending,
     getBalance,
     getAllowance,
     approve,
@@ -78,11 +93,18 @@ export default function Strategy(props: {
     updateToken: updateToken,
     selectedToken,
   } = useToken(selectedNetwork);
-  
-  const { strategies, handleAmountUpdate, handleNetworkUpdate } = strategiesHandler;
+
+  const { strategies, handleAmountUpdate, handleNetworkUpdate } =
+    strategiesHandler;
   const selectedStrategiesLength = strategies.filter((x) => x.selected).length;
-  const tweetUrl = useTweetShare(props.runId, strategies, selectedNetwork, props.prompt)
-  
+  const tweetUrl = useTweetShare(
+    props.runId,
+    strategies,
+    selectedNetwork,
+    props.prompt
+  );
+  const [isFundingPending, setIsFundingPending] = useState(false);
+
   useEffect(() => {
     setBalance((currentBalance) => {
       if (currentBalance) return null;
@@ -94,51 +116,64 @@ export default function Strategy(props: {
   }
 
   const executeTransaction = async () => {
-    if (selectedStrategiesLength === 0 || amount === "0") return;
+    setIsFundingPending(true);
 
-    const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
-    if (connectedChain && currentNetworkId !== +connectedChain.id) {
-      await setChain({ chainId: `0x${currentNetworkId.toString(16)}` });
-      return;
+    try {
+      if (selectedStrategiesLength === 0 || !amount || amount === "0") return;
+
+      const currentNetworkId = SUPPORTED_NETWORKS[selectedNetwork];
+      if (connectedChain && currentNetworkId !== +connectedChain.id) {
+        await setChain({ chainId: `0x${currentNetworkId.toString(16)}` });
+        setIsFundingPending(false);
+        return;
+      }
+
+      if (!selectedToken || !wallet) {
+        setIsFundingPending(false);
+        return;
+      }
+
+      const balance = await getBalance(wallet, selectedToken);
+
+      if (+amount >= +balance) {
+        setBalance(balance);
+        setIsFundingPending(false);
+        return;
+      }
+
+      const allowance = await getAllowance(
+        wallet,
+        selectedToken,
+        selectedNetwork
+      );
+
+      const selectedStrategies = strategies.filter((x) => x.selected);
+
+      const amounts = selectedStrategies
+        .filter((x) => x.amount)
+        .map((x) => Number(x.amount))
+        .filter((x) => x > 0);
+      const recipientAddresses = selectedStrategies
+        .map((strategy) => strategy.recipients[strategy.networks.indexOf(selectedNetwork)]);
+      
+      const totalAmount = amounts.reduce((a, b) => a.add(parseUnits(b.toString(), selectedToken.decimals)), BigNumber.from(0));
+      if (allowance.lt(totalAmount)) {
+        await approve(wallet, selectedToken, totalAmount, selectedNetwork);
+      }
+
+      await executeDonation(
+        selectedNetwork,
+        selectedToken,
+        recipientAddresses,
+        amounts
+      );
+
+      setShowSuccessModal(true);
+    } catch (e: any) {
+      throw e;
+    } finally {
+      setIsFundingPending(false);
     }
-
-    if (!selectedToken || !wallet) return;
-
-    const balance = await getBalance(wallet, selectedToken);
-
-    if (+amount >= +balance) {
-      setBalance(balance);
-      return;
-    }
-
-    const allowance = await getAllowance(
-      wallet,
-      selectedToken,
-      selectedNetwork
-    );
-
-    if (+allowance < +amount) {
-      await approve(wallet, selectedToken, amount, selectedNetwork);
-    }
-
-    const donations = strategies
-      .filter((x) => x.selected)
-      .map((strategy) => {
-        const networkIndex = strategy.networks.indexOf(selectedNetwork);
-        return {
-          amount: strategy.amount as string,
-          description: strategy.project.description as string,
-          title: strategy.project.title as string,
-          recipient: strategy.recipients[networkIndex],
-        };
-      });
-
-    await executeDonation({
-      donations,
-      network: selectedNetwork,
-      token: selectedToken,
-    });
-    setShowSuccessModal(true);
   };
 
   async function regenerateStrat(prompt: string) {
@@ -191,8 +226,13 @@ export default function Strategy(props: {
                   <div className='text-xs text-subdued'>Filter by: </div>
                   <div>
                     <Dropdown
-                      items={props.networks.filter((n) => n !== selectedNetwork).map(n => ({ value: n, image: `/chains/${n}.png` }))}
-                      field={{ value: selectedNetwork, image: `/chains/${selectedNetwork}.png` }}
+                      items={props.networks
+                        .filter((n) => n !== selectedNetwork)
+                        .map((n) => ({ value: n, image: `/chains/${n}.png` }))}
+                      field={{
+                        value: selectedNetwork,
+                        image: `/chains/${selectedNetwork}.png`,
+                      }}
                       onChange={(newValue) => {
                         if (props.networks.length === 1) {
                           return;
@@ -205,7 +245,11 @@ export default function Strategy(props: {
                 </div>
               </div>
               <StrategyTable {...strategiesHandler} network={selectedNetwork} />
-              <div className='flex justify-between items-center w-full space-x-4 pt-4 border-t-2 border-indigo-100'>
+              <div
+                className={clsx(
+                  "flex flex-col md:flex-row justify-between md:items-center w-full gap-2 py-4 border-t-2 border-indigo-100",
+                  wallet && "items-end"
+                )}>
                 {wallet ? (
                   <>
                     <div className='max-w-md w-full'>
@@ -221,7 +265,7 @@ export default function Strategy(props: {
                           <Dropdown
                             items={tokens
                               .filter((x) => x.name !== selectedToken.name)
-                              .map((x) => ({ value : x.name }))}
+                              .map((x) => ({ value: x.name }))}
                             field={{ value: selectedToken.name }}
                             onChange={async (newToken) =>
                               await updateToken(newToken)
@@ -253,10 +297,13 @@ export default function Strategy(props: {
                     </div>
                     <Button
                       disabled={
-                        selectedStrategiesLength === 0 || amount === "0" || amount === "" || isTransactionPending
+                        selectedStrategiesLength === 0 ||
+                        amount === "0" ||
+                        amount === "" ||
+                        isFundingPending
                       }
                       onClick={executeTransaction}>
-                      {isTransactionPending ? (
+                      {isFundingPending ? (
                         <>
                           <div>Pending</div>
                           <LoadingCircle hideText color='white' />
