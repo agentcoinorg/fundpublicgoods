@@ -13,7 +13,6 @@ from fund_public_goods.lib.strategy.utils.score_projects_relevancy import score_
 from fund_public_goods.lib.strategy.utils.summarize_descriptions import summarize_descriptions
 from supabase.lib.client_options import ClientOptions
 from fastapi import Header, HTTPException
-from pydantic import BaseModel
 from typing import Optional, cast
 from langchain_community.callbacks import get_openai_callback
 
@@ -64,14 +63,12 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Found {len(projects_with_answers)} projects related to '{prompt}'",
             )
         except Exception as error:
-            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.FETCH_PROJECTS],
                 value=error_details(error, run_id)
             )
-            print(error)
-            raise HTTPException(status_code=400, detail=details)
+            raise error
 
         try:
             tables.logs.update(
@@ -109,14 +106,12 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Generated impact & funding needs reports for {len(projects_with_impact_funding_reports)} projects",
             )
         except Exception as error:
-            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.EVALUATE_PROJECTS],
-                value=details
+                value=error_details(error, run_id)
             )
-            print(error)
-            raise HTTPException(status_code=400, detail=details)
+            raise error
 
         try:
             tables.logs.update(
@@ -148,14 +143,12 @@ def create(run_id: str, authorization: Optional[str] = Header(None)):
                 value=f"Computed smart rankings for {len(smart_ranked_projects)} projects",
             )
         except Exception as error:
-            details = error_details(error, run_id)
             tables.logs.update(
                 status=StepStatus.ERRORED,
                 log_id=log_ids[StepName.ANALYZE_FUNDING],
-                value=details
+                value=error_details(error, run_id)
             )
-            print(error)
-            raise HTTPException(status_code=400, detail=details)
+            raise error
 
 
         tables.logs.update(

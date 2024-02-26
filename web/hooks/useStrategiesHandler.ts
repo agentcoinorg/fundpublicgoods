@@ -1,8 +1,8 @@
 import { Tables } from "@/supabase/dbTypes";
 import {
   applyUserWeight,
-  distributeWeights,
-  redistributeWeights,
+  distributeAmounts,
+  redistributeAmounts,
 } from "@/utils/distributeWeights";
 import { NetworkName } from "@/utils/ethereum";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -46,7 +46,7 @@ export function useStrategiesHandler(
 ): StrategiesHandler {
   let preparedStrategies = initStrategies
     .map((s, i) => {
-      const weights = redistributeWeights(
+      const weights = redistributeAmounts(
         initStrategies.map((s) => s.defaultWeight as number),
         initStrategies.map((s) => s.networks.includes(networkName))
       );
@@ -111,23 +111,25 @@ export function useStrategiesHandler(
   };
 
   const handleWeightUpdate = (value: string, index: number) => {
-    const numberValue = parseFloat(value);
+    const numberValue = +Number(value).toFixed(2);
     const currentWeight = strategies[index].weight as number;
 
-    if (numberValue / 100 === currentWeight) {
+    // Check if the value is the same as the current weight
+    if ((numberValue / 100).toFixed(4) === currentWeight.toFixed(4)) {
       return;
     }
 
+    // Check if the value is a number
     if (isNaN(numberValue) || numberValue > 100 || numberValue < 0) {
       undoModificationOfWeight(currentWeight, index);
       return;
     }
 
-    const newOverwrittenWeights = overwrittenWeights.map((w, i) => {
-      if (i === index) return numberValue;
-      return w;
-    });
+    // Replace the old weight with the new one
+    const newOverwrittenWeights = [...overwrittenWeights];
+    newOverwrittenWeights[index] = numberValue;
 
+    // Check if the sum of the weights is greater than 100
     if (newOverwrittenWeights.reduce((acc, x) => acc + x) > 100) {
       undoModificationOfWeight(currentWeight, index);
       return;
@@ -152,12 +154,14 @@ export function useStrategiesHandler(
       percentage: numberValue,
       index,
     });
+    const newFractions = newPercentages.map(x => +(x / 100).toFixed(4)); // Convert percentages to fractions ([30.00, 70.00] -> [0.30, 0.70])
 
+    const newAmounts = distributeAmounts(newFractions, +totalAmount);
     const newStrategies = strategies.map((s, i) => {
-      const weight = newPercentages[i] / 100;
+      const weight = +(newPercentages[i] / 100).toFixed(4);
       return {
         ...s,
-        amount: (+totalAmount * weight).toFixed(2),
+        amount: newAmounts[i].toFixed(2),
         weight,
         selected: !(weight === 0),
       };
@@ -168,23 +172,22 @@ export function useStrategiesHandler(
   };
 
   const handleSelectAll = (isChecked: boolean) => {
-    const newWeights = redistributeWeights(
+    const newWeights = redistributeAmounts(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => isChecked && !s.disabled)
     ).map((weight) => {
       return isChecked ? (weight * 100).toFixed(2) : "0.00";
     });
-    const amounts = distributeWeights(
-      newWeights.map((w) => +w),
-      +totalAmount,
-      2
-    ).map((w) => (w / 100).toFixed(2));
+    const amounts = distributeAmounts(
+      newWeights.map((w) => +(+w / 100).toFixed(4)),
+      +totalAmount
+    );
     const newStrategies = strategies.map((s, i) => {
       return {
         ...s,
         selected: !s.disabled && isChecked,
-        weight: !s.disabled && isChecked ? +newWeights[i] / 100 : 0.0,
-        amount: amounts[i],
+        weight: !s.disabled && isChecked ? +(+newWeights[i] / 100).toFixed(4) : 0.0,
+        amount: amounts[i].toFixed(2),
       };
     });
     setOverwrittenWeights(Array(strategies.length).fill(0));
@@ -196,12 +199,12 @@ export function useStrategiesHandler(
     const selectedWeights = strategies.map((s, i) =>
       i === index ? isChecked : s.selected
     );
-    const newWeights = redistributeWeights(
+    const newWeights = redistributeAmounts(
       strategies.map((s) => s.defaultWeight),
       selectedWeights
     );
 
-    const amounts = distributeWeights(newWeights, +totalAmount, 2);
+    const amounts = distributeAmounts(newWeights, +totalAmount, 2);
 
     const newStrategy = strategies.map((s, i) => {
       return {
@@ -218,23 +221,21 @@ export function useStrategiesHandler(
   };
 
   const handleAmountUpdate = (amount: string) => {
-    const selectedStrategies = strategies.filter((x) => x.selected);
-    const weights = selectedStrategies.map((s) => s.weight) as number[];
-    const amounts = distributeWeights(weights, +amount, 2);
-    let amountIndex = 0;
-    const newStrategies = strategies.map((s) => ({
+    const weights = strategies.map((s) => s.weight) as number[];
+    const amounts = distributeAmounts(weights, +amount);
+    const newStrategies = strategies.map((s, i) => ({
       ...s,
-      amount: s.selected ? amounts[amountIndex++].toFixed(2) : undefined,
+      amount: s.selected ? amounts[i].toFixed(2) : undefined,
     }));
     modifyStrategies(newStrategies);
   };
 
   const handleNetworkUpdate = (network: NetworkName) => {
-    const weights = redistributeWeights(
+    const weights = redistributeAmounts(
       strategies.map((s) => s.defaultWeight),
       strategies.map((s) => s.networks.includes(network))
     );
-    const amounts = distributeWeights(weights, +totalAmount, 2);
+    const amounts = distributeAmounts(weights, +totalAmount);
     const newStrategies = strategies
       .map((s, i) => {
         return {
