@@ -32,7 +32,7 @@ def generate_relevancy_reports(prompt: str, projects: list[tuple[Projects, list[
         ("system", reports_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-3.5-turbo-0125", max_tokens=250)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
 
     reports_chain = (
         reports_prompt |
