@@ -26,7 +26,7 @@ function Footer() {
         <span>a web3 agent by</span>
         <a
           className='underline font-semibold'
-          href='https://blog.polywrap.io'
+          href='https://polywrap.io'
           target='_blank'
           rel='noopener noreferrer'>
           polywrap
