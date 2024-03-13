@@ -9,7 +9,7 @@
 
 ## Welcome!
 
-evo.sage is an agent that specializes in streamlining resource allocation. To try it yourself at [fundpublicgoods.ai](https://fundpublicgoods.ai)
+evo.sage is an agent that specializes in streamlining resource allocation. Try it now at [fundpublicgoods.ai](https://fundpublicgoods.ai)
 
 ![](./content/fundpublicgoods-ss.jpg)
 
