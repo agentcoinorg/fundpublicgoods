@@ -36,7 +36,7 @@ def generate_impact_funding_reports(projects: list[tuple[Projects, list[Answer]]
         ("system", reports_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-3.5-turbo-0125", max_tokens=500)
+    llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
 
     reports_chain = reports_prompt | llm | StrOutputParser()
     
