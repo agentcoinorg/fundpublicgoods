@@ -9,9 +9,11 @@ import { startRun } from "@/app/actions";
 import clsx from "clsx";
 import { EXAMPLE_PROMPTS } from "@/utils/examplePrompts";
 import { toast } from "react-toastify";
+import IntroPopUp from "./IntroPopUp";
 
 export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   const [prompt, setPrompt] = useState<string>("");
+  const [showDisclaimer, setShowDisclaimer] = useState<boolean>(true);
   const [isWaiting, setIsWaiting] = useState(false);
   const { data: session } = useSession();
   const searchParams = useSearchParams();
@@ -43,7 +45,11 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   }, [searchParams, router]);
 
   return (
-    <>
+    <div
+      className={clsx(
+        "flex h-full justify-center md:items-center md:pt-0",
+        showDisclaimer ? "items-start pt-8" : "items-center"
+      )}>
       <div className='mx-auto max-w-screen-lg'>
         <div className='w-full space-y-8 px-6 flex flex-col items-center'>
           <div className='space-y-4 flex flex-col items-center w-full'>
@@ -88,6 +94,7 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
           </div>
         </div>
       </div>
-    </>
+      {showDisclaimer && <IntroPopUp setShowDisclaimer={setShowDisclaimer} />}
+    </div>
   );
 }
