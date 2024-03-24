@@ -5,14 +5,19 @@ import { SparkleIcon } from "./Icons";
 import { Dispatch, SetStateAction } from "react";
 
 interface IntroPopupProps {
-  setShowDisclaimer: Dispatch<SetStateAction<boolean>>;
+  setShowIntro: Dispatch<SetStateAction<boolean>>;
 }
 
-const IntroPopUp = ({ setShowDisclaimer }: IntroPopupProps) => {
+const IntroPopUp = ({ setShowIntro }: IntroPopupProps) => {
+  const handleClose = () => {
+    setShowIntro(false);
+    localStorage.setItem("introClosed", true);
+  };
+
   return (
     <div className='fixed bottom-16 left-1/2 transform -translate-x-1/2 max-w-screen-md w-[calc(100%-48px)] z-10'>
       <X
-        onClick={() => setShowDisclaimer(false)}
+        onClick={handleClose}
         className='absolute top-3 right-3 text-indigo-800 hover:text-indigo-500 cursor-pointer'
         size={20}
         weight='bold'
@@ -24,12 +29,10 @@ const IntroPopUp = ({ setShowDisclaimer }: IntroPopupProps) => {
             Welcome to fundpublicgoods.ai!
           </div>
         </div>
-        <div className='text-[13px] leading-relaxed'>
-          As a proof-of-concept project, fundpublicgoods.ai showcases the
-          potential of AI in revolutionizing funding for public goods. Our
-          platform offers personalized strategies to maximize the impact of your
-          contributions. Engage with our platform and community today to be part
-          of this innovative approach to philanthropy.
+        <div className='text-[14px] leading-relaxed'>
+          This is a proof-of-concept to showcase the potential of AI agents to
+          assist users with complex transactions. Give it a try and let us know
+          what you think!
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ import IntroPopUp from "./IntroPopUp";
 
 export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
   const [prompt, setPrompt] = useState<string>("");
-  const [showDisclaimer, setShowDisclaimer] = useState<boolean>(true);
+  const [showIntro, setShowIntro] = useState<boolean>(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const { data: session } = useSession();
   const searchParams = useSearchParams();
@@ -44,11 +44,18 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
     }
   }, [searchParams, router]);
 
+  useEffect(() => {
+    const introClosed = localStorage.getItem("introClosed");
+    if (!introClosed) {
+      setShowIntro(true);
+    }
+  }, []);
+
   return (
     <div
       className={clsx(
         "flex h-full justify-center md:items-center md:pt-0",
-        showDisclaimer ? "items-start pt-8" : "items-center"
+        showIntro ? "items-start pt-8" : "items-center"
       )}>
       <div className='mx-auto max-w-screen-lg'>
         <div className='w-full space-y-8 px-6 flex flex-col items-center'>
@@ -94,7 +101,7 @@ export default function Prompt({ promptIdxs }: { promptIdxs: number[] }) {
           </div>
         </div>
       </div>
-      {showDisclaimer && <IntroPopUp setShowDisclaimer={setShowDisclaimer} />}
+      {showIntro && <IntroPopUp setShowIntro={setShowIntro} />}
     </div>
   );
 }
