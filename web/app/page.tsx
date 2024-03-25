@@ -24,9 +24,5 @@ function generateUniqueIndexes(arrayLength: number, count: number): number[] {
 export default function HomePage() {
   const promptIdxs = generateUniqueIndexes(EXAMPLE_PROMPTS.length, 6);
 
-  return (
-    <div className='flex h-full items-center justify-center'>
-      <Prompt promptIdxs={promptIdxs} />
-    </div>
-  );
+  return <Prompt promptIdxs={promptIdxs} />;
 }
