@@ -1,5 +1,6 @@
-# evo.sage
-![](./content/evo-sage-banner.png)
+# fundpublicgoods.ai
+
+![](./content/fundpublicgoods.jpg)
 
 ---
 
@@ -9,9 +10,7 @@
 
 ## Welcome!
 
-evo.sage is an agent that specializes in streamlining resource allocation. Try it now at [fundpublicgoods.ai](https://fundpublicgoods.ai)
-
-![](./content/fundpublicgoods-ss.jpg)
+fundpublicgoods.ai is an AI agent that specializes in streamlining resource allocation. Try it now at [fundpublicgoods.ai](https://fundpublicgoods.ai)
 
 ## Need Help?
 
@@ -19,11 +18,11 @@ Join our [Discord community](https://discord.gg/k7UCsH3ps9) for support and disc
 
 [![Join us on Discord](https://invidget.switchblade.xyz/k7UCsH3ps9)](https://discord.com/invite/k7UCsH3ps9)
 
-If you have questions or encounter issues, please don't hesitate to [create a new issue](https://github.com/polywrap/evo.sage/issues/new) to get support.
+If you have questions or encounter issues, please don't hesitate to [create a new issue](https://github.com/polywrap/fundpublicgoods/issues/new) to get support.
 
 ## How it works
 
-evo.sage is designed to generate funding allocation strategies based on the user's preferences and publicly available data. In its first implementation, it focuses on how to best allocate funds to Public Good Projects (PGPs) that were apart of past [GitCoin](https://www.gitcoin.co/) rounds.
+fundpublicgoods.ai is designed to generate funding allocation strategies based on the user's preferences and publicly available data. It focuses on how to best allocate funds to Public Good Projects (PGPs) that were apart of past [GitCoin](https://www.gitcoin.co/) rounds.
 
 Digging a bit deeper, here are the steps the agent takes when creating an allocation strategy:
 
@@ -33,11 +32,11 @@ Digging a bit deeper, here are the steps the agent takes when creating an alloca
 
 3. **Compute Evaluation Scores.** Analyze each report and assign a numerical evaluation score from 0-10 for each of the three criteria. Combine these scores through a weighted average to arrive at the project’s overall score. Weight the allocation percentages in proportion to scores of the projects with addresses on the selected chain. *Techniques used: [RAG](https://www.promptingguide.ai/techniques/rag), Numerical Evaluations, Algorithmic Composition*
 
-![](./content/strategy-ss.png)
+![](./content/strategy.png)
 
 The allocation strategy includes a report for each project summarizing the agent’s findings. 
 
-![](./content/report-ss.png)
+![](./content/report.png)
 
 One critical aspect of the report is the impact section. The agent uses information from the project’s Gitcoin round applications to arrive at an intelligent estimate of the impact that a project has had.
 
