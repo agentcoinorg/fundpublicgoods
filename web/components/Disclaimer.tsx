@@ -10,7 +10,7 @@ const Disclaimer = () => {
       <div className='fixed bottom-16 left-1/2 transform -translate-x-1/2 max-w-screen-sm w-[calc(100%-48px)] z-10'>
         <X
           onClick={() => setShowDisclaimer(false)}
-          className='absolute top-4 right-4 text-indigo-800 hover:text-indigo-500 cursor-pointer'
+          className='absolute top-3 right-3 text-indigo-800 hover:text-indigo-500 cursor-pointer'
           size={20}
           weight='bold'
         />
@@ -18,8 +18,12 @@ const Disclaimer = () => {
           <div className='font-bold text-sm'>
             This AI agent is experimental.
           </div>
-          <div className="text-[10px]">
-            The agent is evaluating projects based on self-reported data through past Gitcoin applications and therefore cannot guarantee their accuracy at this time. The agent also cannot guarantee that each project is still in control of its address, so please double check before sending large amounts.
+          <div className='text-[10px]'>
+            The agent is evaluating projects based on self-reported data through
+            past Gitcoin applications and therefore cannot guarantee their
+            accuracy at this time. The agent also cannot guarantee that each
+            project is still in control of its address, so please double check
+            before sending large amounts.
           </div>
         </div>
       </div>
