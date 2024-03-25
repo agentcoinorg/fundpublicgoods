@@ -11,7 +11,7 @@ interface IntroPopupProps {
 const IntroPopUp = ({ setShowIntro }: IntroPopupProps) => {
   const handleClose = () => {
     setShowIntro(false);
-    localStorage.setItem("introClosed", true);
+    localStorage.setItem("introClosed", "true");
   };
 
   return (
