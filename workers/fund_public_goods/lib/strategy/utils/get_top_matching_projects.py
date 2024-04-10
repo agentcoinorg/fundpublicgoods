@@ -46,7 +46,7 @@ def rerank_top_projects(prompt: str, projects: list[Projects]) -> list[Projects]
     formatted_prompt = reranking_prompt_template.format(prompt=prompt, separator=separator, projects=formatted_projects)
     
     response = openai.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-4-turbo",
         response_format={"type": "json_object"},
         messages=[
             {"role": "user", "content": formatted_prompt}

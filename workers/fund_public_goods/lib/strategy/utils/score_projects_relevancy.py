@@ -41,7 +41,7 @@ def score_projects_relevancy(projects_with_report: list[tuple[Projects, str]], p
         ("system", score_projects_relevancy_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0, model_kwargs={'seed': 10}) # type: ignore
+    llm = ChatOpenAI(model="gpt-4-turbo", temperature=0, model_kwargs={'seed': 10}) # type: ignore
     
     scoring_chain = score_projects_relevancy_prompt | llm | JsonOutputParser()
     
