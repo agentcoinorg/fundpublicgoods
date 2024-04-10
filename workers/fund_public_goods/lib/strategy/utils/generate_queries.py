@@ -21,7 +21,7 @@ def generate_queries(prompt: str, n) -> list[str]:
     queries_prompt = ChatPromptTemplate.from_messages([
         ("system", queries_prompt_template),
     ])
-    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
+    llm = ChatOpenAI(model="gpt-4-turbo") # type: ignore
 
     queries_chain = queries_prompt | llm | CommaSeparatedListOutputParser()
 

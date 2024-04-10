@@ -24,7 +24,7 @@ def generate_keywords(project_descriptions: list[str]) -> list[list[str]]:
     keywords_prompt = ChatPromptTemplate.from_messages([
         ("system", keywords_prompt_template),
     ])
-    llm = ChatOpenAI(model="gpt-4-1106-preview") # type: ignore
+    llm = ChatOpenAI(model="gpt-4-turbo") # type: ignore
 
     keywords_chain = keywords_prompt | llm | StrOutputParser()
 
