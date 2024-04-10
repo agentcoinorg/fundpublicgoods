@@ -42,7 +42,7 @@ def score_projects_impact_funding(projects_with_report: list[Projects]) -> list[
         ("system", score_projects_prompt_template),
     ])
     
-    llm = ChatOpenAI(model="gpt-4-1106-preview", temperature=0, model_kwargs={'seed': 10}) # type: ignore
+    llm = ChatOpenAI(model="gpt-4-turbo", temperature=0, model_kwargs={'seed': 10}) # type: ignore
     
     scoring_chain = score_projects_prompt | llm | JsonOutputParser()
     
