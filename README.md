@@ -14,7 +14,7 @@ fundpublicgoods.ai is an AI agent that specializes in streamlining resource allo
 
 ## Need Help?
 
-Join our [Discord community]([https://discord.gg/6gk85fetcT](https://agentcoin.org/discord)) for support and discussions.
+Join our [Discord community](https://agentcoin.org/discord) for support and discussions.
 
 [![Join us on Discord](https://invidget.switchblade.xyz/6gk85fetcT)](https://discord.com/invite/6gk85fetcT)
 
