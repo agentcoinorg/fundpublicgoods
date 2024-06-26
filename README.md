@@ -4,7 +4,7 @@
 
 ---
 
-[Discord](https://discord.gg/k7UCsH3ps9) | [Website](https://fundpublicgoods.ai) | :star: the repo !  
+[Discord](https://agentcoin.org/discord) | [Website](https://fundpublicgoods.ai) | :star: the repo !  
 
 ---
 
@@ -14,11 +14,11 @@ fundpublicgoods.ai is an AI agent that specializes in streamlining resource allo
 
 ## Need Help?
 
-Join our [Discord community](https://discord.gg/k7UCsH3ps9) for support and discussions.
+Join our [Discord community]([https://discord.gg/6gk85fetcT](https://agentcoin.org/discord)) for support and discussions.
 
-[![Join us on Discord](https://invidget.switchblade.xyz/k7UCsH3ps9)](https://discord.com/invite/k7UCsH3ps9)
+[![Join us on Discord](https://invidget.switchblade.xyz/6gk85fetcT)](https://discord.com/invite/6gk85fetcT)
 
-If you have questions or encounter issues, please don't hesitate to [create a new issue](https://github.com/polywrap/fundpublicgoods/issues/new) to get support.
+If you have questions or encounter issues, please don't hesitate to [create a new issue](https://github.com/agentcoinorg/fundpublicgoods/issues/new) to get support.
 
 ## How it works
 
