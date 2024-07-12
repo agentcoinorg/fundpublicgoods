@@ -57,21 +57,21 @@ function Header() {
       <div className='space-x-4 flex items-center'>
         <div className='space-x-3 flex items-center'>
           <a
-            href='https://discord.com/invite/Z5m88a5qWu'
+            href='https://agentcoin.org/discord'
             target='_blank'
             rel='noredirect'
             className='flex items-center justify-center rounded-full bg-indigo-400/40 p-1 hover:bg-indigo-100 transition-colors duration-300 ease-in-out text-indigo-600 hover:text-indigo-800'>
             <DiscordLogo size={16} weight='bold' />
           </a>
           <a
-            href='https://x.com/polywrap_io'
+            href='https://x.com/agentcoinorg'
             target='_blank'
             rel='noredirect'
             className='flex items-center justify-center rounded-full bg-indigo-400/40 p-1 hover:bg-indigo-100 transition-colors duration-300 ease-in-out text-indigo-600 hover:text-indigo-800'>
             <XLogo size={16} />
           </a>
           <a
-            href='https://blog.polywrap.io/'
+            href='https://agentcoin.org/blog'
             target='_blank'
             rel='noredirect'
             className='flex items-center justify-center rounded-full bg-indigo-400/40 p-1 hover:bg-indigo-100 transition-colors duration-300 ease-in-out text-indigo-600 hover:text-indigo-800'>
