@@ -23,13 +23,13 @@ function Footer() {
   return (
     <footer className='flex flex-col w-full p-6 pt-2'>
       <div className='font-regular flex gap-x-[2px] text-[12px] text-indigo-800/70'>
-        <span>a web3 agent by</span>
+        <span>Built by </span>
         <a
           className='underline font-semibold'
-          href='https://polywrap.io'
+          href='https://agentcoin.org'
           target='_blank'
           rel='noopener noreferrer'>
-          polywrap
+          Agentcoin
         </a>
       </div>
     </footer>
